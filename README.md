@@ -176,11 +176,9 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 > Due to how the script currently works, there's no way to import new sprites without refreshing the gui
 
 ### How can I report a bug?
-> Join our [Discord server](https://discord.gg/rYg7ntqQRY) support channel
+**1.** Ensure you have the latest [Counter](https://github.com/ssjshields/archetype-counter/archive/refs/heads/stable.zip)
 
-**1.** Ensure you have the latest [counter](https://github.com/ssjshields/archetype/archive/refs/heads/counter.zip)
-
-**2.** Enable [Debug Mode](https://github.com/ssjshields/archetype/tree/counter#debug-mode), pause the Counter after the reoccurring issue
+**2.** Enable [Debug Mode](https://github.com/ssjshields/archetype-counter#counter-menu-navigation), pause the Counter after the reoccurring issue
 
 **3.** Attach the `.png` and `.txt` files (if they are generated.) at `Files\Captured Screenshot`
 </details>
