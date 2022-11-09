@@ -32,8 +32,14 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 &nbsp;
 # Media
-![image](https://user-images.githubusercontent.com/88489119/187589540-fdaa1ae9-d492-4575-8ae1-5073951bcbfb.png)  ![image](https://user-images.githubusercontent.com/88489119/187528239-2cfc340a-a4dc-467f-b3a8-f46029db72b6.png)  ![image](https://user-images.githubusercontent.com/88489119/188714715-304e2156-ab48-47dd-a59c-785e572555df.png)
-![image](https://user-images.githubusercontent.com/88489119/187595745-a6fa64be-34ef-4cc2-9ffc-45be45a16cbc.png)  ![image](https://user-images.githubusercontent.com/88489119/187527809-f4c9ec7e-b794-487d-a6d9-ecd09ad8efac.png)
+![main](https://user-images.githubusercontent.com/88489119/200941569-133fae7d-f711-4159-8061-b5ba3be102dd.png)
+![deafult_theme](https://user-images.githubusercontent.com/88489119/200941623-10bde8cd-4472-4f3b-9862-43fad321284c.png)
+![collapsed_default](https://user-images.githubusercontent.com/88489119/200942039-f270c6fb-8153-416d-854c-60001b35ef74.png)
+
+![collapsed](https://user-images.githubusercontent.com/88489119/200942013-09503dc8-2470-47a7-9a53-9fa13bfa7095.png)
+![egg_collapsed](https://user-images.githubusercontent.com/88489119/200942027-cd20dbff-8193-403d-8c7f-1573d9d76ca6.png)
+
+
 
 &nbsp;
 # Prerequisites
@@ -56,6 +62,8 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 > Count will be inconsistent or fail all together if typeface is not legible for conversion
 
+> Counter automatically ensures your Default theme has these values
+
 &nbsp;
 # Expectations
 > Counter must be in counting mode before "A wild `monster` appeared!" text displays
@@ -72,7 +80,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 &nbsp;
 # Main Navigation
-> right-click window title area to access the counter menu
+> right-click window title area to access the Counter menu
 
 > right-click value to decrease count
 
@@ -84,7 +92,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 # Counter Menu Navigation
 *Note: Some options cannot be modified while the `PokeMMO.exe` is running*
 
-![image](https://user-images.githubusercontent.com/88489119/188703743-59679af6-99be-432f-970b-0ee10565db79.png)
+![counter_menu](https://user-images.githubusercontent.com/88489119/200962673-4fd3c8de-01eb-4523-95ae-0dd44f1b0ec2.png)
 
 <details>
   <summary>Click here to learn more</summary>
@@ -141,10 +149,6 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 &nbsp;
 
 # FAQ
-<details>
-  <summary>Click here to view</summary>
-&nbsp;
-
 ### Does this work on mobile?
 > Unfortunately, no- refer to the [Prerequisites](https://github.com/ssjshields/archetype/tree/counter#prerequisites) section
 
@@ -154,7 +158,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 ### Flagged as a virus?
 > May scan as false positive, [VirusTotal results](https://www.virustotal.com/gui/file/f12be5dac0ba60f8556c45116105fc76c6db024487559abb6ef96f55d3016273?nocache=1)
 
-> Script source viewable at `\.rsrc\RCDATA\` via zip archiver
+> Script source viewable at `\.rsrc\RCDATA\` via zip archiver or decodable
 
 > Compiled with [AutoHotKey](https://www.autohotkey.com/) Ahk2Exe v1.1.34.04
 
