@@ -39,8 +39,6 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 ![collapsed](https://user-images.githubusercontent.com/88489119/200942013-09503dc8-2470-47a7-9a53-9fa13bfa7095.png)
 ![egg_collapsed](https://user-images.githubusercontent.com/88489119/200942027-cd20dbff-8193-403d-8c7f-1573d9d76ca6.png)
 
-
-
 &nbsp;
 # Prerequisites
 
@@ -76,7 +74,15 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 **2.** Extract into `PokeMMO\data\mods`
 
-**3.** Run via executable, create shortcut if needed
+**3.** Run the `Archetype Counter.exe`, create shortcut if needed
+
+&nbsp;
+# Alternative Installation
+**1.** Clone this repository into `PokeMMO\data\mods` using Git Bash or Github Desktop, etc.
+
+> Choose either the stable or beta branch, pull to receive updates
+
+**2.** Run the `Archetype Counter.exe`, create shortcut if needed
 
 &nbsp;
 # Main Navigation
