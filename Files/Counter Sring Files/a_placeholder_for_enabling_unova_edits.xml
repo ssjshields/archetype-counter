@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<strings lang="en" lang_full="English" is_primary="1">
+<string id="0987654321234567890"> </string>
+<!-- If you remove this file, you will load over 48,000 lines of incorrect dialog.
+The game will revert to using the internal dump version of files when reimporting Unova strings.
+That means if you have any string that edits region_id="2" on your system- all MMO specific dialog is not being displayed. 
+You may repurpose this file for your own use if you wish, however- please credit nurver, realmadrid1809 and AnonymousPoke. -->
+</strings>
