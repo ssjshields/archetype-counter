@@ -1,0 +1,1 @@
+Credit & Source: https://www.autohotkey.com/board/topic/80624-notrayorphans/
