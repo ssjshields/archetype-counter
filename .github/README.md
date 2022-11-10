@@ -70,7 +70,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 &nbsp;
 # Installation
-**1.** Download the latest [counter](https://github.com/ssjshields/archetype/archive/refs/heads/counter.zip)
+**1.** Download the latest [stable](https://github.com/ssjshields/archetype-counter/archive/refs/heads/stable.zip) OR [beta](https://github.com/ssjshields/archetype-counter/archive/refs/heads/beta.zip) files
 
 **2.** Extract into `PokeMMO\data\mods`
 
