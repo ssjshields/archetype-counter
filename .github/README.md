@@ -68,6 +68,8 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 > Tracking occurs via battle nameplates, OCR will not capture properly if there is an in-game widget blocking them
 
+> Strings directory should remain clean (only default files.) otherwise Counter cannot track nameplates or Eggs
+
 &nbsp;
 # Installation
 **1.** Download the latest [stable](https://github.com/ssjshields/archetype-counter/archive/refs/heads/stable.zip) OR [beta](https://github.com/ssjshields/archetype-counter/archive/refs/heads/beta.zip) files
