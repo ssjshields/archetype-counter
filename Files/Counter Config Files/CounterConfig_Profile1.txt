@@ -5,19 +5,19 @@
 #   ADVANCED AREA (CAUTION!)  #
 # --------------------------- #
 ###############################
-Total_Count=21
-Pokemon_A=132
-Pokemon_A_Count=1
-Pokemon_A_Hover=Ditto #132
-Pokemon_B=33
-Pokemon_B_Count=20
-Pokemon_B_Hover=Nidorino #33
+Total_Count=0
+Pokemon_A=Blank
+Pokemon_A_Count=0
+Pokemon_A_Hover=
+Pokemon_B=Blank
+Pokemon_B_Count=0
+Pokemon_B_Hover=
 Pokemon_C=Blank
 Pokemon_C_Count=0
 Pokemon_C_Hover=
 Detection_Count=3
-Archetype_X=49
-Archetype_Y=287
+Archetype_X=-123
+Archetype_Y=-123
 Egg_Count=0
 Shiny_Count=0
 Theme_Type=Archetype
@@ -33,10 +33,10 @@ Egg_Cooldown=False
 Egg_Cooldown_Count=0
 Auto_Restart_Counter=False
 Counter_Active=False
-Debug_Mode=True
+Debug_Mode=False
 Counter_Mode=Expanded
 Always_On_Top=True
-Pokemon_Seen_Count=21
+Pokemon_Seen_Count=0
 Screen_Mode=HD
 Alpha_Count=0
 Ignore_System_Language=False
