@@ -1,6 +1,6 @@
 >**AnonymousPoke**: Lead designer
 
->**Enzemos**: Logic testing - Counter would not exist in its current state without their contributions
+>**Enzemo**: Logic testing - Counter would not exist in its current state without their contributions
 
 >**Realmadrid1809**: Logic testing
 
