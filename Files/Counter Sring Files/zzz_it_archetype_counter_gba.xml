@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<strings lang="it" lang_full="Italiano (Italian)" is_primary="0">
+<!-- Eggs -->
+<string id="1832746">Uovo ricevuto.{DELAY_14}{DELAY_14}{DELAY_14}</string>
+<string id="271131044">Uovo ricevuto.{DELAY_14}{DELAY_14}{DELAY_14}</string>
+<!-- Capture -->
+<string id="200252">Aww!\nIt was almost caught!</string>
+<string id="205252">Aww!\nIt was almost caught!</string>
+</strings>
+
