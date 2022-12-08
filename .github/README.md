@@ -16,7 +16,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 📝 multiple hunt profiles and count slots
 
-🎨 includes x2 themes and x4 sprite sets
+🎨 includes x2 themes and x5 sprite sets
 
 🎭 create custom themes and import sprites
 
@@ -186,7 +186,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 ### How can I report a bug?
 **1.** Ensure you have the latest [Counter](https://github.com/ssjshields/archetype-counter/archive/refs/heads/stable.zip)
 
-**2.** Enable [Debug Mode](https://github.com/ssjshields/archetype-counter#counter-menu-navigation), pause the Counter after the reoccurring issue
+**2.** Enable Debug Mode, pause the Counter after the reoccurring issue
 
 **3.** Attach the `.png` and `.txt` files (if they are generated.) at `Files\Captured Screenshot\DEBUG MODE`
 </details>
