@@ -188,7 +188,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 **2.** Enable [Debug Mode](https://github.com/ssjshields/archetype-counter#counter-menu-navigation), pause the Counter after the reoccurring issue
 
-**3.** Attach the `.png` and `.txt` files (if they are generated.) at `Files\Captured Screenshot`
+**3.** Attach the `.png` and `.txt` files (if they are generated.) at `Files\Captured Screenshot\DEBUG MODE`
 </details>
 
 &nbsp;
