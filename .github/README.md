@@ -23,6 +23,14 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 🗳️ built-in backup system / manually amend counts
 
 &nbsp;
+# Trackables
+🪺 when receiving Eggs
+
+🐦 regular encounters
+
+🦥 safari encounters 
+
+&nbsp;
 # Compatibility
 🖥️ multi-monitor support; borderless or windowed modes *only*
 
@@ -72,19 +80,13 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 &nbsp;
 # Installation
-**1.** Download the latest [stable](https://github.com/ssjshields/archetype-counter/archive/refs/heads/stable.zip) OR [beta](https://github.com/ssjshields/archetype-counter/archive/refs/heads/beta.zip) files
+**1.** Download the latest [Counter](https://github.com/ssjshields/archetype-counter/archive/refs/heads/stable.zip) files
 
 **2.** Extract into `PokeMMO\data\mods`
 
+> Backup any modified strings if present, Counter will remove foreign files
+
 **3.** Run the `Archetype Counter.exe`, create shortcut if needed
-
-&nbsp;
-# Alternative Installation
-**1.** Clone this repository into `PokeMMO\data\mods` using Git Bash or Github Desktop, etc.
-
-> Choose either the stable or beta branch, pull to receive updates
-
-**2.** Run the `Archetype Counter.exe`, create shortcut if needed
 
 &nbsp;
 # Main Navigation
@@ -157,7 +159,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 &nbsp;
 
 # FAQ
-### Does this work on mobile?
+### Does this work on MacOS / mobile?
 > Unfortunately, no- refer to the [Prerequisites](https://github.com/ssjshields/archetype/tree/counter#prerequisites) section
 
 ### Does this work with custom PokeMMO client themes?
@@ -182,6 +184,9 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 ### Why does the Counter flash sometimes?
 > Due to how the script currently works, there's no way to import new sprites without refreshing the gui
+
+### Can I convert data from other counters?
+> Yes, you can manually amend the profiles found at `Files\Counter Config Files`
 
 ### How can I report a bug?
 **1.** Ensure you have the latest [Counter](https://github.com/ssjshields/archetype-counter/archive/refs/heads/stable.zip)
