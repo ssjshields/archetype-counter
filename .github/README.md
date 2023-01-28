@@ -197,5 +197,9 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 </details>
 
 &nbsp;
+# Disclaimer
+This software has been created purely for the purposes of academic research. It is not intended to be used to attack other systems, nor does it provide the user any unfair advantage. Project maintainers are not responsible or liable for misuse of the software. Use responsibly.
+
+&nbsp;
 # Contact and Support
 [![discord](https://assets-global.website-files.com/6257adef93867e50d84d30e2/62594fddd654fc29fcc07359_cb48d2a8d4991281d7a6a95d2f58195e.svg)](https://discord.gg/rYg7ntqQRY)
