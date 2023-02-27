@@ -79,13 +79,19 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 &nbsp;
 # Installation
-**1.** Download the latest [Counter](https://github.com/ssjshields/archetype-counter/archive/refs/heads/stable.zip) files
-
-**2.** Extract into `PokeMMO\data\mods`
+**1.** Extract into `PokeMMO\data\mods`
 
 > Backup any modified strings if present, Counter will remove foreign files
 
-**3.** Run the `Archetype Counter.exe`, create shortcut if needed
+**2.** Run the `Archetype Counter.exe`, create shortcut if needed
+
+&nbsp;
+# Removal
+**1.** Delete the `archetype-counter-#` folder
+
+> `#` = release branch (stable, beta, etc.)
+
+**2.** Delete the placeholder and prefixed archetype files from `PokeMMO\data\strings`
 
 &nbsp;
 # Main Navigation
