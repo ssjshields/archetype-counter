@@ -6,9 +6,7 @@ Automatically tracks encounters (Horde, Safari, etc.) and when you receive Eggs.
  
 Does not hook into the PokeMMO or javaw process. Utilizes OCR technology.
 
-Useful for [shiny hunting](https://marriland.com/guides/shiny-pokemon/) or metrics lovers.
-
-Feel like exploring? Give our [client theme](https://github.com/ssjshields/archetype#readme) a try.
+Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lovers. Feel like exploring? Give our [client theme](https://github.com/ssjshields/archetype#readme) a try.
 
 &nbsp;
 # Features
@@ -24,11 +22,12 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 &nbsp;
 # Trackables
-🪺 when receiving Eggs
-
-🐦 regular encounters
+🍃 regular encounters
 
 🦥 safari encounters 
+
+🐣 when receiving Eggs
+
 
 &nbsp;
 # Compatibility
@@ -146,7 +145,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 > Set whether the Counter retains priority over the PokeMMO window or not
 
-> Ignore the Windows operating system language
+> Ignore the Windows operating system language (use when the operating system language does not match in-game language.)
 
 ### Total Current Counts
 > Displays the count between all seen monsters for a total count 
@@ -168,7 +167,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 ### Flagged as a virus?
 > May scan as false positive, [VirusTotal results](https://www.virustotal.com/gui/file/f12be5dac0ba60f8556c45116105fc76c6db024487559abb6ef96f55d3016273?nocache=1)
 
-> Script source viewable at `\.rsrc\RCDATA\` via zip archiver or decodable
+> Script source viewable at `\.rsrc\RCDATA\` via zip archiver or decodable batch file
 
 > Compiled with [AutoHotKey](https://www.autohotkey.com/) Ahk2Exe v1.1.34.04
 
@@ -182,18 +181,19 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 > Events / trades do not log towards count
 
-### Why does the Counter flash sometimes?
+### Why does the Counter window flash sometimes?
 > Due to how the script currently works, there's no way to import new sprites without refreshing the gui
 
+### Why did the Counter stop counting / showing up?
+> Throughout extended periods of usage you may experience an issue similar to this, typically resolved by restarting the computer
+
 ### Can I convert data from other counters?
-> Yes, you can manually amend the profiles found at `Files\Counter Config Files`
+> Yes, you can manually amend the profiles found at `Files\Counter Config Files`, these files utilize official dex numbers
 
 ### How can I report a bug?
-**1.** Ensure you have the latest [Counter](https://github.com/ssjshields/archetype-counter/archive/refs/heads/stable.zip)
+> Enable Debug Mode from the Counter menu, pause the Counter after the reoccurring issue
 
-**2.** Enable Debug Mode, pause the Counter after the reoccurring issue
-
-**3.** Attach the `.png` and `.txt` files (if they are generated.) at `Files\Captured Screenshot\DEBUG MODE`
+> Attach the `.png` and `.txt` files (if they are generated.) at `Files\Captured Screenshot\DEBUG MODE`
 </details>
 
 &nbsp;
@@ -203,3 +203,4 @@ This software has been created purely for the purposes of academic research. It 
 &nbsp;
 # Contact and Support
 [![discord](https://assets-global.website-files.com/6257adef93867e50d84d30e2/62594fddd654fc29fcc07359_cb48d2a8d4991281d7a6a95d2f58195e.svg)](https://discord.gg/rYg7ntqQRY)
+
