@@ -1,3 +1,6 @@
+v2.0.2.0 hotfix 1
+- Resolved profile corruption issue
+
 2.0.2.0
 - Fixed French, Portuguese Brazilian, and Polish language for horde detection (Better translation detection)
 - Added in "Home" style Pokémon sprite icons to the Counter
