@@ -165,7 +165,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 # FAQ
 ### Does this work on MacOS / mobile?
-> Unfortunately, no- refer to the [Prerequisites](https://github.com/ssjshields/archetype/tree/counter#prerequisites) section
+> Unfortunately, no- refer to the [Prerequisites](https://github.com/ssjshields/archetype-counter/tree/stable#prerequisites) section
 
 ### Does this work with custom PokeMMO client themes?
 > Yes- refer to the [Compatibility](https://github.com/ssjshields/archetype/tree/counter#compatibility) section
