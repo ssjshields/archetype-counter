@@ -10,6 +10,8 @@
 
 >**Burnteggs96**: Logic testing
 
+>**Volkarin**: Horde Logic testing
+
 >**Default sprites**: PokeMMO dump
 
 >**Gen 8 sprites**: https://forums.pokemmo.com/index.php?/topic/139566-generation-8-style-icons-v8
