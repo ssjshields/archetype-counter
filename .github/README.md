@@ -6,7 +6,9 @@ Automatically tracks encounters (Horde, Safari, etc.) and when you receive Eggs.
  
 Does not hook into the PokeMMO or javaw process. Utilizes OCR technology.
 
-Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lovers. Feel like exploring? Give our [client theme](https://github.com/ssjshields/archetype#readme) a try.
+Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lovers. 
+
+Feel like exploring? Give our [client theme](https://github.com/ssjshields/archetype#readme) a try.
 
 &nbsp;
 # Features
@@ -61,9 +63,9 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 **In-game resolution must be high enough for Counter to scan**
 
-> `1280x720` is the lowest we can officially support at this current time
+> `1280x720` is the lowest supported resoultion
 
-**OCR detectable nameplate font**
+**OCR detectable battle monster name font**
 
 > Count will be inconsistent or fail all together if typeface is not legible for conversion
 
@@ -105,7 +107,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 &nbsp;
 # Counter Menu Navigation
-*Note: Some options cannot be modified while the `PokeMMO.exe` is running*
+*Note: Some options will appear "greyed out" and cannot be modified while the `PokeMMO.exe` is running*
 
 ![counter_menu](https://user-images.githubusercontent.com/88489119/200962673-4fd3c8de-01eb-4523-95ae-0dd44f1b0ec2.png)
 
@@ -165,22 +167,15 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 # FAQ
 ### Does this work on MacOS / mobile?
-> Unfortunately, no- refer to the [Prerequisites](https://github.com/ssjshields/archetype-counter/tree/stable#prerequisites) section
+> Unfortunately, no- the Counter utilizes built in Windows features (OCR, Powershell, etc.)
 
 ### Does this work with custom PokeMMO client themes?
-> Yes- refer to the [Compatibility](https://github.com/ssjshields/archetype/tree/counter#compatibility) section
+> Yes- as long as the monster nameplate font is not too small and is legible for OCR detection (e.g., NotoSans.)
 
-### Flagged as a virus?
-> May scan as false positive, [VirusTotal results](https://www.virustotal.com/gui/file/f12be5dac0ba60f8556c45116105fc76c6db024487559abb6ef96f55d3016273?nocache=1)
+### How does the Counter work?
+> In a nutshell; it uses OCR and several other utilities to scan screenshots of monster names and compares them against a list
 
-> Script source viewable at `\.rsrc\RCDATA\` via zip archiver or decodable batch file
-
-> Compiled with [AutoHotKey](https://www.autohotkey.com/) Ahk2Exe v1.1.34.04
-
-### What version of PowerShell do I have?
-> Run `PowerShell` and execute `Get-Host | Select-Object Version`
-
-> Alternatively, check `Current PowerShell Verson` under the Counter's Support submenu
+> Utilities compiled with [AutoHotKey](https://www.autohotkey.com/) Ahk2Exe v1.1.34.04
 
 ### How are Eggs tracked?
 > When the user retrieves them from the Day Care Man, not as they hatch
@@ -190,21 +185,18 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 ### Why does the Counter window flash sometimes?
 > Due to how the script currently works, there's no way to import new sprites without refreshing the gui
 
-### Why did the Counter stop counting / showing up?
-> Throughout extended periods of usage you may experience an issue similar to this, typically resolved by restarting the computer
-
 ### Can I convert data from other counters?
 > Yes, you can manually amend the profiles found at `Files\Counter Config Files`, these files utilize official dex numbers
 
 ### How can I report a bug?
 > Enable Debug Mode from the Counter menu, pause the Counter after the reoccurring issue
 
-> Attach the `.png` and `.txt` files (if they are generated.) at `Files\Captured Screenshot\DEBUG MODE`
+> Open the Debug Folder from the Debug Mode submenu, attach the `.png` and `.txt` files (if they are generated.) at `Files\Captured Screenshot\DEBUG MODE`
 </details>
 
 &nbsp;
 # Disclaimer
-This software has been created purely for the purposes of academic research. It is not intended to be used to attack other systems, nor does it provide the user any unfair advantage. Project maintainers are not responsible or liable for misuse of the software. Use responsibly.
+This software has been created purely for the purposes of academic research. It is not intended to be used to attack other systems, nor does it provide the user any unfair advantage. Project maintainers are not responsible or liable for misuse of the software. Source code can be viewed from the AHK .RCDATA folders or in batch files. Use responsibly.
 
 &nbsp;
 # Contact and Support
