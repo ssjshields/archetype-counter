@@ -69,15 +69,17 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 > Count will be inconsistent or fail all together if typeface is not legible for conversion
 
-> Counter automatically ensures your Default theme has these values
+> The Counter automatically ensures your Default theme has these font values
 
 &nbsp;
 # Expectations
 > Counter must be in counting mode before "A wild `monster` appeared!" text displays
 
-> Tracking occurs via battle nameplates, OCR will not capture properly if there is an in-game widget blocking them
+> Tracking occurs via battle monster nameplates, OCR will not capture properly if there is anything blocking them
 
 > Strings directory should remain clean (only default files.) otherwise Counter cannot track nameplates or Eggs
+
+> If custom Strings are present, be aware if in-game text that the Counter utilizes is removed, it will not work properly
 
 &nbsp;
 # Installation
@@ -191,7 +193,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 ### How can I report a bug?
 > Enable Debug Mode from the Counter menu, pause the Counter after the reoccurring issue
 
-> Open the Debug Folder from the Debug Mode submenu, attach the `.png` and `.txt` files (if they are generated.) at `Files\Captured Screenshot\DEBUG MODE`
+> Open the Debug Folder from the Debug Mode submenu, attach the `.png` and `.txt` files (if they are generated.)
 </details>
 
 &nbsp;
