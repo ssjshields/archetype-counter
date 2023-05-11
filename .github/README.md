@@ -87,7 +87,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 > Backup any modified strings if present, Counter will remove foreign files
 
-**2.** Run the `Archetype Counter.exe`, create shortcut if needed
+**2.** Run the `Archetype Counter.lnk`, create shortcut if needed
 
 &nbsp;
 # Removal
