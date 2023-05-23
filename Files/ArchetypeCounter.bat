@@ -399,6 +399,9 @@ $ArchetypeForm.Add_Closing({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = Get-Content $SetConfig
 
+    # Sets the flag for the counter to not Auto Start on "Stop"
+    $GetConfig[33] = "Auto_Restart_Counter=False" 
+
     # Gets the current X and Y coordinates of the form
     $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
     $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
@@ -3036,7 +3039,7 @@ Function PlayAction {
                         if ($OCRCaptured -notmatch "Nidoran") { $OCRCaptured = $OCRCaptured -Replace '[0-9]',''; $OCRCaptured = $OCRCaptured -Replace ' ','' }
 
                         # Re-adjust Nidoran name and dex # for matching
-                        if ($OCRCaptured -match "Nidorane") { $OCRCaptured = $OCRCaptured -Replace 'Nidorane','Nidoran'}; if ($OCRCaptured -match "Nidoranon") { $OCRCaptured = $OCRCaptured -Replace 'Nidoranon','Nidoran' }; if ($OCRCaptured -match "Nidoranom") { $OCRCaptured = $OCRCaptured -Replace 'Nidoranom','Nidoran' }
+                        if ($OCRCaptured -match "Nidorane") { $OCRCaptured = $OCRCaptured -Replace 'Nidorane','Nidoran 29'}; if ($OCRCaptured -match "Nidoranon") { $OCRCaptured = $OCRCaptured -Replace 'Nidoranon','Nidoran 32' }; if ($OCRCaptured -match "Nidoranom") { $OCRCaptured = $OCRCaptured -Replace 'Nidoranom','Nidoran 32' }
                         if ($OCRCaptured -match "Nidoran") { $OCRCaptured = $OCRCaptured -Replace 'Nidoran29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran32','Nidoran 32'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  32','Nidoran 32' }
 
                         # (WHEN DEBUGGING MODE IS TURN ON!)
@@ -3237,7 +3240,7 @@ Function PlayAction {
 
                             # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeALabelCount.Text = $GetPokeNameACountForm
-
+                           
                             # Ensures everything on form is updated/refreshed
                             $Script:SyncHashTable.ArchetypeForm.update()
                             $Script:SyncHashTable.ArchetypeForm.refresh()
@@ -3247,7 +3250,7 @@ Function PlayAction {
 
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
-                            
+
                             # Reset "Busy" on the counter form
                             $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
                             $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
@@ -3297,7 +3300,7 @@ Function PlayAction {
 
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
-                            
+
                             # Reset "Busy" on the counter form
                             $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
                             $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
