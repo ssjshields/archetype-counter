@@ -318,11 +318,14 @@ $CounterWorkingDir = $PWD
 # Resets working directory to the PokeMMO main root directory - Part 1
 Set-Location ..\..
 
-# Adds "Archetype" icon into the new shortcut to launch  batch file
-$ShortcutFile = "$PWD\Archetype Counter\Archetype Counter.lnk"
+# Removes original Archetype shortcut & creates a new one (So users can pin to start menu or taskbar)
+#Remove-Item "$PWD\archetype-counter\Archetype Counter.lnk" -Force
+$ShortcutFile = "$PWD\archetype-counter\Archetype Counter.lnk"
 $WScriptShell = New-Object -ComObject WScript.Shell
 $Shortcut = $WScriptShell.CreateShortcut($ShortcutFile)
-$Shortcut.IconLocation = "$PWD\Archetype Counter\Files\GUI Form Images\Icons\Icon\Archetype.ico"
+#$Shortcut.TargetPath = "$PWD\archetype-counter\Files\ArchetypeCounter.bat"
+$Shortcut.WorkingDirectory = "$PWD\archetype-counter"
+$Shortcut.IconLocation = "$PWD\archetype-counter\Files\GUI Form Images\Icons\Icon\Archetype.ico"
 $Shortcut.Save()
 
 # Resets working directory to the PokeMMO main root directory - Part 2
