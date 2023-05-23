@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <themes>
-    <fontDef name="Counter_Monster_Name" filename="NotoSans-Medium.ttc" color="#ffffff" border_width="1.4" border_color="#000000" size="18" hinting="Full" offsetY="-3"/>
+    <fontDef name="Counter_Monster_Name" filename="NotoSans-Medium.ttc" color="#ffffff" border_width="1.1" border_color="#000000" size="18" hinting="Full" offsetY="-3"/>
 	<fontGen/>
 
 
