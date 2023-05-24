@@ -3172,10 +3172,13 @@ Function PlayAction {
                         # Grabs and loads + compares to the captures OCR text
                         $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
                         $GetPokeConfig = Get-Content $SetPokeConfig
-                        $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$OCRCaptured" } | Select -First 1
+                        $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "\b$OCRCaptured\b" } | Select -First 1
                         $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
                         $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
                         
+                        # Check to ensure a valid poke name has been captured (Then stores into a variable)
+                        if ($GetPokeConfig | Where-Object { $_ -match "\b$OCRCaptured\b" }) { $DetectedPokeName = $true } else { $DetectedPokeName = $false }
+
                         # Loads capture Poke ID into variable for comparison (Increased seen count) + Detection count
                         $ComparePokeA_ID = $GetConfig[8] -replace 'Pokemon_A=', ''
                         $ComparePokeA_Blank = $GetConfig[8] -replace 'Pokemon_A=', ''
@@ -3186,7 +3189,7 @@ Function PlayAction {
                         $DetectionCount = $GetConfig[17] -replace 'Detection_Count=', ''
 
                         # Checks if Pokemon capture names from OCR is blank/null
-                        if ([string]::IsNullOrEmpty($OCRCaptured) -or [string]::IsNullOrWhitespace($OCRCaptured) -or $OCRCaptured -eq $null) {
+                        if ([string]::IsNullOrEmpty($OCRCaptured) -or [string]::IsNullOrWhitespace($OCRCaptured) -or $OCRCaptured -eq $null -or $DetectedPokeName -eq $false) {
                             
                             # Loads Visual Basic assembly
                             Add-Type -AssemblyName Microsoft.VisualBasic
