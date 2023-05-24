@@ -318,6 +318,10 @@ $CounterWorkingDir = $PWD
 # Resets working directory to the PokeMMO main root directory - Part 1
 Set-Location ..\..
 
+# Checks if counter is in the "mods" folder of PokeMMO
+$CurrentACDirectory = Split-Path -Path ($PWD) -Leaf
+if ($CurrentACDirectory -match "mods") { } else { [System.Windows.MessageBox]::Show("Archetype Counter is not installed properly.`n`nExtract counter to the correct location.`nPath: PokeMMO\data\mods`n`nCurrent location: $CurrentACDirectory","  Archetype Counter","OK","Hand"); [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force }
+
 # Removes original Archetype shortcut & creates a new one (So users can pin to start menu or taskbar)
 $ShortcutFile = "$PWD\archetype-counter\Archetype Counter.lnk"
 $WScriptShell = New-Object -ComObject WScript.Shell
