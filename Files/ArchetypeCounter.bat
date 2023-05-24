@@ -318,8 +318,6 @@ $CounterWorkingDir = $PWD
 # Resets working directory to the PokeMMO main root directory - Part 1
 Set-Location ..\..
 
-# Prompt dialog If user has read documentation
-
 # Removes original Archetype shortcut & creates a new one (So users can pin to start menu or taskbar)
 $ShortcutFile = "$PWD\archetype-counter\Archetype Counter.lnk"
 $WScriptShell = New-Object -ComObject WScript.Shell
@@ -390,7 +388,7 @@ $ArchetypeForm.Add_Load({
     $GetThemeConfig = Get-Content $SetThemeConfig
     $CurrentTheme = $GetThemeConfig[21] -replace 'client.ui.theme=', ''
     if (Test-Path -Path "$PokeMMOWorkingDir\data\themes\$CurrentTheme\AC") { } else { $InsertInThemePath = "$PokeMMOWorkingDir\data\themes\$CurrentTheme\theme.xml"; $InsertInTheme = Get-Content -Path $InsertInThemePath; $InsertInThemeLine = $InsertInTheme.count; $InsertInTheme = $InsertInTheme -replace '<include filename="AC/1.0_Scaling.xml"/>'; $InsertInTheme | Set-Content -Path $InsertInThemePath;$InsertInTheme[$InsertInThemeLine-1] = '    <include filename="AC/1.0_Scaling.xml"/>
-</themes>'; $InsertInTheme | Set-Content -Path $InsertInThemePath; Copy-Item "$PWD\Counter Functions\AC" -Destination "$PokeMMOWorkingDir\data\themes\$CurrentTheme" -Recurse -Force; $CurrentThemeDialog = [System.Windows.MessageBox]::Show("Current Theme: $CurrentTheme`n`nValues in the current PokeMMO theme interface will be modified so it can support OCR detection.`n`n- Do you want to learn more?","  Archetype Counter","YesNo","Warning"); if ($CurrentThemeDialog -match "Yes") { [System.Windows.MessageBox]::Show("Learn More:`n`nThese are slight adjustments to the font used for monster names in battle. The amount they are changed is almost unnoticeable to the eye. You may revert these modifications at any time by repairing your client.`n`nTechnical mumbo-jumbo: OCR detection will not trigger without a readable font def and inset because letters such as; g, j, p, y, etc. hang over the HP bars.`n`n","  Archetype Counter","OK","Warning") }; Stop-Process -Name "PokeMMO" -Force; Stop-Process -Name "javaw" -Force; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe" }
+</themes>'; $InsertInTheme | Set-Content -Path $InsertInThemePath; Copy-Item "$PWD\Counter Functions\AC" -Destination "$PokeMMOWorkingDir\data\themes\$CurrentTheme" -Recurse -Force; $CurrentThemeDialog = [System.Windows.MessageBox]::Show("Current Theme: $CurrentTheme`n`nValues in the current PokeMMO theme interface will be modified so it can support OCR detection.`n`n- Do you want to learn more?","  Archetype Counter","YesNo","Warning"); if ($CurrentThemeDialog -match "Yes") { [System.Windows.MessageBox]::Show("Learn More:`n`nThese are slight adjustments to the font used for monster names in battle. The amount they are changed is almost unnoticeable to the eye. You may revert these modifications at any time by repairing your client.`n`nTechnical mumbo-jumbo: OCR detection will not trigger without a readable font def and inset because letters such as; g, j, p, y, etc. hang over the HP bars.`n`n","  Archetype Counter","OK","Warning") }; $PokeMMOProcess = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "javaw" }; if ("$PokeMMOLaunch" -match "True") { if ($PokeMMOProcess -ne $null) { } else { Stop-Process -Name "PokeMMO" -Force; Stop-Process -Name "javaw" -Force; Start-Process "$PWD\PokeMMO.exe" } } }
 
 })
 $ArchetypeForm.Add_Closing({
@@ -3191,7 +3189,7 @@ Function PlayAction {
                             [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
 
                             # Displays Message Dialog Box - Cannot scan pokemon from screenshot
-                            [Microsoft.VisualBasic.Interaction]::MsgBox("Unable to scan Pokémon.`n`nPlease increase count manually.`n`n(When in Safari Zone, allow time for counter)", "OKOnly,SystemModal,Critical", "Archetype Counter")
+                            [Microsoft.VisualBasic.Interaction]::MsgBox("Unable to scan Pokémon.`n`nThis can occur when partaking in Trainer Battles, or when a Safari Zone encounter is completed too quickly.`n`n(Increase count manually, if needed.)", "OKOnly,SystemModal,Critical", "Archetype Counter")
 
                             # Sets all changes back into the Config file
                             $GetConfig | Set-Content -Path $SetConfig
