@@ -318,12 +318,12 @@ $CounterWorkingDir = $PWD
 # Resets working directory to the PokeMMO main root directory - Part 1
 Set-Location ..\..
 
+# Prompt dialog If user has read documentation
+
 # Removes original Archetype shortcut & creates a new one (So users can pin to start menu or taskbar)
-#Remove-Item "$PWD\archetype-counter\Archetype Counter.lnk" -Force
 $ShortcutFile = "$PWD\archetype-counter\Archetype Counter.lnk"
 $WScriptShell = New-Object -ComObject WScript.Shell
 $Shortcut = $WScriptShell.CreateShortcut($ShortcutFile)
-#$Shortcut.TargetPath = "$PWD\archetype-counter\Files\ArchetypeCounter.bat"
 $Shortcut.WorkingDirectory = "$PWD\archetype-counter"
 $Shortcut.IconLocation = "$PWD\archetype-counter\Files\GUI Form Images\Icons\Icon\Archetype.ico"
 $Shortcut.Save()
@@ -3023,11 +3023,11 @@ Function PlayAction {
                         # (WHEN DEBUGGING MODE IS TURN ON!)
                         if ($DebugMode -match "True") { $OCRCaptured | Out-File "$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_BeforeLogic.txt" }
 
-                        # Check if "Shiny" is in Pokemon name
-                        $CheckForShiny = $OCRCaptured -match 'Shiny'; $CheckForShiny1 = $OCRCaptured | Where-Object { $_ -match '\bShiny\b' }; $CheckForShiny2 = $OCRCaptured.Contains('Shiny'); $CheckForShiny3 = $OCRCaptured.Contains('shiny')
+                        # Stores 'OCRCaptured' into a variable to check later (For Shiny Pokemon)
+                        $OCRCapturedShiny = $OCRCaptured
 
-                        # Check if "Alpha" is in Pokemon name
-                        $CheckForAlpha = $OCRCaptured -match 'Alpha'; $CheckForAlpha1 = $OCRCaptured | Where-Object { $_ -match '\bAlpha\b' }; $CheckForAlpha2 = $OCRCaptured.Contains('Alpha'); $CheckForAlpha3 = $OCRCaptured.Contains('alpha')
+                        # Stores 'OCRCaptured' into a variable to check later (For Alpha Pokemon)
+                        $OCRCapturedAlpha = $OCRCaptured
 
                         # Removes everything in Pokemon Name - Except the name itself
                         $OCRCaptured = $OCRCaptured | Where-Object { $_.Length -ne '1' }; $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('lv.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('Lv.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('LV.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('lvl.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('Lvl.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('nv.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('Nv.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('NV.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('Niv.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('NIV.')); $OCRCaptured = $OCRCaptured.Replace('?','').Replace('•','').Replace('8 Z',''); $OCRCaptured = $OCRCaptured.Replace(' ee','').Replace('  ee','').Replace('8 e',''); $OCRCaptured = $OCRCaptured.Replace(' e','').Replace('  e',''); $OCRCaptured = $OCRCaptured.Replace(',',''); $OCRCaptured = $OCRCaptured -Replace '[0-9]',''; $OCRCaptured = $OCRCaptured -replace [regex]::escape('Lv.'),'' -replace [regex]::escape('L v'),'' -replace [regex]::escape('Lvl.'),'' -replace [regex]::escape('L vl'),'' -replace [regex]::escape('Lv l'),'' -replace [regex]::escape('L v l'),'' -replace [regex]::escape('Nv.'),'' -replace [regex]::escape('N v'),'' -replace [regex]::escape('Niv.'),'' -replace [regex]::escape('Ni v'),'' -replace [regex]::escape('N iv'),'' -replace [regex]::escape('N i v'),'' -replace [regex]::escape('.r'),'' -replace [regex]::escape('.'),'' -replace [regex]::escape("'"),""; $OCRCaptured = $OCRCaptured -replace ' C', '' -replace ' Z', ''; $OCRCaptured = $OCRCaptured -replace '\s+', ''; $OCRCaptured = $OCRCaptured | where { $_ -ne "" }; $OCRCaptured = $OCRCaptured.Replace('*',' 29').Replace('&',' 32').Replace('a"',' 32').Replace('Shiny','Shiny '); $OCRCaptured = $OCRCaptured | Where-Object { $_.Length -ne '1' }
@@ -3071,7 +3071,7 @@ Function PlayAction {
                         $Script:SyncHashTable.ArchetypeForm.refresh()
 
                         # Checks if current just seen pokemon is a "Shiny"
-                        if ($CheckForShiny -eq $true -or $CheckForShiny1 -eq $true -or $CheckForShiny2 -eq $true -or $CheckForShiny3 -eq $true) {
+                        if ($OCRCapturedShiny -match 'Shiny' -or $OCRCapturedShiny | Where-Object { $_ -match '\bShiny\b' } -or $OCRCapturedShiny.Contains('Shiny') -or $OCRCapturedShiny.Contains('shiny')) {
 
                             # Loads Visual Basic assembly
                             Add-Type -AssemblyName Microsoft.VisualBasic
@@ -3122,7 +3122,7 @@ Function PlayAction {
                         }
 
                         # Checks if "Alpha" Pokemon is found
-                        if ($CheckForAlpha -eq $true -or $CheckForAlpha1 -eq $true -or $CheckForAlpha2 -eq $true -or $CheckForAlpha3 -eq $true) { 
+                        if ($OCRCapturedAlpha -match 'Alpha' -or $OCRCapturedAlpha | Where-Object { $_ -match '\bAlpha\b' } -or $OCRCapturedAlpha.Contains('Alpha') -or $OCRCapturedAlpha.Contains('alpha')) { 
 
                             # Grabs current counter config file state
                             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
@@ -3264,7 +3264,7 @@ Function PlayAction {
                             Continue
 
                         # Checks if same Pokemon has already been seen
-                        } elseif($GetPokemonID -match $ComparePokeA_ID) {
+                        } elseif($GetPokemonID -match "\b$ComparePokeA_ID\b") {
 
                             # Grabs current counter config file state
                             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
@@ -3368,7 +3368,7 @@ Function PlayAction {
                             Continue
 
                         # Checks if same Pokemon slot 2 has already been seen
-                        } elseif($GetPokemonID -match $ComparePokeB_ID -and $DetectionCount -ge "2") {
+                        } elseif($GetPokemonID -match "\b$ComparePokeB_ID\b" -and $DetectionCount -ge "2") {
 
                             # Grabs current counter config file state
                             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
@@ -3468,7 +3468,7 @@ Function PlayAction {
                             Continue
 
                         # Checks if same Pokemon slot 3 has already been seen
-                        } elseif($GetPokemonID -match $ComparePokeC_ID -and $DetectionCount -match "3") {
+                        } elseif($GetPokemonID -match "\b$ComparePokeC_ID\b" -and $DetectionCount -match "3") {
 
                             # Grabs current counter config file state
                             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
