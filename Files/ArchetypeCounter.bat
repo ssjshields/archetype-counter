@@ -2504,7 +2504,7 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool4.DropDownItems.Add("Current PowerShell: $PSVersionInfo", $ArchetypeMenuStripPowerShell).Enabled = $false
         $ArchetypeMenuStripTool4.DropDownItems.Add("Current Windows: $OSName", $ArchetypeMenuStripWindows).Enabled = $false
         $ArchetypeMenuStripTool4.DropDownItems.Add("-")
-        $ArchetypeMenuStripTool4.DropDownItems.Add("Counter Version: 3.0.0.0", $ArchetypeMenuStripPowerShell).Enabled = $false
+        $ArchetypeMenuStripTool4.DropDownItems.Add("Counter Version: 3.0.0.0", $ArchetypeMenuStripMain).Enabled = $false
 
         # Checks if counter menu is in Collapsed Mode
         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
