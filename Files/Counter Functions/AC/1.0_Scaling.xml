@@ -3,7 +3,6 @@
     <fontDef name="Counter_Monster_Name" filename="NotoSans-Medium.ttc" color="#ffffff" border_width="1.1" border_color="#000000" size="18" hinting="Full" offsetY="-3"/>
 	<fontGen/>
 
-
 	<images file="Base_Dot.png" filter="nearest">
 		<area name="Base_Square" xywh="*"/>
 		<area name="Base_Dot" xywh="*" splitx="L1,R0" splity="T1,B0"/>
@@ -19,8 +18,39 @@
 	</theme>
 
 	<theme name="redlabel" ref="redlabel" allowWildcard="true">
-		<param name="border"><border>0,0,1,0</border></param>
+		<param name="border"><border>0,0,0,0</border></param>
 		<param name="font"><font>Counter_Monster_Name</font></param>
 		<param name="textAlignment"><enum type="alignment">CENTER</enum></param>
 	</theme>
+	
+	<images filter="nearest">
+        <composed name="battle-ui-enemy">
+            <alias ref="battle-ui-enemy" tint="#fbffff"/>
+        </composed>
+        <composed name="battle-ui-float">
+            <alias ref="battle-ui-float" tint="#fbffff"/>
+        </composed>
+        <composed name="battle-ui-self">
+            <alias ref="battle-ui-self" tint="#fbffff"/>
+        </composed>
+        <composed name="battle-ui-self-slim">
+            <alias ref="battle-ui-self-slim" tint="#fbffff"/>
+        </composed>
+    </images>
+
+    <theme name="battle-gui-enemy" ref="battle-gui-enemy">
+        <param name="background"><image>battle-ui-enemy</image></param>
+    </theme>
+    <theme name="battle-gui-float" ref="-defaults">
+        <param name="background"><image>battle-ui-float</image></param>
+    </theme>
+
+    <theme name="battle-gui-self" ref="-defaults">
+        <param name="background"><image>battle-ui-self</image></param>
+    </theme>
+
+    <theme name="battle-gui-self-slim" ref="-defaults">
+        <param name="background"><image>battle-ui-self-slim</image></param>
+    </theme>
+	
 </themes>
