@@ -415,6 +415,9 @@ $ArchetypeForm.Add_Closing({
     # Sets all changes back into the Config file
     $GetConfig | Set-Content -Path $SetConfig
 
+    # Wait
+    Start-Sleep -Milliseconds 100
+
     # This exits the application (Winform) properly
     [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force
     
@@ -3026,10 +3029,10 @@ Function PlayAction {
                         if ($DebugMode -match "True") { $OCRCaptured | Out-File "$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_BeforeLogic.txt" }
 
                         # Stores 'OCRCaptured' into a variable to check later (For Shiny Pokemon)
-                        $OCRCapturedShiny = $OCRCaptured
+                        if ($OCRCaptured -match "Shiny" -or ($OCRCaptured | Where-Object { $_ -match "Shiny" }) -or $OCRCaptured.Contains("Shiny") -or $OCRCaptured.Contains("shiny")) { $OCRCapturedShiny = $true } else { $OCRCapturedShiny = $false }
 
                         # Stores 'OCRCaptured' into a variable to check later (For Alpha Pokemon)
-                        $OCRCapturedAlpha = $OCRCaptured
+                        if ($OCRCapturedAlpha -match 'Alpha' -or ($OCRCapturedAlpha | Where-Object { $_ -match '\bAlpha\b' }) -or $OCRCapturedAlpha.Contains('Alpha') -or $OCRCapturedAlpha.Contains('alpha')) { $OCRCapturedAlpha = $true } else { $OCRCapturedAlpha = $false }
 
                         # Removes everything in Pokemon Name - Except the name itself
                         $OCRCaptured = $OCRCaptured | Where-Object { $_.Length -ne '1' }; $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('lv.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('Lv.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('LV.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('lvl.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('Lvl.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('nv.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('Nv.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('NV.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('Niv.')); $OCRCaptured = $OCRCaptured.Substring(0, $OCRCaptured.lastIndexOf('NIV.')); $OCRCaptured = $OCRCaptured.Replace('?','').Replace('•','').Replace('8 Z',''); $OCRCaptured = $OCRCaptured.Replace(' ee','').Replace('  ee','').Replace('8 e',''); $OCRCaptured = $OCRCaptured.Replace(' e','').Replace('  e',''); $OCRCaptured = $OCRCaptured.Replace(',',''); $OCRCaptured = $OCRCaptured -Replace '[0-9]',''; $OCRCaptured = $OCRCaptured -replace [regex]::escape('Lv.'),'' -replace [regex]::escape('L v'),'' -replace [regex]::escape('Lvl.'),'' -replace [regex]::escape('L vl'),'' -replace [regex]::escape('Lv l'),'' -replace [regex]::escape('L v l'),'' -replace [regex]::escape('Nv.'),'' -replace [regex]::escape('N v'),'' -replace [regex]::escape('Niv.'),'' -replace [regex]::escape('Ni v'),'' -replace [regex]::escape('N iv'),'' -replace [regex]::escape('N i v'),'' -replace [regex]::escape('.r'),'' -replace [regex]::escape('.'),'' -replace [regex]::escape("'"),""; $OCRCaptured = $OCRCaptured -replace ' C', '' -replace ' Z', ''; $OCRCaptured = $OCRCaptured -replace '\s+', ''; $OCRCaptured = $OCRCaptured | where { $_ -ne "" }; $OCRCaptured = $OCRCaptured.Replace('*',' 29').Replace('&',' 32').Replace('a"',' 32').Replace('Shiny','Shiny '); $OCRCaptured = $OCRCaptured | Where-Object { $_.Length -ne '1' }
@@ -3072,8 +3075,22 @@ Function PlayAction {
                         $Script:SyncHashTable.ArchetypeForm.update()
                         $Script:SyncHashTable.ArchetypeForm.refresh()
 
+                        # Counts number of lines for a Pokemon HORDE
+                        $OCRCapturedHordeNumber = ($OCRCaptured | Measure-Object -Line).Lines; if ($OCRCapturedHordeNumber -eq "1") { $OCRCapturedHordeNumber = 0 }
+                        if ($OCRCapturedHordeNumber -gt "1") { $OCRCaptured = $OCRCaptured | Select-Object -First 1 -Skip 2 }
+
+                        # (WHEN DEBUGGING MODE IS TURN ON!)
+                        if ($DebugMode -match "True") { $OCRCapturedHordeNumber | Out-File "$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_HordeLogic_Count.txt" }
+
+                        # Grabs and loads + compares to the captures OCR text
+                        $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
+                        $GetPokeConfig = Get-Content $SetPokeConfig
+                        $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "\b$OCRCaptured\b" } | Select -First 1
+                        $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
+                        $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
+                        
                         # Checks if current just seen pokemon is a "Shiny"
-                        if ($OCRCapturedShiny -match 'Shiny' -or $OCRCapturedShiny | Where-Object { $_ -match '\bShiny\b' } -or $OCRCapturedShiny.Contains('Shiny') -or $OCRCapturedShiny.Contains('shiny')) {
+                        if ($OCRCapturedShiny -match $true) {
 
                             # Loads Visual Basic assembly
                             Add-Type -AssemblyName Microsoft.VisualBasic
@@ -3099,9 +3116,6 @@ Function PlayAction {
                             # Displays Message Dialog Box - For a Shiny Pokemon encounter
                             [Microsoft.VisualBasic.Interaction]::MsgBox("You have found a SHINY $GetPokemonNameNoShiny!", "OKOnly,SystemModal,Information", "Archetype Shiny Pokemon")
 
-                            # Sets the flag for the counter to not Auto Start on "Stop"
-                            $GetConfig[33] = "Auto_Restart_Counter=True"
-
                             # Sets all changes back into the Config file
                             $GetConfig | Set-Content -Path $SetConfig
 
@@ -3124,7 +3138,7 @@ Function PlayAction {
                         }
 
                         # Checks if "Alpha" Pokemon is found
-                        if ($OCRCapturedAlpha -match 'Alpha' -or $OCRCapturedAlpha | Where-Object { $_ -match '\bAlpha\b' } -or $OCRCapturedAlpha.Contains('Alpha') -or $OCRCapturedAlpha.Contains('alpha')) { 
+                        if ($OCRCapturedAlpha -match $true) { 
 
                             # Grabs current counter config file state
                             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
@@ -3137,9 +3151,6 @@ Function PlayAction {
 
                             # Adds correct new count to Alpha Pokemon 
                             $GetConfig[40] = "Alpha_Count=$GetPokeAlphaCountForm"
-
-                            # Sets the flag for the counter to not Auto Start on "Stop"
-                            $GetConfig[33] = "Auto_Restart_Counter=True"
 
                             # Sets all changes back into the Config file
                             $GetConfig | Set-Content -Path $SetConfig
@@ -3162,20 +3173,6 @@ Function PlayAction {
                         
                         }
 
-                        # Counts number of lines for a Pokemon HORDE
-                        $OCRCapturedHordeNumber = ($OCRCaptured | Measure-Object -Line).Lines; if ($OCRCapturedHordeNumber -eq "1") { $OCRCapturedHordeNumber = 0 }
-                        if ($OCRCapturedHordeNumber -gt "1") { $OCRCaptured = $OCRCaptured | Select-Object -First 1 -Skip 2 }
-
-                        # (WHEN DEBUGGING MODE IS TURN ON!)
-                        if ($DebugMode -match "True") { $OCRCapturedHordeNumber | Out-File "$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_HordeLogic_Count.txt" }
-
-                        # Grabs and loads + compares to the captures OCR text
-                        $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
-                        $GetPokeConfig = Get-Content $SetPokeConfig
-                        $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "\b$OCRCaptured\b" } | Select -First 1
-                        $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
-                        $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-                        
                         # Check to ensure a valid poke name has been captured (Then stores into a variable)
                         if ($GetPokeConfig | Where-Object { $_ -match "\b$OCRCaptured\b" }) { $DetectedPokeName = $true } else { $DetectedPokeName = $false }
 
