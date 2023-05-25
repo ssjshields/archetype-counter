@@ -293,7 +293,6 @@ $AlwaysOnTop = $GetConfig[37] -replace 'Always_On_Top=', ''
 $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount
 $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
 $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-$ScreenMode = $GetConfig[39] -replace 'Screen_Mode=', ''
 $AlphaCount = $GetConfig[40] -replace 'Alpha_Count=', ''
 $IgnoreSystemLang = $GetConfig[41] -replace 'Ignore_System_Language=', ''
 
@@ -1545,7 +1544,6 @@ $ArchetypeImage.Add_MouseDown({
         $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount
         $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
         $DebugMode = $GetConfig[35] -replace 'Debug_Mode=', ''
-        $ScreenMode = $GetConfig[39] -replace 'Screen_Mode=', ''
         $AlphaCount = $GetConfig[40] -replace 'Alpha_Count=', ''
         $IgnoreSystemLang = $GetConfig[41] -replace 'Ignore_System_Language=', ''
 
@@ -2946,7 +2944,6 @@ Function PlayAction {
                     $CounterMode = $GetConfig[36] -replace 'Counter_Mode=', ''
                     $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
                     $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-                    $ScreenMode = $GetConfig[39] -replace 'Screen_Mode=', ''
                     $AlphaCount = $GetConfig[40] -replace 'Alpha_Count=', ''
                     $IgnoreSystemLang = $GetConfig[41] -replace 'Ignore_System_Language=', ''
 
