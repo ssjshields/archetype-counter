@@ -37,7 +37,7 @@ Debug_Mode=True
 Counter_Mode=Expanded
 Always_On_Top=True
 Pokemon_Seen_Count=0
-Screen_Mode=HD
+--------------------
 Alpha_Count=0
 Ignore_System_Language=False
 ###############################
