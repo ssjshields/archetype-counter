@@ -1371,8 +1371,27 @@ $ArchetypeStopImage.Add_Click({
         # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
         if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
-        # Starts up Archetype Counter
-        Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
+        # Set visibility of components for counter
+        $ArchetypePlayImage.Visible = $true
+        $ArchetypeStopImage.Visible = $false
+
+        # Sets Counter Active to "True" (To make menu options available disabled)
+        $GetConfig[34] = 'Counter_Active=False'
+
+        # Sets all changes back into the Config file
+        $GetConfig | Set-Content -Path $SetConfig
+
+        # Application Variable - Name
+        $ApplicationName = "javaw"
+
+        # Finds application process
+        $Process = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "$ApplicationName"}
+
+        # Puts $Process.MainWindowHandle into a variable
+        $hwnd = $Process.MainWindowHandle
+ 
+        # Performs force active window process
+        [void][ForceActiveWin]::SetForegroundWindow($hwnd)
 
 })
 $ArchetypeForm.controls.Add($ArchetypeStopImage)
@@ -2672,6 +2691,7 @@ Function PlayAction {
         $Script:SyncHashTable.ArchetypeBusyImage = $ArchetypeBusyImage
         $Script:SyncHashTable.ArchetypeBusyFile = $ArchetypeBusyFile
         $Script:SyncHashTable.ArchetypeStopImage = $ArchetypeStopImage
+        $Script:SyncHashTable.ArchetypePlayImage = $ArchetypePlayImage
         $Script:SyncHashTable.ArchetypePokeAFile = $ArchetypePokeAFile
         $Script:SyncHashTable.ArchetypePokeAImage = $ArchetypePokeAImage
         $Script:SyncHashTable.ArchetypePokeALabelCount = $ArchetypePokeALabelCount
@@ -3548,7 +3568,7 @@ Function PlayAction {
                 if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
         # Techncially loops until forever (The stop button will be the way to force the stop of the counter)
-        } until ($Forever)
+        } until ($Script:SyncHashTable.ArchetypePlayImage.Visible -match $true)
 
     })
 
