@@ -430,25 +430,60 @@ $ArchetypeForm.Add_Closing({
     
 })
 
-# Creates the top main image that indicates the counter is "ON"
-$ArchetypeMainOnFile = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\Main_On.png")
-$ArchetypeMainOnImage = New-Object system.windows.Forms.PictureBox
-$ArchetypeMainOnImage.Visible = $false
-$ArchetypeMainOnImage.Image = $ArchetypeMainOnFile
-$ArchetypeMainOnImage.Width = 88
-$ArchetypeMainOnImage.Height = 35
-$ArchetypeMainOnImage.location = New-object system.drawing.point(3,32)
-$ArchetypeForm.controls.Add($ArchetypeMainOnImage)
+# 
+$ArchetypeCollapsedPlayImageFile = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\CollapsedPlay.png")
+$ArchetypeCollapsedPlayImage = New-Object system.windows.Forms.PictureBox
+$ArchetypeCollapsedPlayImage.Visible = $true
+$ArchetypeCollapsedPlayImage.Image = $ArchetypeCollapsedPlayImageFile
+$ArchetypeCollapsedPlayImage.Width = 22
+$ArchetypeCollapsedPlayImage.Height = 20
+$ArchetypeCollapsedPlayImage.location = New-object system.drawing.point(8,9)
 
-# Creates the top main image that indicates the counter is "OFF"
-$ArchetypeMainOffFile = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\Main_Off.png")
-$ArchetypeMainOffImage = New-Object system.windows.Forms.PictureBox
-$ArchetypeMainOffImage.Visible = $false
-$ArchetypeMainOffImage.Image = $ArchetypeMainOffFile
-$ArchetypeMainOffImage.Width = 88
-$ArchetypeMainOffImage.Height = 35
-$ArchetypeMainOffImage.location = New-object system.drawing.point(3,32)
-$ArchetypeForm.controls.Add($ArchetypeMainOffImage)
+if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeCollapsedPlayImage.Visible = $true } else { $ArchetypeCollapsedPlayImage.Visible = $false }
+
+$ArchetypeForm.controls.Add($ArchetypeCollapsedPlayImage)
+
+# 
+$ArchetypeCollapsedStopImageFile = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\CollapsedStop.png")
+$ArchetypeCollapsedStopImage = New-Object system.windows.Forms.PictureBox
+$ArchetypeCollapsedStopImage.Visible = $false
+$ArchetypeCollapsedStopImage.Image = $ArchetypeCollapsedStopImageFile
+$ArchetypeCollapsedStopImage.Width = 22
+$ArchetypeCollapsedStopImage.Height = 20
+$ArchetypeCollapsedStopImage.location = New-object system.drawing.point(8,9)
+
+if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeCollapsedStopImage.Visible = $true } else { $ArchetypeCollapsedStopImage.Visible = $false }
+
+$ArchetypeForm.controls.Add($ArchetypeCollapsedStopImage)
+
+# 
+$ArchetypeCollapsedBusyImageFile = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\CollapsedBusy.png")
+$ArchetypeCollapsedBusyImage = New-Object system.windows.Forms.PictureBox
+$ArchetypeCollapsedBusyImage.Visible = $false
+$ArchetypeCollapsedBusyImage.Image = $ArchetypeCollapsedBusyImageFile
+$ArchetypeCollapsedBusyImage.Width = 22
+$ArchetypeCollapsedBusyImage.Height = 20
+$ArchetypeCollapsedBusyImage.location = New-object system.drawing.point(8,9)
+
+if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeCollapsedBusyImage.Visible = $true } else { $ArchetypeCollapsedBusyImage.Visible = $false }
+
+
+$ArchetypeForm.controls.Add($ArchetypeCollapsedBusyImage)
+
+<#
+# Creates the pokeball image that indicates the count pokemon seen
+$ArchetypeMainEncounterCollapsedImageFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\Pokeball.png")
+$ArchetypeMainEncounterCollapsedImage = New-Object system.windows.Forms.PictureBox
+$ArchetypeMainEncounterCollapsedImage.Visible = $false
+$ArchetypeMainEncounterCollapsedImage.Image = $ArchetypeMainEncounterCollapsedImageFile
+$ArchetypeMainEncounterCollapsedImage.Width = 36
+$ArchetypeMainEncounterCollapsedImage.Height = 32
+$ArchetypeMainEncounterCollapsedImage.location = New-object system.drawing.point(8,9)
+
+if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMainEncounterCollapsedImage.Visible = $true }
+
+$ArchetypeForm.controls.Add($ArchetypeMainEncounterCollapsedImage)
+#>
 
 # Creates the middle egg image that indicates the egg count versus pokemon seen
 $ArchetypeEggOnFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\0.png")
@@ -1457,6 +1492,9 @@ $ArchetypeCloseImage.Add_Click({
         $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
         $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
 
+        # Sets the flag for the counter to not Auto Start on "Stop"
+        $GetConfig[33] = "Auto_Restart_Counter=False" 
+
         # Resets Counter Active to "False" (To make menu options available again)
         $GetConfig[34] = 'Counter_Active=False'
 
@@ -1474,8 +1512,7 @@ $ArchetypeForm.controls.Add($ArchetypeCloseImage)
 
 
 # Adds the main base image on the Archetype Winform (Plus the right click menu)
-$ArchetypeBaseFileCollapsedEncounter = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\CollapsedEncounter.png")
-$ArchetypeBaseFileCollapsedEgg = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\CollapsedEgg.png")
+$ArchetypeBaseFileCollapsed = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\Collapsed.png")
 $ArchetypeBaseFile3 = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\3.png")
 $ArchetypeBaseFile2 = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\2.png")
 $ArchetypeBaseFile1 = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\1.png")
@@ -1483,8 +1520,8 @@ $ArchetypeImage = New-Object system.windows.Forms.PictureBox
 $ArchetypeImage.Width = 94
 $ArchetypeImage.Height = 330
 if ($DetectionCount -match "3") { $ArchetypeImage.Image = $ArchetypeBaseFile3 } elseif ($DetectionCount -match "2") { $ArchetypeImage.Image = $ArchetypeBaseFile2 } elseif ($DetectionCount -match "1") { $ArchetypeImage.Image = $ArchetypeBaseFile1 }
-if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsedEncounter; $ArchetypeMainOnImage.Visible = $false; $ArchetypeMainOffImage.Visible = $false; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeResetImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
-if ($CounterMode -match "Collapsed_Egg") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsedEgg; $ArchetypeMainOnImage.Visible = $false; $ArchetypeMainOffImage.Visible = $false; $ArchetypeMainEggImage.Visible = $false; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeResetImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeResetImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Egg") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeResetImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
 $ArchetypeImage.location = New-object system.drawing.point(0,0)
 $ArchetypeImage.Add_MouseDown({ if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) { $global:dragging = $true; $global:mouseDragX = [System.Windows.Forms.Cursor]::Position.X - $ArchetypeForm.Left; $global:mouseDragY = [System.Windows.Forms.Cursor]::Position.Y - $ArchetypeForm.Top } })
 $ArchetypeImage.Add_MouseMove({ if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) { if($global:dragging) { $screen = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea; $currentX = [System.Windows.Forms.Cursor]::Position.X; $currentY = [System.Windows.Forms.Cursor]::Position.Y; [int]$newX = [Math]::Min($currentX - $global:mouseDragX, $screen.Right + 42 - $ArchetypeForm.Width); [int]$newY = [Math]::Min($currentY - $global:mouseDragY, $screen.Bottom - $ArchetypeForm.Height); $ArchetypeForm.Location = New-Object System.Drawing.Point($newX, $newY) } }})
@@ -1616,10 +1653,6 @@ $ArchetypeImage.Add_MouseDown({
 
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
-    
-                # If PokeMMO is opened - exit out and re-open
-                if ($PokeMMOProcess -eq $null) { $PokeMMOIsActive = $false } else { $PokeMMOIsActive = $true ; Stop-Process -Name "PokeMMO" -Force; Stop-Process -Name "javaw" -Force }
-                if ($PokeMMOIsActive -eq $true) { Start-Sleep -Milliseconds 500; Start-Process "$PWD_PokeMMOPath\PokeMMO.exe" }
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -1655,10 +1688,6 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
 
-                # If PokeMMO is opened - exit out and re-open
-                if ($PokeMMOProcess -eq $null) { $PokeMMOIsActive = $false } else { $PokeMMOIsActive = $true ; Stop-Process -Name "PokeMMO" -Force; Stop-Process -Name "javaw" -Force }
-                if ($PokeMMOIsActive -eq $true) { Start-Sleep -Milliseconds 500; Start-Process "$PWD_PokeMMOPath\PokeMMO.exe" }
-
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
@@ -1692,10 +1721,6 @@ $ArchetypeImage.Add_MouseDown({
 
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
-
-                # If PokeMMO is opened - exit out and re-open
-                if ($PokeMMOProcess -eq $null) { $PokeMMOIsActive = $false } else { $PokeMMOIsActive = $true ; Stop-Process -Name "PokeMMO" -Force; Stop-Process -Name "javaw" -Force }
-                if ($PokeMMOIsActive -eq $true) { Start-Sleep -Milliseconds 500; Start-Process "$PWD_PokeMMOPath\PokeMMO.exe" }
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -1731,10 +1756,6 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
 
-                # If PokeMMO is opened - exit out and re-open
-                if ($PokeMMOProcess -eq $null) { $PokeMMOIsActive = $false } else { $PokeMMOIsActive = $true ; Stop-Process -Name "PokeMMO" -Force; Stop-Process -Name "javaw" -Force }
-                if ($PokeMMOIsActive -eq $true) { Start-Sleep -Milliseconds 500; Start-Process "$PWD_PokeMMOPath\PokeMMO.exe" }
-
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
@@ -1768,10 +1789,6 @@ $ArchetypeImage.Add_MouseDown({
 
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
-
-                # If PokeMMO is opened - exit out and re-open
-                if ($PokeMMOProcess -eq $null) { $PokeMMOIsActive = $false } else { $PokeMMOIsActive = $true ; Stop-Process -Name "PokeMMO" -Force; Stop-Process -Name "javaw" -Force }
-                if ($PokeMMOIsActive -eq $true) { Start-Sleep -Milliseconds 500; Start-Process "$PWD_PokeMMOPath\PokeMMO.exe" }
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -1807,10 +1824,6 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
 
-                # If PokeMMO is opened - exit out and re-open
-                if ($PokeMMOProcess -eq $null) { $PokeMMOIsActive = $false } else { $PokeMMOIsActive = $true ; Stop-Process -Name "PokeMMO" -Force; Stop-Process -Name "javaw" -Force }
-                if ($PokeMMOIsActive -eq $true) { Start-Sleep -Milliseconds 500; Start-Process "$PWD_PokeMMOPath\PokeMMO.exe" }
-
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
@@ -1844,10 +1857,6 @@ $ArchetypeImage.Add_MouseDown({
 
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
-
-                # If PokeMMO is opened - exit out and re-open
-                if ($PokeMMOProcess -eq $null) { $PokeMMOIsActive = $false } else { $PokeMMOIsActive = $true ; Stop-Process -Name "PokeMMO" -Force; Stop-Process -Name "javaw" -Force }
-                if ($PokeMMOIsActive -eq $true) { Start-Sleep -Milliseconds 500; Start-Process "$PWD_PokeMMOPath\PokeMMO.exe" }
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2567,77 +2576,86 @@ $ArchetypeImage.Add_MouseDown({
 
             # Adds click to "Stop Counter" selection
             $ArchetypeMenuStrip.Items.Add("Stop Counter", $ArchetypeMenuStripStop).add_Click({ 
-        
-                # Displays Message Dialog Box - If the user wants to start the pokemon encounter count 
-                $StopResult = [System.Windows.MessageBox]::Show("Do you want to STOP the counter?","Archetype Counter","YesNo","Question")
+       
+                # Grabs the config file in its "current" state
+                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+                $GetConfig = Get-Content $SetConfig
 
-                # Checks if Message Dialog Box "Yes" has been selected
-                if ($StopResult -match "Yes") { 
+                # Gets the current X and Y coordinates of the form
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
+                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
-                    # Grabs the config file in its "current" state
-                    $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                    $GetConfig = Get-Content $SetConfig
+                # Replaces and Sets the starting position on the counter form start
+                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
+                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
 
-                    # Gets the current X and Y coordinates of the form
-                    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                    $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig[33] = "Auto_Restart_Counter=False"
 
-                    # Replaces and Sets the starting position on the counter form start
-                    $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                    $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                # Sets all changes back into the Config file
+                $GetConfig | Set-Content -Path $SetConfig
 
-                    # Sets the flag for the counter to not Auto Start on "Stop"
-                    $GetConfig[33] = "Auto_Restart_Counter=False"
+                # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
+                if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
-                    # Sets all changes back into the Config file
-                    $GetConfig | Set-Content -Path $SetConfig
+                # Set visibility of components for counter
+                $ArchetypeCollapsedPlayImage.Visible = $true
+                $ArchetypeCollapsedStopImage.Visible = $false
 
-                    # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                    if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
+                # Sets Counter Active to "True" (To make menu options available disabled)
+                $GetConfig[34] = 'Counter_Active=False'
 
-                    # Starts up Archetype Counter
-                    Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
+                # Sets all changes back into the Config file
+                $GetConfig | Set-Content -Path $SetConfig
 
-                }
+                # Application Variable - Name
+                $ApplicationName = "javaw"
+
+                # Finds application process
+                $Process = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "$ApplicationName"}
+
+                # Puts $Process.MainWindowHandle into a variable
+                $hwnd = $Process.MainWindowHandle
+    
+                # Performs force active window process
+                [void][ForceActiveWin]::SetForegroundWindow($hwnd)
 
             })
 
             # Adds click to "Exit Counter" selection
             $ArchetypeMenuStrip.Items.Add("Exit Counter", $ArchetypeMenuStripExit).add_Click({  
-        
-                # Displays Message Dialog Box - If the user wants to exit or not
-                $CloseLeftResult = [System.Windows.MessageBox]::Show("Do you want to EXIT the counter?","Archetype Counter","YesNo","Question")
 
-                # Checks if Message Dialog Box "Yes" has been selected
-                if ($CloseLeftResult -match "Yes") { 
+                # Grabs the config file in its "current" state
+                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+                $GetConfig = Get-Content $SetConfig
 
-                    # Grabs the config file in its "current" state
-                    $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                    $GetConfig = Get-Content $SetConfig
+                # Gets the current X and Y coordinates of the form
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
+                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
-                    # Gets the current X and Y coordinates of the form
-                    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                    $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                # Replaces and Sets the starting position on the counter form start
+                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
+                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
 
-                    # Replaces and Sets the starting position on the counter form start
-                    $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                    $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig[33] = "Auto_Restart_Counter=False" 
 
-                    # Resets Counter Active to "False" (To make menu options available again)
-                    $GetConfig[34] = 'Counter_Active=False'
+                # Resets Counter Active to "False" (To make menu options available again)
+                $GetConfig[34] = 'Counter_Active=False'
 
-                    # Sets all changes back into the Config file
-                    $GetConfig | Set-Content -Path $SetConfig
+                # Sets all changes back into the Config file
+                $GetConfig | Set-Content -Path $SetConfig
 
-                    # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                    if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
+                # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
+                if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
-                    # This exits the application (Winform) properly 
-                    [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force 
-
-                } 
+                # This exits the application (Winform) properly 
+                [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force 
         
             })
+
+            # Checks if Counter is "Active" and Enable/Disable menu items accordingly (For Start/Stop options in menu - In Collapsed Mode)
+            if ($CounterActive -match "False") { $ArchetypeMenuStrip.Items[22].Enabled = $true; $ArchetypeMenuStrip.Items[23].Enabled = $false } else { $ArchetypeMenuStrip.Items[22].Enabled = $false; $ArchetypeMenuStrip.Items[23].Enabled = $true }
 
         }
 
@@ -2686,10 +2704,27 @@ Function PlayAction {
         # Performs force active window process
         [void][ForceActiveWin]::SetForegroundWindow($hwnd)
 
-        # Show the Stop image button and hide the play button + refresh form
-        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeMainOnImage.Visible = $false; $ArchetypeStopImage.Visible = $false } else { $ArchetypeMainOnImage.Visible = $false; $ArchetypeStopImage.Visible = $true }
-        $ArchetypePlayImage.Visible = $false
-        $ArchetypeMainOffImage.Visible = $false
+        # 
+        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { 
+        
+            $ArchetypePlayImage.Visible = $false
+            $ArchetypeStopImage.Visible = $false
+            $ArchetypeBusyImage.Visible = $false
+
+            $ArchetypeCollapsedPlayImage.Visible = $false
+            $ArchetypeCollapsedStopImage.Visible = $true
+
+        } else {
+
+            $ArchetypeCollapsedStopImage.Visible = $false
+            $ArchetypeCollapsedPlayImage.Visible = $false
+            $ArchetypeCollapsedStopImage.Visible = $false
+
+            $ArchetypePlayImage.Visible = $false
+            $ArchetypeStopImage.Visible = $true
+
+        }
+
         $ArchetypeForm.Refresh()
 
         # Created HashTable to pass winform controls to new runspace and back
@@ -2712,6 +2747,11 @@ Function PlayAction {
         $Script:SyncHashTable.ArchetypeCollapsedCount = $ArchetypeCollapsedCount
         $Script:SyncHashTable.ArchetypeForm = $ArchetypeForm
         $Script:SyncHashTable.SpriteType = $SpriteType
+
+        $Script:SyncHashTable.ArchetypeCollapsedPlayImage = $ArchetypeCollapsedPlayImage
+        $Script:SyncHashTable.ArchetypeCollapsedBusyImage = $ArchetypeCollapsedBusyImage
+        $Script:SyncHashTable.ArchetypeCollapsedStopImage = $ArchetypeCollapsedStopImage
+
 
         # Creates a Runspace to run in a separate thread
         $RunSpace = [Management.Automation.Runspaces.RunspaceFactory]::CreateRunspace()
@@ -2902,9 +2942,8 @@ Function PlayAction {
                     $SetLanguage = $GetConfig[23] -replace 'Set_Language=', ''
                     $BattleLoop = $GetConfig[24] -replace 'Battle_Loop=', ''
                     $SpriteType = $GetConfig[25] -replace 'Sprite_Type=', ''
-                    $EggCoolDown = $GetConfig[31] -replace 'Egg_Cooldown=', ''
-                    $EggCoolDownCount = $GetConfig[32] -replace 'Egg_Cooldown_Count=', ''
                     $DebugMode = $GetConfig[35] -replace 'Debug_Mode=', ''
+                    $CounterMode = $GetConfig[36] -replace 'Counter_Mode=', ''
                     $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
                     $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
                     $ScreenMode = $GetConfig[39] -replace 'Screen_Mode=', ''
@@ -2922,12 +2961,6 @@ Function PlayAction {
                     # Replaces and Sets the starting position on the counter form start
                     $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
                     $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
-
-                    # Checks if Egg Cooldown count is met (If it is - reset count to "0" and turn to false)
-                    if ($EggCoolDownCount -ge "400") { $GetConfig[31] = "Egg_Cooldown=False"; $GetConfig[32] = "Egg_Cooldown_Count=0" }
-
-                    # Checks if Egg Cooldown is set to "True" (If so - add +1 to count)
-                    if ($EggCoolDown -eq $true) { $EggCoolDownCount = [int]$EggCoolDownCount + 1; $GetConfig[32] = "Egg_Cooldown_Count=$EggCoolDownCount" }
 
                     # Sets all current variables int the counter config file
                     $GetConfig | Set-Content -Path $SetConfig
@@ -2989,14 +3022,30 @@ Function PlayAction {
                     $OCRVariable.text; $OCRCaptured = $OCRVariable.text
 
                     # Checks if the word "recieved" and "egg" is on the screenshot
-                    if (($EggCoolDownCount -match "0") -and (($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\begg\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecu\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\boeuf\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\berhalten\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bei\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecibido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bhuevo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecebido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bricevuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\buovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\botrzymane\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bjajko\b' }))) {
+                    if ((($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\begg\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecu\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\boeuf\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\berhalten\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bei\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecibido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bhuevo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecebido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bricevuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\buovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\botrzymane\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bjajko\b' }))) {
+
+                        # Show counter is "Busy" while running through main processing
+                        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                            $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false
+                            $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true
+
+                         } else {
+
+                            $Script:SyncHashTable.ArchetypeStopImage.Visible = $false
+                            $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true
+
+                         }
+
+                         $Script:SyncHashTable.ArchetypeForm.update()
+                         $Script:SyncHashTable.ArchetypeForm.refresh()
 
                          # Grabs current counter config file state
                          $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
                          $GetConfig = Get-Content $SetConfig
 
                          # Sets the Egg Cooldown to "True"
-                         $GetConfig[31] = "Egg_Cooldown=True"
+                         #$GetConfig[31] = "Egg_Cooldown=True"
 
                          # Increments the count by 1 (Egg Slot)
                          $GetEggCountForm = $GetConfig[20] -replace 'Egg_Count=', ''
@@ -3008,13 +3057,32 @@ Function PlayAction {
                          # Sets all changes back into the Config file
                          $GetConfig | Set-Content -Path $SetConfig
 
+                         # Ensures everything on form is updated/refreshed
+                         $Script:SyncHashTable.ArchetypeForm.update()
+                         $Script:SyncHashTable.ArchetypeForm.refresh()
+
                          # Wait
-                         Start-Sleep -Seconds 2
+                         Start-Sleep -Milliseconds 50
+
+                         #
+                         While ((($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\begg\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecu\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\boeuf\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\berhalten\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bei\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecibido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bhuevo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecebido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bricevuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\buovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\botrzymane\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bjajko\b' }))) { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
 
                          # Grabs counter process and checks for total memory usage
                          $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
                          $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb)
                          if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; Start-sleep -Milliseconds 50; $GetConfig[33] = "Auto_Restart_Counter=True"; Start-sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow }
+
+                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                                $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
+
+                            } else {
+
+                                $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+
+                            }
 
                          # Break current loop and re-try
                          Continue
@@ -3029,8 +3097,18 @@ Function PlayAction {
                     if ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") {
                     
                         # Show counter is "Busy" while running through main processing
-                        $Script:SyncHashTable.ArchetypeStopImage.Visible = $false
-                        $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true
+                        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                            $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false
+                            $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true
+
+                        } else {
+
+                            $Script:SyncHashTable.ArchetypeStopImage.Visible = $false
+                            $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true
+
+                        }
+
                         $Script:SyncHashTable.ArchetypeForm.update()
                         $Script:SyncHashTable.ArchetypeForm.refresh()
 
@@ -3155,9 +3233,20 @@ Function PlayAction {
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
-                            # Reset "Busy" on the counter form
-                            $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
-                            $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                                $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
+
+                            } else {
+
+                                $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+
+                            }
+
+                            $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                            $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
 
                             # Break current loop and re-try
                             Continue
@@ -3191,9 +3280,17 @@ Function PlayAction {
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
-                            # Reset "Busy" on the counter form
-                            $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
-                            $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                                $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
+
+                            } else {
+
+                                $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+
+                            }
 
                             # Break current loop and re-try
                             Continue
@@ -3228,9 +3325,17 @@ Function PlayAction {
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
-                            # Reset "Busy" on the counter form
-                            $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
-                            $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                                $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
+
+                            } else {
+
+                                $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+
+                            }
 
                             # Break current loop and re-try
                             Continue
@@ -3280,9 +3385,17 @@ Function PlayAction {
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
-                            # Reset "Busy" on the counter form
-                            $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
-                            $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                                $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
+
+                            } else {
+
+                                $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+
+                            }
 
                             # Grabs counter process and checks for total memory usage
                             $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
@@ -3330,9 +3443,17 @@ Function PlayAction {
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
-                            # Reset "Busy" on the counter form
-                            $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
-                            $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                                $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
+
+                            } else {
+
+                                $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+
+                            }
 
                             # Grabs counter process and checks for total memory usage
                             $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
@@ -3384,9 +3505,17 @@ Function PlayAction {
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
-                            # Reset "Busy" on the counter form
-                            $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
-                            $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                                $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
+
+                            } else {
+
+                                $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+
+                            }
 
                             # Grabs counter process and checks for total memory usage
                             $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
@@ -3430,9 +3559,17 @@ Function PlayAction {
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
-                            # Reset "Busy" on the counter form
-                            $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
-                            $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                                $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
+
+                            } else {
+
+                                $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+
+                            }
 
                             # Grabs counter process and checks for total memory usage
                             $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
@@ -3484,9 +3621,17 @@ Function PlayAction {
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
-                            # Reset "Busy" on the counter form
-                            $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
-                            $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                                $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
+
+                            } else {
+
+                                $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+
+                            }
 
                             # Grabs counter process and checks for total memory usage
                             $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
@@ -3530,9 +3675,17 @@ Function PlayAction {
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
-                            # Reset "Busy" on the counter form
-                            $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
-                            $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                                $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
+
+                            } else {
+
+                                $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+
+                            }
 
                             # Grabs counter process and checks for total memory usage
                             $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
@@ -3547,9 +3700,17 @@ Function PlayAction {
                         # Checks for pixel color to ensure user is not in battle anymore
                         While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
-                        # Reset "Busy" on the counter form
-                        $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
-                        $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+                        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+
+                                $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false
+
+                            } else {
+
+                                $Script:SyncHashTable.ArchetypeStopImage.Visible = $true
+                                $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false
+
+                            }
 
                         # Grabs counter process and checks for total memory usage
                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
