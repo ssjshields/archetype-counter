@@ -315,6 +315,13 @@ $CollapsedCountBGColor = $GetColorConfig[14] -replace 'CollapsedCountBGLabel=', 
 # Grabs current working directory/location
 $CounterWorkingDir = $PWD
 
+# Grabs current Archetype counter folder name (For correct shortcut changes)
+Set-Location ..\
+$CurrentACDirectoryName = Split-Path -Path ($PWD) -Leaf
+
+# Resets working counter directory before moving on with script
+Set-Location $CounterWorkingDir
+
 # Resets working directory to the PokeMMO main root directory - Part 1
 Set-Location ..\..
 
@@ -326,8 +333,8 @@ if ($CurrentACDirectory -match "mods") { } else { [System.Windows.MessageBox]::S
 $ShortcutFile = "$PWD\archetype-counter\Archetype Counter.lnk"
 $WScriptShell = New-Object -ComObject WScript.Shell
 $Shortcut = $WScriptShell.CreateShortcut($ShortcutFile)
-$Shortcut.WorkingDirectory = "$PWD\archetype-counter"
-$Shortcut.IconLocation = "$PWD\archetype-counter\Files\GUI Form Images\Icons\Icon\Archetype.ico"
+$Shortcut.WorkingDirectory = "$PWD\$CurrentACDirectoryName"
+$Shortcut.IconLocation = "$PWD\$CurrentACDirectoryName\Files\GUI Form Images\Icons\Icon\Archetype.ico"
 $Shortcut.Save()
 
 # Resets working directory to the PokeMMO main root directory - Part 2
