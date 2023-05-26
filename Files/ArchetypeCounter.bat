@@ -1760,6 +1760,7 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripReset = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Reset.png")
         $ArchetypeMenuStripExit = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Exit.png")
         $ArchetypeMenuStripToolEgg = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Egg.png")
+        $ArchetypeMenuStripToolFossil = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Fossil.png")
         $ArchetypeMenuStripToolCollapsed = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Collapsed.png")
         $ArchetypeMenuStripToolCollapsed2 = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Collapsed2.png")
         $ArchetypeMenuStripToolClear = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Clear.png")
@@ -2545,7 +2546,7 @@ $ArchetypeImage.Add_MouseDown({
         })
 
          # Adds click to "Egg Slot" selection
-        $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Fossil Count", $ArchetypeMenuStripToolEgg).add_Click({ 
+        $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Fossil Count", $ArchetypeMenuStripToolFossil).add_Click({ 
 
             # Grabs the config file in its "current" state
             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
@@ -2636,11 +2637,11 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool21.Image = $ArchetypeMenuStripToolCounterMode
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool21)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool21.Enabled = $false } else { $ArchetypeMenuStripTool21.Enabled = $true }
-        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolExpanded).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolExpanded).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Egg'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolCollapsed2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolCollapsed2).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Fossil'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolCollapsed).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolCollapsed).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Encounter'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolCollapsed2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolCollapsed2).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Egg'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolCollapsed2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolCollapsed2).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Fossil'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Egg'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Fossil'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Encounter'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Egg'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Fossil'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
 
         # Adds "Hunt Profiles" selection
         $ArchetypeMenuStripTool15 = New-Object System.Windows.Forms.ToolStripMenuItem
