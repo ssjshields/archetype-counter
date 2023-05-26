@@ -296,6 +296,9 @@ $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
 $AlphaCount = $GetConfig[40] -replace 'Alpha_Count=', ''
 $IgnoreSystemLang = $GetConfig[41] -replace 'Ignore_System_Language=', ''
 
+# Small wait to ensure no corrupt of config file
+Start-Sleep -Milliseconds 50
+
 # Resets all values back into the config file (Ensures the values are set on winform launch)
 $GetConfig | Set-Content -Path $SetConfig
 
@@ -387,6 +390,9 @@ $ArchetypeForm.Add_Load({
     # Sets the flag for the counter to not Auto Start on "Stop"
     $GetConfig[33] = "Auto_Restart_Counter=False" 
 
+    # Small wait to ensure no corrupt of config file
+    Start-Sleep -Milliseconds 50
+
     # Sets all changes back into the Config file
     $GetConfig | Set-Content -Path $SetConfig
 
@@ -421,11 +427,11 @@ $ArchetypeForm.Add_Closing({
     $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
     $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
 
+    # Small wait to ensure no corrupt of config file
+    Start-Sleep -Milliseconds 50
+
     # Sets all changes back into the Config file
     $GetConfig | Set-Content -Path $SetConfig
-
-    # Wait
-    Start-Sleep -Milliseconds 100
 
     # This exits the application (Winform) properly
     [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force
@@ -521,6 +527,9 @@ $ArchetypeMainFossilImage.Add_Click({
         $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
         $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
 
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
+
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
 
@@ -554,6 +563,9 @@ $ArchetypeMainFossilImage.Add_Click({
 
         # Changes the Pokemon egg count
         $GetConfig[24] = "Fossil_Count=$FossilCount"
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -607,6 +619,9 @@ $ArchetypeFossilLabelCount.Add_Click({
         # Changes the Pokemon egg count
         $GetConfig[24] = "Fossil_Count=$FossilCount"
 
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
+
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
 
@@ -640,6 +655,9 @@ $ArchetypeFossilLabelCount.Add_Click({
 
         # Changes the Pokemon egg count
         $GetConfig[24] = "Fossil_Count=$FossilCount"
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -697,6 +715,9 @@ $ArchetypeMainEggImage.Add_Click({
         $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
         $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
 
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
+
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
 
@@ -730,6 +751,9 @@ $ArchetypeMainEggImage.Add_Click({
 
         # Changes the Pokemon egg count
         $GetConfig[20] = "Egg_Count=$EggCount"
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -782,6 +806,9 @@ $ArchetypeEggLabelCount.Add_Click({
         # Changes the Pokemon egg count
         $GetConfig[20] = "Egg_Count=$EggCount"
 
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
+
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
 
@@ -815,6 +842,9 @@ $ArchetypeEggLabelCount.Add_Click({
 
         # Changes the Pokemon egg count
         $GetConfig[20] = "Egg_Count=$EggCount"
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -866,6 +896,9 @@ $ArchetypeCollapsedCount.Add_Click({
         # Changes the Pokemon count for "seen"
         $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
+
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
 
@@ -899,6 +932,9 @@ $ArchetypeCollapsedCount.Add_Click({
 
         # Changes the Pokemon count for "seen"
         $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -968,6 +1004,9 @@ $ArchetypePokeAImage.Add_Click({
         # Changes the Pokemon count for "seen"
         $GetConfig[9] = "Pokemon_A_Count=$PokemonCountA"
 
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
+
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
 
@@ -997,14 +1036,19 @@ $ArchetypePokeAImage.Add_Click({
         # Changes the Pokemon count for "seen"
         $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
         if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
-
+        
         # Grabs Pokemon from slot 1 and decreases the "seen" count
         $PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
-        if ($PokemonCountA -eq "0") { $PokemonCountA = 0 } else { $PokemonCountA = [int]$PokemonCountA - 1 }
+        if ($PokemonCountA -eq "0") { $PokemonCountA = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountA = [int]$PokemonCountA - 1 }
+
+        # Adds in the Pokemon count for "seen"
+        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Changes the Pokemon count for "seen"
         $GetConfig[9] = "Pokemon_A_Count=$PokemonCountA"
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -1067,6 +1111,9 @@ $ArchetypePokeALabelCount.Add_Click({
         # Changes the Pokemon count for "seen"
         $GetConfig[9] = "Pokemon_A_Count=$PokemonCountA"
 
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
+
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
 
@@ -1096,14 +1143,19 @@ $ArchetypePokeALabelCount.Add_Click({
         # Changes the Pokemon count for "seen"
         $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
         if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Grabs Pokemon from slot 1 and decreases the "seen" count
         $PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
-        if ($PokemonCountA -eq "0") { $PokemonCountA = 0 } else { $PokemonCountA = [int]$PokemonCountA - 1 }
+        if ($PokemonCountA -eq "0") { $PokemonCountA = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountA = [int]$PokemonCountA - 1 }
+
+        # Adds in the Pokemon count for "seen"
+        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Changes the Pokemon count for "seen"
         $GetConfig[9] = "Pokemon_A_Count=$PokemonCountA"
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -1177,6 +1229,9 @@ $ArchetypePokeBImage.Add_Click({
         # Changes the Pokemon count for "seen"
         $GetConfig[12] = "Pokemon_B_Count=$PokemonCountB"
 
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
+
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
 
@@ -1206,14 +1261,19 @@ $ArchetypePokeBImage.Add_Click({
         # Changes the Pokemon count for "seen"
         $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
         if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Grabs Pokemon from slot 1 and decreases the "seen" count
         $PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
-        if ($PokemonCountB -eq "0") { $PokemonCountB = 0 } else { $PokemonCountB = [int]$PokemonCountB - 1 }
+        if ($PokemonCountB -eq "0") { $PokemonCountB = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountB = [int]$PokemonCountB - 1 }
+
+        # Adds in the Pokemon count for "seen"
+        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Changes the Pokemon count for "seen"
         $GetConfig[12] = "Pokemon_B_Count=$PokemonCountB"
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -1277,6 +1337,9 @@ $ArchetypePokeBLabelCount.Add_Click({
         # Changes the Pokemon count for "seen"
         $GetConfig[12] = "Pokemon_B_Count=$PokemonCountB"
 
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
+
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
 
@@ -1306,14 +1369,19 @@ $ArchetypePokeBLabelCount.Add_Click({
         # Changes the Pokemon count for "seen"
         $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
         if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
-
+        
         # Grabs Pokemon from slot 1 and decreases the "seen" count
         $PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
-        if ($PokemonCountB -eq "0") { $PokemonCountB = 0 } else { $PokemonCountB = [int]$PokemonCountB - 1 }
+        if ($PokemonCountB -eq "0") { $PokemonCountB = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountB = [int]$PokemonCountB - 1 }
+
+        # Adds in the Pokemon count for "seen"
+        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Changes the Pokemon count for "seen"
         $GetConfig[12] = "Pokemon_B_Count=$PokemonCountB"
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -1387,6 +1455,9 @@ $ArchetypePokeCImage.Add_Click({
         # Changes the Pokemon count for "seen"
         $GetConfig[15] = "Pokemon_C_Count=$PokemonCountC"
 
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
+
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
 
@@ -1416,14 +1487,19 @@ $ArchetypePokeCImage.Add_Click({
         # Changes the Pokemon count for "seen"
         $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
         if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Grabs Pokemon from slot 1 and decreases the "seen" count
         $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-        if ($PokemonCountC -eq "0") { $PokemonCountC = 0 } else { $PokemonCountC = [int]$PokemonCountC - 1 }
+        if ($PokemonCountC -eq "0") { $PokemonCountC = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountC = [int]$PokemonCountC - 1 }
+
+        # Adds in the Pokemon count for "seen"
+        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Changes the Pokemon count for "seen"
         $GetConfig[15] = "Pokemon_C_Count=$PokemonCountC"
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -1487,6 +1563,9 @@ $ArchetypePokeCLabelCount.Add_Click({
         # Changes the Pokemon count for "seen"
         $GetConfig[15] = "Pokemon_C_Count=$PokemonCountC"
 
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
+
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
 
@@ -1516,14 +1595,19 @@ $ArchetypePokeCLabelCount.Add_Click({
         # Changes the Pokemon count for "seen"
         $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
         if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
-
+        
         # Grabs Pokemon from slot 1 and decreases the "seen" count
         $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-        if ($PokemonCountC -eq "0") { $PokemonCountC = 0 } else { $PokemonCountC = [int]$PokemonCountC - 1 }
+        if ($PokemonCountC -eq "0") { $PokemonCountC = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountC = [int]$PokemonCountC - 1 }
+
+        # Adds in the Pokemon count for "seen"
+        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Changes the Pokemon count for "seen"
         $GetConfig[15] = "Pokemon_C_Count=$PokemonCountC"
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -1578,9 +1662,6 @@ $ArchetypeStopImage.Add_Click({
         # Sets the flag for the counter to not Auto Start on "Stop"
         $GetConfig[33] = "Auto_Restart_Counter=False"
 
-        # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
-
         # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
         if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
@@ -1590,6 +1671,9 @@ $ArchetypeStopImage.Add_Click({
 
         # Sets Counter Active to "True" (To make menu options available disabled)
         $GetConfig[34] = 'Counter_Active=False'
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
@@ -1633,6 +1717,9 @@ $ArchetypePlayImage.Add_Click({
     # Sets Counter Active to "True" (To make menu options available disabled)
     $GetConfig[34] = 'Counter_Active=True'
 
+    # Small wait to ensure no corrupt of config file
+    Start-Sleep -Milliseconds 50
+
     # Sets all changes back into the Config file
     $GetConfig | Set-Content -Path $SetConfig
 
@@ -1668,6 +1755,9 @@ $ArchetypeCloseImage.Add_Click({
 
         # Resets Counter Active to "False" (To make menu options available again)
         $GetConfig[34] = 'Counter_Active=False'
+
+        # Small wait to ensure no corrupt of config file
+        Start-Sleep -Milliseconds 50
 
         # Sets all changes back into the Config file
         $GetConfig | Set-Content -Path $SetConfig
