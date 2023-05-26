@@ -429,6 +429,19 @@ $ArchetypeForm.Add_Closing({
     
 })
 
+# Creates the pokeball image that indicates the count pokemon seen
+if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMainEncounterCollapsedImageFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\Pokeball.png") }
+if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMainEncounterCollapsedImageFile =[System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\Egg.png") }
+$ArchetypeMainEncounterCollapsedImage = New-Object system.windows.Forms.PictureBox
+$ArchetypeMainEncounterCollapsedImage.Visible = $false
+$ArchetypeMainEncounterCollapsedImage.Image = $ArchetypeMainEncounterCollapsedImageFile
+$ArchetypeMainEncounterCollapsedImage.Width = 12
+$ArchetypeMainEncounterCollapsedImage.Height = 12
+$ArchetypeMainEncounterCollapsedImage.AllowTransparency = $true
+$ArchetypeMainEncounterCollapsedImage.location = New-object system.drawing.point(13,13)
+if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeMainEncounterCollapsedImage.Visible = $true }
+$ArchetypeForm.controls.Add($ArchetypeMainEncounterCollapsedImage)
+
 # Adds the collapsed Play image button on the form
 $ArchetypeCollapsedPlayImageFile = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\CollapsedPlay.png")
 $ArchetypeCollapsedPlayImage = New-Object system.windows.Forms.PictureBox
@@ -461,19 +474,6 @@ $ArchetypeCollapsedBusyImage.Height = 20
 $ArchetypeCollapsedBusyImage.location = New-object system.drawing.point(8,9)
 if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeCollapsedBusyImage.Visible = $true } else { $ArchetypeCollapsedBusyImage.Visible = $false }
 $ArchetypeForm.controls.Add($ArchetypeCollapsedBusyImage)
-
-<#
-# Creates the pokeball image that indicates the count pokemon seen
-$ArchetypeMainEncounterCollapsedImageFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\Pokeball.png")
-$ArchetypeMainEncounterCollapsedImage = New-Object system.windows.Forms.PictureBox
-$ArchetypeMainEncounterCollapsedImage.Visible = $false
-$ArchetypeMainEncounterCollapsedImage.Image = $ArchetypeMainEncounterCollapsedImageFile
-$ArchetypeMainEncounterCollapsedImage.Width = 36
-$ArchetypeMainEncounterCollapsedImage.Height = 32
-$ArchetypeMainEncounterCollapsedImage.location = New-object system.drawing.point(8,9)
-if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMainEncounterCollapsedImage.Visible = $true }
-$ArchetypeForm.controls.Add($ArchetypeMainEncounterCollapsedImage)
-#>
 
 # Creates the middle egg image that indicates the egg count versus pokemon seen
 $ArchetypeEggOnFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\0.png")
@@ -2716,11 +2716,9 @@ Function PlayAction {
         $Script:SyncHashTable.ArchetypeCollapsedCount = $ArchetypeCollapsedCount
         $Script:SyncHashTable.ArchetypeForm = $ArchetypeForm
         $Script:SyncHashTable.SpriteType = $SpriteType
-
         $Script:SyncHashTable.ArchetypeCollapsedPlayImage = $ArchetypeCollapsedPlayImage
         $Script:SyncHashTable.ArchetypeCollapsedBusyImage = $ArchetypeCollapsedBusyImage
         $Script:SyncHashTable.ArchetypeCollapsedStopImage = $ArchetypeCollapsedStopImage
-
 
         # Creates a Runspace to run in a separate thread
         $RunSpace = [Management.Automation.Runspaces.RunspaceFactory]::CreateRunspace()
