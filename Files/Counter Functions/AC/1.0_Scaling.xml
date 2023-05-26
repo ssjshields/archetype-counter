@@ -5,6 +5,7 @@
 	<fontGen/>
 
 	<images file="Base_Dot.png" filter="nearest">
+		<area name="Screen_Filter" xywh="*" tint="#05ffffff"/>
 		<area name="Battle_Pattern" xywh="*" splitx="L1,R0" splity="T1,B0"/>
 
 		<composed name="battle-ui-enemy">
@@ -35,6 +36,7 @@
 	</theme>
 
 	<theme name="battlegui" ref="battlegui">
+		<param name="background"><image>Screen_Filter</image></param>
 		<param name="overlay"><image>Battle_Pattern</image></param>
 	</theme>
 
