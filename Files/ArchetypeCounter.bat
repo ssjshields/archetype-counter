@@ -3256,15 +3256,12 @@ Function PlayAction {
                          $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
                          $GetConfig = Get-Content $SetConfig
 
-                         # Sets the Egg Cooldown to "True"
-                         #$GetConfig[31] = "Egg_Cooldown=True"
-
                          # Increments the count by 1 (Egg Slot)
                          $GetFossilCountForm = $GetConfig[24] -replace 'Fossil_Count=', ''
-                         $GetFossilCountForm = [int]$GetEggCountForm + 1
+                         $GetFossilCountForm = [int]$GetFossilCountForm + 1
 
                          # Adds correct new count to egg slot
-                         $GetConfig[20] = "Fossil_Count=$GetFossilCountForm"
+                         $GetConfig[24] = "Fossil_Count=$GetFossilCountForm"
 
                          # Sets all changes back into the Config file
                          $GetConfig | Set-Content -Path $SetConfig
