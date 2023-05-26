@@ -2923,6 +2923,7 @@ Function PlayAction {
         $Script:SyncHashTable.ArchetypePokeCImage = $ArchetypePokeCImage
         $Script:SyncHashTable.ArchetypePokeCLabelCount = $ArchetypePokeCLabelCount
         $Script:SyncHashTable.ArchetypeEggLabelCount = $ArchetypeEggLabelCount
+        $Script:SyncHashTable.ArchetypeFossilLabelCount = $ArchetypeFossilLabelCount
         $Script:SyncHashTable.ArchetypeCollapsedCount = $ArchetypeCollapsedCount
         $Script:SyncHashTable.ArchetypeForm = $ArchetypeForm
         $Script:SyncHashTable.SpriteType = $SpriteType
@@ -3117,7 +3118,7 @@ Function PlayAction {
                     $EggCount = $GetConfig[20] -replace 'Egg_Count=',''
                     $ShinyCount = $GetConfig[21] -replace 'Shiny_Count=',''
                     $SetLanguage = $GetConfig[23] -replace 'Set_Language=', ''
-                    $FossilCount = $GetConfig[24] -replace 'Fossil_Count', ''
+                    $FossilCount = $GetConfig[24] -replace 'Fossil_Count=', ''
                     $SpriteType = $GetConfig[25] -replace 'Sprite_Type=', ''
                     $DebugMode = $GetConfig[35] -replace 'Debug_Mode=', ''
                     $CounterMode = $GetConfig[36] -replace 'Counter_Mode=', ''
@@ -3155,6 +3156,7 @@ Function PlayAction {
                     $Script:SyncHashTable.ArchetypePokeCImage.Image = $Script:SyncHashTable.ArchetypePokeCFile
                     $Script:SyncHashTable.ArchetypePokeCLabelCount.Text = $PokemonCountC
                     $Script:SyncHashTable.ArchetypeEggLabelCount.Text = $EggCount
+                    $Script:SyncHashTable.ArchetypeFossilLabelCount.Text = $FossilCount
 
                     # Small delay (To help avoid clearing the count profile)
                     Start-Sleep -Milliseconds 50
@@ -3288,11 +3290,6 @@ Function PlayAction {
                          Continue
 
                     }
-
-
-                    
-
-
 
                     # Loads the "ArchetypeScreenshot" screenshot to read the pixel color value from set coordinates
                     $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose()

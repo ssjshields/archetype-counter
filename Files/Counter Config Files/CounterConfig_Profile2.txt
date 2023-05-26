@@ -22,19 +22,19 @@ Egg_Count=0
 Shiny_Count=0
 Theme_Type=Archetype
 Set_Language=English
---------------------
+Fossil_Count=0
 Sprite_Type=Default
 ###############################
 # --------------------------- #
 #  INTERNAL (DO NOT MODIFY!)  #
 # --------------------------- #
 ###############################
-Egg_Cooldown=False
-Egg_Cooldown_Count=0
+--------------------
+--------------------
 Auto_Restart_Counter=False
 Counter_Active=False
 Debug_Mode=True
-Counter_Mode=Expanded
+Counter_Mode=Expanded_Egg
 Always_On_Top=True
 Pokemon_Seen_Count=0
 --------------------
