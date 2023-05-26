@@ -284,7 +284,7 @@ $ShinyCount = $GetConfig[21] -replace 'Shiny_Count=',''
 $ThemeType = $GetConfig[22] -replace 'Theme_Type=', ''
 $SpriteType = $GetConfig[25] -replace 'Sprite_Type=', ''
 $SetLanguage = $GetConfig[23] -replace 'Set_Language=', ''
-$BattleLoop = $GetConfig[24] -replace 'Battle_Loop=', ''
+$FossilCount = $GetConfig[24] -replace 'Fossil_Count=', ''
 $AutoRestartCounter = $GetConfig[33] -replace 'Auto_Restart_Counter=', ''
 $CounterActive = $GetConfig[34] -replace 'Counter_Active=', ''
 $DebugMode = $GetConfig[35] -replace 'Debug_Mode=', ''
@@ -429,7 +429,25 @@ $ArchetypeForm.Add_Closing({
     
 })
 
+<<<<<<< Updated upstream
 # 
+=======
+# Creates the correct image that indicates the count pokemon seen
+if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMainEncounterCollapsedImageFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\Pokeball.png") }
+if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMainEncounterCollapsedImageFile =[System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\Egg.png") }
+if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMainEncounterCollapsedImageFile =[System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\Fossil2.png") }
+$ArchetypeMainEncounterCollapsedImage = New-Object system.windows.Forms.PictureBox
+$ArchetypeMainEncounterCollapsedImage.Visible = $false
+$ArchetypeMainEncounterCollapsedImage.Image = $ArchetypeMainEncounterCollapsedImageFile
+$ArchetypeMainEncounterCollapsedImage.Width = 12
+$ArchetypeMainEncounterCollapsedImage.Height = 12
+$ArchetypeMainEncounterCollapsedImage.AllowTransparency = $true
+$ArchetypeMainEncounterCollapsedImage.location = New-object system.drawing.point(13,13)
+if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypeMainEncounterCollapsedImage.Visible = $true }
+$ArchetypeForm.controls.Add($ArchetypeMainEncounterCollapsedImage)
+
+# Adds the collapsed Play image button on the form
+>>>>>>> Stashed changes
 $ArchetypeCollapsedPlayImageFile = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\CollapsedPlay.png")
 $ArchetypeCollapsedPlayImage = New-Object system.windows.Forms.PictureBox
 $ArchetypeCollapsedPlayImage.Visible = $true
@@ -469,6 +487,7 @@ if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed
 
 $ArchetypeForm.controls.Add($ArchetypeCollapsedBusyImage)
 
+<<<<<<< Updated upstream
 <#
 # Creates the pokeball image that indicates the count pokemon seen
 $ArchetypeMainEncounterCollapsedImageFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\Pokeball.png")
@@ -483,6 +502,184 @@ if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMainEncounterCollapse
 
 $ArchetypeForm.controls.Add($ArchetypeMainEncounterCollapsedImage)
 #>
+=======
+# Creates the middle fossil image that indicates the fossil count versus pokemon seen
+$ArchetypeFossilFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\Fossil.png")
+$ArchetypeMainFossilImage = New-Object system.windows.Forms.PictureBox
+$ArchetypeMainFossilImage.Visible = $false
+$ArchetypeMainFossilImage.Image = $ArchetypeFossilFile
+$ArchetypeMainFossilImage.Width = 36
+$ArchetypeMainFossilImage.Height = 32
+$ArchetypeMainFossilImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($EggCountBGColor)
+if ($DetectionCount -match "3") { $ArchetypeMainFossilImage.location = New-object system.drawing.point(29,241) } elseif ($DetectionCount -match "2") { $ArchetypeMainFossilImage.location = New-object system.drawing.point(29,185) } elseif ($DetectionCount -match "1") { $ArchetypeMainFossilImage.location = New-object system.drawing.point(29,126) }
+if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMainFossilImage.Visible = $true }
+$ArchetypeMainFossilImage.Add_Click({
+
+    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
+    if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
+
+        # Grabs the config file in its "current" state
+        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+        $GetConfig = Get-Content $SetConfig
+
+        # Gets the current X and Y coordinates of the form
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
+        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+
+        # Replaces and Sets the starting position on the counter form start
+        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
+        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+
+        # Grabs Pokemon egg slot and increases the count
+        $FossilCount = $GetConfig[24] -replace 'Fossil_Count=',''
+        $FossilCount = [int]$FossilCount + 1
+
+        # Changes the Pokemon egg count
+        $GetConfig[24] = "Fossil_Count=$FossilCount"
+
+        # Gets the current X and Y coordinates of the form
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
+        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+
+        # Replaces and Sets the starting position on the counter form start
+        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
+        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+
+        # Sets all changes back into the Config file
+        $GetConfig | Set-Content -Path $SetConfig
+
+        # Refreshes Form and Poke count label
+        $ArchetypeFossilLabelCount.update()
+        $ArchetypeFossilLabelCount.refresh()
+        $ArchetypeForm.update()
+        $ArchetypeForm.refresh()
+        $ArchetypeFossilLabelCount.Text = $FossilCount
+
+    }
+
+    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
+    if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
+
+        # Grabs the config file in its "current" state
+        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+        $GetConfig = Get-Content $SetConfig
+
+        # Gets the current X and Y coordinates of the form
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
+        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+
+        # Replaces and Sets the starting position on the counter form start
+        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
+        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+
+        # Grabs Pokemon egg slot and increases the count
+        $FossilCount = $GetConfig[24] -replace 'Fossil_Count=',''
+        if ($FossilCount -eq "0") { $FossilCount = 0 } else { $FossilCount = [int]$FossilCount - 1 }
+
+        # Changes the Pokemon egg count
+        $GetConfig[24] = "Fossil_Count=$FossilCount"
+
+        # Sets all changes back into the Config file
+        $GetConfig | Set-Content -Path $SetConfig
+
+        # Refreshes Form and Poke count label
+        $ArchetypeFossilLabelCount.update()
+        $ArchetypeFossilLabelCount.refresh()
+        $ArchetypeForm.update()
+        $ArchetypeForm.refresh()
+        $ArchetypeFossilLabelCount.Text = $FossilCount
+
+    }
+
+})
+$ArchetypeForm.controls.Add($ArchetypeMainFossilImage)
+
+# Creates the label count for the fossil slot
+$ArchetypeFossilLabelCount = New-Object System.Windows.Forms.label
+$ArchetypeFossilLabelCount.Visible = $false
+if ($DetectionCount -match "3") { $ArchetypeFossilLabelCount.Location = New-object system.drawing.point(25,273) } elseif ($DetectionCount -match "2") { $ArchetypeFossilLabelCount.Location = New-object system.drawing.point(25,217) } elseif ($DetectionCount -match "1") { $ArchetypeFossilLabelCount.Location = New-object system.drawing.point(25,159) }
+if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeFossilLabelCount.Location = New-object system.drawing.point(51,12); $ArchetypeFossilLabelCount.Visible = $true }
+if ($CounterMode -match "Expanded_Fossil") { $ArchetypeFossilLabelCount.Visible = $true }
+$ArchetypeFossilLabelCount.BackColor = [System.Drawing.ColorTranslator]::FromHtml($EggCountBGColor)
+$ArchetypeFossilLabelCount.Width = 44
+$ArchetypeFossilLabelCount.Height = 13
+$ArchetypeFossilLabelCount.TextAlign = "MiddleCenter"
+$ArchetypeFossilLabelCount.ForeColor = "White"
+$ArchetypeFossilLabelCount.Text = $FossilCount
+$ArchetypeFossilLabelCount.Font = $NonInstalledFont
+$ArchetypeFossilLabelCount.Add_Click({
+
+    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
+    if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
+
+        # Grabs the config file in its "current" state
+        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+        $GetConfig = Get-Content $SetConfig
+
+        # Gets the current X and Y coordinates of the form
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
+        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+
+        # Replaces and Sets the starting position on the counter form start
+        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
+        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+
+        # Grabs Pokemon egg slot and increases the count
+        $FossilCount = $GetConfig[24] -replace 'Fossil_Count=',''
+        $FossilCount = [int]$FossilCount + 1
+
+        # Changes the Pokemon egg count
+        $GetConfig[24] = "Fossil_Count=$FossilCount"
+
+        # Sets all changes back into the Config file
+        $GetConfig | Set-Content -Path $SetConfig
+
+        # Refreshes Form and Poke count label
+        $ArchetypeFossilLabelCount.update()
+        $ArchetypeFossilLabelCount.refresh()
+        $ArchetypeForm.update()
+        $ArchetypeForm.refresh()
+        $ArchetypeFossilLabelCount.Text = $FossilCount
+
+    }
+
+    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
+    if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
+
+        # Grabs the config file in its "current" state
+        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+        $GetConfig = Get-Content $SetConfig
+
+        # Gets the current X and Y coordinates of the form
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
+        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+
+        # Replaces and Sets the starting position on the counter form start
+        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
+        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+
+        # Grabs Pokemon egg slot and increases the count
+        $FossilCount = $GetConfig[24] -replace 'Fossil_Count=',''
+        if ($FossilCount-eq "0") { $FossilCount = 0 } else { $FossilCount = [int]$FossilCount - 1 }
+
+        # Changes the Pokemon egg count
+        $GetConfig[24] = "Fossil_Count=$FossilCount"
+
+        # Sets all changes back into the Config file
+        $GetConfig | Set-Content -Path $SetConfig
+
+        # Refreshes Form and Poke count label
+        $ArchetypeFossilLabelCount.update()
+        $ArchetypeFossilLabelCount.refresh()
+        $ArchetypeForm.update()
+        $ArchetypeForm.refresh()
+        $ArchetypeFossilLabelCount.Text = $FossilCount
+
+    }
+
+})
+$ArchetypeForm.controls.Add($ArchetypeFossilLabelCount)
+>>>>>>> Stashed changes
 
 # Creates the middle egg image that indicates the egg count versus pokemon seen
 $ArchetypeEggOnFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\0.png")
@@ -959,7 +1156,7 @@ $ArchetypePokeBImage.Width = 36
 $ArchetypePokeBImage.Height = 32
 $ArchetypePokeBImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($PokeSlot2BGColor)
 $ArchetypePokeBImage.location = New-object system.drawing.point(30,102)
-if ($DetectionCount -match "3") { $ArchetypePokeBImage.Visible = $true } elseif ($DetectionCount -match "2") { $ArchetypePokeBImage.Visible = $true } elseif ($DetectionCount -match "1") { $ArchetypePokeBImage.Visible = $false; $GetConfig[11] = "Pokemon_B=Blank"; $GetConfig[12] = "Pokemon_B_Count=0"; $GetConfig[13] = "Pokemon_B_Hover=0"; $GetConfig | Set-Content -Path $SetConfig }
+if ($DetectionCount -match "3") { $ArchetypePokeBImage.Visible = $true } elseif ($DetectionCount -match "2") { $ArchetypePokeBImage.Visible = $true } elseif ($DetectionCount -match "1") { $ArchetypePokeBImage.Visible = $false }
 $ArchetypePokeBImage.Add_Click({
 
     # Grabs the config file in its "current" state
@@ -1169,7 +1366,7 @@ $ArchetypePokeCImage.Width = 36
 $ArchetypePokeCImage.Height = 32
 $ArchetypePokeCImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($PokeSlot3BGColor)
 $ArchetypePokeCImage.location = New-object system.drawing.point(30,159)
-if ($DetectionCount -match "3") { $ArchetypePokeCImage.Visible = $true } elseif ($DetectionCount -match "2") { $ArchetypePokeCImage.Visible = $false; $GetConfig[14] = "Pokemon_C=Blank"; $GetConfig[15] = "Pokemon_C_Count=0"; $GetConfig | Set-Content -Path $SetConfig } elseif ($DetectionCount -match "1") { $ArchetypePokeCImage.Visible = $false; $GetConfig[14] = "Pokemon_C=Blank"; $GetConfig[15] = "Pokemon_C_Count=0"; $GetConfig[16] = "Pokemon_C_Hover="; $GetConfig | Set-Content -Path $SetConfig }
+if ($DetectionCount -match "3") { $ArchetypePokeCImage.Visible = $true } elseif ($DetectionCount -match "2") { $ArchetypePokeCImage.Visible = $false } elseif ($DetectionCount -match "1") { $ArchetypePokeCImage.Visible = $false }
 $ArchetypePokeCImage.Add_Click({
 
     # Grabs the config file in its "current" state
@@ -1521,6 +1718,7 @@ $ArchetypeImage.Height = 330
 if ($DetectionCount -match "3") { $ArchetypeImage.Image = $ArchetypeBaseFile3 } elseif ($DetectionCount -match "2") { $ArchetypeImage.Image = $ArchetypeBaseFile2 } elseif ($DetectionCount -match "1") { $ArchetypeImage.Image = $ArchetypeBaseFile1 }
 if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeResetImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
 if ($CounterMode -match "Collapsed_Egg") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeResetImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypeMainFossilImage.Visible = $false; $ArchetypeFossilLabelCount.Visible = $true; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeResetImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
 $ArchetypeImage.location = New-object system.drawing.point(0,0)
 $ArchetypeImage.Add_MouseDown({ if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) { $global:dragging = $true; $global:mouseDragX = [System.Windows.Forms.Cursor]::Position.X - $ArchetypeForm.Left; $global:mouseDragY = [System.Windows.Forms.Cursor]::Position.Y - $ArchetypeForm.Top } })
 $ArchetypeImage.Add_MouseMove({ if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) { if($global:dragging) { $screen = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea; $currentX = [System.Windows.Forms.Cursor]::Position.X; $currentY = [System.Windows.Forms.Cursor]::Position.Y; [int]$newX = [Math]::Min($currentX - $global:mouseDragX, $screen.Right + 42 - $ArchetypeForm.Width); [int]$newY = [Math]::Min($currentY - $global:mouseDragY, $screen.Bottom - $ArchetypeForm.Height); $ArchetypeForm.Location = New-Object System.Drawing.Point($newX, $newY) } }})
@@ -2374,6 +2572,35 @@ $ArchetypeImage.Add_MouseDown({
 
         })
 
+         # Adds click to "Egg Slot" selection
+        $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Fossil Count", $ArchetypeMenuStripToolEgg).add_Click({ 
+
+            # Grabs the config file in its "current" state
+            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+            $GetConfig = Get-Content $SetConfig
+
+            # Gets the current X and Y coordinates of the form
+            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
+            $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+
+            # Replaces and Sets the starting position on the counter form start
+            $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
+            $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+
+            # Sets the Egg count to 0
+            $GetConfig[24] = 'Fossil_Count=0'
+
+            # Sets all changes back into the Config file
+            $GetConfig | Set-Content -Path $SetConfig
+            
+            # Small wait to ensure no corrupt of config file
+            Start-Sleep -Milliseconds 50
+
+            # Restarts counter to update form
+            Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
+
+        })
+
         # Divider for clearing slots/counter
         $ArchetypeMenuStripTool6.DropDownItems.Add("-")
 
@@ -2437,9 +2664,11 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool21.Image = $ArchetypeMenuStripToolCounterMode
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool21)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool21.Enabled = $false } else { $ArchetypeMenuStripTool21.Enabled = $true }
-        if ($CounterMode -match "Expanded") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded", $ArchetypeMenuStripToolExpanded).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded", $ArchetypeMenuStripToolExpanded).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolExpanded).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolExpanded).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Egg'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolCollapsed2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolCollapsed2).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Fossil'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolCollapsed).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolCollapsed).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Encounter'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolCollapsed2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolCollapsed2).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Egg'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolCollapsed2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolCollapsed2).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Fossil'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
 
         # Adds "Hunt Profiles" selection
         $ArchetypeMenuStripTool15 = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -2543,7 +2772,7 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool4.DropDownItems.Add("Counter Version: 3.0.0.0", $ArchetypeMenuStripMain).Enabled = $false
 
         # Checks if counter menu is in Collapsed Mode
-        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") {
+        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") {
 
             # Adds click to "Start Counter" selection
             $ArchetypeMenuStrip.Items.Add("-")
@@ -2938,7 +3167,7 @@ Function PlayAction {
                     $EggCount = $GetConfig[20] -replace 'Egg_Count=',''
                     $ShinyCount = $GetConfig[21] -replace 'Shiny_Count=',''
                     $SetLanguage = $GetConfig[23] -replace 'Set_Language=', ''
-                    $BattleLoop = $GetConfig[24] -replace 'Battle_Loop=', ''
+                    $FossilCount = $GetConfig[24] -replace 'Fossil_Count', ''
                     $SpriteType = $GetConfig[25] -replace 'Sprite_Type=', ''
                     $DebugMode = $GetConfig[35] -replace 'Debug_Mode=', ''
                     $CounterMode = $GetConfig[36] -replace 'Counter_Mode=', ''
@@ -3041,9 +3270,6 @@ Function PlayAction {
                          $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
                          $GetConfig = Get-Content $SetConfig
 
-                         # Sets the Egg Cooldown to "True"
-                         #$GetConfig[31] = "Egg_Cooldown=True"
-
                          # Increments the count by 1 (Egg Slot)
                          $GetEggCountForm = $GetConfig[20] -replace 'Egg_Count=', ''
                          $GetEggCountForm = [int]$GetEggCountForm + 1
@@ -3085,6 +3311,60 @@ Function PlayAction {
                          Continue
 
                     }
+
+                    # Checks if the word "recieved" and the pokemon name is on the screenshot (Fossil)
+                    if ((($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bSheildon\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) {
+
+                         # Show counter is "Busy" while running through main processing
+                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
+
+                         $Script:SyncHashTable.ArchetypeForm.update()
+                         $Script:SyncHashTable.ArchetypeForm.refresh()
+
+                         # Grabs current counter config file state
+                         $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+                         $GetConfig = Get-Content $SetConfig
+
+                         # Sets the Egg Cooldown to "True"
+                         #$GetConfig[31] = "Egg_Cooldown=True"
+
+                         # Increments the count by 1 (Egg Slot)
+                         $GetFossilCountForm = $GetConfig[24] -replace 'Fossil_Count=', ''
+                         $GetFossilCountForm = [int]$GetEggCountForm + 1
+
+                         # Adds correct new count to egg slot
+                         $GetConfig[20] = "Fossil_Count=$GetFossilCountForm"
+
+                         # Sets all changes back into the Config file
+                         $GetConfig | Set-Content -Path $SetConfig
+
+                         # Ensures everything on form is updated/refreshed
+                         $Script:SyncHashTable.ArchetypeForm.update()
+                         $Script:SyncHashTable.ArchetypeForm.refresh()
+
+                         # Wait
+                         Start-Sleep -Milliseconds 50
+
+                         # Checks text for "Egg" hunting for OCR scan 
+                         While ((($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bSheildon\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
+
+                         # Grabs counter process and checks for total memory usage
+                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
+                         $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb)
+                         if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; Start-sleep -Milliseconds 50; $GetConfig[33] = "Auto_Restart_Counter=True"; Start-sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow }
+
+                         # Properly sets the visibility of start/stop images on counter
+                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+
+                         # Break current loop and re-try
+                         Continue
+
+                    }
+
+
+                    
+
+
 
                     # Loads the "ArchetypeScreenshot" screenshot to read the pixel color value from set coordinates
                     $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose()
