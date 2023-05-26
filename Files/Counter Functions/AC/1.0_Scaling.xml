@@ -5,7 +5,7 @@
 	<fontGen/>
 
 	<images file="Base_Dot.png" filter="nearest">
-		<area name="Screen_Filter" xywh="*" tint="#05ffffff"/>
+		<area name="Screen_Filter" xywh="*" tint="#02ffffff"/>
 		<area name="Battle_Pattern" xywh="*" splitx="L1,R0" splity="T1,B0"/>
 
 		<composed name="battle-ui-enemy">
