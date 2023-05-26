@@ -429,7 +429,7 @@ $ArchetypeForm.Add_Closing({
     
 })
 
-# 
+# Adds the collapsed Play image button on the form
 $ArchetypeCollapsedPlayImageFile = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\CollapsedPlay.png")
 $ArchetypeCollapsedPlayImage = New-Object system.windows.Forms.PictureBox
 $ArchetypeCollapsedPlayImage.Visible = $true
@@ -437,12 +437,10 @@ $ArchetypeCollapsedPlayImage.Image = $ArchetypeCollapsedPlayImageFile
 $ArchetypeCollapsedPlayImage.Width = 22
 $ArchetypeCollapsedPlayImage.Height = 20
 $ArchetypeCollapsedPlayImage.location = New-object system.drawing.point(8,9)
-
 if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeCollapsedPlayImage.Visible = $true } else { $ArchetypeCollapsedPlayImage.Visible = $false }
-
 $ArchetypeForm.controls.Add($ArchetypeCollapsedPlayImage)
 
-# 
+# Adds the collapsed Close image button on the form
 $ArchetypeCollapsedStopImageFile = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\CollapsedStop.png")
 $ArchetypeCollapsedStopImage = New-Object system.windows.Forms.PictureBox
 $ArchetypeCollapsedStopImage.Visible = $false
@@ -450,12 +448,10 @@ $ArchetypeCollapsedStopImage.Image = $ArchetypeCollapsedStopImageFile
 $ArchetypeCollapsedStopImage.Width = 22
 $ArchetypeCollapsedStopImage.Height = 20
 $ArchetypeCollapsedStopImage.location = New-object system.drawing.point(8,9)
-
 if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeCollapsedStopImage.Visible = $true } else { $ArchetypeCollapsedStopImage.Visible = $false }
-
 $ArchetypeForm.controls.Add($ArchetypeCollapsedStopImage)
 
-# 
+# Adds the collapsed Busy image button on the form
 $ArchetypeCollapsedBusyImageFile = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\CollapsedBusy.png")
 $ArchetypeCollapsedBusyImage = New-Object system.windows.Forms.PictureBox
 $ArchetypeCollapsedBusyImage.Visible = $false
@@ -463,10 +459,7 @@ $ArchetypeCollapsedBusyImage.Image = $ArchetypeCollapsedBusyImageFile
 $ArchetypeCollapsedBusyImage.Width = 22
 $ArchetypeCollapsedBusyImage.Height = 20
 $ArchetypeCollapsedBusyImage.location = New-object system.drawing.point(8,9)
-
 if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeCollapsedBusyImage.Visible = $true } else { $ArchetypeCollapsedBusyImage.Visible = $false }
-
-
 $ArchetypeForm.controls.Add($ArchetypeCollapsedBusyImage)
 
 <#
@@ -478,9 +471,7 @@ $ArchetypeMainEncounterCollapsedImage.Image = $ArchetypeMainEncounterCollapsedIm
 $ArchetypeMainEncounterCollapsedImage.Width = 36
 $ArchetypeMainEncounterCollapsedImage.Height = 32
 $ArchetypeMainEncounterCollapsedImage.location = New-object system.drawing.point(8,9)
-
 if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMainEncounterCollapsedImage.Visible = $true }
-
 $ArchetypeForm.controls.Add($ArchetypeMainEncounterCollapsedImage)
 #>
 
@@ -3243,7 +3234,7 @@ Function PlayAction {
                             [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
 
                             # Displays Message Dialog Box - Cannot scan pokemon from screenshot
-                            [Microsoft.VisualBasic.Interaction]::MsgBox("Unable to scan Pokémon.`n`nThis can occur when partaking in Trainer Battles, or when a Safari Zone encounter is completed too quickly.`n`n(Increase count manually, if needed.)", "OKOnly,SystemModal,Critical", "Archetype Counter")
+                            [Microsoft.VisualBasic.Interaction]::MsgBox("Unable to scan Pokémon.`n`nThis can occur when partaking in Trainer Battles, or when the counter fails on scanning properly.`n`n(Increase count manually, if needed.)", "OKOnly,SystemModal,Critical", "Archetype Counter")
 
                             # Sets all changes back into the Config file
                             $GetConfig | Set-Content -Path $SetConfig
