@@ -938,7 +938,7 @@ $ArchetypePokeAImage.Add_Click({
         $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
         $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
         $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[8] = "Pokemon_A=$GetPokemonID"; $GetConfig[10] = "Pokemon_A_Hover=$GetPokemonName #$GetPokemonID"; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[8] = "Pokemon_A=$GetPokemonID"; $GetConfig[10] = "Pokemon_A_Hover=$GetPokemonName #$GetPokemonID"; Start-Sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
     
     }
 
@@ -1147,7 +1147,7 @@ $ArchetypePokeBImage.Add_Click({
         $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
         $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
         $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[11] = "Pokemon_B=$GetPokemonID"; $GetConfig[13] = "Pokemon_B_Hover=$GetPokemonName #$GetPokemonID"; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[11] = "Pokemon_B=$GetPokemonID"; $GetConfig[13] = "Pokemon_B_Hover=$GetPokemonName #$GetPokemonID"; Start-Sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
 
     }
 
@@ -1357,7 +1357,7 @@ $ArchetypePokeCImage.Add_Click({
         $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
         $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
         $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[14] = "Pokemon_C=$GetPokemonID"; $GetConfig[16] = "Pokemon_C_Hover=$GetPokemonName #$GetPokemonID"; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[14] = "Pokemon_C=$GetPokemonID"; $GetConfig[16] = "Pokemon_C_Hover=$GetPokemonName #$GetPokemonID"; Start-Sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
 
     }
 
@@ -1820,6 +1820,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets the Language to English
                 $GetConfig[23] = 'Set_Language=English'
 
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
 
@@ -1853,6 +1856,9 @@ $ArchetypeImage.Add_MouseDown({
 
                 # Sets the Language to French
                 $GetConfig[23] = 'Set_Language=French'
+
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
 
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
@@ -1888,6 +1894,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets the Language to German
                 $GetConfig[23] = 'Set_Language=German'
 
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
 
@@ -1921,6 +1930,9 @@ $ArchetypeImage.Add_MouseDown({
 
                 # Sets the Language to Spanish
                 $GetConfig[23] = 'Set_Language=Spanish'
+
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
 
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
@@ -1956,6 +1968,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets the Language to Brazilian Portuguese
                 $GetConfig[23] = 'Set_Language=Brazilian_Portuguese'
 
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
 
@@ -1990,6 +2005,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets the Language to Italian
                 $GetConfig[23] = 'Set_Language=Italian'
 
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
 
@@ -2023,6 +2041,9 @@ $ArchetypeImage.Add_MouseDown({
 
                 # Sets the Language to Italian
                 $GetConfig[23] = 'Set_Language=Polish'
+
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
 
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
@@ -2062,6 +2083,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Resets theme to Archetype
                 $GetConfig[22] = "Theme_Type=Archetype"
     
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
     
@@ -2093,6 +2117,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Resets theme to Default
                 $GetConfig[22] = "Theme_Type=Default"
     
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
     
@@ -2125,6 +2152,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Resets theme to Custom
                 $GetConfig[22] = "Theme_Type=Custom"
     
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
     
@@ -2163,6 +2193,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets Sprite type to Default
                 $GetConfig[25] = "Sprite_Type=Default"
     
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
     
@@ -2194,6 +2227,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets Sprite type to 3DS
                 $GetConfig[25] = "Sprite_Type=3DS"
     
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
     
@@ -2225,6 +2261,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets Detection count to 1
                 $GetConfig[25] = "Sprite_Type=Gen8"
     
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
     
@@ -2256,6 +2295,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets Detection count to 1
                 $GetConfig[25] = "Sprite_Type=Home"
     
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
     
@@ -2287,6 +2329,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets Detection count to 1
                 $GetConfig[25] = "Sprite_Type=Shuffle"
     
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
     
@@ -2325,6 +2370,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets Detection count to 1
                 $GetConfig[17] = "Detection_Count=1"
     
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
     
@@ -2356,6 +2404,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets Detection count to 1
                 $GetConfig[17] = "Detection_Count=2"
     
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
     
@@ -2387,6 +2438,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Sets Detection count to 1
                 $GetConfig[17] = "Detection_Count=3"
     
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
+
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
     
@@ -2435,11 +2489,11 @@ $ArchetypeImage.Add_MouseDown({
             $GetConfig[15] = 'Pokemon_C_Count=0'
             $GetConfig[16] = 'Pokemon_C_Hover='
 
-            # Sets all changes back into the Config file
-            $GetConfig | Set-Content -Path $SetConfig
-
             # Small wait to ensure no corrupt of config file
             Start-Sleep -Milliseconds 50
+
+            # Sets all changes back into the Config file
+            $GetConfig | Set-Content -Path $SetConfig
 
             # Starts up Archetype Counter
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2474,11 +2528,11 @@ $ArchetypeImage.Add_MouseDown({
             $GetConfig[15] = 'Pokemon_C_Count=0'
             $GetConfig[16] = 'Pokemon_C_Hover='
 
-            # Sets all changes back into the Config file
-            $GetConfig | Set-Content -Path $SetConfig
-
             # Small wait to ensure no corrupt of config file
             Start-Sleep -Milliseconds 50
+
+            # Sets all changes back into the Config file
+            $GetConfig | Set-Content -Path $SetConfig
 
             # Starts up Archetype Counter
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2505,11 +2559,11 @@ $ArchetypeImage.Add_MouseDown({
             $GetConfig[15] = 'Pokemon_C_Count=0'
             $GetConfig[16] = 'Pokemon_C_Hover='
 
-            # Sets all changes back into the Config file
-            $GetConfig | Set-Content -Path $SetConfig
-
             # Small wait to ensure no corrupt of config file
             Start-Sleep -Milliseconds 50
+
+            # Sets all changes back into the Config file
+            $GetConfig | Set-Content -Path $SetConfig
 
             # Starts up Archetype Counter
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2534,11 +2588,12 @@ $ArchetypeImage.Add_MouseDown({
             # Sets the Egg count to 0
             $GetConfig[20] = 'Egg_Count=0'
 
-            # Sets all changes back into the Config file
-            $GetConfig | Set-Content -Path $SetConfig
-            
+
             # Small wait to ensure no corrupt of config file
             Start-Sleep -Milliseconds 50
+
+            # Sets all changes back into the Config file
+            $GetConfig | Set-Content -Path $SetConfig
 
             # Restarts counter to update form
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2563,11 +2618,11 @@ $ArchetypeImage.Add_MouseDown({
             # Sets the Egg count to 0
             $GetConfig[24] = 'Fossil_Count=0'
 
-            # Sets all changes back into the Config file
-            $GetConfig | Set-Content -Path $SetConfig
-            
             # Small wait to ensure no corrupt of config file
             Start-Sleep -Milliseconds 50
+
+            # Sets all changes back into the Config file
+            $GetConfig | Set-Content -Path $SetConfig
 
             # Restarts counter to update form
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2610,19 +2665,22 @@ $ArchetypeImage.Add_MouseDown({
                 $GetConfig[15] = "Pokemon_C_Count=0"
                 $GetConfig[16] = "Pokemon_C_Hover="
                 $GetConfig[20] = "Egg_Count=0"
+                $GetConfig[24] = "Fossil_Count=0"
                 $GetConfig[38] = "Pokemon_Seen_Count=0"
+                $GetConfig[21] = "Shiny_Count=0"
+                $GetConfig[40] = "Alpha_Count=0"
 
                 # Resets Cotuner Active to "False" (To make menu options available again)
                 $GetConfig[34] = 'Counter_Active=False'
+
+                # Small wait to ensure no corrupt of config file
+                Start-Sleep -Milliseconds 50
 
                 # Sets all changes back into the Config file
                 $GetConfig | Set-Content -Path $SetConfig
 
                 # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
                 if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
-
-                # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 50
 
                 # Restarts counter to update
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2637,11 +2695,11 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool21.Image = $ArchetypeMenuStripToolCounterMode
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool21)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool21.Enabled = $false } else { $ArchetypeMenuStripTool21.Enabled = $true }
-        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Egg'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Fossil'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Encounter'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Egg'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Fossil'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Egg'; Start-Sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Fossil'; Start-Sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Encounter'; Start-Sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Egg'; Start-Sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Fossil'; Start-Sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
 
         # Adds "Hunt Profiles" selection
         $ArchetypeMenuStripTool15 = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -2650,16 +2708,16 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool15)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool15.Enabled = $false } else { $ArchetypeMenuStripTool15.Enabled = $true }
         $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; ; $HuntName1 = $GetProfileConfig[8] -replace 'Hunt_Profile_Name_1=', ''; $HuntName2 = $GetProfileConfig[9] -replace 'Hunt_Profile_Name_2=', ''; $HuntName3 = $GetProfileConfig[10] -replace 'Hunt_Profile_Name_3=', ''; $HuntName4 = $GetProfileConfig[11] -replace 'Hunt_Profile_Name_4=', ''; $HuntName5 = $GetProfileConfig[12] -replace 'Hunt_Profile_Name_5=', ''; $HuntName6 = $GetProfileConfig[13] -replace 'Hunt_Profile_Name_6=', ''; $HuntName7 = $GetProfileConfig[14] -replace 'Hunt_Profile_Name_7=', ''; $HuntName8 = $GetProfileConfig[15] -replace 'Hunt_Profile_Name_8=', ''; $HuntName9 = $GetProfileConfig[16] -replace 'Hunt_Profile_Name_9=', ''; $HuntName10 = $GetProfileConfig[17] -replace 'Hunt_Profile_Name_10=', ''
-        if ($GetProfile -match "Profile1") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName1", $ArchetypeMenuStripToolProfile1).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName1", $ArchetypeMenuStripToolProfile1).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName1Replace = $GetProfileConfig[8] -replace 'Hunt_Profile_Name_1=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName1Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile2") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName2", $ArchetypeMenuStripToolProfile2).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName2", $ArchetypeMenuStripToolProfile2).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName2Replace = $GetProfileConfig[9] -replace 'Hunt_Profile_Name_2=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName2Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile3") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName3", $ArchetypeMenuStripToolProfile3).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName3", $ArchetypeMenuStripToolProfile3).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName3Replace = $GetProfileConfig[10] -replace 'Hunt_Profile_Name_3=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName3Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile4") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName4", $ArchetypeMenuStripToolProfile4).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName4", $ArchetypeMenuStripToolProfile4).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName4Replace = $GetProfileConfig[11] -replace 'Hunt_Profile_Name_4=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName4Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile5") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName5", $ArchetypeMenuStripToolProfile5).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName5", $ArchetypeMenuStripToolProfile5).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName5Replace = $GetProfileConfig[12] -replace 'Hunt_Profile_Name_5=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName5Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile6") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName6", $ArchetypeMenuStripToolProfile6).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName6", $ArchetypeMenuStripToolProfile6).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName6Replace = $GetProfileConfig[13] -replace 'Hunt_Profile_Name_6=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName6Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile7") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName7", $ArchetypeMenuStripToolProfile7).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName7", $ArchetypeMenuStripToolProfile7).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName7Replace = $GetProfileConfig[14] -replace 'Hunt_Profile_Name_7=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName7Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile8") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName8", $ArchetypeMenuStripToolProfile8).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName8", $ArchetypeMenuStripToolProfile8).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName8Replace = $GetProfileConfig[15] -replace 'Hunt_Profile_Name_8=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName8Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName9", $ArchetypeMenuStripToolProfile9).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName9", $ArchetypeMenuStripToolProfile9).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName9Replace = $GetProfileConfig[16] -replace 'Hunt_Profile_Name_9=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName9Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName10", $ArchetypeMenuStripToolProfile10).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName10", $ArchetypeMenuStripToolProfile10).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName10Replace = $GetProfileConfig[17] -replace 'Hunt_Profile_Name_10=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName10Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile1") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName1", $ArchetypeMenuStripToolProfile1).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName1", $ArchetypeMenuStripToolProfile1).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName1Replace = $GetProfileConfig[8] -replace 'Hunt_Profile_Name_1=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName1Replace "; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile2") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName2", $ArchetypeMenuStripToolProfile2).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName2", $ArchetypeMenuStripToolProfile2).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName2Replace = $GetProfileConfig[9] -replace 'Hunt_Profile_Name_2=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName2Replace "; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile3") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName3", $ArchetypeMenuStripToolProfile3).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName3", $ArchetypeMenuStripToolProfile3).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName3Replace = $GetProfileConfig[10] -replace 'Hunt_Profile_Name_3=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName3Replace "; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile4") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName4", $ArchetypeMenuStripToolProfile4).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName4", $ArchetypeMenuStripToolProfile4).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName4Replace = $GetProfileConfig[11] -replace 'Hunt_Profile_Name_4=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName4Replace "; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile5") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName5", $ArchetypeMenuStripToolProfile5).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName5", $ArchetypeMenuStripToolProfile5).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName5Replace = $GetProfileConfig[12] -replace 'Hunt_Profile_Name_5=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName5Replace "; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile6") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName6", $ArchetypeMenuStripToolProfile6).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName6", $ArchetypeMenuStripToolProfile6).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName6Replace = $GetProfileConfig[13] -replace 'Hunt_Profile_Name_6=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName6Replace "; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile7") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName7", $ArchetypeMenuStripToolProfile7).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName7", $ArchetypeMenuStripToolProfile7).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName7Replace = $GetProfileConfig[14] -replace 'Hunt_Profile_Name_7=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName7Replace "; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile8") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName8", $ArchetypeMenuStripToolProfile8).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName8", $ArchetypeMenuStripToolProfile8).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName8Replace = $GetProfileConfig[15] -replace 'Hunt_Profile_Name_8=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName8Replace "; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName9", $ArchetypeMenuStripToolProfile9).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName9", $ArchetypeMenuStripToolProfile9).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName9Replace = $GetProfileConfig[16] -replace 'Hunt_Profile_Name_9=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName9Replace "; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName10", $ArchetypeMenuStripToolProfile10).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName10", $ArchetypeMenuStripToolProfile10).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName10Replace = $GetProfileConfig[17] -replace 'Hunt_Profile_Name_10=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName10Replace "; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
     
         # Adds "Backup" selection
         $ArchetypeMenuStrip.Items.Add("-")
@@ -2684,8 +2742,8 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool3)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool3.Enabled = $false } else { $ArchetypeMenuStripTool3.Enabled = $true }
         if ($AlwaysOnTop -match "True") { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Enabled" } else { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Disabled" }
-        $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"; $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"; if ($AlwaysOnTop -match "True") { $GetConfig[37] = 'Always_On_Top=False' } else { $GetConfig[37] = 'Always_On_Top=True' }; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
-        if ($IgnoreSystemLang -match "True") { $PokeMMOMenuSystemLangText = "Ignore System Language: True" } else { $PokeMMOMenuSystemLangText = "Ignore System Language: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuSystemLangText", $ArchetypeMenuStripToolSystemLanguage).add_Click({ $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"; $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"; if ($IgnoreSystemLang -match "True") { $GetConfig[41] = 'Ignore_System_Language=False' } else { $GetConfig[41] = 'Ignore_System_Language=True' }; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"; $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"; if ($AlwaysOnTop -match "True") { $GetConfig[37] = 'Always_On_Top=False' } else { $GetConfig[37] = 'Always_On_Top=True' }; Start-Sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        if ($IgnoreSystemLang -match "True") { $PokeMMOMenuSystemLangText = "Ignore System Language: True" } else { $PokeMMOMenuSystemLangText = "Ignore System Language: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuSystemLangText", $ArchetypeMenuStripToolSystemLanguage).add_Click({ $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"; $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"; if ($IgnoreSystemLang -match "True") { $GetConfig[41] = 'Ignore_System_Language=False' } else { $GetConfig[41] = 'Ignore_System_Language=True' }; Start-Sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
 
         # Adds "Rename Hunt Profiles" selection
         $ArchetypeMenuStrip.Items.Add("-")
@@ -2693,16 +2751,16 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool16.Text = 'Rename Hunt Profiles'
         $ArchetypeMenuStripTool16.Image = $ArchetypeMenuStripToolProfiles
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool16)
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 1", $ArchetypeMenuStripEdit).Add_Click({ $Profile1Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 1:', ' Archetype Counter'); if ($Profile1Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt";$GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt1 = $GetProfileConfig[8] -replace 'Hunt_Profile_Name_1=', ''; if ($GetProfileCurrent -match $GetProfileHunt1) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile1Text" }; $GetProfileConfig[8] = "Hunt_Profile_Name_1=$Profile1Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 2", $ArchetypeMenuStripEdit).Add_Click({ $Profile2Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 2:', ' Archetype Counter'); if ($Profile2Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt2 = $GetProfileConfig[9] -replace 'Hunt_Profile_Name_2=', ''; if ($GetProfileCurrent -match $GetProfileHunt2) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile2Text" }; $GetProfileConfig[9] = "Hunt_Profile_Name_2=$Profile2Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 3", $ArchetypeMenuStripEdit).Add_Click({ $Profile3Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 3:', ' Archetype Counter'); if ($Profile3Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt3 = $GetProfileConfig[10] -replace 'Hunt_Profile_Name_3=', ''; if ($GetProfileCurrent -match $GetProfileHunt3) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile3Text" }; $GetProfileConfig[10] = "Hunt_Profile_Name_3=$Profile3Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 4", $ArchetypeMenuStripEdit).Add_Click({ $Profile4Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 4:', ' Archetype Counter'); if ($Profile4Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt4 = $GetProfileConfig[11] -replace 'Hunt_Profile_Name_4=', ''; if ($GetProfileCurrent -match $GetProfileHunt4) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile4Text" }; $GetProfileConfig[11] = "Hunt_Profile_Name_4=$Profile4Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 5", $ArchetypeMenuStripEdit).Add_Click({ $Profile5Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 5:', ' Archetype Counter'); if ($Profile5Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt5 = $GetProfileConfig[12] -replace 'Hunt_Profile_Name_5=', ''; if ($GetProfileCurrent -match $GetProfileHunt5) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile5Text" }; $GetProfileConfig[12] = "Hunt_Profile_Name_5=$Profile5Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 6", $ArchetypeMenuStripEdit).Add_Click({ $Profile6Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 6:', ' Archetype Counter'); if ($Profile6Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt6 = $GetProfileConfig[13] -replace 'Hunt_Profile_Name_6=', ''; if ($GetProfileCurrent -match $GetProfileHunt6) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile6Text" }; $GetProfileConfig[13] = "Hunt_Profile_Name_6=$Profile6Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 7", $ArchetypeMenuStripEdit).Add_Click({ $Profile7Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 7:', ' Archetype Counter'); if ($Profile7Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt7 = $GetProfileConfig[14] -replace 'Hunt_Profile_Name_7=', ''; if ($GetProfileCurrent -match $GetProfileHunt7) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile7Text" }; $GetProfileConfig[14] = "Hunt_Profile_Name_7=$Profile7Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 8", $ArchetypeMenuStripEdit).Add_Click({ $Profile8Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 8:', ' Archetype Counter'); if ($Profile8Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt8 = $GetProfileConfig[15] -replace 'Hunt_Profile_Name_8=', ''; if ($GetProfileCurrent -match $GetProfileHunt8) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile8Text" }; $GetProfileConfig[15] = "Hunt_Profile_Name_8=$Profile8Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 9", $ArchetypeMenuStripEdit).Add_Click({ $Profile9Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 9:', ' Archetype Counter'); if ($Profile9Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt9 = $GetProfileConfig[16] -replace 'Hunt_Profile_Name_9=', ''; if ($GetProfileCurrent -match $GetProfileHunt9) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile9Text" }; $GetProfileConfig[16] = "Hunt_Profile_Name_9=$Profile9Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 10", $ArchetypeMenuStripEdit).Add_Click({ $Profile10Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 10:', ' Archetype Counter'); if ($Profile10Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt10 = $GetProfileConfig[17] -replace 'Hunt_Profile_Name_10=', ''; if ($GetProfileCurrent -match $GetProfileHunt10) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile10Text" }; $GetProfileConfig[17] = "Hunt_Profile_Name_10=$Profile10Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 1", $ArchetypeMenuStripEdit).Add_Click({ $Profile1Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 1:', ' Archetype Counter'); if ($Profile1Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt";$GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt1 = $GetProfileConfig[8] -replace 'Hunt_Profile_Name_1=', ''; if ($GetProfileCurrent -match $GetProfileHunt1) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile1Text" }; $GetProfileConfig[8] = "Hunt_Profile_Name_1=$Profile1Text"; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 2", $ArchetypeMenuStripEdit).Add_Click({ $Profile2Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 2:', ' Archetype Counter'); if ($Profile2Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt2 = $GetProfileConfig[9] -replace 'Hunt_Profile_Name_2=', ''; if ($GetProfileCurrent -match $GetProfileHunt2) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile2Text" }; $GetProfileConfig[9] = "Hunt_Profile_Name_2=$Profile2Text"; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 3", $ArchetypeMenuStripEdit).Add_Click({ $Profile3Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 3:', ' Archetype Counter'); if ($Profile3Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt3 = $GetProfileConfig[10] -replace 'Hunt_Profile_Name_3=', ''; if ($GetProfileCurrent -match $GetProfileHunt3) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile3Text" }; $GetProfileConfig[10] = "Hunt_Profile_Name_3=$Profile3Text"; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 4", $ArchetypeMenuStripEdit).Add_Click({ $Profile4Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 4:', ' Archetype Counter'); if ($Profile4Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt4 = $GetProfileConfig[11] -replace 'Hunt_Profile_Name_4=', ''; if ($GetProfileCurrent -match $GetProfileHunt4) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile4Text" }; $GetProfileConfig[11] = "Hunt_Profile_Name_4=$Profile4Text"; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 5", $ArchetypeMenuStripEdit).Add_Click({ $Profile5Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 5:', ' Archetype Counter'); if ($Profile5Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt5 = $GetProfileConfig[12] -replace 'Hunt_Profile_Name_5=', ''; if ($GetProfileCurrent -match $GetProfileHunt5) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile5Text" }; $GetProfileConfig[12] = "Hunt_Profile_Name_5=$Profile5Text"; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 6", $ArchetypeMenuStripEdit).Add_Click({ $Profile6Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 6:', ' Archetype Counter'); if ($Profile6Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt6 = $GetProfileConfig[13] -replace 'Hunt_Profile_Name_6=', ''; if ($GetProfileCurrent -match $GetProfileHunt6) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile6Text" }; $GetProfileConfig[13] = "Hunt_Profile_Name_6=$Profile6Text"; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 7", $ArchetypeMenuStripEdit).Add_Click({ $Profile7Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 7:', ' Archetype Counter'); if ($Profile7Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt7 = $GetProfileConfig[14] -replace 'Hunt_Profile_Name_7=', ''; if ($GetProfileCurrent -match $GetProfileHunt7) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile7Text" }; $GetProfileConfig[14] = "Hunt_Profile_Name_7=$Profile7Text"; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 8", $ArchetypeMenuStripEdit).Add_Click({ $Profile8Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 8:', ' Archetype Counter'); if ($Profile8Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt8 = $GetProfileConfig[15] -replace 'Hunt_Profile_Name_8=', ''; if ($GetProfileCurrent -match $GetProfileHunt8) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile8Text" }; $GetProfileConfig[15] = "Hunt_Profile_Name_8=$Profile8Text"; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 9", $ArchetypeMenuStripEdit).Add_Click({ $Profile9Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 9:', ' Archetype Counter'); if ($Profile9Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt9 = $GetProfileConfig[16] -replace 'Hunt_Profile_Name_9=', ''; if ($GetProfileCurrent -match $GetProfileHunt9) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile9Text" }; $GetProfileConfig[16] = "Hunt_Profile_Name_9=$Profile9Text"; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 10", $ArchetypeMenuStripEdit).Add_Click({ $Profile10Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 10:', ' Archetype Counter'); if ($Profile10Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt10 = $GetProfileConfig[17] -replace 'Hunt_Profile_Name_10=', ''; if ($GetProfileCurrent -match $GetProfileHunt10) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile10Text" }; $GetProfileConfig[17] = "Hunt_Profile_Name_10=$Profile10Text"; Start-Sleep -Milliseconds 50; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool16.Enabled = $false } else { $ArchetypeMenuStripTool16.Enabled = $true }
 
         # Adds "Total Current Counts" selection
@@ -2876,7 +2934,7 @@ Function PlayAction {
         if (($OSSystemCheck -match "Windows 7") -or ($OSSystemCheck -match "Windows 8")) { $OSSystemCheckDialog = [System.Windows.MessageBox]::Show("Current Windows Version:`n- $OSSystemCheck`n`nWindows 10+ is required to use this counter. Please upgrade your Operating System.","  Archetype Counter","OK","Hand"); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
         # Checks if AHk v1.1.36.02 is installed on machine (To run scripts)
-        $SetInstalledSoftwareAHK = "$PWD\Counter Config Files\AHKInstallState.txt"; $GetInstalledSoftwareAHK = Get-Content $SetInstalledSoftwareAHK; if ($GetInstalledSoftwareAHK -match "Not Installed") { $InstalledSoftwareDialog = [System.Windows.MessageBox]::Show("Archetype Counter requires AutoHotKey 1.1.36.02.`n`nWould you like to install AutoHotKey?","  Archetype Counter","YesNo","Warning"); if ($InstalledSoftwareDialog -match "Yes") { Start-Process "$PWD\Counter Functions\AutoHotkey\InvokeInstall.bat" -Wait; $GetInstalledSoftwareAHK = 'Installed'; $GetInstalledSoftwareAHK | Set-Content -Path $SetInstalledSoftwareAHK } else { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[34] = 'Counter_Active=false'; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } }
+        $SetInstalledSoftwareAHK = "$PWD\Counter Config Files\AHKInstallState.txt"; $GetInstalledSoftwareAHK = Get-Content $SetInstalledSoftwareAHK; if ($GetInstalledSoftwareAHK -match "Not Installed") { $InstalledSoftwareDialog = [System.Windows.MessageBox]::Show("Archetype Counter requires AutoHotKey 1.1.36.02.`n`nWould you like to install AutoHotKey?","  Archetype Counter","YesNo","Warning"); if ($InstalledSoftwareDialog -match "Yes") { Start-Process "$PWD\Counter Functions\AutoHotkey\InvokeInstall.bat" -Wait; $GetInstalledSoftwareAHK = 'Installed'; $GetInstalledSoftwareAHK | Set-Content -Path $SetInstalledSoftwareAHK } else { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[34] = 'Counter_Active=false'; Start-Sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } }
 
         # Grabs current working folder - Store as variable
         $CounterWorkingDir = $PWD
