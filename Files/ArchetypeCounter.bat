@@ -451,7 +451,7 @@ $ArchetypeCollapsedPlayImage.Image = $ArchetypeCollapsedPlayImageFile
 $ArchetypeCollapsedPlayImage.Width = 22
 $ArchetypeCollapsedPlayImage.Height = 20
 $ArchetypeCollapsedPlayImage.location = New-object system.drawing.point(8,9)
-if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeCollapsedPlayImage.Visible = $true } else { $ArchetypeCollapsedPlayImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypeCollapsedPlayImage.Visible = $true } else { $ArchetypeCollapsedPlayImage.Visible = $false }
 $ArchetypeForm.controls.Add($ArchetypeCollapsedPlayImage)
 
 # Adds the collapsed Close image button on the form
@@ -462,7 +462,7 @@ $ArchetypeCollapsedStopImage.Image = $ArchetypeCollapsedStopImageFile
 $ArchetypeCollapsedStopImage.Width = 22
 $ArchetypeCollapsedStopImage.Height = 20
 $ArchetypeCollapsedStopImage.location = New-object system.drawing.point(8,9)
-if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeCollapsedStopImage.Visible = $true } else { $ArchetypeCollapsedStopImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypeCollapsedStopImage.Visible = $true } else { $ArchetypeCollapsedStopImage.Visible = $false }
 $ArchetypeForm.controls.Add($ArchetypeCollapsedStopImage)
 
 # Adds the collapsed Busy image button on the form
@@ -473,7 +473,7 @@ $ArchetypeCollapsedBusyImage.Image = $ArchetypeCollapsedBusyImageFile
 $ArchetypeCollapsedBusyImage.Width = 22
 $ArchetypeCollapsedBusyImage.Height = 20
 $ArchetypeCollapsedBusyImage.location = New-object system.drawing.point(8,9)
-if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypeCollapsedBusyImage.Visible = $true } else { $ArchetypeCollapsedBusyImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypeCollapsedBusyImage.Visible = $true } else { $ArchetypeCollapsedBusyImage.Visible = $false }
 $ArchetypeForm.controls.Add($ArchetypeCollapsedBusyImage)
 
 # Creates the middle fossil image that indicates the fossil count versus pokemon seen
@@ -1688,9 +1688,9 @@ $ArchetypeImage = New-Object system.windows.Forms.PictureBox
 $ArchetypeImage.Width = 94
 $ArchetypeImage.Height = 330
 if ($DetectionCount -match "3") { $ArchetypeImage.Image = $ArchetypeBaseFile3 } elseif ($DetectionCount -match "2") { $ArchetypeImage.Image = $ArchetypeBaseFile2 } elseif ($DetectionCount -match "1") { $ArchetypeImage.Image = $ArchetypeBaseFile1 }
-if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeResetImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
-if ($CounterMode -match "Collapsed_Egg") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeResetImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
-if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypeMainFossilImage.Visible = $false; $ArchetypeFossilLabelCount.Visible = $true; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeResetImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Egg") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypeMainFossilImage.Visible = $false; $ArchetypeFossilLabelCount.Visible = $true; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
 $ArchetypeImage.location = New-object system.drawing.point(0,0)
 $ArchetypeImage.Add_MouseDown({ if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) { $global:dragging = $true; $global:mouseDragX = [System.Windows.Forms.Cursor]::Position.X - $ArchetypeForm.Left; $global:mouseDragY = [System.Windows.Forms.Cursor]::Position.Y - $ArchetypeForm.Top } })
 $ArchetypeImage.Add_MouseMove({ if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) { if($global:dragging) { $screen = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea; $currentX = [System.Windows.Forms.Cursor]::Position.X; $currentY = [System.Windows.Forms.Cursor]::Position.Y; [int]$newX = [Math]::Min($currentX - $global:mouseDragX, $screen.Right + 42 - $ArchetypeForm.Width); [int]$newY = [Math]::Min($currentY - $global:mouseDragY, $screen.Bottom - $ArchetypeForm.Height); $ArchetypeForm.Location = New-Object System.Drawing.Point($newX, $newY) } }})
@@ -2903,7 +2903,7 @@ Function PlayAction {
         [void][ForceActiveWin]::SetForegroundWindow($hwnd)
 
         # Set the counter start/stop images properly
-        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeBusyImage.Visible = $false; $ArchetypeCollapsedPlayImage.Visible = $false; $ArchetypeCollapsedStopImage.Visible = $true } else { $ArchetypeCollapsedStopImage.Visible = $false; $ArchetypeCollapsedPlayImage.Visible = $false; $ArchetypeCollapsedStopImage.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $true }
+        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeBusyImage.Visible = $false; $ArchetypeCollapsedPlayImage.Visible = $false; $ArchetypeCollapsedStopImage.Visible = $true } else { $ArchetypeCollapsedStopImage.Visible = $false; $ArchetypeCollapsedPlayImage.Visible = $false; $ArchetypeCollapsedStopImage.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $true }
         $ArchetypeForm.Refresh()
 
         # Created HashTable to pass winform controls to new runspace and back
@@ -3203,7 +3203,7 @@ Function PlayAction {
                     if ((($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\begg\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecu\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\boeuf\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\berhalten\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bei\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecibido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bhuevo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecebido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bricevuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\buovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\botrzymane\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bjajko\b' }))) {
 
                          # Show counter is "Busy" while running through main processing
-                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
+                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
 
                          $Script:SyncHashTable.ArchetypeForm.update()
                          $Script:SyncHashTable.ArchetypeForm.refresh()
@@ -3238,7 +3238,7 @@ Function PlayAction {
                          if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; Start-sleep -Milliseconds 50; $GetConfig[33] = "Auto_Restart_Counter=True"; Start-sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow }
 
                          # Properly sets the visibility of start/stop images on counter
-                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                          # Break current loop and re-try
                          Continue
@@ -3246,10 +3246,10 @@ Function PlayAction {
                     }
 
                     # Checks if the word "recieved" and the pokemon name is on the screenshot (Fossil)
-                    if ((($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bSheildon\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) {
-
+                    if (($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and (($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bSheildon\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) {
+                         
                          # Show counter is "Busy" while running through main processing
-                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
+                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
 
                          $Script:SyncHashTable.ArchetypeForm.update()
                          $Script:SyncHashTable.ArchetypeForm.refresh()
@@ -3276,7 +3276,7 @@ Function PlayAction {
                          Start-Sleep -Milliseconds 50
 
                          # Checks text for "Egg" hunting for OCR scan 
-                         While ((($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bSheildon\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
+                         While (($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and (($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bSheildon\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
 
                          # Grabs counter process and checks for total memory usage
                          $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
@@ -3284,7 +3284,7 @@ Function PlayAction {
                          if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; Start-sleep -Milliseconds 50; $GetConfig[33] = "Auto_Restart_Counter=True"; Start-sleep -Milliseconds 50; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow }
 
                          # Properly sets the visibility of start/stop images on counter
-                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                          # Break current loop and re-try
                          Continue
