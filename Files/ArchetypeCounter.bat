@@ -1797,11 +1797,6 @@ $ArchetypeImage.Add_MouseDown({
         $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
         $GetConfig = Get-Content $SetConfig
         $CounterActive = $GetConfig[34] -replace 'Counter_Active=', ''
-        
-        #$PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
-        #$PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
-        #$PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-        
         $PokemonA = $GetConfig[8] -replace 'Pokemon_A=', ''
         $PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
         $PokemonAHover = $GetConfig[10] -replace 'Pokemon_A_Hover=', ''
@@ -1811,7 +1806,6 @@ $ArchetypeImage.Add_MouseDown({
         $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
         $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
         $PokemonCHover = $GetConfig[16] -replace 'Pokemon_C_Hover=', ''
-        
         $EggCount = $GetConfig[20] -replace 'Egg_Count=',''
         $ShinyCount = $GetConfig[21] -replace 'Shiny_Count=',''
         $SetLanguage = $GetConfig[23] -replace 'Set_Language=', ''
@@ -2861,7 +2855,7 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"; $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"; if ($AlwaysOnTop -match "True") { $GetConfig[37] = 'Always_On_Top=False' } else { $GetConfig[37] = 'Always_On_Top=True' }; Start-Sleep -Milliseconds 10; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
         if ($IgnoreSystemLang -match "True") { $PokeMMOMenuSystemLangText = "Ignore System Language: True" } else { $PokeMMOMenuSystemLangText = "Ignore System Language: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuSystemLangText", $ArchetypeMenuStripToolSystemLanguage).add_Click({ $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"; $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"; if ($IgnoreSystemLang -match "True") { $GetConfig[41] = 'Ignore_System_Language=False' } else { $GetConfig[41] = 'Ignore_System_Language=True' }; Start-Sleep -Milliseconds 10; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
         $ArchetypeMenuStripTool3.DropDownItems.Add("-")
-        $ArchetypeMenuStripTool3.DropDownItems.Add("Archetype Counter Uninstaller", $ArchetypeMenuStripUninstall).add_Click({ $UninstallACDialog = [System.Windows.MessageBox]::Show("Would you like to uninstall Archetype Counter?","  Archetype Counter","YesNo","Warning"); if ($UninstallACDialog -match "Yes") { Start-Process "$PWD\Counter Functions\Uninstaller\Archetype Counter Uninstaller.bat" } })
+        $ArchetypeMenuStripTool3.DropDownItems.Add("Archetype Counter Uninstaller", $ArchetypeMenuStripUninstall).add_Click({ $UninstallACDialog = [System.Windows.MessageBox]::Show("Would you like to uninstall Archetype Counter?","  Archetype Counter","YesNo","Warning"); if ($UninstallACDialog -match "Yes") { [System.Windows.MessageBox]::Show("Thank you for using Archetype Counter!","  Archetype Counter","OK","Asterisk"); Start-Process "$PWD\Counter Functions\Uninstaller\Archetype Counter Uninstaller.bat" } })
 
         # Adds "Rename Hunt Profiles" selection
         $ArchetypeMenuStrip.Items.Add("-")
