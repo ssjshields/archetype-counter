@@ -2729,7 +2729,7 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Hunt Profile (Current)", $ArchetypeMenuStripReset).add_Click({ 
         
             # Displays Message Dialog Box - If the user wants to reset the pokemon encounter count 
-            $ResetResult = [System.Windows.MessageBox]::Show("Do you want to RESET the counter?","Archetype Counter","YesNo","Question")
+            $ResetResult = [System.Windows.MessageBox]::Show("Do you want to RESET the hunt profile?`n`nHunt Profile: $GetProfile","Archetype Counter","YesNo","Question")
 
             # Checks if Message Dialog Box "Yes" has been selected
             if ($ResetResult -match "Yes") { 
