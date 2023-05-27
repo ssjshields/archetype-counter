@@ -2440,7 +2440,7 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool5.Text = 'Detection Selector'
         $ArchetypeMenuStripTool5.Image = $ArchetypeMenuStripToolDetection
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool5)
-        if ($CounterActive -match "True") { $ArchetypeMenuStripTool5.Enabled = $false } else { $ArchetypeMenuStripTool5.Enabled = $true }
+        if ($CounterActive -match "True" -or $CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool5.Enabled = $false } else { $ArchetypeMenuStripTool5.Enabled = $true }
 
         # Checks if sub selection needs to be enabled or disabled
         if ($DetectionCount -match "1") { $ArchetypeMenuStripTool5.DropDownItems.Add("1 - Displays one Pokemon", $ArchetypeMenuStripToolNumber1).Enabled = $false } else {
@@ -3986,7 +3986,7 @@ Function PlayAction {
                 if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
         # Techncially loops until forever (The stop button will be the way to force the stop of the counter)
-        } until ($Script:SyncHashTable.ArchetypePlayImage.Visible -match $true)
+        } until ($Script:SyncHashTable.ArchetypePlayImage.Visible -match $true -or $Script:SyncHashTable.ArchetypeCollapsedPlayImage.Visible -match $true)
 
     })
 
