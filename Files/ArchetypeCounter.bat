@@ -1797,9 +1797,21 @@ $ArchetypeImage.Add_MouseDown({
         $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
         $GetConfig = Get-Content $SetConfig
         $CounterActive = $GetConfig[34] -replace 'Counter_Active=', ''
+        
+        #$PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
+        #$PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
+        #$PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
+        
+        $PokemonA = $GetConfig[8] -replace 'Pokemon_A=', ''
         $PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
+        $PokemonAHover = $GetConfig[10] -replace 'Pokemon_A_Hover=', ''
+        $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
         $PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
+        $PokemonBHover = $GetConfig[13] -replace 'Pokemon_B_Hover=', ''
+        $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
         $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
+        $PokemonCHover = $GetConfig[16] -replace 'Pokemon_C_Hover=', ''
+        
         $EggCount = $GetConfig[20] -replace 'Egg_Count=',''
         $ShinyCount = $GetConfig[21] -replace 'Shiny_Count=',''
         $SetLanguage = $GetConfig[23] -replace 'Set_Language=', ''
@@ -2557,6 +2569,12 @@ $ArchetypeImage.Add_MouseDown({
             # Grabs the config file in its "current" state
             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
             $GetConfig = Get-Content $SetConfig
+            $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
+            $PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
+            $PokemonBHover = $GetConfig[13] -replace 'Pokemon_B_Hover=', ''
+            $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
+            $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
+            $PokemonCHover = $GetConfig[16] -replace 'Pokemon_C_Hover=', ''
 
             # Gets the current X and Y coordinates of the form
             $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
@@ -2599,6 +2617,9 @@ $ArchetypeImage.Add_MouseDown({
             # Grabs the config file in its "current" state
             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
             $GetConfig = Get-Content $SetConfig
+            $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
+            $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
+            $PokemonCHover = $GetConfig[16] -replace 'Pokemon_C_Hover=', ''
 
             # Gets the current X and Y coordinates of the form
             $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
@@ -2608,15 +2629,17 @@ $ArchetypeImage.Add_MouseDown({
             $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
             $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
 
-            # Sets the Pokemon Slot 2 to Blank
-            $GetConfig[11] = 'Pokemon_B=Blank'
-            $GetConfig[12] = 'Pokemon_B_Count=0'
-            $GetConfig[13] = 'Pokemon_B_Hover='
-
             # Move pokemon up in slots accordingly
             $GetConfig[11] = "Pokemon_B=$PokemonC"
             $GetConfig[12] = "Pokemon_B_Count=$PokemonCountC"
             $GetConfig[13] = "Pokemon_B_Hover=$PokemonCHover"
+
+            # Small wait to ensure no corrupt of config file
+            Start-Sleep -Milliseconds 10
+
+            # Sets all changes back into the Config file
+            $GetConfig | Set-Content -Path $SetConfig
+
             $GetConfig[14] = 'Pokemon_C=Blank'
             $GetConfig[15] = 'Pokemon_C_Count=0'
             $GetConfig[16] = 'Pokemon_C_Hover='
@@ -2680,7 +2703,6 @@ $ArchetypeImage.Add_MouseDown({
 
             # Sets the Egg count to 0
             $GetConfig[20] = 'Egg_Count=0'
-
 
             # Small wait to ensure no corrupt of config file
             Start-Sleep -Milliseconds 10
