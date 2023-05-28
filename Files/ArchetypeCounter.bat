@@ -296,12 +296,6 @@ $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
 $AlphaCount = $GetConfig[40] -replace 'Alpha_Count=', ''
 $IgnoreSystemLang = $GetConfig[41] -replace 'Ignore_System_Language=', ''
 
-# Small wait to ensure no corrupt of config file
-Start-Sleep -Milliseconds 10
-
-# Resets all values back into the config file (Ensures the values are set on winform launch)
-$GetConfig | Set-Content -Path $SetConfig
-
 # Loads values from external sources for winform (Config file)
 $SetColorConfig = "$PWD\GUI Form Images\$ThemeType\FormBackgroundColors.txt"
 $GetColorConfig = Get-Content $SetColorConfig
@@ -313,6 +307,12 @@ $PokeSlot3BGColor = $GetColorConfig[11] -replace 'PokemonBG_3=', ''
 $PokeSlot3CountBGColor = $GetColorConfig[12] -replace 'PokemonCountBGLabel_3=', ''
 $EggCountBGColor = $GetColorConfig[13] -replace 'EggCountBGLabel=', ''
 $CollapsedCountBGColor = $GetColorConfig[14] -replace 'CollapsedCountBGLabel=', ''
+
+# Resets all values back into the config file (Ensures the values are set on winform launch)
+$GetConfig | Set-Content -Path $SetConfig
+
+# Small wait to ensure no corrupt of config file
+Start-Sleep -Milliseconds 10
 
 # Grabs current working directory/location
 $CounterWorkingDir = $PWD
