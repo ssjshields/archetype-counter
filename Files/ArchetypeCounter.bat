@@ -20,8 +20,8 @@ Remove-Item "$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\*" -Recurse -F
 $Global:dragging = $false; $Global:mouseDragX = 0; $Global:mouseDragY = 0
 
 # Closes any other PowerShell & CMD instance down (Just in case the counter has been launched more than once)
-Get-Process "Powershell"  | Where-Object { $_.ID -ne $PID } | Stop-Process -Force
-Get-Process "cmd"  | Where-Object { $_.ID -ne $PID } | Stop-Process -Force
+Get-Process "Powershell" | Where-Object { $_.ID -ne $PID } | Stop-Process -Force
+Get-Process "cmd" | Where-Object { $_.ID -ne $PID } | Stop-Process -Force
 
 # Removes file "ArchetypeCounterExecute" as the Archetype Counter is running in memory (To prevent seeing main counter script)
 Remove-item "$PWD\ArchetypeCounterExecute.bat" -Force
@@ -3650,15 +3650,29 @@ Function PlayAction {
                         $ComparePokeC_Blank = $GetConfig[14] -replace 'Pokemon_C=', ''
                         $DetectionCount = $GetConfig[17] -replace 'Detection_Count=', ''
 
-                        # Checks if Pokemon capture names from OCR is blank/null
-                        if ([string]::IsNullOrEmpty($OCRCaptured) -or [string]::IsNullOrWhitespace($OCRCaptured) -or $OCRCaptured -eq $null -or $DetectedPokeName -eq $false) {
+                        # Checks if Pokemon capture names from OCR is blank/null (Ideally the user will be in a Poke battle)
+                        if ([string]::IsNullOrEmpty($OCRCaptured) -or [string]::IsNullOrWhitespace($OCRCaptured) -or $OCRCaptured -eq $null) {
+
+                            # Checks for pixel color to ensure user is not in battle anymore
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+
+                            # Properly sets the visibility of start/stop images on counter
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+
+                            # Break current loop and re-try
+                            Continue
+
+                        } 
+
+                        # Checks if Pokemon capture names from OCR match the Pokemon in the counter list
+                        elseif ($DetectedPokeName -eq $false) {
                             
                             # Loads Visual Basic assembly
                             Add-Type -AssemblyName Microsoft.VisualBasic
                             [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
 
                             # Displays Message Dialog Box - Cannot scan pokemon from screenshot
-                            [Microsoft.VisualBasic.Interaction]::MsgBox("Unable to scan Pokémon.`n`nThis can occur when partaking in Trainer Battles, or when the counter fails on scanning properly.`n`n(Increase count manually, if needed.)", "OKOnly,SystemModal,Critical", "Archetype Counter")
+                            [Microsoft.VisualBasic.Interaction]::MsgBox("Unable to scan Pokémon.`n`nThis can occur when the counter fails on scanning properly.`n`n(Increase count manually, if needed.)", "OKOnly,SystemModal,Critical", "Archetype Counter")
 
                             # Sets all changes back into the Config file
                             $GetConfig | Set-Content -Path $SetConfig
