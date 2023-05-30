@@ -1359,7 +1359,7 @@ XCropValue := Floor((w - 15.999 - BattleWidth) / 2)
 
 WCropValue := BattleWidth
 
-pBitmap := Gdip_CropImage(pBitmap, XCropValue, 50, WCropValue, 200)
+pBitmap := Gdip_CropImage(pBitmap, XCropValue, 50, WCropValue, 300)
 
 Gdip_SaveBitmapToFile(pBitmap, "Counter Functions\ImageMagick\ArchetypeScreenshot.png")
 
