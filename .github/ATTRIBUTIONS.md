@@ -1,8 +1,10 @@
 >**AnonymousPoke**: Lead designer
 
->**Enzemo**: Logic testing - Counter would not exist in its current state without their contributions
+>**Realmadrid1809**: Logic optimization & testing (With UI Redesign)
 
->**Realmadrid1809**: Logic testing
+>**Nurver**: Logic testing (With UI Redesign)
+
+>**Enzemo**: Logic testing - Counter would not exist in its current state without their contributions
 
 >**TheoPembo**: Logic testing
 
