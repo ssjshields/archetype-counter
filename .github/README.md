@@ -2,9 +2,9 @@
 
 Archetype Counter is a PowerShell WinForm script for the online video game [PokeMMO](https://pokemmo.com/).
 
-Automatically tracks encounters (Horde, Safari, etc.) and when you receive Eggs.
+Automatically tracks encounters (Horde, Safari, etc.) and when you receive Eggs or Fossils.
  
-Does not hook into the PokeMMO or javaw process. Utilizes OCR technology.
+Does not hook into the PokeMMO or javaw process. Utilizes AHK, OCR and Imagemagik technology.
 
 Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lovers. 
 
@@ -30,23 +30,24 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 🐣 when receiving Eggs
 
+🦣 when receiving Fossils
 
 &nbsp;
 # Compatibility
-🖥️ multi-monitor support; borderless or windowed modes *only*
+🖥️ multi-monitor support
 
-🔍 multi-interface support; requires OCR recognizable font for monster name definitions e.g., NotoSans
+🔍 multi-interface support
 
-📚 multi-language support; reporting any localization error is always appreciated
+📚 multi-language support
 
 &nbsp;
 # Media
-![main](https://user-images.githubusercontent.com/88489119/200941569-133fae7d-f711-4159-8061-b5ba3be102dd.png)
-![deafult_theme](https://user-images.githubusercontent.com/88489119/200941623-10bde8cd-4472-4f3b-9862-43fad321284c.png)
-![collapsed_default](https://user-images.githubusercontent.com/88489119/200942039-f270c6fb-8153-416d-854c-60001b35ef74.png)
+to be updated shortly
 
-![collapsed](https://user-images.githubusercontent.com/88489119/200942013-09503dc8-2470-47a7-9a53-9fa13bfa7095.png)
-![egg_collapsed](https://user-images.githubusercontent.com/88489119/200942027-cd20dbff-8193-403d-8c7f-1573d9d76ca6.png)
+![egg expand](https://github.com/ssjshields/archetype-counter/assets/88489119/03bff079-4e46-4f1c-8fc3-9204863b1bd1)
+
+![fossil expand](https://github.com/ssjshields/archetype-counter/assets/88489119/0034da2d-853b-42e7-9548-a0eab426b89b)
+
 
 &nbsp;
 # Prerequisites
@@ -55,15 +56,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 **Requires Windows 10+ and [PowerShell 5.1](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2)**
 
-> PowerShell 7.0+ not currently supported, possible migration in future for Linux / Mac support
-
-**Battle backgrounds must be turned off in-game**
-
-> Script is unable to properly capture names when they are turned on
-
-**In-game resolution must be high enough for Counter to scan**
-
-> `1280x720` is the lowest supported resoultion
+> Linux and MacOS are not supported at this time
 
 **OCR detectable battle monster name font**
 
@@ -73,45 +66,37 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 &nbsp;
 # Expectations
-> Counter must be in counting mode before "A wild `monster` appeared!" text displays
+> Counter must be in counting mode (ON) before "A wild `monster` appeared!" text displays
 
 > Tracking occurs via battle monster nameplates, OCR will not capture properly if there is anything blocking them
-
-> Strings directory should remain clean (only default files.) otherwise Counter cannot track nameplates or Eggs
-
-> If custom Strings are present, be aware if in-game text that the Counter utilizes is removed, it will not work properly
 
 &nbsp;
 # Installation
 **1.** Extract into `PokeMMO\data\mods`
 
-> Backup any modified strings if present, Counter will remove foreign files
+**2.** Run the `Archetype Counter.lnk`, pin to the taskbar if needed
 
-**2.** Run the `Archetype Counter.lnk`, create shortcut if needed
+> Do not pin the Counter from the taskbar while it's running, otherwise it will pin the Powershell terminal instead
 
 &nbsp;
 # Removal
-**1.** Delete the `archetype-counter-#` folder
-
-> `#` = release branch (stable, beta, etc.)
-
-**2.** Delete the placeholder and prefixed archetype files from `PokeMMO\data\strings`
+**1.** From the Counter menu navigate to Settings → Uninstall Archetype Counter
 
 &nbsp;
 # Main Navigation
 > right-click window title area to access the Counter menu
 
-> right-click value to decrease count
+> right-click value to decrease count, left-click value to increase count
 
-> left-click value to increase count
+> right-click empty slot to manually set monster via dex number
 
 > hover over monster sprite to display dex number and name 
 
 &nbsp;
 # Counter Menu Navigation
-*Note: Some options will appear "greyed out" and cannot be modified while the `PokeMMO.exe` is running*
+*Note: Some options will appear "grayed out" and cannot be modified while the `PokeMMO.exe` is running*
 
-![counter_menu](https://user-images.githubusercontent.com/88489119/200962673-4fd3c8de-01eb-4523-95ae-0dd44f1b0ec2.png)
+![Counter Menu](https://github.com/ssjshields/archetype-counter/assets/88489119/aac25da5-c6b5-4e34-832d-e9903b3a17e2)
 
 <details>
   <summary>Click here to learn more</summary>
@@ -129,17 +114,14 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 ### Detection Selector
 > Choose the amount of monsters to track at one given time
 
-### Clear Individual Slot
-> Clear seen monsters from specific slot or Egg count
+### Reset selector
+> Clear seen monsters from specific slot, Egg or Fossil count
 
 ### Counter Mode
-> Choose between expanded (default), collapsed (encounters) or collapsed (Eggs)
-
-### Screen Mode
-> Choose between 720p, HD (default) or 4K
+> Choose between expanded (with Egg), expanded (with Fossil), collapsed (encounters), collapsed (with Egg), or collapsed (with Fossil)
 
 ### Hunt Profiles
-> Choose or rename up to 5 different Counter profiles
+> Choose or rename up to 10 different Counter profiles
 
 ### Backup
 > Save the Counter in its current state to avoid possible lost config data, daily backup is automatic
@@ -149,13 +131,11 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 ### Settings
 
-*Note: Stopping the Counter with launch sync enabled will relaunch PokeMMO if the `PokeMMO.exe` is not found*
-
-> Start the `PokeMMO.exe` after launching the Counter
-
 > Set whether the Counter retains priority over the PokeMMO window or not
 
 > Ignore the Windows operating system language (use when the operating system language does not match in-game language.)
+
+> Uninstall Archetype Counter and its dependencies 
 
 ### Total Current Counts
 > Displays the count between all seen monsters for a total count 
@@ -168,24 +148,24 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 &nbsp;
 
 # FAQ
-### Does this work on MacOS / mobile?
+### Does this work on Linux, MacOS or mobile?
 > Unfortunately, no- the Counter utilizes built in Windows features (OCR, Powershell, etc.)
 
 ### Does this work with custom PokeMMO client themes?
-> Yes- as long as the monster nameplate font is not too small and is legible for OCR detection (e.g., NotoSans.)
+> Yes
 
 ### How does the Counter work?
 > In a nutshell; it uses OCR and several other utilities to scan screenshots of monster names and compares them against a list
 
-> Utilities compiled with [AutoHotKey](https://www.autohotkey.com/) Ahk2Exe v1.1.34.04
+> Utilities scripted with [AutoHotKey 2.0](https://www.autohotkey.com/)
 
-### How are Eggs tracked?
-> When the user retrieves them from the Day Care Man, not as they hatch
+> Monster nameplates processed using images passed through [Imagemagik](https://imagemagick.org/index.php)
+
+### How are Eggs and Fossils tracked?
+> When the user retrieves them
 
 > Events / trades do not log towards count
 
-### Why does the Counter window flash sometimes?
-> Due to how the script currently works, there's no way to import new sprites without refreshing the gui
 
 ### Can I convert data from other counters?
 > Yes, you can manually amend the profiles found at `Files\Counter Config Files`, these files utilize official dex numbers
@@ -198,7 +178,7 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 &nbsp;
 # Disclaimer
-This software has been created purely for the purposes of academic research. It is not intended to be used to attack other systems, nor does it provide the user any unfair advantage. Project maintainers are not responsible or liable for misuse of the software. Source code can be viewed from the AHK .RCDATA folders or in batch files. Use responsibly.
+This software has been created purely for the purposes of academic research. It is not intended to be used to attack other systems, nor does it provide the user any unfair advantage. There are no artificial inputs or hotkeys simulated. Project maintainers are not responsible or liable for misuse of the software. Source code can be viewed from the AHK scripts or in batch files. Use responsibly.
 
 &nbsp;
 # Contact and Support
