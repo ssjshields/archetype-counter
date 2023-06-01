@@ -56,19 +56,23 @@ to be updated shortly
 
 **Requires Windows 10+ and [PowerShell 5.1](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2)**
 
-> Linux and MacOS are not supported at this time
+> Linux and MacOS will not be supported, there is no AHK equivilant for these platforms
+
+> Linux and MacOS only support PowerShell 7.2+
 
 **OCR detectable battle monster name font**
 
 > Count will be inconsistent or fail all together if typeface is not legible for conversion
 
-> The Counter automatically ensures your Default theme has these font values
+> The Counter automatically ensures your active theme has these font values
 
 &nbsp;
 # Expectations
-> Counter must be in counting mode (ON) before "A wild `monster` appeared!" text displays
+> Counter must be in counting mode (ON) before receiving Eggs / Fossils or when encounters begin
 
-> Tracking occurs via battle monster nameplates, OCR will not capture properly if there is anything blocking them
+> Tracking occurs via battle monster nameplates, OCR will not process properly if there is anything blocking them
+
+> String ids which contain crucial text such as "{user} recieved Eggs / Fossils" cannot be removed from the game entirely
 
 &nbsp;
 # Installation
@@ -81,6 +85,8 @@ to be updated shortly
 &nbsp;
 # Removal
 **1.** From the Counter menu navigate to Settings → Uninstall Archetype Counter
+
+> All Counter files and theme modifications are subseqently removed automatically
 
 &nbsp;
 # Main Navigation
