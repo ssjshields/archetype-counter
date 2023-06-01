@@ -2,6 +2,7 @@
 #SingleInstance, Force
 #NoEnv
 SetBatchLines, -1
+SetWinDelay, 0
 
 UpdateLayeredWindow(hwnd, hdc, x="", y="", w="", h="", Alpha=255)
 {
