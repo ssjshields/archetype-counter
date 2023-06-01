@@ -317,7 +317,7 @@ $CounterActive = $GetConfig[34] -replace 'Counter_Active=', ''
 $DebugMode = $GetConfig[35] -replace 'Debug_Mode=', ''
 $CounterMode = $GetConfig[36] -replace 'Counter_Mode=', ''
 $AlwaysOnTop = $GetConfig[37] -replace 'Always_On_Top=', ''
-$TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount
+$TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
 $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
 $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
 $AlphaCount = $GetConfig[40] -replace 'Alpha_Count=', ''
@@ -935,6 +935,22 @@ $ArchetypeCollapsedCount.Text = $TotalPokeSeenCount
 $ArchetypeCollapsedCount.Font = $NonInstalledFont
 $ArchetypeCollapsedCount.Add_Click({
 
+    # Grabs the config file in its "current" state
+    $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+    $GetConfig = Get-Content $SetConfig
+    $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
+
+    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+    if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
+
+        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+        $PokemonTotalInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for All Pokemon Seen:`n(Example: 267)", ' Archetype Counter')
+        
+        # Checks if input was made on VB dialog
+        if ($PokemonTotalInput) { $PokemonTotalInput = $PokemonTotalInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[38] = "Pokemon_Seen_Count=$PokemonTotalInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+    
+    }
+
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
 
@@ -1028,15 +1044,15 @@ $ArchetypePokeAImage.Add_Click({
     $PokemonA = $GetConfig[8] -replace 'Pokemon_A=', ''
 
     # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
-    #if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonA -notmatch "Blank")) {
+    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonA -notmatch "Blank")) {
 
         # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
-        #$PokemonAInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 1 Count:`n(Example: 267)", ' Archetype Counter')
+        $PokemonAInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 1 Count:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        #if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[9] = "Pokemon_A_Count=$PokemonAInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+        if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[9] = "Pokemon_A_Count=$PokemonAInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
-    #}
+    }
 
     # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonA -match "Blank")) {
@@ -1274,6 +1290,17 @@ $ArchetypePokeBImage.Add_Click({
     $GetConfig = Get-Content $SetConfig
     $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
 
+    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonB -notmatch "Blank")) {
+
+        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+        $PokemonBInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 2 Count:`n(Example: 267)", ' Archetype Counter')
+        
+        # Checks if input was made on VB dialog
+        if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[12] = "Pokemon_B_Count=$PokemonBInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+    
+    }
+
     # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonB -match "Blank")) {
 
@@ -1397,6 +1424,17 @@ $ArchetypePokeBLabelCount.Add_Click({
     $GetConfig = Get-Content $SetConfig
     $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
 
+    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonB -notmatch "Blank")) {
+
+        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+        $PokemonBInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 2 Count:`n(Example: 267)", ' Archetype Counter')
+        
+        # Checks if input was made on VB dialog
+        if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[12] = "Pokemon_B_Count=$PokemonBInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+    
+    }
+
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonB -notmatch "Blank")) {
 
@@ -1499,6 +1537,17 @@ $ArchetypePokeCImage.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = Get-Content $SetConfig
     $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
+
+    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonC -notmatch "Blank")) {
+
+        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+        $PokemonCInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 3 Count:`n(Example: 267)", ' Archetype Counter')
+        
+        # Checks if input was made on VB dialog
+        if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[15] = "Pokemon_C_Count=$PokemonCInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+    
+    }
 
     # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonC -match "Blank")) {
@@ -1622,6 +1671,17 @@ $ArchetypePokeCLabelCount.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = Get-Content $SetConfig
     $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
+
+    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonC -notmatch "Blank")) {
+
+        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+        $PokemonCInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 3 Count:`n(Example: 267)", ' Archetype Counter')
+        
+        # Checks if input was made on VB dialog
+        if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[15] = "Pokemon_C_Count=$PokemonCInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+    
+    }
 
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonC -notmatch "Blank")) {
@@ -1893,7 +1953,7 @@ $ArchetypeImage.Add_MouseDown({
         $ShinyCount = $GetConfig[21] -replace 'Shiny_Count=',''
         $SetLanguage = $GetConfig[23] -replace 'Set_Language=', ''
         $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-        $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount
+        $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
         $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
         $DebugMode = $GetConfig[35] -replace 'Debug_Mode=', ''
         $AlphaCount = $GetConfig[40] -replace 'Alpha_Count=', ''
@@ -2966,7 +3026,7 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool9.Text = 'Total Current Counts'
         $ArchetypeMenuStripTool9.Image = $ArchetypeMenuStripCount
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool9)
-        $ArchetypeMenuStripTool9.DropDownItems.Add("Total Counted (Slots+Egg): $TotalCount", $ArchetypeMenuStripToolNumber1).Enabled = $false
+        $ArchetypeMenuStripTool9.DropDownItems.Add("Total Counted (Slots+Egg+Fossil): $TotalCount", $ArchetypeMenuStripToolNumber1).Enabled = $false
         $ArchetypeMenuStripTool9.DropDownItems.Add("Total Individual Slots: $TotalCountNoEgg", $ArchetypeMenuStripToolNumber2).Enabled = $false
         $ArchetypeMenuStripTool9.DropDownItems.Add("Total Pokemon Seen: $TotalPokeSeenCount", $ArchetypeMenuStripToolNumber3).Enabled = $false
         $ArchetypeMenuStripTool9.DropDownItems.Add("-")
