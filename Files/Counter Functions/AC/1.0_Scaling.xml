@@ -6,7 +6,7 @@
 
 	<images file="Base_Dot.png" filter="nearest">
 		<area name="Screen_Filter" xywh="*" tint="#02ffffff"/>
-		<area name="Battle_Pattern" xywh="*" splitx="L1,R0" splity="T1,B0"/>
+		<area name="Battle_Pattern" xywh="*" splitx="L6,R0" splity="T6,B0" inset="-1,-1,1,1"/>
 
 		<composed name="battle-ui-enemy">
 			<alias ref="battle-ui-enemy" tint="#fbffff"/>
