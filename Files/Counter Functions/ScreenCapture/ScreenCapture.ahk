@@ -1360,3 +1360,5 @@ Gdip_DisposeImage(pBitmap)
 Gdip_Shutdown(pToken)
 
 return
+
+Exit
