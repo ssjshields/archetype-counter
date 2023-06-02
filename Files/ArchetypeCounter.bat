@@ -3615,10 +3615,11 @@ Function PlayAction {
 
                     # Loads the "ArchetypeScreenshot" screenshot to read the pixel color value from set coordinates
                     $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose()
-                    # $GetPixelColor | Out-file "$PWD\PixelColorCheck.txt" -Force (Leaving for debugging purposes)
+                    $GetPixelColor | Out-file "$PWD\PixelColorCheck.txt" -Force #(Leaving for debugging purposes)
 
                     # Checks for specific color pixel value to engage in pokemon scan on screenshot
-                    if ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") {
+                    if ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") {
+                    #if ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") {
                     
                         # Show counter is "Busy" while running through main processing
                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
@@ -3744,7 +3745,7 @@ Function PlayAction {
                             if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3779,7 +3780,7 @@ Function PlayAction {
                             if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3805,7 +3806,7 @@ Function PlayAction {
                         if ([string]::IsNullOrEmpty($OCRCaptured) -or [string]::IsNullOrWhitespace($OCRCaptured) -or $OCRCaptured -eq $null) {
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3826,7 +3827,7 @@ Function PlayAction {
                             [Microsoft.VisualBasic.Interaction]::MsgBox("Unable to scan Pokémon.`n`nThis can occur when the counter fails on scanning properly.`n`n(Increase count manually, if needed.)", "OKOnly,SystemModal,Critical", "Archetype Counter")
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3877,7 +3878,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeAFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$GetPokemonID.png")
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3926,7 +3927,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeAFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$GetPokemonID.png")
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3979,7 +3980,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeBFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$GetPokemonID.png")
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -4024,7 +4025,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypeForm.refresh()
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -4077,7 +4078,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeCFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$GetPokemonID.png")
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -4122,7 +4123,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypeForm.refresh()
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -4138,7 +4139,7 @@ Function PlayAction {
                         } 
 
                         # Checks for pixel color to ensure user is not in battle anymore
-                        While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                        While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                         # Properly sets the visibility of start/stop images on counter
                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }

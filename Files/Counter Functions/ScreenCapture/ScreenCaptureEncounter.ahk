@@ -1369,4 +1369,3 @@ Gdip_Shutdown(pToken)
 
 return
 
-Exit
