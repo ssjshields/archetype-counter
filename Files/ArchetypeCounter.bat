@@ -3414,9 +3414,6 @@ Function PlayAction {
             [GC]::Collect()
             [GC]::WaitForPendingFinalizers()
 
-                # Kills any oprhaned AutoHotkey processes from closing down PokeMMO while running counter
-                Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
-
                 # Checks if PokeMMO is process is actively running
                 $PokeMMOActive = Get-Process -Name "PokeMMO"
 
@@ -3630,7 +3627,7 @@ Function PlayAction {
                         $Script:SyncHashTable.ArchetypeForm.refresh()
 
                         # Wait
-                        Start-Sleep -Milliseconds 3650
+                        Start-Sleep -Milliseconds 3700
 
                         # Calls the AHK script "ScreenCapture" to take/request screenshot of PokeMMO window directly (Without using Windows screenshot method)
                         Start-Process "$PWD\Counter Functions\ScreenCapture\ScreenCaptureEncounter.ahk" -Wait
@@ -4164,6 +4161,9 @@ Function PlayAction {
                     # Displays Message Dialog Box - Cannot scan pokemon from screenshot
                     $NotFoundDialog = [System.Windows.MessageBox]::Show("PokeMMO cannot be found.`n`nWould you like to launch PokeMMO?","  Archetype Counter","YesNo","Warning")
                     if ($NotFoundDialog -match "Yes") { $CounterWorkingDir = $PWD; Set-Location ..\..; Set-Location ..\..; $PokeMMOWorkingDir = $PWD; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe"; Set-Location $CounterWorkingDir } else { Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+
+                    # Kills any oprhaned AutoHotkey processes from closing down PokeMMO while running counter
+                    #Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
                 }
 
