@@ -3891,6 +3891,13 @@ Function PlayAction {
                             # Re-adds the Pokemon Sprite back into the image
                             $Script:SyncHashTable.ArchetypePokeAFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$GetPokemonID.png")
 
+                            # Loads values from external sources (Config file) + Helps refresh/update initial pokemon slot add
+                            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+                            $GetConfig = Get-Content $SetConfig
+                            $PokemonA = $GetConfig[8] -replace 'Pokemon_A=', ''
+                            $Script:SyncHashTable.ArchetypePokeAFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$PokemonA.png")
+                            $Script:SyncHashTable.ArchetypePokeAImage.Image = $Script:SyncHashTable.ArchetypePokeAFile
+
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
@@ -3993,6 +4000,15 @@ Function PlayAction {
                             # Re-adds the Pokemon Sprite back into the image
                             $Script:SyncHashTable.ArchetypePokeBFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$GetPokemonID.png")
 
+                            $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
+
+                            # Loads values from external sources (Config file) + Helps refresh/update initial pokemon slot add
+                            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+                            $GetConfig = Get-Content $SetConfig
+                            $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
+                            $Script:SyncHashTable.ArchetypePokeBFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$PokemonB.png")
+                            $Script:SyncHashTable.ArchetypePokeBImage.Image = $Script:SyncHashTable.ArchetypePokeBFile
+
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
@@ -4090,6 +4106,13 @@ Function PlayAction {
 
                             # Re-adds the Pokemon Sprite back into the image
                             $Script:SyncHashTable.ArchetypePokeCFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$GetPokemonID.png")
+
+                            # Loads values from external sources (Config file) + Helps refresh/update initial pokemon slot add
+                            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+                            $GetConfig = Get-Content $SetConfig
+                            $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
+                            $Script:SyncHashTable.ArchetypePokeCFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$PokemonC.png")
+                            $Script:SyncHashTable.ArchetypePokeCImage.Image = $Script:SyncHashTable.ArchetypePokeCFile
 
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
