@@ -3414,6 +3414,9 @@ Function PlayAction {
             [GC]::Collect()
             [GC]::WaitForPendingFinalizers()
 
+                # Kills any oprhaned AutoHotkey processes from closing down PokeMMO while running counter
+                Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
+
                 # Checks if PokeMMO is process is actively running
                 $PokeMMOActive = Get-Process -Name "PokeMMO"
 
