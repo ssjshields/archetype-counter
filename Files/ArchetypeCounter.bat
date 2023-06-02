@@ -2028,7 +2028,8 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripFolder = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Folder.png")
         $ArchetypeMenuStripEdit = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Edit.png")
         $ArchetypeMenuStripCurrentHunt = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\CurrentHunt.png")
-        $ArchetypeMenuStripUninstall= [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Uninstall.png")
+        $ArchetypeMenuStripUninstall = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Uninstall.png")
+        $ArchetypeMenuStripReadme = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Readme.png")
         
         # Adds Counter Menu - Header
         $ArchetypeMenuStrip.Items.Add("-")
@@ -3038,12 +3039,12 @@ $ArchetypeImage.Add_MouseDown({
 
         # Adds "Debug" selection
         $ArchetypeMenuStripTool10 = New-Object System.Windows.Forms.ToolStripMenuItem
-        $ArchetypeMenuStripTool10.Text = 'Debug Mode'
+        $ArchetypeMenuStripTool10.Text = 'Debug'
         $ArchetypeMenuStripTool10.Image = $ArchetypeMenuStripDebug
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool10) 
         if ($DebugMode -match "False") { $PokeMMOMenuStripTextDebug = "Counter Debugging: Disabled" } else { $PokeMMOMenuStripTextDebug = "Counter Debbuging: Enabled" }
-        $ArchetypeMenuStripTool10.DropDownItems.Add("$PokeMMOMenuStripTextDebug", $ArchetypeMenuStripDebug2).Enabled = $false # Makes the Debugging permanently on - easier to diagnose issues (No performance loss)
-        $ArchetypeMenuStripTool10.DropDownItems.Add("-", $ArchetypeMenuStripDebug2)
+        #$ArchetypeMenuStripTool10.DropDownItems.Add("$PokeMMOMenuStripTextDebug", $ArchetypeMenuStripDebug2).Enabled = $false # Makes the Debugging permanently on - easier to diagnose issues (No performance loss)
+        #$ArchetypeMenuStripTool10.DropDownItems.Add("-", $ArchetypeMenuStripDebug2)
         $ArchetypeMenuStripTool10.DropDownItems.Add("-> Open DEBUG Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Functions\ScreenCapture\DEBUG })
 
         # Add "Current Profile" in use on the bottom counter menu
@@ -3053,6 +3054,8 @@ $ArchetypeImage.Add_MouseDown({
         # Adds "Windows Info" selections (Greyed out)
         $PSVersionMajor = $PSVersionTable.PSVersion.Major; $PSVersionMinor = $PSVersionTable.PSVersion.Minor; $PSVersionInfo = "$PSVersionMajor" + '.' + "$PSVersionMinor"
         $OSName = (Get-WmiObject Win32_OperatingSystem).Caption
+        $ArchetypeMenuStripTool4.DropDownItems.Add("Readme: https://github.com/ssjshields/archetype-counter", $ArchetypeMenuStripReadme).add_Click({ Start-Process "https://github.com/ssjshields/archetype-counter" })
+        $ArchetypeMenuStripTool4.DropDownItems.Add("-")
         $ArchetypeMenuStripTool4.DropDownItems.Add("Discord: https://discord.gg/rYg7ntqQRY", $ArchetypeMenuStripDiscord).add_Click({ Start-Process "https://discord.gg/rYg7ntqQRY" })
         $ArchetypeMenuStripTool4.DropDownItems.Add("-")
         $ArchetypeMenuStripTool4.DropDownItems.Add("Current PowerShell: $PSVersionInfo", $ArchetypeMenuStripPowerShell).Enabled = $false
