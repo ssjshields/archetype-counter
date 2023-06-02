@@ -453,6 +453,9 @@ $ArchetypeForm.Add_Closing({
     # Small wait to ensure no corrupt of config file
     Start-Sleep -Milliseconds 10
 
+    # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
+    Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
+
     # This exits the application (Winform) properly
     [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force
     
@@ -1869,6 +1872,9 @@ $ArchetypePlayImage.Add_Click({
     # Small wait to ensure no corrupt of config file
     Start-Sleep -Milliseconds 10
 
+    # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
+    Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
+
     # Starts the play/record action upon pokemon added or seen count
     PlayAction
 
@@ -1910,6 +1916,9 @@ $ArchetypeCloseImage.Add_Click({
 
         # Removes all screenshot(s) from "Debug" folder (When counter closes)
         Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer }
+
+        # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
+        Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
         # This exits the application (Winform) properly 
         [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force 
