@@ -3630,11 +3630,10 @@ Function PlayAction {
 
                     # Loads the "ArchetypeScreenshot" screenshot to read the pixel color value from set coordinates
                     $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose()
-                    $GetPixelColor | Out-file "$PWD\PixelColorCheck.txt" -Force #(Leaving for debugging purposes)
+                    # $GetPixelColor | Out-file "$PWD\PixelColorCheck.txt" -Force #(Leaving for debugging purposes)
 
                     # Checks for specific color pixel value to engage in pokemon scan on screenshot
                     if ($GetPixelColor -match "ff5200a7" -or $GetPixelColor -match "ff1f5025" -or $GetPixelColor -match "ff5200a9" -or $GetPixelColor -match "ff5300aa") {
-                    #if ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") {
                     
                         # Show counter is "Busy" while running through main processing
                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
