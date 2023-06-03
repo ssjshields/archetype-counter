@@ -146,24 +146,23 @@ to be updated shortly
 ### Total Current Counts
 > Displays the count between all seen monsters for a total count 
 
-### Debug Mode
-> Outputs data in the form of `.png` and `.txt` files for error reporting
+### Debug
+>  Open the debug file directory, fetching important data in the form of `.png` and `.txt` files for error reporting
 
-> Open the debug file directory
 </details>
 &nbsp;
 
 # FAQ
 ### Does this work on Linux, MacOS or mobile?
-> Unfortunately, no- the Counter utilizes built in Windows features (OCR, Powershell, etc.)
+> Unfortunately, no- the Counter utilizes built in Windows features (OCR, Powershell, etc.) as well as AHK
 
 ### Does this work with custom PokeMMO client themes?
-> Yes
+> Yes, it will work with all custom themes, but the monster nameplate text will be modified to be OCR compatible. 
 
 ### How does the Counter work?
 > In a nutshell; it uses OCR and several other utilities to scan screenshots of monster names and compares them against a list
 
-> Utilities scripted with [AutoHotKey 2.0](https://www.autohotkey.com/)
+> Utilities scripted with legacy [AutoHotKey 1.1.36.02](https://www.autohotkey.com/)
 
 > Monster nameplates processed using images passed through [Imagemagick](https://imagemagick.org/index.php)
 
@@ -172,14 +171,15 @@ to be updated shortly
 
 > Events / trades do not log towards count
 
+> DO NOT COMPLETELY REMOVE RECIEVED EGG / FOSSIL DIALOG USING CUSTOM STRINGS
 
 ### Can I convert data from other counters?
 > Yes, you can manually amend the profiles found at `Files\Counter Config Files`, these files utilize official dex numbers
 
 ### How can I report a bug?
-> Enable Debug Mode from the Counter menu, pause the Counter after the reoccurring issue
+> Open the debug submenu in the Counter menu after the reoccurring issue
 
-> Open the Debug Folder from the Debug Mode submenu, attach the `.png` and `.txt` files (if they are generated.)
+> Open the Debug Folder, attach the `.png` and `.txt` files (if they are generated.)
 </details>
 
 &nbsp;
