@@ -171,7 +171,7 @@ to be updated shortly
 
 > Events / trades do not log towards count
 
-> DO NOT COMPLETELY REMOVE RECIEVED EGG / FOSSIL DIALOG USING CUSTOM STRINGS
+> DO NOT COMPLETELY REMOVE RECEIVED EGG / FOSSIL DIALOG USING CUSTOM STRINGS
 
 ### Can I convert data from other counters?
 > Yes, you can manually amend the profiles found at `Files\Counter Config Files`, these files utilize official dex numbers
