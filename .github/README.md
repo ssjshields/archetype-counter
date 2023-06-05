@@ -121,7 +121,7 @@ to be updated shortly
 > Choose the amount of monsters to track at one given time
 
 ### Reset selector
-> Clear seen monsters from specific slot, Egg or Fossil count
+> Clear seen monsters from specific slot, Egg or Fossil count- this does not affect the total count
 
 ### Counter Mode
 > Choose between expanded (with Egg), expanded (with Fossil), collapsed (encounters), collapsed (with Egg), or collapsed (with Fossil)
