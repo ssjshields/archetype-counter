@@ -56,9 +56,7 @@ to be updated shortly
 
 **Requires Windows 10+ and [PowerShell 5.1](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2)**
 
-> Linux and MacOS will not be supported, there is no AHK equivilant for these platforms
-
-> Linux and MacOS only support PowerShell 7.2+
+> Linux and MacOS will not be supported, there is no AHK equivilant for these platforms, and they only support PowerShell 7.2+
 
 **OCR detectable battle monster name font**
 
@@ -94,7 +92,7 @@ to be updated shortly
 
 > right-click empty slot to manually set monster via dex number
 
-> right-click value to decrease count, left-click value to increase count
+> right-click to decrease count, left-click to increase count
 
 > middle-click (scroll wheel) to manually set count
 
@@ -178,10 +176,10 @@ to be updated shortly
 ### Can I convert data from other counters?
 > Yes, right-click empty slot to manually set monster via dex number, middle-click (scroll wheel) to manually set count
 
-### How can I report a bug?
-> Open the debug submenu in the Counter menu after the reoccurring issue
+> It is not advised to manually edit profiles as it may cause profile corruption
 
-> Open the Debug Folder, attach the `.png` and `.txt` files (if they are generated.)
+### How can I report a bug?
+> Open the Debug Folder from the debug submenu in the Counter menu after the reoccurring issue, attach the `.png` and `.txt` files (if they are generated.)
 </details>
 
 &nbsp;
