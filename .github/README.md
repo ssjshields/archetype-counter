@@ -52,17 +52,10 @@ to be updated shortly
 &nbsp;
 # Prerequisites
 
-*Note: If your OS is up-to-date, you will already have PowerShell installed*
+**Requires Windows 10+**
+> Linux and MacOS will not be supported, there is no AHK equivilant for these platforms
 
-**Requires Windows 10+ and [PowerShell 5.1](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell?view=powershell-7.2)**
-
-> Linux and MacOS will not be supported, there is no AHK equivilant for these platforms, and they only support PowerShell 7.2+
-
-**OCR detectable battle monster name font**
-
-> Count will be inconsistent or fail all together if typeface is not legible for conversion
-
-> The Counter automatically ensures your active theme has these font values
+> 
 
 &nbsp;
 # Expectations
@@ -103,10 +96,6 @@ to be updated shortly
 *Note: Some options will appear "grayed out" and cannot be modified while the `PokeMMO.exe` is running*
 
 ![Counter Menu](https://github.com/ssjshields/archetype-counter/assets/88489119/aac25da5-c6b5-4e34-832d-e9903b3a17e2)
-
-<details>
-  <summary>Click here to learn more</summary>
-&nbsp;
 
 ### Language
 > Select PokeMMO client language for OCR to detect
@@ -180,7 +169,6 @@ to be updated shortly
 
 ### How can I report a bug?
 > Open the Debug Folder from the debug submenu in the Counter menu after the reoccurring issue, attach the `.png` and `.txt` files (if they are generated.)
-</details>
 
 &nbsp;
 # Disclaimer
