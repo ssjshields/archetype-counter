@@ -92,9 +92,11 @@ to be updated shortly
 # Main Navigation
 > right-click window title area to access the Counter menu
 
+> right-click empty slot to manually set monster via dex number
+
 > right-click value to decrease count, left-click value to increase count
 
-> right-click empty slot to manually set monster via dex number
+> middle-click (scroll wheel) to manually set count
 
 > hover over monster sprite to display dex number and name 
 
@@ -174,7 +176,7 @@ to be updated shortly
 > DO NOT COMPLETELY REMOVE RECEIVED EGG / FOSSIL DIALOG USING CUSTOM STRINGS
 
 ### Can I convert data from other counters?
-> Yes, you can manually amend the profiles found at `Files\Counter Config Files`, these files utilize official dex numbers
+> Yes, right-click empty slot to manually set monster via dex number, middle-click (scroll wheel) to manually set count
 
 ### How can I report a bug?
 > Open the debug submenu in the Counter menu after the reoccurring issue
