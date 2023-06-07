@@ -1877,7 +1877,7 @@ $ArchetypePlayImage.Add_Click({
     Start-Sleep -Milliseconds 10
 
     # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
-    Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
+    #Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
     # Starts the play/record action upon pokemon added or seen count
     PlayAction
@@ -4207,7 +4207,7 @@ Function PlayAction {
 
                     # Displays Message Dialog Box - Cannot scan pokemon from screenshot
                     $NotFoundDialog = [System.Windows.MessageBox]::Show("PokeMMO cannot be found.`n`nWould you like to launch PokeMMO?","  Archetype Counter","YesNo","Warning")
-                    if ($NotFoundDialog -match "Yes") { $CounterWorkingDir = $PWD; Set-Location ..\..; Set-Location ..\..; $PokeMMOWorkingDir = $PWD; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe"; Set-Location $CounterWorkingDir } else { Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                    if ($NotFoundDialog -match "Yes") { $CounterWorkingDir = $PWD; Set-Location ..\..; Set-Location ..\..; $PokeMMOWorkingDir = $PWD; $RunSpace = [Management.Automation.Runspaces.RunspaceFactory]::CreateRunspace(); $RunSpace.ApartmentState = "STA"; $RunSpace.ThreadOptions = "ReuseThread"; $RunSpace.Open(); $RunSpace.SessionStateProxy.SetVariable("SyncHashTable",$Script:SyncHashTable); $PowerShellCmd = [Management.Automation.PowerShell]::Create().AddScript({; Set-Location ..\..; Set-Location ..\..; cmd.exe /c "$PWD\PokeMMO.exe"; }); $PowerShellCmd.Runspace = $RunSpace; $PSAsyncObject = $PowerShellCmd.BeginInvoke(); Start-Sleep -Seconds 1; Set-Location $CounterWorkingDir } else { Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                     # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
                     Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
