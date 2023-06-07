@@ -16,7 +16,7 @@ Get-Process PowerShell | ForEach-Object { $_.PriorityClass='AboveNormal' }
 # Clears PowerShell console history file (Help with performance)
 Remove-Item "$env:APPDATA\Microsoft\Windows\PowerShell\PSReadLine\*" -Recurse -Force
 
-# Globals variabbles for Archetype counter form dragging functionality
+# Globals variables for Archetype counter form dragging functionality
 $Global:dragging = $false; $Global:mouseDragX = 0; $Global:mouseDragY = 0
 
 # Closes any other PowerShell & CMD instance down (Just in case the counter has been launched more than once)
@@ -1939,9 +1939,9 @@ $ArchetypeImage = New-Object system.windows.Forms.PictureBox
 $ArchetypeImage.Width = 94
 $ArchetypeImage.Height = 330
 if ($DetectionCount -match "3") { $ArchetypeImage.Image = $ArchetypeBaseFile3 } elseif ($DetectionCount -match "2") { $ArchetypeImage.Image = $ArchetypeBaseFile2 } elseif ($DetectionCount -match "1") { $ArchetypeImage.Image = $ArchetypeBaseFile1 }
-if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
-if ($CounterMode -match "Collapsed_Egg") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
-if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypeMainFossilImage.Visible = $false; $ArchetypeFossilLabelCount.Visible = $true; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeForm.ClientSize = "114, 42"; $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Egg") { $ArchetypeForm.ClientSize = "114, 42"; $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
+if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeForm.ClientSize = "114, 42"; $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypeMainFossilImage.Visible = $false; $ArchetypeFossilLabelCount.Visible = $true; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
 $ArchetypeImage.location = New-object system.drawing.point(0,0)
 $ArchetypeImage.Add_MouseDown({ if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) { $global:dragging = $true; $global:mouseDragX = [System.Windows.Forms.Cursor]::Position.X - $ArchetypeForm.Left; $global:mouseDragY = [System.Windows.Forms.Cursor]::Position.Y - $ArchetypeForm.Top } })
 $ArchetypeImage.Add_MouseMove({ if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) { if($global:dragging) { $screen = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea; $currentX = [System.Windows.Forms.Cursor]::Position.X; $currentY = [System.Windows.Forms.Cursor]::Position.Y; [int]$newX = [Math]::Min($currentX - $global:mouseDragX, $screen.Right + 42 - $ArchetypeForm.Width); [int]$newY = [Math]::Min($currentY - $global:mouseDragY, $screen.Bottom - $ArchetypeForm.Height); $ArchetypeForm.Location = New-Object System.Drawing.Point($newX, $newY) } }})
@@ -3158,6 +3158,9 @@ $ArchetypeImage.Add_MouseDown({
                 # Performs force active window process
                 [void][ForceActiveWin]::SetForegroundWindow($hwnd)
 
+                # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
+                Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
+
             })
 
             # Adds click to "Exit Counter" selection
@@ -3186,6 +3189,9 @@ $ArchetypeImage.Add_MouseDown({
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
+
+                # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
+                Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
                 # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
                 if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
