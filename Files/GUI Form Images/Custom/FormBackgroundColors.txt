@@ -13,3 +13,6 @@ PokemonBG_3=#263137
 PokemonCountBGLabel_3=#263137
 EggCountBGLabel=#263137
 CollapsedCountBGLabel=#263137
+CollapsedPlayBG=#263137
+CollapsedStopBG=#74cc1d
+CollapsedBusyBG=#ce2020
