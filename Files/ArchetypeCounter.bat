@@ -4223,7 +4223,7 @@ Function PlayAction {
                 # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
                 if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
-        # Techncially loops until forever (The stop button will be the way to force the stop of the counter)
+        # Technically loops until forever (The stop button will be the way to force the stop of the counter)
         } until ($Script:SyncHashTable.ArchetypePlayImage.Visible -match $true -or $Script:SyncHashTable.ArchetypeCollapsedPlayImage.Visible -match $true)
 
     })
