@@ -55,8 +55,6 @@ to be updated shortly
 **Requires Windows 10+**
 > Linux and MacOS will not be supported, there is no AHK equivilant for these platforms
 
-> 
-
 &nbsp;
 # Expectations
 > Counter must be in counting mode (ON) before receiving Eggs / Fossils or when encounters begin
@@ -93,7 +91,7 @@ to be updated shortly
 
 &nbsp;
 # Counter Menu Navigation
-*Note: Some options will appear "grayed out" and cannot be modified while the `PokeMMO.exe` is running*
+*Note: Some options will appear "grayed out" and cannot be modified while the Counter is in counting mode (ON) or (BUSY)*
 
 ![Counter Menu](https://github.com/ssjshields/archetype-counter/assets/88489119/aac25da5-c6b5-4e34-832d-e9903b3a17e2)
 
@@ -151,7 +149,9 @@ to be updated shortly
 ### How does the Counter work?
 > In a nutshell; it uses OCR and several other utilities to scan screenshots of monster names and compares them against a list
 
-> Utilities scripted with legacy [AutoHotKey 1.1.36.02](https://www.autohotkey.com/)
+> Client theme.xml, font values and graphical assets (AC folder) are inserted into the currently installed theme list 
+
+> Utilities scripted with legacy [AutoHotKey 1.1.36.02](https://www.autohotkey.com/), packaged with PowerShell 5.1
 
 > Monster nameplates processed using images passed through [Imagemagick](https://imagemagick.org/index.php)
 
@@ -165,10 +165,10 @@ to be updated shortly
 ### Can I convert data from other counters?
 > Yes, right-click empty slot to manually set monster via dex number, middle-click (scroll wheel) to manually set count
 
-> It is not advised to manually edit profiles as it may cause profile corruption
+> It is not advised to manually edit profiles as it may cause profile corruption- located in `Files\Counter Config Files`
 
 ### How can I report a bug?
-> Open the Debug Folder from the debug submenu in the Counter menu after the reoccurring issue, attach the `.png` and `.txt` files (if they are generated.)
+> Open the Debug Folder from the debug submenu in the Counter menu after the reoccurring issue, attach the `.png` and `.txt` files
 
 &nbsp;
 # Disclaimer
