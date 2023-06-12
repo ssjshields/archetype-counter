@@ -168,7 +168,7 @@ to be updated shortly
 > It is not advised to manually edit profiles as it may cause profile corruption- located in `Files\Counter Config Files`
 
 ### How can I report a bug?
-> Open the Debug Folder from the debug submenu in the Counter menu after the reoccurring issue, attach the `.png` and `.txt` files
+> Open the Debug and Imagemagcik folders from the debug submenu in the Counter menu after the reoccurring issue, attach the `.png` and `.txt` files
 
 &nbsp;
 # Disclaimer
