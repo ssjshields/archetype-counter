@@ -3423,9 +3423,6 @@ Function PlayAction {
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
                         [IO.File]::WriteAllText("$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_AfterLogic.txt", $OCRCaptured)
 
-                        # Clears out the ImageMagick Archetype Screenshot
-                        Remove-Item "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotMagick.png" -Force
-
                         # Increments Pokemon seen count by correct value (FOR TOTAL ENCOUNTERED POKEMON)
                         $OCRCapturedHordeNumberCount = ($OCRCaptured | Measure-Object -Line).Lines
                         $TotalPokeSeenCountAmend = [int]$TotalPokeSeenCount + [int]$OCRCapturedHordeNumberCount
@@ -3450,6 +3447,9 @@ Function PlayAction {
 
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
                         [IO.File]::WriteAllText("$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_HordeLogic_Count.txt", $OCRCaptured)
+
+                        # Copies "DEBUG" folder to Counter Config Backup as a form of backup (Adds more ease of use when debugging)
+                        Copy-Item "$PWD\Counter Functions\ScreenCapture\DEBUG" -Destination "$PWD\Counter Config Files\Counter Config Backup" -Recurse -Force
 
                         # Grabs and loads + compares to the captures OCR text
                         $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
