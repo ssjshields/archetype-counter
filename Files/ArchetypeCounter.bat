@@ -29,9 +29,6 @@ Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 # Removes file "ArchetypeCounterExecute" as the Archetype Counter is running in memory (To prevent seeing main counter script)
 Remove-item "$PWD\ArchetypeCounterExecute.bat" -Force
 
-# Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-Remove-Item "$PWD\Counter Functions\ImageMagick\*.png*" | Where { ! $_.PSIsContainer }
-
 # Adds in the ability to make the Winforms app DPI aware (https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setprocessdpiawarenesscontext)
 Add-Type -TypeDefinition '
 using System;
