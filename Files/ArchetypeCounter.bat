@@ -276,18 +276,18 @@ Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawi
 
 # Loads hunt string from external source (CurrentProfileState.txt file)
 $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"
-$GetProfileConfig = Get-Content $SetProfileConfig
-$GetProfile = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''
-$CheckProfile1 = $GetProfileConfig[8] -replace 'Hunt_Profile_Name_1=', ''
-$CheckProfile2 = $GetProfileConfig[9] -replace 'Hunt_Profile_Name_2=', ''
-$CheckProfile3 = $GetProfileConfig[10] -replace 'Hunt_Profile_Name_3=', ''
-$CheckProfile4 = $GetProfileConfig[11] -replace 'Hunt_Profile_Name_4=', ''
-$CheckProfile5 = $GetProfileConfig[12] -replace 'Hunt_Profile_Name_5=', ''
-$CheckProfile6 = $GetProfileConfig[13] -replace 'Hunt_Profile_Name_6=', ''
-$CheckProfile7 = $GetProfileConfig[14] -replace 'Hunt_Profile_Name_7=', ''
-$CheckProfile8 = $GetProfileConfig[15] -replace 'Hunt_Profile_Name_8=', ''
-$CheckProfile9 = $GetProfileConfig[16] -replace 'Hunt_Profile_Name_9=', ''
-$CheckProfile10 = $GetProfileConfig[17] -replace 'Hunt_Profile_Name_10=', ''
+$GetProfileConfig = [IO.File]::ReadAllLines("$SetProfileConfig")
+$GetProfile = $GetProfileConfig -match "Current_Hunt_Profile="; $GetProfile = $GetProfile -replace "Current_Hunt_Profile=", ""
+$CheckProfile1 = $GetProfileConfig -match "Hunt_Profile_Name_1="; $CheckProfile1 = $CheckProfile1 -replace "Hunt_Profile_Name_1=", ""
+$CheckProfile2 = $GetProfileConfig -match "Hunt_Profile_Name_2="; $CheckProfile2 = $CheckProfile2 -replace "Hunt_Profile_Name_2=", ""
+$CheckProfile3 = $GetProfileConfig -match "Hunt_Profile_Name_3="; $CheckProfile3 = $CheckProfile3 -replace "Hunt_Profile_Name_3=", ""
+$CheckProfile4 = $GetProfileConfig -match "Hunt_Profile_Name_4="; $CheckProfile4 = $CheckProfile4 -replace "Hunt_Profile_Name_4=", ""
+$CheckProfile5 = $GetProfileConfig -match "Hunt_Profile_Name_5="; $CheckProfile5 = $CheckProfile5 -replace "Hunt_Profile_Name_5=", ""
+$CheckProfile6 = $GetProfileConfig -match "Hunt_Profile_Name_6="; $CheckProfile6 = $CheckProfile6 -replace "Hunt_Profile_Name_6=", ""
+$CheckProfile7 = $GetProfileConfig -match "Hunt_Profile_Name_7="; $CheckProfile7 = $CheckProfile7 -replace "Hunt_Profile_Name_7=", ""
+$CheckProfile8 = $GetProfileConfig -match "Hunt_Profile_Name_8="; $CheckProfile8 = $CheckProfile8 -replace "Hunt_Profile_Name_8=", ""
+$CheckProfile9 = $GetProfileConfig -match "Hunt_Profile_Name_9="; $CheckProfile9 = $CheckProfile9 -replace "Hunt_Profile_Name_9=", ""
+$CheckProfile10 = $GetProfileConfig -match "Hunt_Profile_Name_10="; $CheckProfile10 = $CheckProfile10 -replace "Hunt_Profile_Name_10=", ""
 if ($GetProfile -match $CheckProfile1) { $GetProfile = 'Profile1' } elseif ($GetProfile -match $CheckProfile2) { $GetProfile = 'Profile2' } elseif ($GetProfile -match $CheckProfile3) { $GetProfile = 'Profile3' } elseif ($GetProfile -match $CheckProfile4) { $GetProfile = 'Profile4' } elseif ($GetProfile -match $CheckProfile5) { $GetProfile = 'Profile5' } elseif ($GetProfile -match $CheckProfile6) { $GetProfile = 'Profile6' } elseif ($GetProfile -match $CheckProfile7) { $GetProfile = 'Profile7' } elseif ($GetProfile -match $CheckProfile8) { $GetProfile = 'Profile8' } elseif ($GetProfile -match $CheckProfile9) { $GetProfile = 'Profile9' } elseif ($GetProfile -match $CheckProfile10) { $GetProfile = 'Profile10' }
 
 # Checks if counter config backup current day folder is set (Creates a backup of the current day the counter is ran each day)
@@ -295,57 +295,61 @@ $TodaysDate = (Get-Date).ToString('MM_dd_yyyy'); if (!(Test-Path -Path "$PWD\Cou
 
 # Loads values from external sources (Config file)
 $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-$GetConfig = Get-Content $SetConfig
-$TotalCount = $GetConfig[7] -replace 'Total_Count=', ''
-$PokemonA = $GetConfig[8] -replace 'Pokemon_A=', ''
-$PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
-$PokemonAHover = $GetConfig[10] -replace 'Pokemon_A_Hover=', ''
-$PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
-$PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
-$PokemonBHover = $GetConfig[13] -replace 'Pokemon_B_Hover=', ''
-$PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
-$PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-$PokemonCHover = $GetConfig[16] -replace 'Pokemon_C_Hover=', ''
-$DetectionCount = $GetConfig[17] -replace 'Detection_Count=', ''
-$ArchetypeX = $GetConfig[18] -replace 'Archetype_X=',''
-$ArchetypeY = $GetConfig[19] -replace 'Archetype_Y=',''
-$EggCount = $GetConfig[20] -replace 'Egg_Count=',''
-$ShinyCount = $GetConfig[21] -replace 'Shiny_Count=',''
-$ThemeType = $GetConfig[22] -replace 'Theme_Type=', ''
-$SpriteType = $GetConfig[25] -replace 'Sprite_Type=', ''
-$SetLanguage = $GetConfig[23] -replace 'Set_Language=', ''
-$FossilCount = $GetConfig[24] -replace 'Fossil_Count=', ''
-$AutoRestartCounter = $GetConfig[33] -replace 'Auto_Restart_Counter=', ''
-$CounterActive = $GetConfig[34] -replace 'Counter_Active=', ''
-$DebugMode = $GetConfig[35] -replace 'Debug_Mode=', ''
-$CounterMode = $GetConfig[36] -replace 'Counter_Mode=', ''
-$AlwaysOnTop = $GetConfig[37] -replace 'Always_On_Top=', ''
+$GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+# ------------------------------------------------
+$PokemonA = $GetConfig -match "Pokemon_A="; $PokemonA = $PokemonA -replace "Pokemon_A=", ""
+$PokemonCountA = $GetConfig -match "Pokemon_A_Count="; $PokemonCountA = $PokemonCountA -replace "Pokemon_A_Count=", ""
+$PokemonAHover = $GetConfig -match "Pokemon_A_Hover="; $PokemonAHover = $PokemonAHover -replace "Pokemon_A_Hover=", ""
+# ------------------------------------------------
+$PokemonB = $GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
+$PokemonCountB = $GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
+$PokemonBHover = $GetConfig -match "Pokemon_B_Hover="; $PokemonBHover = $PokemonBHover -replace "Pokemon_B_Hover=", ""
+# ------------------------------------------------
+$PokemonC = $GetConfig -match "Pokemon_C="; $PokemonC = $PokemonC -replace "Pokemon_C=", ""
+$PokemonCountC = $GetConfig -match "Pokemon_C_Count="; $PokemonCountC = $PokemonCountC -replace "Pokemon_C_Count=", ""
+$PokemonCHover = $GetConfig -match "Pokemon_C_Hover="; $PokemonCHover = $PokemonCHover -replace "Pokemon_C_Hover=", ""
+# ------------------------------------------------
+$DetectionCount = $GetConfig -match "Detection_Count="; $DetectionCount = $DetectionCount -replace "Detection_Count=", ""
+$ThemeType = $GetConfig -match "Theme_Type="; $ThemeType = $ThemeType -replace "Theme_Type=", ""
+$SpriteType = $GetConfig -match "Sprite_Type="; $SpriteType = $SpriteType -replace "Sprite_Type=", ""
+$CounterMode = $GetConfig -match "Counter_Mode="; $CounterMode = $CounterMode -replace "Counter_Mode=", ""
+# ------------------------------------------------
+$AutoRestartCounter = $GetConfig -match "Auto_Restart_Counter="; $AutoRestartCounter = $AutoRestartCounter -replace "Auto_Restart_Counter=", ""
+$CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
+# ------------------------------------------------
+$AlwaysOnTop = $GetConfig -match "Always_On_Top="; $AlwaysOnTop = $AlwaysOnTop -replace "Always_On_Top=", ""
+# ------------------------------------------------
+$SetLanguage = $GetConfig -match "Set_Language="; $SetLanguage = $SetLanguage -replace "Set_Language=", ""
+$IgnoreSystemLang = $GetConfig -match "Ignore_System_Language="; $IgnoreSystemLang = $IgnoreSystemLang -replace "Ignore_System_Language=", ""
+# ------------------------------------------------
+$ArchetypeX = $GetConfig -match "Archetype_X="; $ArchetypeX = $ArchetypeX -replace "Archetype_X=", ""
+$ArchetypeY = $GetConfig -match "Archetype_Y="; $ArchetypeY = $ArchetypeY -replace "Archetype_Y=", ""
+# ------------------------------------------------
+$TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
+$FossilCount = $GetConfig -match "Fossil_Count="; $FossilCount = $FossilCount -replace "Fossil_Count=", ""
+$EggCount = $GetConfig -match "Egg_Count="; $EggCount = $EggCount -replace "Egg_Count=", ""
+$AlphaCount = $GetConfig -match "Alpha_Count="; $AlphaCount = $AlphaCount -replace "Alpha_Count=", ""
+$TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
+# ------------------------------------------------
+$ShinyCount = $GetConfig -match "Shiny_Count="; $ShinyCount = $ShinyCount -replace "Shiny_Count=", ""
+# ------------------------------------------------
 $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
 $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
-$TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-$AlphaCount = $GetConfig[40] -replace 'Alpha_Count=', ''
-$IgnoreSystemLang = $GetConfig[41] -replace 'Ignore_System_Language=', ''
 
 # Loads values from external sources for winform (Config file)
 $SetColorConfig = "$PWD\GUI Form Images\$ThemeType\FormBackgroundColors.txt"
-$GetColorConfig = Get-Content $SetColorConfig
-$PokeSlot1BGColor = $GetColorConfig[7] -replace 'PokemonBG_1=', ''
-$PokeSlot1CountBGColor = $GetColorConfig[8] -replace 'PokemonCountBGLabel_1=', ''
-$PokeSlot2BGColor = $GetColorConfig[9] -replace 'PokemonBG_2=', ''
-$PokeSlot2CountBGColor = $GetColorConfig[10] -replace 'PokemonCountBGLabel_2=', ''
-$PokeSlot3BGColor = $GetColorConfig[11] -replace 'PokemonBG_3=', ''
-$PokeSlot3CountBGColor = $GetColorConfig[12] -replace 'PokemonCountBGLabel_3=', ''
-$EggCountBGColor = $GetColorConfig[13] -replace 'EggCountBGLabel=', ''
-$CollapsedCountBGColor = $GetColorConfig[14] -replace 'CollapsedCountBGLabel=', ''
-$CollapsedPlayBGColor = $GetColorConfig[15] -replace 'CollapsedPlayBG=', ''
-$CollapsedStopBGColor = $GetColorConfig[16] -replace 'CollapsedStopBG=', ''
-$CollapsedBusyBGColor = $GetColorConfig[17] -replace 'CollapsedBusyBG=', ''
-
-# Resets all values back into the config file (Ensures the values are set on winform launch)
-$GetConfig | Set-Content -Path $SetConfig
-
-# Small wait to ensure no corrupt of config file
-Start-Sleep -Milliseconds 10
+$GetColorConfig = [IO.File]::ReadAllLines("$SetColorConfig")
+$PokeSlot1BGColor = $GetColorConfig -match "PokemonBG_1="; $PokeSlot1BGColor = $PokeSlot1BGColor -replace "PokemonBG_1=", ""
+$PokeSlot1CountBGColor = $GetColorConfig -match "PokemonCountBGLabel_1="; $PokeSlot1CountBGColor = $PokeSlot1CountBGColor -replace "PokemonCountBGLabel_1=", ""
+$PokeSlot2BGColor = $GetColorConfig -match "PokemonBG_2="; $PokeSlot2BGColor = $PokeSlot2BGColor -replace "PokemonBG_2=", ""
+$PokeSlot2CountBGColor = $GetColorConfig -match "PokemonCountBGLabel_2="; $PokeSlot2CountBGColor = $PokeSlot2CountBGColor -replace "PokemonCountBGLabel_2=", ""
+$PokeSlot3BGColor = $GetColorConfig -match "PokemonBG_3="; $PokeSlot3BGColor = $PokeSlot3BGColor -replace "PokemonBG_3=", ""
+$PokeSlot3CountBGColor = $GetColorConfig -match "PokemonCountBGLabel_3="; $PokeSlot3CountBGColor = $PokeSlot3CountBGColor -replace "PokemonCountBGLabel_3=", ""
+$EggCountBGColor = $GetColorConfig -match "EggCountBGLabel="; $EggCountBGColor = $EggCountBGColor -replace "EggCountBGLabel=", ""
+$CollapsedCountBGColor = $GetColorConfig -match "CollapsedCountBGLabel="; $CollapsedCountBGColor = $CollapsedCountBGColor -replace "CollapsedCountBGLabel=", ""
+$CollapsedPlayBGColor = $GetColorConfig -match "CollapsedPlayBG="; $CollapsedPlayBGColor = $CollapsedPlayBGColor -replace "CollapsedPlayBG=", ""
+$CollapsedStopBGColor = $GetColorConfig -match "CollapsedStopBG="; $CollapsedStopBGColor = $CollapsedStopBGColor -replace "CollapsedStopBG=", ""
+$CollapsedBusyBGColor = $GetColorConfig -match "CollapsedBusyBG="; $CollapsedBusyBGColor = $CollapsedBusyBGColor -replace "CollapsedBusyBG=", ""
 
 # Grabs current working directory/location
 $CounterWorkingDir = $PWD
@@ -418,13 +422,13 @@ $ArchetypeForm.Add_Load({
     [void][ForceActiveWin]::SetForegroundWindow($hwnd)
 
     # Checks if Auto Restart Counter is set to "True"
-    if ($AutoRestartCounter -match "True") { PlayAction } else { $GetConfig[34] = 'Counter_Active=False' }
+    if ($AutoRestartCounter -match "True") { PlayAction } else { $GetConfig = $GetConfig -replace "Counter_Active.*", "Counter_Active=False" }
 
     # Sets the flag for the counter to not Auto Start on "Stop"
-    $GetConfig[33] = "Auto_Restart_Counter=False" 
+    $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
 
-    # Sets all changes back into the Config file
-    $GetConfig | Set-Content -Path $SetConfig
+    # Sets all changes back into the Config file(s)
+    [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
     # Small wait to ensure no corrupt of config file
     Start-Sleep -Milliseconds 10
@@ -435,23 +439,17 @@ $ArchetypeForm.Add_Load({
 })
 $ArchetypeForm.Add_Closing({
 
-    # Grabs the config file in its "current" state
-    $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-    $GetConfig = Get-Content $SetConfig
-
     # Sets the flag for the counter to not Auto Start on "Stop"
-    $GetConfig[33] = "Auto_Restart_Counter=False" 
+    $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
 
     # Gets the current X and Y coordinates of the form
-    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-    $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
     # Replaces and Sets the starting position on the counter form start
-    $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-    $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
     # Sets all changes back into the Config file
-    $GetConfig | Set-Content -Path $SetConfig
+    [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
     # Small wait to ensure no corrupt of config file
     Start-Sleep -Milliseconds 10
@@ -524,6 +522,11 @@ if ($DetectionCount -match "3") { $ArchetypeMainFossilImage.location = New-objec
 if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMainFossilImage.Visible = $true }
 $ArchetypeMainFossilImage.Add_Click({
 
+    # Loads values from external sources (Config file)
+    $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+    $FossilCount = $GetConfig -match "Fossil_Count="; $FossilCount = $FossilCount -replace "Fossil_Count=", ""
+
     # Checks Middle Mouse Click - To manually add value count in Fossil slot
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
 
@@ -531,42 +534,27 @@ $ArchetypeMainFossilImage.Add_Click({
         $PokemonFossilInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Fossil Count:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[24] = "Fossil_Count=$PokemonFossilInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+        if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$PokemonFossilInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
     }
 
-    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
+    # Checks Left Mouse Click - If so, gives ability to manually increase count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
-
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Grabs Pokemon egg slot and increases the count
-        $FossilCount = $GetConfig[24] -replace 'Fossil_Count=',''
-        $FossilCount = [int]$FossilCount + 1
+        # Grabs Pokemon fossil slot and increases the count
+        $FossilCount = $FossilCount -join '-'; $FossilCount = [int]$FossilCount + 1
 
         # Changes the Pokemon fossil count
-        $GetConfig[24] = "Fossil_Count=$FossilCount"
-
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
-
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$FossilCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -580,33 +568,26 @@ $ArchetypeMainFossilImage.Add_Click({
 
     }
 
-    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
+    # Checks Left Mouse Click - If so, gives ability to manually decrease count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
-
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Grabs Pokemon fossil slot and increases the count
-        $FossilCount = $GetConfig[24] -replace 'Fossil_Count=',''
-        if ($FossilCount -eq "0") { $FossilCount = 0 } else { $FossilCount = [int]$FossilCount - 1 }
+        # Grabs Pokemon fossil slot and decreases the count
+        $FossilCount = $FossilCount -join '-'; if ($FossilCount -eq "0") { $FossilCount = 0 } else { $FossilCount = [int]$FossilCount - 1 }
 
         # Changes the Pokemon fossil count
-        $GetConfig[24] = "Fossil_Count=$FossilCount"
+        $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$FossilCount"
+
+        # Sets all changes back into the Config file
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
-
-        # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
 
         # Refreshes Form and Poke count label
         $ArchetypeFossilLabelCount.update()
@@ -635,6 +616,11 @@ $ArchetypeFossilLabelCount.Text = $FossilCount
 $ArchetypeFossilLabelCount.Font = $NonInstalledFont
 $ArchetypeFossilLabelCount.Add_Click({
 
+    # Loads values from external sources (Config file)
+    $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+    $FossilCount = $GetConfig -match "Fossil_Count="; $FossilCount = $FossilCount -replace "Fossil_Count=", ""
+
     # Checks Middle Mouse Click - To manually add value count in Fossil slot
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
 
@@ -642,34 +628,27 @@ $ArchetypeFossilLabelCount.Add_Click({
         $PokemonFossilInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Fossil Count:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[24] = "Fossil_Count=$PokemonFossilInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+        if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$PokemonFossilInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
     }
 
-    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
+    # Checks Left Mouse Click - If so, gives ability to manually increase count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
-
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
         # Grabs Pokemon fossil slot and increases the count
-        $FossilCount = $GetConfig[24] -replace 'Fossil_Count=',''
-        $FossilCount = [int]$FossilCount + 1
+        $FossilCount = $FossilCount -join '-'; $FossilCount = [int]$FossilCount + 1
 
-        # Changes the Pokemon egg count
-        $GetConfig[24] = "Fossil_Count=$FossilCount"
+        # Changes the Pokemon fossil count
+        $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$FossilCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -683,30 +662,23 @@ $ArchetypeFossilLabelCount.Add_Click({
 
     }
 
-    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
+    # Checks Left Mouse Click - If so, gives ability to manually decrease count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
-
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Grabs Pokemon egg slot and increases the count
-        $FossilCount = $GetConfig[24] -replace 'Fossil_Count=',''
-        if ($FossilCount-eq "0") { $FossilCount = 0 } else { $FossilCount = [int]$FossilCount - 1 }
+        # Grabs Pokemon fossil slot and decreases the count
+        $FossilCount = $FossilCount -join '-'; if ($FossilCount -eq "0") { $FossilCount = 0 } else { $FossilCount = [int]$FossilCount - 1 }
 
         # Changes the Pokemon fossil count
-        $GetConfig[24] = "Fossil_Count=$FossilCount"
+        $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$FossilCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -734,6 +706,11 @@ $ArchetypeMainEggImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($E
 if ($DetectionCount -match "3") { $ArchetypeMainEggImage.location = New-object system.drawing.point(29,241) } elseif ($DetectionCount -match "2") { $ArchetypeMainEggImage.location = New-object system.drawing.point(29,185) } elseif ($DetectionCount -match "1") { $ArchetypeMainEggImage.location = New-object system.drawing.point(29,126) }
 $ArchetypeMainEggImage.Add_Click({
 
+    # Loads values from external sources (Config file)
+    $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+    $EggCount = $GetConfig -match "Egg_Count="; $EggCount = $EggCount -replace "Egg_Count=", ""
+
     # Checks Middle Mouse Click - To manually add value count in Egg slot
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
 
@@ -741,42 +718,27 @@ $ArchetypeMainEggImage.Add_Click({
         $PokemonEggInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Egg Count:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[20] = "Egg_Count=$PokemonEggInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+        if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$PokemonEggInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
     }
 
-    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
+    # Checks Left Mouse Click - If so, gives ability to manually increase count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
-
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
         # Grabs Pokemon egg slot and increases the count
-        $EggCount = $GetConfig[20] -replace 'Egg_Count=',''
-        $EggCount = [int]$EggCount + 1
+        $EggCount = $EggCount -join '-'; $EggCount = [int]$EggCount + 1
 
         # Changes the Pokemon egg count
-        $GetConfig[20] = "Egg_Count=$EggCount"
-
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
-
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$EggCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -790,30 +752,23 @@ $ArchetypeMainEggImage.Add_Click({
 
     }
 
-    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
+    # Checks Left Mouse Click - If so, gives ability to manually decrease count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
-
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Grabs Pokemon egg slot and increases the count
-        $EggCount = $GetConfig[20] -replace 'Egg_Count=',''
-        if ($EggCount -eq "0") { $EggCount = 0 } else { $EggCount = [int]$EggCount - 1 }
+        # Grabs Pokemon egg slot and decreases the count
+        $EggCount = $EggCount -join '-'; if ($EggCount -eq "0") { $EggCount = 0 } else { $EggCount = [int]$EggCount - 1 }
 
         # Changes the Pokemon egg count
-        $GetConfig[20] = "Egg_Count=$EggCount"
+        $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$EggCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -844,6 +799,11 @@ $ArchetypeEggLabelCount.Text = $EggCount
 $ArchetypeEggLabelCount.Font = $NonInstalledFont
 $ArchetypeEggLabelCount.Add_Click({
 
+    # Loads values from external sources (Config file)
+    $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+    $EggCount = $GetConfig -match "Egg_Count="; $EggCount = $EggCount -replace "Egg_Count=", ""
+
     # Checks Middle Mouse Click - To manually add value count in Egg slot
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
 
@@ -851,34 +811,27 @@ $ArchetypeEggLabelCount.Add_Click({
         $PokemonEggInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Egg Count:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[20] = "Egg_Count=$PokemonEggInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+        if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$PokemonEggInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
     }
 
-    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
+    # Checks Left Mouse Click - If so, gives ability to manually increase count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
-
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
         # Grabs Pokemon egg slot and increases the count
-        $EggCount = $GetConfig[20] -replace 'Egg_Count=',''
-        $EggCount = [int]$EggCount + 1
+        $EggCount = $EggCount -join '-'; $EggCount = [int]$EggCount + 1
 
         # Changes the Pokemon egg count
-        $GetConfig[20] = "Egg_Count=$EggCount"
+        $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$EggCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -892,30 +845,23 @@ $ArchetypeEggLabelCount.Add_Click({
 
     }
 
-    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
+    # Checks Left Mouse Click - If so, gives ability to manually decrease count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
-
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Grabs Pokemon egg slot and increases the count
-        $EggCount = $GetConfig[20] -replace 'Egg_Count=',''
-        if ($EggCount -eq "0") { $EggCount = 0 } else { $EggCount = [int]$EggCount - 1 }
+        # Grabs Pokemon egg slot and decreases the count
+        $EggCount = $EggCount -join '-'; if ($EggCount -eq "0") { $EggCount = 0 } else { $EggCount = [int]$EggCount - 1 }
 
         # Changes the Pokemon egg count
-        $GetConfig[20] = "Egg_Count=$EggCount"
+        $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$EggCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -945,46 +891,39 @@ $ArchetypeCollapsedCount.Text = $TotalPokeSeenCount
 $ArchetypeCollapsedCount.Font = $NonInstalledFont
 $ArchetypeCollapsedCount.Add_Click({
 
-    # Grabs the config file in its "current" state
+    # Loads values from external sources (Config file)
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-    $GetConfig = Get-Content $SetConfig
-    $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+    $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
 
-    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+    # Checks Middle Mouse Click - To manually add Pokemon total count in slot
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
 
-        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+        # Allows manual pre-load of the number value in pokemon seen (Without having to manually increase to a high value number)
         $PokemonTotalInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for All Pokemon Seen:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        if ($PokemonTotalInput) { $PokemonTotalInput = $PokemonTotalInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[38] = "Pokemon_Seen_Count=$PokemonTotalInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-    
+        if ($PokemonTotalInput) { $PokemonTotalInput = $PokemonTotalInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$PokemonTotalInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+
     }
 
-    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
+    # Checks Left Mouse Click - If so, gives ability to manually increase count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
-
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
         # Grabs Pokemon and increases the "seen" count
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-        $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
 
         # Changes the Pokemon count for "seen"
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -998,30 +937,23 @@ $ArchetypeCollapsedCount.Add_Click({
 
     }
 
-    # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
+    # Checks Left Mouse Click - If so, gives ability to manually decrease count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
-
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Grabs Pokemon and decreases the "seen" count
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
-        if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
+        # Grabs Pokemon and increases the "seen" count
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
 
         # Changes the Pokemon count for "seen"
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1048,10 +980,12 @@ $ArchetypePokeAImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Pok
 $ArchetypePokeAImage.location = New-object system.drawing.point(29,45)
 $ArchetypePokeAImage.Add_Click({
 
-    # Grabs the config file in its "current" state
+    # Loads values from external sources (Config file)
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-    $GetConfig = Get-Content $SetConfig
-    $PokemonA = $GetConfig[8] -replace 'Pokemon_A=', ''
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+    $PokemonA = $GetConfig -match "Pokemon_A="; $PokemonA = $PokemonA -replace "Pokemon_A=", ""
+    $PokemonCountA = $GetConfig -match "Pokemon_A_Count="; $PokemonCountA = $PokemonCountA -replace "Pokemon_A_Count=", ""
+    $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
 
     # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonA -notmatch "Blank")) {
@@ -1060,22 +994,22 @@ $ArchetypePokeAImage.Add_Click({
         $PokemonAInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 1 Count:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[9] = "Pokemon_A_Count=$PokemonAInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-    
+        if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonAInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+
     }
 
     # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonA -match "Blank")) {
 
         # Allows manual pre-load of the Pokemon in counter slot (Without having to find pokemon in the wild)
-        $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot:`n(Dex Number Example: 33)", ' Archetype Counter')
+        $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot 1:`n(Dex Number Example: 33)", ' Archetype Counter')
         $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
-        $GetPokeConfig = Get-Content $SetPokeConfig
+        $GetPokeConfig = [IO.File]::ReadAllLines("$SetPokeConfig")
         $PokemonDexInput = $PokemonDexInput.trimstart('0')
         $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
         $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
         $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[8] = "Pokemon_A=$GetPokemonID"; $GetConfig[10] = "Pokemon_A_Hover=$GetPokemonName #$GetPokemonID"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_A=.*", "Pokemon_A=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_A_Hover=.*", "Pokemon_A_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
     
     }
 
@@ -1083,27 +1017,21 @@ $ArchetypePokeAImage.Add_Click({
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonA -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
-
-        # Changes the total Pokemon seen count
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-        $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
         # Grabs Pokemon from slot 1 and increases the "seen" count
-        $PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
-        $PokemonCountA = [int]$PokemonCountA + 1
+        $PokemonCountA = $PokemonCountA -join '-'; $PokemonCountA = [int]$PokemonCountA + 1
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
 
-        # Changes the Pokemon count for "seen"
-        $GetConfig[9] = "Pokemon_A_Count=$PokemonCountA"
+        # Changes the Pokemon count for slot 1
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonCountA"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1124,29 +1052,21 @@ $ArchetypePokeAImage.Add_Click({
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonA -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Changes the Pokemon count for "seen"
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
-        if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
+        # Grabs Pokemon from slot 1 and increases the "seen" count
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
+        $PokemonCountA = $PokemonCountA -join '-'; if ($PokemonCountA -eq "0") { $PokemonCountA = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountA = [int]$PokemonCountA - 1 }
         
-        # Grabs Pokemon from slot 1 and decreases the "seen" count
-        $PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
-        if ($PokemonCountA -eq "0") { $PokemonCountA = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountA = [int]$PokemonCountA - 1 }
-
-        # Adds in the Pokemon count for "seen"
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
-
-        # Changes the Pokemon count for "seen"
-        $GetConfig[9] = "Pokemon_A_Count=$PokemonCountA"
+        # Changes the Pokemon count for slot 1
+        $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonCountA"
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1154,8 +1074,8 @@ $ArchetypePokeAImage.Add_Click({
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
         $ArchetypeCollapsedCount.refresh()
-        $ArchetypePokeBLabelCount.update()
-        $ArchetypePokeBLabelCount.refresh()
+        $ArchetypePokeALabelCount.update()
+        $ArchetypePokeALabelCount.refresh()
         $ArchetypeForm.update()
         $ArchetypeForm.refresh()
         $ArchetypePokeALabelCount.Text = $PokemonCountA
@@ -1181,10 +1101,12 @@ $ArchetypePokeALabelCount.Text = $PokemonCountA
 $ArchetypePokeALabelCount.Font = $NonInstalledFont
 $ArchetypePokeALabelCount.Add_Click({
 
-    # Grabs the config file in its "current" state
+    # Loads values from external sources (Config file)
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-    $GetConfig = Get-Content $SetConfig
-    $PokemonA = $GetConfig[8] -replace 'Pokemon_A=', ''
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+    $PokemonA = $GetConfig -match "Pokemon_A="; $PokemonA = $PokemonA -replace "Pokemon_A=", ""
+    $PokemonCountA = $GetConfig -match "Pokemon_A_Count="; $PokemonCountA = $PokemonCountA -replace "Pokemon_A_Count=", ""
+    $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
 
     # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonA -notmatch "Blank")) {
@@ -1193,35 +1115,29 @@ $ArchetypePokeALabelCount.Add_Click({
         $PokemonAInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 1 Count:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[9] = "Pokemon_A_Count=$PokemonAInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-    
+        if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonAInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+
     }
 
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonA -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
-
-        # Changes the total Pokemon seen count
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-        $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
         # Grabs Pokemon from slot 1 and increases the "seen" count
-        $PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
-        $PokemonCountA = [int]$PokemonCountA + 1
+        $PokemonCountA = $PokemonCountA -join '-'; $PokemonCountA = [int]$PokemonCountA + 1
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
 
-        # Changes the Pokemon count for "seen"
-        $GetConfig[9] = "Pokemon_A_Count=$PokemonCountA"
+        # Changes the Pokemon count for slot 1
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonCountA"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1242,29 +1158,21 @@ $ArchetypePokeALabelCount.Add_Click({
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonA -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
-
-        # Changes the Pokemon count for "seen"
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
-        if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
         # Grabs Pokemon from slot 1 and decreases the "seen" count
-        $PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
-        if ($PokemonCountA -eq "0") { $PokemonCountA = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountA = [int]$PokemonCountA - 1 }
-
-        # Adds in the Pokemon count for "seen"
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
-
-        # Changes the Pokemon count for "seen"
-        $GetConfig[9] = "Pokemon_A_Count=$PokemonCountA"
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
+        $PokemonCountA = $PokemonCountA -join '-'; if ($PokemonCountA -eq "0") { $PokemonCountA = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountA = [int]$PokemonCountA - 1 }
+        
+        # Changes the Pokemon count for slot 1
+        $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonCountA"
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1272,8 +1180,8 @@ $ArchetypePokeALabelCount.Add_Click({
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
         $ArchetypeCollapsedCount.refresh()
-        $ArchetypePokeBLabelCount.update()
-        $ArchetypePokeBLabelCount.refresh()
+        $ArchetypePokeALabelCount.update()
+        $ArchetypePokeALabelCount.refresh()
         $ArchetypeForm.update()
         $ArchetypeForm.refresh()
         $ArchetypePokeALabelCount.Text = $PokemonCountA
@@ -1295,10 +1203,12 @@ $ArchetypePokeBImage.location = New-object system.drawing.point(30,102)
 if ($DetectionCount -match "3") { $ArchetypePokeBImage.Visible = $true } elseif ($DetectionCount -match "2") { $ArchetypePokeBImage.Visible = $true } elseif ($DetectionCount -match "1") { $ArchetypePokeBImage.Visible = $false }
 $ArchetypePokeBImage.Add_Click({
 
-    # Grabs the config file in its "current" state
+    # Loads values from external sources (Config file)
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-    $GetConfig = Get-Content $SetConfig
-    $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+    $PokemonB = $GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
+    $PokemonCountB = $GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
+    $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
 
     # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonB -notmatch "Blank")) {
@@ -1307,22 +1217,22 @@ $ArchetypePokeBImage.Add_Click({
         $PokemonBInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 2 Count:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[12] = "Pokemon_B_Count=$PokemonBInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-    
+        if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonBInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+
     }
 
     # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonB -match "Blank")) {
 
         # Allows manual pre-load of the Pokemon in counter slot (Without having to find pokemon in the wild)
-        $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot:`n(Dex Number Example: 33)", ' Archetype Counter')
+        $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot 2:`n(Dex Number Example: 33)", ' Archetype Counter')
         $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
-        $GetPokeConfig = Get-Content $SetPokeConfig
+        $GetPokeConfig = [IO.File]::ReadAllLines("$SetPokeConfig")
         $PokemonDexInput = $PokemonDexInput.trimstart('0')
         $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
         $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
         $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[11] = "Pokemon_B=$GetPokemonID"; $GetConfig[13] = "Pokemon_B_Hover=$GetPokemonName #$GetPokemonID"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
 
     }
 
@@ -1330,27 +1240,21 @@ $ArchetypePokeBImage.Add_Click({
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonB -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Changes the total Pokemon seen count
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-        $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        # Grabs Pokemon from slot 2 and increases the "seen" count
+        $PokemonCountB = $PokemonCountB -join '-'; $PokemonCountB = [int]$PokemonCountB + 1
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
 
-        # Grabs Pokemon from slot 1 and increases the "seen" count
-        $PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
-        $PokemonCountB = [int]$PokemonCountB + 1
-
-        # Changes the Pokemon count for "seen"
-        $GetConfig[12] = "Pokemon_B_Count=$PokemonCountB"
+        # Changes the Pokemon count for slot 2
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonCountB"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1371,29 +1275,21 @@ $ArchetypePokeBImage.Add_Click({
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonB -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Changes the Pokemon count for "seen"
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
-        if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
-
-        # Grabs Pokemon from slot 1 and decreases the "seen" count
-        $PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
-        if ($PokemonCountB -eq "0") { $PokemonCountB = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountB = [int]$PokemonCountB - 1 }
-
-        # Adds in the Pokemon count for "seen"
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
-
-        # Changes the Pokemon count for "seen"
-        $GetConfig[12] = "Pokemon_B_Count=$PokemonCountB"
+        # Grabs Pokemon from slot 2 and decreases the "seen" count
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
+        $PokemonCountB = $PokemonCountB -join '-'; if ($PokemonCountB -eq "0") { $PokemonCountB = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountB = [int]$PokemonCountB - 1 }
+        
+        # Changes the Pokemon count for slot 2
+        $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonCountB"
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1429,10 +1325,12 @@ $ArchetypePokeBLabelCount.Text = $PokemonCountB
 $ArchetypePokeBLabelCount.Font = $NonInstalledFont
 $ArchetypePokeBLabelCount.Add_Click({
 
-    # Grabs the config file in its "current" state
+    # Loads values from external sources (Config file)
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-    $GetConfig = Get-Content $SetConfig
-    $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+    $PokemonB = $GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
+    $PokemonCountB = $GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
+    $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
 
     # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonB -notmatch "Blank")) {
@@ -1441,7 +1339,7 @@ $ArchetypePokeBLabelCount.Add_Click({
         $PokemonBInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 2 Count:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[12] = "Pokemon_B_Count=$PokemonBInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+        if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonBInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
     }
 
@@ -1449,27 +1347,21 @@ $ArchetypePokeBLabelCount.Add_Click({
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonB -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Changes the total Pokemon seen count
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-        $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        # Grabs Pokemon from slot 2 and increases the "seen" count
+        $PokemonCountB = $PokemonCountB -join '-'; $PokemonCountB = [int]$PokemonCountB + 1
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
 
-        # Grabs Pokemon from slot 1 and increases the "seen" count
-        $PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
-        $PokemonCountB = [int]$PokemonCountB + 1
-
-        # Changes the Pokemon count for "seen"
-        $GetConfig[12] = "Pokemon_B_Count=$PokemonCountB"
+        # Changes the Pokemon count for slot 2
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonCountB"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1490,29 +1382,21 @@ $ArchetypePokeBLabelCount.Add_Click({
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonB -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Changes the Pokemon count for "seen"
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
-        if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
+        # Grabs Pokemon from slot 2 and decreases the "seen" count
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
+        $PokemonCountB = $PokemonCountB -join '-'; if ($PokemonCountB -eq "0") { $PokemonCountB = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountB = [int]$PokemonCountB - 1 }
         
-        # Grabs Pokemon from slot 1 and decreases the "seen" count
-        $PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
-        if ($PokemonCountB -eq "0") { $PokemonCountB = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountB = [int]$PokemonCountB - 1 }
-
-        # Adds in the Pokemon count for "seen"
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
-
-        # Changes the Pokemon count for "seen"
-        $GetConfig[12] = "Pokemon_B_Count=$PokemonCountB"
+        # Changes the Pokemon count for slot 2
+        $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonCountB"
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1543,10 +1427,12 @@ $ArchetypePokeCImage.location = New-object system.drawing.point(30,159)
 if ($DetectionCount -match "3") { $ArchetypePokeCImage.Visible = $true } elseif ($DetectionCount -match "2") { $ArchetypePokeCImage.Visible = $false } elseif ($DetectionCount -match "1") { $ArchetypePokeCImage.Visible = $false }
 $ArchetypePokeCImage.Add_Click({
 
-    # Grabs the config file in its "current" state
+    # Loads values from external sources (Config file)
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-    $GetConfig = Get-Content $SetConfig
-    $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+    $PokemonC = $GetConfig -match "Pokemon_C="; $PokemonC = $PokemonC -replace "Pokemon_C=", ""
+    $PokemonCountC = $GetConfig -match "Pokemon_C_Count="; $PokemonCountC = $PokemonCountC -replace "Pokemon_C_Count=", ""
+    $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
 
     # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonC -notmatch "Blank")) {
@@ -1555,22 +1441,22 @@ $ArchetypePokeCImage.Add_Click({
         $PokemonCInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 3 Count:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[15] = "Pokemon_C_Count=$PokemonCInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-    
+        if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+
     }
 
     # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonC -match "Blank")) {
 
         # Allows manual pre-load of the Pokemon in counter slot (Without having to find pokemon in the wild)
-        $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot:`n(Dex Number Example: 33)", ' Archetype Counter')
+        $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot 3:`n(Dex Number Example: 33)", ' Archetype Counter')
         $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
-        $GetPokeConfig = Get-Content $SetPokeConfig
+        $GetPokeConfig = [IO.File]::ReadAllLines("$SetPokeConfig")
         $PokemonDexInput = $PokemonDexInput.trimstart('0')
         $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
         $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
         $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[14] = "Pokemon_C=$GetPokemonID"; $GetConfig[16] = "Pokemon_C_Hover=$GetPokemonName #$GetPokemonID"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_C=.*", "Pokemon_C=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
 
     }
 
@@ -1578,27 +1464,21 @@ $ArchetypePokeCImage.Add_Click({
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonC -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Changes the total Pokemon seen count
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-        $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        # Grabs Pokemon from slot 3 and increases the "seen" count
+        $PokemonCountC = $PokemonCountC -join '-'; $PokemonCountC = [int]$PokemonCountC + 1
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
 
-        # Grabs Pokemon from slot 1 and increases the "seen" count
-        $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-        $PokemonCountC = [int]$PokemonCountC + 1
-
-        # Changes the Pokemon count for "seen"
-        $GetConfig[15] = "Pokemon_C_Count=$PokemonCountC"
+        # Changes the Pokemon count for slot 3
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCountC"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1619,29 +1499,21 @@ $ArchetypePokeCImage.Add_Click({
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonC -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Changes the Pokemon count for "seen"
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
-        if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
-
-        # Grabs Pokemon from slot 1 and decreases the "seen" count
-        $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-        if ($PokemonCountC -eq "0") { $PokemonCountC = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountC = [int]$PokemonCountC - 1 }
-
-        # Adds in the Pokemon count for "seen"
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
-
-        # Changes the Pokemon count for "seen"
-        $GetConfig[15] = "Pokemon_C_Count=$PokemonCountC"
+        # Grabs Pokemon from slot 3 and decreases the "seen" count
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
+        $PokemonCountC = $PokemonCountC -join '-'; if ($PokemonCountC -eq "0") { $PokemonCountC = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountC = [int]$PokemonCountC - 1 }
+        
+        # Changes the Pokemon count for slot 3
+        $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCountC"
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1677,10 +1549,12 @@ $ArchetypePokeCLabelCount.Text = $PokemonCountC
 $ArchetypePokeCLabelCount.Font = $NonInstalledFont
 $ArchetypePokeCLabelCount.Add_Click({
 
-    # Grabs the config file in its "current" state
+    # Loads values from external sources (Config file)
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-    $GetConfig = Get-Content $SetConfig
-    $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+    $PokemonC = $GetConfig -match "Pokemon_C="; $PokemonC = $PokemonC -replace "Pokemon_C=", ""
+    $PokemonCountC = $GetConfig -match "Pokemon_C_Count="; $PokemonCountC = $PokemonCountC -replace "Pokemon_C_Count=", ""
+    $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
 
     # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonC -notmatch "Blank")) {
@@ -1689,7 +1563,7 @@ $ArchetypePokeCLabelCount.Add_Click({
         $PokemonCInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 3 Count:`n(Example: 267)", ' Archetype Counter')
         
         # Checks if input was made on VB dialog
-        if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig[15] = "Pokemon_C_Count=$PokemonCInput"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+        if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
     }
 
@@ -1697,27 +1571,21 @@ $ArchetypePokeCLabelCount.Add_Click({
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonC -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Changes the total Pokemon seen count
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-        $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        # Grabs Pokemon from slot 3 and increases the "seen" count
+        $PokemonCountC = $PokemonCountC -join '-'; $PokemonCountC = [int]$PokemonCountC + 1
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
 
-        # Grabs Pokemon from slot 1 and increases the "seen" count
-        $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-        $PokemonCountC = [int]$PokemonCountC + 1
-
-        # Changes the Pokemon count for "seen"
-        $GetConfig[15] = "Pokemon_C_Count=$PokemonCountC"
+        # Changes the Pokemon count for slot 3
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
+        $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCountC"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1738,29 +1606,21 @@ $ArchetypePokeCLabelCount.Add_Click({
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonC -notmatch "Blank")) {
 
         # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
         # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Changes the Pokemon count for "seen"
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=', ''
-        if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
+        # Grabs Pokemon from slot 3 and decreases the "seen" count
+        $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
+        $PokemonCountC = $PokemonCountC -join '-'; if ($PokemonCountC -eq "0") { $PokemonCountC = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountC = [int]$PokemonCountC - 1 }
         
-        # Grabs Pokemon from slot 1 and decreases the "seen" count
-        $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-        if ($PokemonCountC -eq "0") { $PokemonCountC = 0; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1 } else { $PokemonCountC = [int]$PokemonCountC - 1 }
-
-        # Adds in the Pokemon count for "seen"
-        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCount"
-
-        # Changes the Pokemon count for "seen"
-        $GetConfig[15] = "Pokemon_C_Count=$PokemonCountC"
+        # Changes the Pokemon count for slot 3
+        $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCountC"
+        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCount"
 
         # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
         Start-Sleep -Milliseconds 10
@@ -1800,48 +1660,45 @@ $ArchetypeStopImage.Height = 18
 if ($DetectionCount -match "3") { $ArchetypeStopImage.location = New-object system.drawing.point(15,297) } elseif ($DetectionCount -match "2") { $ArchetypeStopImage.location = New-object system.drawing.point(15,240) } elseif ($DetectionCount -match "1") { $ArchetypeStopImage.location = New-object system.drawing.point(15,183) }
 $ArchetypeStopImage.Add_Click({
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
+    # Loads values from external sources (Config file)
+    $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+    # Gets the current X and Y coordinates of the form
+    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+    # Replaces and Sets the starting position on the counter form start
+    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Sets the flag for the counter to not Auto Start on "Stop"
-        $GetConfig[33] = "Auto_Restart_Counter=False"
+    # Sets the flag for the counter to not Auto Start on "Stop"
+    $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
 
-        # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-        if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
+    # Sets Counter Active to "True" (To make menu options available disabled)
+    $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"
 
-        # Set visibility of components for counter
-        $ArchetypePlayImage.Visible = $true
-        $ArchetypeStopImage.Visible = $false
+    # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
+    if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
-        # Sets Counter Active to "True" (To make menu options available disabled)
-        $GetConfig[34] = 'Counter_Active=False'
+    # Set visibility of components for counter
+    $ArchetypePlayImage.Visible = $true; $ArchetypeStopImage.Visible = $false
 
-        # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+    # Sets all changes back into the Config file
+    [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
-        # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+    # Small wait to ensure no corrupt of config file
+    Start-Sleep -Milliseconds 10
 
-        # Application Variable - Name
-        $ApplicationName = "javaw"
+    # Application Variable - Name
+    $ApplicationName = "javaw"
 
-        # Finds application process
-        $Process = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "$ApplicationName"}
+    # Finds application process
+    $Process = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "$ApplicationName"}
 
-        # Puts $Process.MainWindowHandle into a variable
-        $hwnd = $Process.MainWindowHandle
+    # Puts $Process.MainWindowHandle into a variable
+    $hwnd = $Process.MainWindowHandle
  
-        # Performs force active window process
-        [void][ForceActiveWin]::SetForegroundWindow($hwnd)
+    # Performs force active window process
+    [void][ForceActiveWin]::SetForegroundWindow($hwnd)
 
 })
 $ArchetypeForm.controls.Add($ArchetypeStopImage)
@@ -1855,29 +1712,24 @@ $ArchetypePlayImage.Height = 18
 if ($DetectionCount -match "3") { $ArchetypePlayImage.location = New-object system.drawing.point(15,297) } elseif ($DetectionCount -match "2") { $ArchetypePlayImage.location = New-object system.drawing.point(15,240) } elseif ($DetectionCount -match "1") { $ArchetypePlayImage.location = New-object system.drawing.point(15,183) }
 $ArchetypePlayImage.Add_Click({
 
-    # Grabs the config file in its "current" state
+    # Loads values from external sources (Config file)
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-    $GetConfig = Get-Content $SetConfig
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
 
     # Gets the current X and Y coordinates of the form
-    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-    $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
     # Replaces and Sets the starting position on the counter form start
-    $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-    $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
     # Sets Counter Active to "True" (To make menu options available disabled)
-    $GetConfig[34] = 'Counter_Active=True'
+    $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=True"
 
     # Sets all changes back into the Config file
-    $GetConfig | Set-Content -Path $SetConfig
+    [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
     # Small wait to ensure no corrupt of config file
     Start-Sleep -Milliseconds 10
-
-    # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
-    #Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
     # Starts the play/record action upon pokemon added or seen count
     PlayAction
@@ -1894,38 +1746,33 @@ $ArchetypeCloseImage.Height = 11
 $ArchetypeCloseImage.location = New-object system.drawing.point(73,11)
 $ArchetypeCloseImage.Add_Click({
 
-        # Grabs the config file in its "current" state
-        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
+    # Loads values from external sources (Config file)
+    $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-        $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+    # Gets the current X and Y coordinates of the form
+    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-        $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+    # Replaces and Sets the starting position on the counter form start
+    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-        # Sets the flag for the counter to not Auto Start on "Stop"
-        $GetConfig[33] = "Auto_Restart_Counter=False" 
+    # Sets the flag for the counter to not Auto Start on "Stop"
+    $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
 
-        # Resets Counter Active to "False" (To make menu options available again)
-        $GetConfig[34] = 'Counter_Active=False'
+    # Sets Counter Active to "True" (To make menu options available disabled)
+    $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"
 
-        # Sets all changes back into the Config file
-        $GetConfig | Set-Content -Path $SetConfig
+    # Sets all changes back into the Config file
+    [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
-        # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+    # Small wait to ensure no corrupt of config file
+    Start-Sleep -Milliseconds 10
 
-        # Removes all screenshot(s) from "Debug" folder (When counter closes)
-        Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer }
+    # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
+    Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
-        # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
-        Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
-
-        # This exits the application (Winform) properly 
-        [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force 
+    # This exits the application (Winform) properly 
+    [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force 
 
 })
 $ArchetypeForm.controls.Add($ArchetypeCloseImage)
@@ -1951,28 +1798,50 @@ $ArchetypeImage.Add_MouseDown({
     # Checks if right click mouse button has been selected
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
 
-        # Loads Config file and specifically grabs Counter Active line
+        # Loads values from external sources (Config file)
         $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-        $GetConfig = Get-Content $SetConfig
-        $CounterActive = $GetConfig[34] -replace 'Counter_Active=', ''
-        $PokemonA = $GetConfig[8] -replace 'Pokemon_A=', ''
-        $PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
-        $PokemonAHover = $GetConfig[10] -replace 'Pokemon_A_Hover=', ''
-        $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
-        $PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
-        $PokemonBHover = $GetConfig[13] -replace 'Pokemon_B_Hover=', ''
-        $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
-        $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-        $PokemonCHover = $GetConfig[16] -replace 'Pokemon_C_Hover=', ''
-        $EggCount = $GetConfig[20] -replace 'Egg_Count=',''
-        $ShinyCount = $GetConfig[21] -replace 'Shiny_Count=',''
-        $SetLanguage = $GetConfig[23] -replace 'Set_Language=', ''
-        $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
+        $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+        # ------------------------------------------------
+        $PokemonA = $GetConfig -match "Pokemon_A="; $PokemonA = $PokemonA -replace "Pokemon_A=", ""
+        $PokemonCountA = $GetConfig -match "Pokemon_A_Count="; $PokemonCountA = $PokemonCountA -replace "Pokemon_A_Count=", ""
+        $PokemonAHover = $GetConfig -match "Pokemon_A_Hover="; $PokemonAHover = $PokemonAHover -replace "Pokemon_A_Hover=", ""
+        # ------------------------------------------------
+        $PokemonB = $GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
+        $PokemonCountB = $GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
+        $PokemonBHover = $GetConfig -match "Pokemon_B_Hover="; $PokemonBHover = $PokemonBHover -replace "Pokemon_B_Hover=", ""
+        # ------------------------------------------------
+        $PokemonC = $GetConfig -match "Pokemon_C="; $PokemonC = $PokemonC -replace "Pokemon_C=", ""
+        $PokemonCountC = $GetConfig -match "Pokemon_C_Count="; $PokemonCountC = $PokemonCountC -replace "Pokemon_C_Count=", ""
+        $PokemonCHover = $GetConfig -match "Pokemon_C_Hover="; $PokemonCHover = $PokemonCHover -replace "Pokemon_C_Hover=", ""
+        # ------------------------------------------------
+        $DetectionCount = $GetConfig -match "Detection_Count="; $DetectionCount = $DetectionCount -replace "Detection_Count=", ""
+        $ThemeType = $GetConfig -match "Theme_Type="; $ThemeType = $ThemeType -replace "Theme_Type=", ""
+        $SpriteType = $GetConfig -match "Sprite_Type="; $SpriteType = $SpriteType -replace "Sprite_Type=", ""
+        $CounterMode = $GetConfig -match "Counter_Mode="; $CounterMode = $CounterMode -replace "Counter_Mode=", ""
+        # ------------------------------------------------
+        $AutoRestartCounter = $GetConfig -match "Auto_Restart_Counter="; $AutoRestartCounter = $AutoRestartCounter -replace "Auto_Restart_Counter=", ""
+        $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
+        # ------------------------------------------------
+        $AlwaysOnTop = $GetConfig -match "Always_On_Top="; $AlwaysOnTop = $AlwaysOnTop -replace "Always_On_Top=", ""
+        # ------------------------------------------------
+        $SetLanguage = $GetConfig -match "Set_Language="; $SetLanguage = $SetLanguage -replace "Set_Language=", ""
+        $IgnoreSystemLang = $GetConfig -match "Ignore_System_Language="; $IgnoreSystemLang = $IgnoreSystemLang -replace "Ignore_System_Language=", ""
+        # ------------------------------------------------
+        $ArchetypeX = $GetConfig -match "Archetype_X="; $ArchetypeX = $ArchetypeX -replace "Archetype_X=", ""
+        $ArchetypeY = $GetConfig -match "Archetype_Y="; $ArchetypeY = $ArchetypeY -replace "Archetype_Y=", ""
+        # ------------------------------------------------
+        $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
+        $FossilCount = $GetConfig -match "Fossil_Count="; $FossilCount = $FossilCount -replace "Fossil_Count=", ""
+        $EggCount = $GetConfig -match "Egg_Count="; $EggCount = $EggCount -replace "Egg_Count=", ""
+        $AlphaCount = $GetConfig -match "Alpha_Count="; $AlphaCount = $AlphaCount -replace "Alpha_Count=", ""
+        $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
+        # ------------------------------------------------
+        $ShinyCount = $GetConfig -match "Shiny_Count="; $ShinyCount = $ShinyCount -replace "Shiny_Count=", ""
+        # ------------------------------------------------
+        $PokemonCountA = $PokemonCountA -join '-'; $PokemonCountB = $PokemonCountB -join '-'; $PokemonCountC = $PokemonCountC -join '-'; $EggCount = $EggCount -join '-'; $FossilCount = $FossilCount -join '-'; $AlphaCount = $AlphaCount -join '-'; $ShinyCount = $ShinyCount -join '-' ; $TotalCount = $TotalCount -join '-'; $TotalCountNoEgg = $TotalCountNoEgg -join '-'; $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'
+        # ------------------------------------------------
         $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
         $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
-        $DebugMode = $GetConfig[35] -replace 'Debug_Mode=', ''
-        $AlphaCount = $GetConfig[40] -replace 'Alpha_Count=', ''
-        $IgnoreSystemLang = $GetConfig[41] -replace 'Ignore_System_Language=', ''
 
         # Adds all icons into variables for counter menu
         $ArchetypeMenuStrip = New-Object System.Windows.Forms.ContextMenuStrip
@@ -2052,6 +1921,9 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool1 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool1.Text = 'Language'
         $ArchetypeMenuStripTool1.Image = $ArchetypeMenuStripToolLanguage
+        $ArchetypeMenuStripTool1.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool1.DropDownItems.Add("LANGUAGE:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool1.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool1)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool1.Enabled = $false } else { $ArchetypeMenuStripTool1.Enabled = $true }
 
@@ -2061,26 +1933,17 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "English" selection  
             $ArchetypeMenuStripTool1.DropDownItems.Add("English", $ArchetypeMenuStripEnglish).add_Click({ 
 
-                # Grabs PokeMMO process
-                $PokeMMOProcess = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "javaw" }
-
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets the Language to English
-                $GetConfig[23] = 'Set_Language=English'
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=English"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
@@ -2098,26 +1961,17 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "French" selection 
             $ArchetypeMenuStripTool1.DropDownItems.Add("Français (French)", $ArchetypeMenuStripFrench).add_Click({ 
 
-                # Grabs PokeMMO process
-                $PokeMMOProcess = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "javaw" }
-
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets the Language to French
-                $GetConfig[23] = 'Set_Language=French'
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=French"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
@@ -2135,26 +1989,17 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "German" selection 
             $ArchetypeMenuStripTool1.DropDownItems.Add("Deutsch (German)", $ArchetypeMenuStripGerman).add_Click({ 
 
-                # Grabs PokeMMO process
-                $PokeMMOProcess = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "javaw" }
-
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets the Language to German
-                $GetConfig[23] = 'Set_Language=German'
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=German"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
@@ -2172,26 +2017,17 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Spanish" selection 
             $ArchetypeMenuStripTool1.DropDownItems.Add("Español (Spanish)", $ArchetypeMenuStripSpanish).add_Click({ 
 
-                # Grabs PokeMMO process
-                $PokeMMOProcess = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "javaw" }
-
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets the Language to Spanish
-                $GetConfig[23] = 'Set_Language=Spanish'
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=Spanish"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
@@ -2209,26 +2045,17 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Brazilian Portuguese" selection
             $ArchetypeMenuStripTool1.DropDownItems.Add("Português Brasileiro (Brazilian Portuguese)", $ArchetypeMenuStripBrazilianPortuguese).add_Click({ 
 
-                # Grabs PokeMMO process
-                $PokeMMOProcess = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "javaw" }
-            
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets the Language to Brazilian Portuguese
-                $GetConfig[23] = 'Set_Language=Brazilian_Portuguese'
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=Brazilian_Portuguese"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
@@ -2246,26 +2073,17 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Italian" selection
             $ArchetypeMenuStripTool1.DropDownItems.Add("Italiano (Italian)", $ArchetypeMenuStripItalian).add_Click({ 
 
-                # Grabs PokeMMO process
-                $PokeMMOProcess = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "javaw" }
-
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets the Language to Italian
-                $GetConfig[23] = 'Set_Language=Italian'
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=Italian"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
@@ -2283,26 +2101,17 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Italian" selection
             $ArchetypeMenuStripTool1.DropDownItems.Add("Polski (Polish)", $ArchetypeMenuStripPolish).add_Click({ 
 
-                # Grabs PokeMMO process
-                $PokeMMOProcess = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "javaw" }
-
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets the Language to Italian
-                $GetConfig[23] = 'Set_Language=Polish'
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=Polish"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
@@ -2318,6 +2127,9 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool2 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool2.Text = 'Theme Selector'
         $ArchetypeMenuStripTool2.Image = $ArchetypeMenuStripToolTheme
+        $ArchetypeMenuStripTool2.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool2.DropDownItems.Add("THEME:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool2.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool2)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool2.Enabled = $false } else { $ArchetypeMenuStripTool2.Enabled = $true }
 
@@ -2327,28 +2139,22 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Archetype" selection
             $ArchetypeMenuStripTool2.DropDownItems.Add("Archetype", $ArchetypeMenuStripMain).add_Click({ 
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Resets theme to Archetype
-                $GetConfig[22] = "Theme_Type=Archetype"
-    
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Theme_Type=.*", "Theme_Type=Archetype"
+
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-    
-                # Starts up Archetype Counter
+
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }) 
@@ -2361,28 +2167,22 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Default" selection
             $ArchetypeMenuStripTool2.DropDownItems.Add("Default", $ArchetypeMenuStripPokeMMO).add_Click({ 
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Resets theme to Default
-                $GetConfig[22] = "Theme_Type=Default"
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Theme_Type=.*", "Theme_Type=Default"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-    
-                # Starts up Archetype Counter
+
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }) 
@@ -2396,28 +2196,22 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Custom" selection
             $ArchetypeMenuStripTool2.DropDownItems.Add("Custom", $ArchetypeMenuStripCustom).add_Click({ 
         
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Resets theme to Custom
-                $GetConfig[22] = "Theme_Type=Custom"
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Theme_Type=.*", "Theme_Type=Custom"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-    
-                # Starts up Archetype Counter
+
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }) 
@@ -2428,6 +2222,9 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool11 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool11.Text = 'Sprite Selector'
         $ArchetypeMenuStripTool11.Image = $ArchetypeMenuStripToolSprite
+        $ArchetypeMenuStripTool11.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool11.DropDownItems.Add("SPRITE:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool11.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool11)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool11.Enabled = $false } else { $ArchetypeMenuStripTool11.Enabled = $true }
 
@@ -2437,28 +2234,22 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Default" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Default", $ArchetypeMenuStripToolDefault).add_Click({ 
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets Sprite type to Default
-                $GetConfig[25] = "Sprite_Type=Default"
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Sprite_Type=.*", "Sprite_Type=Default"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-    
-                # Starts up Archetype Counter
+
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }) 
@@ -2471,28 +2262,22 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "3DS" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("3DS", $ArchetypeMenuStripTool3DS).add_Click({ 
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets Sprite type to 3DS
-                $GetConfig[25] = "Sprite_Type=3DS"
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Sprite_Type=.*", "Sprite_Type=3DS"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-    
-                # Starts up Archetype Counter
+
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }) 
@@ -2505,28 +2290,22 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Gen8" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Gen 8", $ArchetypeMenuStripToolGen8).add_Click({ 
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets Detection count to 1
-                $GetConfig[25] = "Sprite_Type=Gen8"
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Sprite_Type=.*", "Sprite_Type=Gen8"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-    
-                # Starts up Archetype Counter
+
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }) 
@@ -2539,28 +2318,22 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Shuffle" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Home", $ArchetypeMenuStripToolHome).add_Click({ 
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets Detection count to 1
-                $GetConfig[25] = "Sprite_Type=Home"
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Sprite_Type=.*", "Sprite_Type=Home"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-    
-                # Starts up Archetype Counter
+
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }) 
@@ -2573,28 +2346,22 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Shuffle" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Shuffle", $ArchetypeMenuStripToolShuffle).add_Click({ 
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets Detection count to 1
-                $GetConfig[25] = "Sprite_Type=Shuffle"
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Sprite_Type=.*", "Sprite_Type=Shuffle"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-    
-                # Starts up Archetype Counter
+
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }) 
@@ -2605,6 +2372,9 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool5 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool5.Text = 'Detection Selector'
         $ArchetypeMenuStripTool5.Image = $ArchetypeMenuStripToolDetection
+        $ArchetypeMenuStripTool5.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool5.DropDownItems.Add("DETECTION:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool5.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool5)
         if ($CounterActive -match "True" -or $CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool5.Enabled = $false } else { $ArchetypeMenuStripTool5.Enabled = $true }
 
@@ -2614,28 +2384,22 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "1" selection 
             $ArchetypeMenuStripTool5.DropDownItems.Add("1 - Displays one Pokemon", $ArchetypeMenuStripToolNumber1).add_Click({ 
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets Detection count to 1
-                $GetConfig[17] = "Detection_Count=1"
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Detection_Count=.*", "Detection_Count=1"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-    
-                # Starts up Archetype Counter
+
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }) 
@@ -2648,28 +2412,22 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "2" selection 
             $ArchetypeMenuStripTool5.DropDownItems.Add("2 - Displays two Pokemon", $ArchetypeMenuStripToolNumber2).add_Click({ 
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets Detection count to 1
-                $GetConfig[17] = "Detection_Count=2"
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Detection_Count=.*", "Detection_Count=2"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-    
-                # Starts up Archetype Counter
+
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }) 
@@ -2682,28 +2440,22 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "3" selection 
             $ArchetypeMenuStripTool5.DropDownItems.Add("3 - Displays three Pokemon", $ArchetypeMenuStripToolNumber3).add_Click({ 
         
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets Detection count to 1
-                $GetConfig[17] = "Detection_Count=3"
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Detection_Count=.*", "Detection_Count=3"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-    
-                # Starts up Archetype Counter
+
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }) 
@@ -2714,53 +2466,51 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool6 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool6.Text = 'Reset Selector'
         $ArchetypeMenuStripTool6.Image = $ArchetypeMenuStripToolClear
+        $ArchetypeMenuStripTool6.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool6.DropDownItems.Add("RESET:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool6.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool6)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool6.Enabled = $false } else { $ArchetypeMenuStripTool6.Enabled = $true }
 
         # Adds click to "Poke Slot 1" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Poke Slot 1", $ArchetypeMenuStripToolNumber1).add_Click({ 
 
-            # Grabs the config file in its "current" state
+            # Loads values from external sources (Config file)
             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-            $GetConfig = Get-Content $SetConfig
-            $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
-            $PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
-            $PokemonBHover = $GetConfig[13] -replace 'Pokemon_B_Hover=', ''
-            $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
-            $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-            $PokemonCHover = $GetConfig[16] -replace 'Pokemon_C_Hover=', ''
+            $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+            # ------------------------------------------------
+            $PokemonB = $GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
+            $PokemonCountB = $GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
+            $PokemonBHover = $GetConfig -match "Pokemon_B_Hover="; $PokemonBHover = $PokemonBHover -replace "Pokemon_B_Hover=", ""
+            # ------------------------------------------------
+            $PokemonC = $GetConfig -match "Pokemon_C="; $PokemonC = $PokemonC -replace "Pokemon_C=", ""
+            $PokemonCountC = $GetConfig -match "Pokemon_C_Count="; $PokemonCountC = $PokemonCountC -replace "Pokemon_C_Count=", ""
+            $PokemonCHover = $GetConfig -match "Pokemon_C_Hover="; $PokemonCHover = $PokemonCHover -replace "Pokemon_C_Hover=", ""
 
             # Gets the current X and Y coordinates of the form
-            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-            $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
             # Replaces and Sets the starting position on the counter form start
-            $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-            $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
-
-            # Sets the Pokemon Slot 1 to Blank
-            $GetConfig[8] = 'Pokemon_A=Blank'
-            $GetConfig[9] = 'Pokemon_A_Count=0'
-            $GetConfig[10] = 'Pokemon_A_Hover='
-
+            $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+            
             # Move pokemon up in slots accordingly
-            $GetConfig[8] = "Pokemon_A=$PokemonB"
-            $GetConfig[9] = "Pokemon_A_Count=$PokemonCountB"
-            $GetConfig[10] = "Pokemon_A_Hover=$PokemonBHover"
-            $GetConfig[11] = "Pokemon_B=$PokemonC"
-            $GetConfig[12] = "Pokemon_B_Count=$PokemonCountC"
-            $GetConfig[13] = "Pokemon_B_Hover=$PokemonCHover"
-            $GetConfig[14] = 'Pokemon_C=Blank'
-            $GetConfig[15] = 'Pokemon_C_Count=0'
-            $GetConfig[16] = 'Pokemon_C_Hover='
+            $GetConfig = $GetConfig -replace "Pokemon_A=.*", "Pokemon_A=$PokemonB"
+            $GetConfig = $GetConfig -replace "Pokemon_A_Count.*", "Pokemon_A_Count=$PokemonCountB"
+            $GetConfig = $GetConfig -replace "Pokemon_A_Hover=.*", "Pokemon_A_Hover=$PokemonBHover"
+            $GetConfig = $GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$PokemonC"
+            $GetConfig = $GetConfig -replace "Pokemon_B_Count.*", "Pokemon_B_Count=$PokemonCountC"
+            $GetConfig = $GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$PokemonCHover"
+            $GetConfig = $GetConfig -replace "Pokemon_C=.*", "Pokemon_C=Blank"
+            $GetConfig = $GetConfig -replace "Pokemon_C_Count.*", "Pokemon_C_Count=0"
+            $GetConfig = $GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover="
 
             # Sets all changes back into the Config file
-            $GetConfig | Set-Content -Path $SetConfig
+            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
             # Small wait to ensure no corrupt of config file
             Start-Sleep -Milliseconds 10
 
-            # Starts up Archetype Counter
+            # Restarts counter to update form
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
         })
@@ -2768,44 +2518,35 @@ $ArchetypeImage.Add_MouseDown({
         # Adds click to "Poke Slot 2" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Poke Slot 2", $ArchetypeMenuStripToolNumber2).add_Click({ 
         
-            # Grabs the config file in its "current" state
+            # Loads values from external sources (Config file)
             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-            $GetConfig = Get-Content $SetConfig
-            $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
-            $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-            $PokemonCHover = $GetConfig[16] -replace 'Pokemon_C_Hover=', ''
+            $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+            # ------------------------------------------------
+            $PokemonB = $GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
+            $PokemonCountB = $GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
+            $PokemonBHover = $GetConfig -match "Pokemon_B_Hover="; $PokemonBHover = $PokemonBHover -replace "Pokemon_B_Hover=", ""
 
             # Gets the current X and Y coordinates of the form
-            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-            $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
             # Replaces and Sets the starting position on the counter form start
-            $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-            $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
-
+            $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+            
             # Move pokemon up in slots accordingly
-            $GetConfig[11] = "Pokemon_B=$PokemonC"
-            $GetConfig[12] = "Pokemon_B_Count=$PokemonCountC"
-            $GetConfig[13] = "Pokemon_B_Hover=$PokemonCHover"
+            $GetConfig = $GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$PokemonC"
+            $GetConfig = $GetConfig -replace "Pokemon_B_Count.*", "Pokemon_B_Count=$PokemonCountC"
+            $GetConfig = $GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$PokemonCHover"
+            $GetConfig = $GetConfig -replace "Pokemon_C=.*", "Pokemon_C=Blank"
+            $GetConfig = $GetConfig -replace "Pokemon_C_Count.*", "Pokemon_C_Count=0"
+            $GetConfig = $GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover="
 
             # Sets all changes back into the Config file
-            $GetConfig | Set-Content -Path $SetConfig
+            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
             # Small wait to ensure no corrupt of config file
             Start-Sleep -Milliseconds 10
 
-            # Blank pokemon slots accordingly
-            $GetConfig[14] = 'Pokemon_C=Blank'
-            $GetConfig[15] = 'Pokemon_C_Count=0'
-            $GetConfig[16] = 'Pokemon_C_Hover='
-
-            # Sets all changes back into the Config file
-            $GetConfig | Set-Content -Path $SetConfig
-
-            # Small wait to ensure no corrupt of config file
-            Start-Sleep -Milliseconds 10
-
-            # Starts up Archetype Counter
+            # Restarts counter to update form
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
         })
@@ -2813,30 +2554,24 @@ $ArchetypeImage.Add_MouseDown({
         # Adds click to "Poke Slot 3" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Poke Slot 3", $ArchetypeMenuStripToolNumber3).add_Click({ 
 
-            # Grabs the config file in its "current" state
-            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-            $GetConfig = Get-Content $SetConfig
-
             # Gets the current X and Y coordinates of the form
-            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-            $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
             # Replaces and Sets the starting position on the counter form start
-            $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-            $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
-
-            # Sets the Pokemon Slot 3 to Blank
-            $GetConfig[14] = 'Pokemon_C=Blank'
-            $GetConfig[15] = 'Pokemon_C_Count=0'
-            $GetConfig[16] = 'Pokemon_C_Hover='
+            $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+            
+            # Move pokemon up in slots accordingly (Poke Slot C is just cleared)
+            $GetConfig = $GetConfig -replace "Pokemon_C=.*", "Pokemon_C=Blank"
+            $GetConfig = $GetConfig -replace "Pokemon_C_Count.*", "Pokemon_C_Count=0"
+            $GetConfig = $GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover="
 
             # Sets all changes back into the Config file
-            $GetConfig | Set-Content -Path $SetConfig
+            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
             # Small wait to ensure no corrupt of config file
             Start-Sleep -Milliseconds 10
 
-            # Starts up Archetype Counter
+            # Restarts counter to update form
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
         })
@@ -2844,23 +2579,17 @@ $ArchetypeImage.Add_MouseDown({
         # Adds click to "Egg Slot" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Egg Count", $ArchetypeMenuStripToolEgg).add_Click({ 
 
-            # Grabs the config file in its "current" state
-            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-            $GetConfig = Get-Content $SetConfig
-
             # Gets the current X and Y coordinates of the form
-            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-            $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
             # Replaces and Sets the starting position on the counter form start
-            $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-            $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+            $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-            # Sets the Egg count to 0
-            $GetConfig[20] = 'Egg_Count=0'
+            # Sets the replace for Egg Count
+            $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=0"
 
             # Sets all changes back into the Config file
-            $GetConfig | Set-Content -Path $SetConfig
+            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
             # Small wait to ensure no corrupt of config file
             Start-Sleep -Milliseconds 10
@@ -2873,23 +2602,17 @@ $ArchetypeImage.Add_MouseDown({
          # Adds click to "Egg Slot" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Fossil Count", $ArchetypeMenuStripToolFossil).add_Click({ 
 
-            # Grabs the config file in its "current" state
-            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-            $GetConfig = Get-Content $SetConfig
-
             # Gets the current X and Y coordinates of the form
-            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-            $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
             # Replaces and Sets the starting position on the counter form start
-            $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-            $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+            $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-            # Sets the Egg count to 0
-            $GetConfig[24] = 'Fossil_Count=0'
+            # Sets the replace for Fossil Count
+            $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=0"
 
             # Sets all changes back into the Config file
-            $GetConfig | Set-Content -Path $SetConfig
+            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
             # Small wait to ensure no corrupt of config file
             Start-Sleep -Milliseconds 10
@@ -2911,48 +2634,36 @@ $ArchetypeImage.Add_MouseDown({
             # Checks if Message Dialog Box "Yes" has been selected
             if ($ResetResult -match "Yes") { 
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                 # Resets ALL Pokemon counters & images in Config file
-                $GetConfig[7] = "Total_Count=0"
-                $GetConfig[8] = "Pokemon_A=Blank"
-                $GetConfig[9] = "Pokemon_A_Count=0"
-                $GetConfig[10] = "Pokemon_A_Hover="
-                $GetConfig[11] = "Pokemon_B=Blank"
-                $GetConfig[12] = "Pokemon_B_Count=0"
-                $GetConfig[13] = "Pokemon_B_Hover="
-                $GetConfig[14] = "Pokemon_C=Blank"
-                $GetConfig[15] = "Pokemon_C_Count=0"
-                $GetConfig[16] = "Pokemon_C_Hover="
-                $GetConfig[20] = "Egg_Count=0"
-                $GetConfig[24] = "Fossil_Count=0"
-                $GetConfig[38] = "Pokemon_Seen_Count=0"
-                $GetConfig[21] = "Shiny_Count=0"
-                $GetConfig[40] = "Alpha_Count=0"
-
-                # Resets Cotuner Active to "False" (To make menu options available again)
-                $GetConfig[34] = 'Counter_Active=False'
+                # Sets the replace all Counts
+                $GetConfig = $GetConfig -replace "Total_Count=.*", "Total_Count=0"
+                $GetConfig = $GetConfig -replace "Pokemon_A=.*", "Pokemon_A=Blank"
+                $GetConfig = $GetConfig -replace "Pokemon_A_Count.*", "Pokemon_A_Count=0"
+                $GetConfig = $GetConfig -replace "Pokemon_A_Hover=.*", "Pokemon_A_Hover="
+                $GetConfig = $GetConfig -replace "Pokemon_B=.*", "Pokemon_B=Blank"
+                $GetConfig = $GetConfig -replace "Pokemon_B_Count.*", "Pokemon_B_Count=0"
+                $GetConfig = $GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover="
+                $GetConfig = $GetConfig -replace "Pokemon_C=.*", "Pokemon_C=Blank"
+                $GetConfig = $GetConfig -replace "Pokemon_C_Count.*", "Pokemon_C_Count=0"
+                $GetConfig = $GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover="
+                $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=0"
+                $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=0"
+                $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=0"
+                $GetConfig = $GetConfig -replace "Alpha_Count=.*", "Alpha_Count=0"
+                $GetConfig = $GetConfig -replace "Shiny_Count=.*", "Shiny_Count=0"
 
                 # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
 
-                # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
-
-                # Restarts counter to update
+                # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             }
@@ -2963,39 +2674,51 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool21 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool21.Text = 'Counter Mode'
         $ArchetypeMenuStripTool21.Image = $ArchetypeMenuStripToolCounterMode
+        $ArchetypeMenuStripTool21.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool21.DropDownItems.Add("COUNTER MODE:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool21.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool21)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool21.Enabled = $false } else { $ArchetypeMenuStripTool21.Enabled = $true }
-        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Egg'; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Expanded_Fossil'; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Encounter'; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Egg'; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Add_Click({ $GetConfig = Get-Content $SetConfig; $GetConfig[36] = 'Counter_Mode=Collapsed_Fossil'; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }  
+        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Encounter"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }   
+        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
 
         # Adds "Hunt Profiles" selection
         $ArchetypeMenuStripTool15 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool15.Text = 'Hunt Profiles'
         $ArchetypeMenuStripTool15.Image = $ArchetypeMenuStripToolProfiles
+        $ArchetypeMenuStripTool15.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool15.DropDownItems.Add("HUNT PROFILES:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool15.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool15)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool15.Enabled = $false } else { $ArchetypeMenuStripTool15.Enabled = $true }
-        $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; ; $HuntName1 = $GetProfileConfig[8] -replace 'Hunt_Profile_Name_1=', ''; $HuntName2 = $GetProfileConfig[9] -replace 'Hunt_Profile_Name_2=', ''; $HuntName3 = $GetProfileConfig[10] -replace 'Hunt_Profile_Name_3=', ''; $HuntName4 = $GetProfileConfig[11] -replace 'Hunt_Profile_Name_4=', ''; $HuntName5 = $GetProfileConfig[12] -replace 'Hunt_Profile_Name_5=', ''; $HuntName6 = $GetProfileConfig[13] -replace 'Hunt_Profile_Name_6=', ''; $HuntName7 = $GetProfileConfig[14] -replace 'Hunt_Profile_Name_7=', ''; $HuntName8 = $GetProfileConfig[15] -replace 'Hunt_Profile_Name_8=', ''; $HuntName9 = $GetProfileConfig[16] -replace 'Hunt_Profile_Name_9=', ''; $HuntName10 = $GetProfileConfig[17] -replace 'Hunt_Profile_Name_10=', ''
-        if ($GetProfile -match "Profile1") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName1", $ArchetypeMenuStripToolProfile1).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName1", $ArchetypeMenuStripToolProfile1).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName1Replace = $GetProfileConfig[8] -replace 'Hunt_Profile_Name_1=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName1Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile2") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName2", $ArchetypeMenuStripToolProfile2).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName2", $ArchetypeMenuStripToolProfile2).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName2Replace = $GetProfileConfig[9] -replace 'Hunt_Profile_Name_2=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName2Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile3") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName3", $ArchetypeMenuStripToolProfile3).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName3", $ArchetypeMenuStripToolProfile3).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName3Replace = $GetProfileConfig[10] -replace 'Hunt_Profile_Name_3=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName3Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile4") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName4", $ArchetypeMenuStripToolProfile4).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName4", $ArchetypeMenuStripToolProfile4).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName4Replace = $GetProfileConfig[11] -replace 'Hunt_Profile_Name_4=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName4Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile5") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName5", $ArchetypeMenuStripToolProfile5).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName5", $ArchetypeMenuStripToolProfile5).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName5Replace = $GetProfileConfig[12] -replace 'Hunt_Profile_Name_5=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName5Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile6") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName6", $ArchetypeMenuStripToolProfile6).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName6", $ArchetypeMenuStripToolProfile6).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName6Replace = $GetProfileConfig[13] -replace 'Hunt_Profile_Name_6=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName6Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile7") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName7", $ArchetypeMenuStripToolProfile7).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName7", $ArchetypeMenuStripToolProfile7).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName7Replace = $GetProfileConfig[14] -replace 'Hunt_Profile_Name_7=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName7Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile8") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName8", $ArchetypeMenuStripToolProfile8).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName8", $ArchetypeMenuStripToolProfile8).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName8Replace = $GetProfileConfig[15] -replace 'Hunt_Profile_Name_8=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName8Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName9", $ArchetypeMenuStripToolProfile9).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName9", $ArchetypeMenuStripToolProfile9).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName9Replace = $GetProfileConfig[16] -replace 'Hunt_Profile_Name_9=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName9Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName10", $ArchetypeMenuStripToolProfile10).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$HuntName10", $ArchetypeMenuStripToolProfile10).Add_Click({ $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $HuntName10Replace = $GetProfileConfig[17] -replace 'Hunt_Profile_Name_10=', ''; $GetProfileConfig[7] = "Current_Hunt_Profile=$HuntName10Replace "; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-    
+        if ($GetProfile -match "Profile1") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile1", $ArchetypeMenuStripToolProfile1).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile1", $ArchetypeMenuStripToolProfile1).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName1Replace = $GetProfileConfig -match "Hunt_Profile_Name_1="; $HuntName1Replace = $HuntName1Replace -replace "Hunt_Profile_Name_1=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName1Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile2") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile2", $ArchetypeMenuStripToolProfile2).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile2", $ArchetypeMenuStripToolProfile2).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName2Replace = $GetProfileConfig -match "Hunt_Profile_Name_2="; $HuntName2Replace = $HuntName2Replace -replace "Hunt_Profile_Name_2=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName2Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile3") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile3", $ArchetypeMenuStripToolProfile3).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile3", $ArchetypeMenuStripToolProfile3).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName3Replace = $GetProfileConfig -match "Hunt_Profile_Name_3="; $HuntName3Replace = $HuntName3Replace -replace "Hunt_Profile_Name_3=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName3Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile4") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile4", $ArchetypeMenuStripToolProfile4).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile4", $ArchetypeMenuStripToolProfile4).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName4Replace = $GetProfileConfig -match "Hunt_Profile_Name_4="; $HuntName4Replace = $HuntName4Replace -replace "Hunt_Profile_Name_4=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName4Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile5") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile5", $ArchetypeMenuStripToolProfile5).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile5", $ArchetypeMenuStripToolProfile5).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName5Replace = $GetProfileConfig -match "Hunt_Profile_Name_5="; $HuntName5Replace = $HuntName5Replace -replace "Hunt_Profile_Name_5=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName5Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile6") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile6", $ArchetypeMenuStripToolProfile6).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile6", $ArchetypeMenuStripToolProfile6).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName6Replace = $GetProfileConfig -match "Hunt_Profile_Name_6="; $HuntName6Replace = $HuntName6Replace -replace "Hunt_Profile_Name_6=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName6Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile7") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile7", $ArchetypeMenuStripToolProfile7).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile7", $ArchetypeMenuStripToolProfile7).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName7Replace = $GetProfileConfig -match "Hunt_Profile_Name_7="; $HuntName7Replace = $HuntName7Replace -replace "Hunt_Profile_Name_7=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName7Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile8") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile8", $ArchetypeMenuStripToolProfile8).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile8", $ArchetypeMenuStripToolProfile8).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName8Replace = $GetProfileConfig -match "Hunt_Profile_Name_8="; $HuntName8Replace = $HuntName8Replace -replace "Hunt_Profile_Name_8=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName8Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolProfile9).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolProfile9).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName9Replace = $GetProfileConfig -match "Hunt_Profile_Name_9="; $HuntName9Replace = $HuntName9Replace -replace "Hunt_Profile_Name_9=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName9Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolProfile10).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolProfile10).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName10Replace = $GetProfileConfig -match "Hunt_Profile_Name_10="; $HuntName10Replace = $HuntName10Replace -replace "Hunt_Profile_Name_10=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName10Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        $ArchetypeMenuStripTool15.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool15.DropDownItems.Add("-> Open Hunt Profile Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Config Files })
+
         # Adds "Backup" selection
         $ArchetypeMenuStrip.Items.Add("-")
         $ArchetypeMenuStripTool7 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool7.Text = 'Backup'
         $ArchetypeMenuStripTool7.Image = $ArchetypeMenuStripToolBackup
+        $ArchetypeMenuStripTool7.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool7.DropDownItems.Add("BACKUP:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool7.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool7)
         $ArchetypeMenuStripTool7.DropDownItems.Add("Save Current Counter State (Config File)", $ArchetypeMenuStripToolSave).add_Click({ $TodaysDate = (Get-Date).ToString('MM_dd_yyyy'); New-Item -Path "$PWD\Counter Config Files\Counter Config Backup" -Type Directory -Name $TodaysDate; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile1.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse -Force; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile2.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse -Force; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile3.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse -Force; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile4.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse -Force; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile5.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse -Force; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile6.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse -Force; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile7.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse -Force; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile8.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse -Force; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile9.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse -Force; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile10.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse -Force; Copy-Item "$PWD\Counter Config Files\CurrentProfileState.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse -Force })
+        $ArchetypeMenuStripTool7.DropDownItems.Add("-")
+        $ArchetypeMenuStripTool7.DropDownItems.Add("-> Open Backup Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Config Files\Counter Config Backup })
         $ArchetypeMenuStripTool7.DropDownItems.Add("-")
         $ArchetypeMenuStripTool7.DropDownItems.Add("Daily Counter Backup: Enabled", $ArchetypeMenuStripToolDaily).Enabled = $false
 
@@ -3003,36 +2726,45 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool4 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool4.Text = 'Support'
         $ArchetypeMenuStripTool4.Image = $ArchetypeMenuStripToolSupport
+        $ArchetypeMenuStripTool4.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool4.DropDownItems.Add("SUPPORT:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool4.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool4)
 
         # Adds "Settings" selection 
         $ArchetypeMenuStripTool3 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool3.Text = 'Settings'
         $ArchetypeMenuStripTool3.Image = $ArchetypeMenuStripToolSettings
+        $ArchetypeMenuStripTool3.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool3.DropDownItems.Add("SETTINGS:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool3.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool3)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool3.Enabled = $false } else { $ArchetypeMenuStripTool3.Enabled = $true }
         if ($AlwaysOnTop -match "True") { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Enabled" } else { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Disabled" }
-        $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"; $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"; if ($AlwaysOnTop -match "True") { $GetConfig[37] = 'Always_On_Top=False' } else { $GetConfig[37] = 'Always_On_Top=True' }; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
-        if ($IgnoreSystemLang -match "True") { $PokeMMOMenuSystemLangText = "Ignore System Language: True" } else { $PokeMMOMenuSystemLangText = "Ignore System Language: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuSystemLangText", $ArchetypeMenuStripToolSystemLanguage).add_Click({ $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"; $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"; if ($IgnoreSystemLang -match "True") { $GetConfig[41] = 'Ignore_System_Language=False' } else { $GetConfig[41] = 'Ignore_System_Language=True' }; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; if ($AlwaysOnTop -match "True") { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=False" } else { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=True" }; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        if ($IgnoreSystemLang -match "True") { $PokeMMOMenuSystemLangText = "Ignore System Language: True" } else { $PokeMMOMenuSystemLangText = "Ignore System Language: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuSystemLangText", $ArchetypeMenuStripToolSystemLanguage).add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; if ($IgnoreSystemLang -match "True") { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=False" } else { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=True" }; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
         $ArchetypeMenuStripTool3.DropDownItems.Add("-")
-        $ArchetypeMenuStripTool3.DropDownItems.Add("Archetype Counter Uninstaller", $ArchetypeMenuStripUninstall).add_Click({ $UninstallACDialog = [System.Windows.MessageBox]::Show("Would you like to uninstall Archetype Counter?","  Archetype Counter","YesNo","Warning"); if ($UninstallACDialog -match "Yes") { [System.Windows.MessageBox]::Show("Thank you for using Archetype Counter!","  Archetype Counter","OK","Asterisk"); $ThemeNames = (Get-ChildItem "$PokeMMOWorkingDir\data\themes" -directory).Name; foreach ($ThemeName in $ThemeNames) { Remove-Item "$PokeMMOWorkingDir\data\themes\$ThemeName\AC" -Recurse -Force; $InsertInThemePath = "$PokeMMOWorkingDir\data\themes\$ThemeName\theme.xml"; $InsertInTheme = Get-Content -Path $InsertInThemePath; $InsertInTheme = $InsertInTheme -replace '<include filename="AC/1.0_Scaling.xml"/>',''; $InsertInTheme | Set-Content -Path $InsertInThemePath }; Start-Process -WindowStyle hidden "$PWD\Counter Functions\Uninstaller\Uninstaller.bat"; [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force } })
+        $ArchetypeMenuStripTool3.DropDownItems.Add("Archetype Counter Uninstaller", $ArchetypeMenuStripUninstall).add_Click({ $UninstallACDialog = [System.Windows.MessageBox]::Show("Would you like to uninstall Archetype Counter?","  Archetype Counter","YesNo","Warning"); if ($UninstallACDialog -match "Yes") { [System.Windows.MessageBox]::Show("Thank you for using Archetype Counter!","  Archetype Counter","OK","Asterisk"); $ThemeNames = (Get-ChildItem "$PokeMMOWorkingDir\data\themes" -directory).Name; $SetThemeConfig = "$PokeMMOWorkingDir\data\themes\$ThemeName\theme.xml"; $GetThemeConfig = [IO.File]::ReadAllLines("$SetThemeConfig"); foreach ($ThemeName in $ThemeNames) { Remove-Item "$PokeMMOWorkingDir\data\themes\$ThemeName\AC" -Recurse -Force; $GetThemeConfig = $GetThemeConfig -replace '<include filename="AC/1.0_Scaling.xml"/>',''; [IO.File]::WriteAllLines($SetThemeConfig, $GetThemeConfig) }; Start-Process -WindowStyle hidden "$PWD\Counter Functions\Uninstaller\Uninstaller.bat"; [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force } })
 
         # Adds "Rename Hunt Profiles" selection
         $ArchetypeMenuStrip.Items.Add("-")
         $ArchetypeMenuStripTool16 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool16.Text = 'Rename Hunt Profiles'
         $ArchetypeMenuStripTool16.Image = $ArchetypeMenuStripToolProfiles
+        $ArchetypeMenuStripTool16.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool16.DropDownItems.Add("RENAME HUNT PROFILES:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool16.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool16)
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 1", $ArchetypeMenuStripEdit).Add_Click({ $Profile1Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 1:', ' Archetype Counter'); if ($Profile1Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt";$GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt1 = $GetProfileConfig[8] -replace 'Hunt_Profile_Name_1=', ''; if ($GetProfileCurrent -match $GetProfileHunt1) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile1Text" }; $GetProfileConfig[8] = "Hunt_Profile_Name_1=$Profile1Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 2", $ArchetypeMenuStripEdit).Add_Click({ $Profile2Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 2:', ' Archetype Counter'); if ($Profile2Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt2 = $GetProfileConfig[9] -replace 'Hunt_Profile_Name_2=', ''; if ($GetProfileCurrent -match $GetProfileHunt2) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile2Text" }; $GetProfileConfig[9] = "Hunt_Profile_Name_2=$Profile2Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 3", $ArchetypeMenuStripEdit).Add_Click({ $Profile3Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 3:', ' Archetype Counter'); if ($Profile3Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt3 = $GetProfileConfig[10] -replace 'Hunt_Profile_Name_3=', ''; if ($GetProfileCurrent -match $GetProfileHunt3) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile3Text" }; $GetProfileConfig[10] = "Hunt_Profile_Name_3=$Profile3Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 4", $ArchetypeMenuStripEdit).Add_Click({ $Profile4Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 4:', ' Archetype Counter'); if ($Profile4Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt4 = $GetProfileConfig[11] -replace 'Hunt_Profile_Name_4=', ''; if ($GetProfileCurrent -match $GetProfileHunt4) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile4Text" }; $GetProfileConfig[11] = "Hunt_Profile_Name_4=$Profile4Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 5", $ArchetypeMenuStripEdit).Add_Click({ $Profile5Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 5:', ' Archetype Counter'); if ($Profile5Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt5 = $GetProfileConfig[12] -replace 'Hunt_Profile_Name_5=', ''; if ($GetProfileCurrent -match $GetProfileHunt5) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile5Text" }; $GetProfileConfig[12] = "Hunt_Profile_Name_5=$Profile5Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 6", $ArchetypeMenuStripEdit).Add_Click({ $Profile6Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 6:', ' Archetype Counter'); if ($Profile6Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt6 = $GetProfileConfig[13] -replace 'Hunt_Profile_Name_6=', ''; if ($GetProfileCurrent -match $GetProfileHunt6) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile6Text" }; $GetProfileConfig[13] = "Hunt_Profile_Name_6=$Profile6Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 7", $ArchetypeMenuStripEdit).Add_Click({ $Profile7Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 7:', ' Archetype Counter'); if ($Profile7Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt7 = $GetProfileConfig[14] -replace 'Hunt_Profile_Name_7=', ''; if ($GetProfileCurrent -match $GetProfileHunt7) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile7Text" }; $GetProfileConfig[14] = "Hunt_Profile_Name_7=$Profile7Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 8", $ArchetypeMenuStripEdit).Add_Click({ $Profile8Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 8:', ' Archetype Counter'); if ($Profile8Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt8 = $GetProfileConfig[15] -replace 'Hunt_Profile_Name_8=', ''; if ($GetProfileCurrent -match $GetProfileHunt8) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile8Text" }; $GetProfileConfig[15] = "Hunt_Profile_Name_8=$Profile8Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 9", $ArchetypeMenuStripEdit).Add_Click({ $Profile9Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 9:', ' Archetype Counter'); if ($Profile9Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt9 = $GetProfileConfig[16] -replace 'Hunt_Profile_Name_9=', ''; if ($GetProfileCurrent -match $GetProfileHunt9) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile9Text" }; $GetProfileConfig[16] = "Hunt_Profile_Name_9=$Profile9Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename Profile 10", $ArchetypeMenuStripEdit).Add_Click({ $Profile10Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 10:', ' Archetype Counter'); if ($Profile10Text) { $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"; $GetProfileConfig = Get-Content $SetProfileConfig; $GetProfileCurrent = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''; $GetProfileHunt10 = $GetProfileConfig[17] -replace 'Hunt_Profile_Name_10=', ''; if ($GetProfileCurrent -match $GetProfileHunt10) { $GetProfileConfig[7] = "Current_Hunt_Profile=$Profile10Text" }; $GetProfileConfig[17] = "Hunt_Profile_Name_10=$Profile10Text"; $GetProfileConfig | Set-Content -Path $SetProfileConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile1", $ArchetypeMenuStripEdit).Add_Click({ $Profile1Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 1:', ' Archetype Counter'); if ($Profile1Text) { if ($GetProfile -match $CheckProfile1) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile1Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_1=.*", "Hunt_Profile_Name_1=$Profile1Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile2", $ArchetypeMenuStripEdit).Add_Click({ $Profile2Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 2:', ' Archetype Counter'); if ($Profile2Text) { if ($GetProfile -match $CheckProfile2) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile2Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_2=.*", "Hunt_Profile_Name_2=$Profile2Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile3", $ArchetypeMenuStripEdit).Add_Click({ $Profile3Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 3:', ' Archetype Counter'); if ($Profile3Text) { if ($GetProfile -match $CheckProfile3) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile3Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_3=.*", "Hunt_Profile_Name_3=$Profile3Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile4", $ArchetypeMenuStripEdit).Add_Click({ $Profile4Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 4:', ' Archetype Counter'); if ($Profile4Text) { if ($GetProfile -match $CheckProfile4) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile4Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_4=.*", "Hunt_Profile_Name_4=$Profile4Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile5", $ArchetypeMenuStripEdit).Add_Click({ $Profile5Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 5:', ' Archetype Counter'); if ($Profile5Text) { if ($GetProfile -match $CheckProfile5) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile5Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_5=.*", "Hunt_Profile_Name_5=$Profile5Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile6", $ArchetypeMenuStripEdit).Add_Click({ $Profile6Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 6:', ' Archetype Counter'); if ($Profile6Text) { if ($GetProfile -match $CheckProfile6) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile6Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_6=.*", "Hunt_Profile_Name_6=$Profile6Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile7", $ArchetypeMenuStripEdit).Add_Click({ $Profile7Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 7:', ' Archetype Counter'); if ($Profile7Text) { if ($GetProfile -match $CheckProfile7) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile7Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_7=.*", "Hunt_Profile_Name_7=$Profile7Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile8", $ArchetypeMenuStripEdit).Add_Click({ $Profile8Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 8:', ' Archetype Counter'); if ($Profile8Text) { if ($GetProfile -match $CheckProfile8) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile8Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_8=.*", "Hunt_Profile_Name_8=$Profile8Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile9", $ArchetypeMenuStripEdit).Add_Click({ $Profile9Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 9:', ' Archetype Counter'); if ($Profile9Text) { if ($GetProfile -match $CheckProfile9) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile9Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_9=.*", "Hunt_Profile_Name_9=$Profile9Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile10", $ArchetypeMenuStripEdit).Add_Click({ $Profile10Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 10:', ' Archetype Counter'); if ($Profile10Text) { if ($GetProfile -match $CheckProfile10) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile10Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_10=.*", "Hunt_Profile_Name_10=$Profile10Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool16.Enabled = $false } else { $ArchetypeMenuStripTool16.Enabled = $true }
 
         # Adds "Total Current Counts" selection
@@ -3041,6 +2773,9 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool9 = New-Object System.Windows.Forms.ToolStripMenuItem
         $ArchetypeMenuStripTool9.Text = 'Total Current Counts'
         $ArchetypeMenuStripTool9.Image = $ArchetypeMenuStripCount
+        $ArchetypeMenuStripTool9.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool9.DropDownItems.Add("TOTAL CURRENT COUNTS::", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool9.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool9)
         $ArchetypeMenuStripTool9.DropDownItems.Add("Total Counted (Slots+Egg+Fossil): $TotalCount", $ArchetypeMenuStripToolNumber1).Enabled = $false
         $ArchetypeMenuStripTool9.DropDownItems.Add("Total Individual Slots: $TotalCountNoEgg", $ArchetypeMenuStripToolNumber2).Enabled = $false
@@ -3054,10 +2789,15 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool10.Text = 'Debug'
         $ArchetypeMenuStripTool10.Image = $ArchetypeMenuStripDebug
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool10) 
-        if ($DebugMode -match "False") { $PokeMMOMenuStripTextDebug = "Counter Debugging: Disabled" } else { $PokeMMOMenuStripTextDebug = "Counter Debbuging: Enabled" }
-        #$ArchetypeMenuStripTool10.DropDownItems.Add("$PokeMMOMenuStripTextDebug", $ArchetypeMenuStripDebug2).Enabled = $false # Makes the Debugging permanently on - easier to diagnose issues (No performance loss)
-        #$ArchetypeMenuStripTool10.DropDownItems.Add("-", $ArchetypeMenuStripDebug2)
+        $PokeMMOMenuStripTextDebug = "Counter Debbuging: Enabled"
+        $ArchetypeMenuStripTool10.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool10.DropDownItems.Add("NORMAL DEBUG:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool10.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStripTool10.DropDownItems.Add("-> Open DEBUG Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Functions\ScreenCapture\DEBUG })
+        $ArchetypeMenuStripTool10.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool10.DropDownItems.Add("ADVANCED DEBUG:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool10.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool10.DropDownItems.Add("-> Open ImageMagick Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Functions\ImageMagick })
 
         # Add "Current Profile" in use on the bottom counter menu
         $ArchetypeMenuStrip.Items.Add("-")
@@ -3082,23 +2822,17 @@ $ArchetypeImage.Add_MouseDown({
             $ArchetypeMenuStrip.Items.Add("-")
             $ArchetypeMenuStrip.Items.Add("Start Counter", $ArchetypeMenuStripStart).add_Click({ 
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
-                # Sets Counter Active to "True" (To make menu options available disabled)
-                $GetConfig[34] = 'Counter_Active=True'
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=True"
 
-                # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                # Sets all changes back into the Config file + # Resets Counter Active to "False"
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
@@ -3111,40 +2845,29 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Stop Counter" selection
             $ArchetypeMenuStrip.Items.Add("Stop Counter", $ArchetypeMenuStripStop).add_Click({ 
        
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
-                $GetConfig[33] = "Auto_Restart_Counter=False"
-
-                # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
-
-                # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
+                $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
+                $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"
 
                 # Set visibility of components for counter
                 $ArchetypeCollapsedPlayImage.Visible = $true
                 $ArchetypeCollapsedStopImage.Visible = $false
                 $ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedPlayBGColor)
 
-                # Sets Counter Active to "True" (To make menu options available disabled)
-                $GetConfig[34] = 'Counter_Active=False'
-
-                # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                # Sets all changes back into the Config file + Resets Counter Active to "False"
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
+
+                # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
+                Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
                 # Application Variable - Name
                 $ApplicationName = "javaw"
@@ -3166,26 +2889,18 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Exit Counter" selection
             $ArchetypeMenuStrip.Items.Add("Exit Counter", $ArchetypeMenuStripExit).add_Click({  
 
-                # Grabs the config file in its "current" state
-                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                $GetConfig = Get-Content $SetConfig
-
                 # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left
-                $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                 # Replaces and Sets the starting position on the counter form start
-                $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
-                $GetConfig[33] = "Auto_Restart_Counter=False" 
+                $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
+                $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"
 
-                # Resets Counter Active to "False" (To make menu options available again)
-                $GetConfig[34] = 'Counter_Active=False'
-
-                # Sets all changes back into the Config file
-                $GetConfig | Set-Content -Path $SetConfig
+                # Sets all changes back into the Config file + # Resets Counter Active to "False"
+                [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
@@ -3193,11 +2908,8 @@ $ArchetypeImage.Add_MouseDown({
                 # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
                 Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
-                # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
-
                 # This exits the application (Winform) properly 
-                [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force 
+                [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force
         
             })
 
@@ -3225,16 +2937,19 @@ Function PlayAction {
 
         # Checks if "AC" folder has been added into current theme
         $SetThemeConfig = "$PokeMMOWorkingDir\config\main.properties"
-        $GetThemeConfig = Get-Content $SetThemeConfig
-        $CurrentTheme = $GetThemeConfig[21] -replace 'client.ui.theme=', ''
-        if (Test-Path -Path "$PokeMMOWorkingDir\data\themes\$CurrentTheme\AC") { } else { $InsertInThemePath = "$PokeMMOWorkingDir\data\themes\$CurrentTheme\theme.xml"; $InsertInTheme = Get-Content -Path $InsertInThemePath; $InsertInThemeLine = $InsertInTheme.count; $InsertInTheme = $InsertInTheme -replace '<include filename="AC/1.0_Scaling.xml"/>'; $InsertInTheme | Set-Content -Path $InsertInThemePath;$InsertInTheme[$InsertInThemeLine-1] = '    <include filename="AC/1.0_Scaling.xml"/>
-</themes>'; $InsertInTheme | Set-Content -Path $InsertInThemePath; Copy-Item "$PWD\Counter Functions\AC" -Destination "$PokeMMOWorkingDir\data\themes\$CurrentTheme" -Recurse -Force; $CurrentThemeDialog = [System.Windows.MessageBox]::Show("Current Theme: $CurrentTheme`n`nValues in the current PokeMMO theme interface will be modified so it can support OCR detection.`n`n- Do you want to learn more?","  Archetype Counter","YesNo","Warning"); if ($CurrentThemeDialog -match "Yes") { [System.Windows.MessageBox]::Show("Learn More:`n`nThese are slight adjustments to the font used for monster names in battle. The amount they are changed is almost unnoticeable to the eye. You may revert these modifications at any time by repairing your client.`n`nTechnical mumbo-jumbo: OCR detection will not trigger without a readable font def and inset because letters such as; g, j, p, y, etc. hang over the HP bars.`n`n","  Archetype Counter","OK","Warning") }; $PokeMMOProcess = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "javaw" }; if ($PokeMMOProcess -eq $null) { } else { Stop-Process -Name "PokeMMO" -Force; Stop-Process -Name "javaw" -Force; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe" } }
+        $GetThemeConfig = [IO.File]::ReadAllLines("$SetThemeConfig")
+        $CurrentTheme = $GetThemeConfig -match "client.ui.theme="; $CurrentTheme = $CurrentTheme -replace 'client.ui.theme=', ''
+        if (Test-Path -Path "$PokeMMOWorkingDir\data\themes\$CurrentTheme\AC") { } else { $InsertInThemePath = "$PokeMMOWorkingDir\data\themes\$CurrentTheme\theme.xml"; $InsertInTheme = [IO.File]::ReadAllLines("$InsertInThemePath"); $InsertInTheme = $InsertInTheme -replace '</themes>', '    <include filename="AC/1.0_Scaling.xml"/>       
+</themes>'; [IO.File]::WriteAllLines($InsertInThemePath, $InsertInTheme); Copy-Item "$PWD\Counter Functions\AC" -Destination "$PokeMMOWorkingDir\data\themes\$CurrentTheme" -Recurse -Force; $CurrentThemeDialog = [System.Windows.MessageBox]::Show("Current Theme: $CurrentTheme`n`nValues in the current PokeMMO theme interface will be modified so it can support OCR detection.`n`n- Do you want to learn more?","  Archetype Counter","YesNo","Warning"); if ($CurrentThemeDialog -match "Yes") { [System.Windows.MessageBox]::Show("Learn More:`n`nThese are slight adjustments to the font used for monster names in battle. The amount they are changed is almost unnoticeable to the eye. You may revert these modifications at any time by repairing your client.`n`nTechnical mumbo-jumbo: OCR detection will not trigger without a readable font def and inset because letters such as; g, j, p, y, etc. hang over the HP bars.`n`n","  Archetype Counter","OK","Warning") }; $PokeMMOProcess = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "javaw" }; if ($PokeMMOProcess -eq $null) { } else { Stop-Process -Name "PokeMMO" -Force; Stop-Process -Name "javaw" -Force; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe" } }
 
         # Force the "AC" folder to be placed everytime (For future build/releases)
         Copy-Item "$PWD\Counter Functions\AC" -Destination "$PokeMMOWorkingDir\data\themes\$CurrentTheme" -Recurse -Force
 
         # Checks if AHk v1.1.36.02 is installed on machine (To run scripts)
-        $SetInstalledSoftwareAHK = "$PWD\Counter Config Files\AHKInstallState.txt"; $GetInstalledSoftwareAHK = Get-Content $SetInstalledSoftwareAHK; $InstalledSoftware = (Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*).DisplayName; if ($InstalledSoftware -match "AutoHotkey 1.1.36.02") { $GetInstalledSoftwareAHK = 'Installed'; $GetInstalledSoftwareAHK | Set-Content -Path $SetInstalledSoftwareAHK }; if ($GetInstalledSoftwareAHK -match "Not Installed") { $InstalledSoftwareDialog = [System.Windows.MessageBox]::Show("Archetype Counter requires AutoHotKey 1.1.36.02.`n`nWould you like to install AutoHotKey?","  Archetype Counter","YesNo","Warning"); if ($InstalledSoftwareDialog -match "Yes") { Start-Process "$PWD\Counter Functions\AutoHotkey\InvokeInstall.bat" -Wait; $GetInstalledSoftwareAHK = 'Installed'; $GetInstalledSoftwareAHK | Set-Content -Path $SetInstalledSoftwareAHK } else { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[34] = 'Counter_Active=false'; Start-Sleep -Milliseconds 10; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } }
+        $SetInstalledSoftwareAHK = "$PWD\Counter Config Files\AHKInstallState.txt"
+        $GetInstalledSoftwareAHK = [IO.File]::ReadAllLines("$SetInstalledSoftwareAHK")
+        $InstalledSoftware = (Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*).DisplayName
+        if ($InstalledSoftware -match "AutoHotkey 1.1.36.02") { $GetInstalledSoftwareAHK = $GetInstalledSoftwareAHK -replace "Not Installed", "Installed"; [IO.File]::WriteAllLines($SetInstalledSoftwareAHK, $GetInstalledSoftwareAHK) }; if ($GetInstalledSoftwareAHK -match "Not Installed") { $InstalledSoftwareDialog = [System.Windows.MessageBox]::Show("Archetype Counter requires AutoHotKey 1.1.36.02.`n`nWould you like to install AutoHotKey?","  Archetype Counter","YesNo","Warning"); if ($InstalledSoftwareDialog -match "Yes") { Start-Process "$PWD\Counter Functions\AutoHotkey\InvokeInstall.bat" -Wait; $GetInstalledSoftwareAHK = $GetInstalledSoftwareAHK -replace "Not Installed", "Installed" ; [IO.File]::WriteAllLines($SetInstalledSoftwareAHK, $GetInstalledSoftwareAHK); } else { $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"; Start-Sleep -Milliseconds 10; [IO.File]::WriteAllLines($SetInstalledSoftwareAHK, $GetInstalledSoftwareAHK); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } }
 
         # Grabs current working folder - Store as variable
         $CounterWorkingDir = $PWD
@@ -3243,8 +2958,9 @@ Function PlayAction {
         Set-Location ..\..; Set-Location ..\..
 
         # Checks if user had Fullscreen mode in PokeMMO - If matches the counter will not do anything
-        $CheckFullScreenMode = Get-Content "$PWD\config\main.properties"
-        if ($CheckFullScreenMode | Where-Object { $_ -match '\bclient.graphics.display_mode=1\b' }) { [System.Windows.MessageBox]::Show("PokeMMO is currently in Fullscreen mode.`n`nThe Counter requires PokeMMO to be in either Windowed or Borderless mode in order to function properly.`n`nSettings -> Video -> Display Mode","  Archetype Counter","OK","Warning"); Start-Process "$CounterWorkingDir\ArchetypeCounter.bat" -NoNewWindow -Wait }
+        $SetFullScreenConfig = "$PWD\config\main.properties"
+        $GetFullScreenConfig = [IO.File]::ReadAllLines("$SetFullScreenConfig")
+        if ($GetFullScreenConfig | Where-Object { $_ -match '\bclient.graphics.display_mode=1\b' }) { [System.Windows.MessageBox]::Show("PokeMMO is currently in Fullscreen mode.`n`nThe Counter requires PokeMMO to be in either Windowed or Borderless mode in order to function properly.`n`nSettings -> Video -> Display Mode","  Archetype Counter","OK","Warning"); Start-Process "$CounterWorkingDir\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
         # Resets working directory to Archetype folder
         Set-Location $CounterWorkingDir
@@ -3448,66 +3164,79 @@ Function PlayAction {
                     
                     # Loads/Sets for Hunt Profile States
                     $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"
-                    $GetProfileConfig = Get-Content $SetProfileConfig
-                    $GetProfile = $GetProfileConfig[7] -replace 'Current_Hunt_Profile=', ''
-                    $CheckProfile1 = $GetProfileConfig[8] -replace 'Hunt_Profile_Name_1=', ''
-                    $CheckProfile2 = $GetProfileConfig[9] -replace 'Hunt_Profile_Name_2=', ''
-                    $CheckProfile3 = $GetProfileConfig[10] -replace 'Hunt_Profile_Name_3=', ''
-                    $CheckProfile4 = $GetProfileConfig[11] -replace 'Hunt_Profile_Name_4=', ''
-                    $CheckProfile5 = $GetProfileConfig[12] -replace 'Hunt_Profile_Name_5=', ''
-                    $CheckProfile6 = $GetProfileConfig[13] -replace 'Hunt_Profile_Name_6=', ''
-                    $CheckProfile7 = $GetProfileConfig[14] -replace 'Hunt_Profile_Name_7=', ''
-                    $CheckProfile8 = $GetProfileConfig[15] -replace 'Hunt_Profile_Name_8=', ''
-                    $CheckProfile9 = $GetProfileConfig[16] -replace 'Hunt_Profile_Name_9=', ''
-                    $CheckProfile10 = $GetProfileConfig[17] -replace 'Hunt_Profile_Name_10=', ''
+                    $GetProfileConfig = [IO.File]::ReadAllLines("$SetProfileConfig")
+                    $GetProfile = $GetProfileConfig -match "Current_Hunt_Profile="; $GetProfile = $GetProfile -replace "Current_Hunt_Profile=", ""
+                    $CheckProfile1 = $GetProfileConfig -match "Hunt_Profile_Name_1="; $CheckProfile1 = $CheckProfile1 -replace "Hunt_Profile_Name_1=", ""
+                    $CheckProfile2 = $GetProfileConfig -match "Hunt_Profile_Name_2="; $CheckProfile2 = $CheckProfile2 -replace "Hunt_Profile_Name_2=", ""
+                    $CheckProfile3 = $GetProfileConfig -match "Hunt_Profile_Name_3="; $CheckProfile3 = $CheckProfile3 -replace "Hunt_Profile_Name_3=", ""
+                    $CheckProfile4 = $GetProfileConfig -match "Hunt_Profile_Name_4="; $CheckProfile4 = $CheckProfile4 -replace "Hunt_Profile_Name_4=", ""
+                    $CheckProfile5 = $GetProfileConfig -match "Hunt_Profile_Name_5="; $CheckProfile5 = $CheckProfile5 -replace "Hunt_Profile_Name_5=", ""
+                    $CheckProfile6 = $GetProfileConfig -match "Hunt_Profile_Name_6="; $CheckProfile6 = $CheckProfile6 -replace "Hunt_Profile_Name_6=", ""
+                    $CheckProfile7 = $GetProfileConfig -match "Hunt_Profile_Name_7="; $CheckProfile7 = $CheckProfile7 -replace "Hunt_Profile_Name_7=", ""
+                    $CheckProfile8 = $GetProfileConfig -match "Hunt_Profile_Name_8="; $CheckProfile8 = $CheckProfile8 -replace "Hunt_Profile_Name_8=", ""
+                    $CheckProfile9 = $GetProfileConfig -match "Hunt_Profile_Name_9="; $CheckProfile9 = $CheckProfile9 -replace "Hunt_Profile_Name_9=", ""
+                    $CheckProfile10 = $GetProfileConfig -match "Hunt_Profile_Name_10="; $CheckProfile10 = $CheckProfile10 -replace "Hunt_Profile_Name_10=", ""
                     if ($GetProfile -match $CheckProfile1) { $GetProfile = 'Profile1' } elseif ($GetProfile -match $CheckProfile2) { $GetProfile = 'Profile2' } elseif ($GetProfile -match $CheckProfile3) { $GetProfile = 'Profile3' } elseif ($GetProfile -match $CheckProfile4) { $GetProfile = 'Profile4' } elseif ($GetProfile -match $CheckProfile5) { $GetProfile = 'Profile5' } elseif ($GetProfile -match $CheckProfile6) { $GetProfile = 'Profile6' } elseif ($GetProfile -match $CheckProfile7) { $GetProfile = 'Profile7' } elseif ($GetProfile -match $CheckProfile8) { $GetProfile = 'Profile8' } elseif ($GetProfile -match $CheckProfile9) { $GetProfile = 'Profile9' } elseif ($GetProfile -match $CheckProfile10) { $GetProfile = 'Profile10' }
 
                     # Loads values from external sources (Config file)
                     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                    $GetConfig = Get-Content $SetConfig
-                    $TotalCount = $GetConfig[7] -replace 'Total_Count=', ''
-                    $PokemonA = $GetConfig[8] -replace 'Pokemon_A=', ''
-                    $PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
-                    $PokemonAHover = $GetConfig[10] -replace 'Pokemon_A_Hover=', ''
-                    $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
-                    $PokemonCountB = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
-                    $PokemonBHover = $GetConfig[13] -replace 'Pokemon_B_Hover=', ''
-                    $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
-                    $PokemonCountC = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
-                    $PokemonCHover = $GetConfig[16] -replace 'Pokemon_C_Hover=', ''
-                    $EggCount = $GetConfig[20] -replace 'Egg_Count=',''
-                    $ShinyCount = $GetConfig[21] -replace 'Shiny_Count=',''
-                    $ThemeType = $GetConfig[22] -replace 'Theme_Type=', ''
-                    $SetLanguage = $GetConfig[23] -replace 'Set_Language=', ''
-                    $FossilCount = $GetConfig[24] -replace 'Fossil_Count=', ''
-                    $SpriteType = $GetConfig[25] -replace 'Sprite_Type=', ''
-                    $DebugMode = $GetConfig[35] -replace 'Debug_Mode=', ''
-                    $CounterMode = $GetConfig[36] -replace 'Counter_Mode=', ''
+                    $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+                    # ------------------------------------------------
+                    $PokemonA = $GetConfig -match "Pokemon_A="; $PokemonA = $PokemonA -replace "Pokemon_A=", ""
+                    $PokemonCountA = $GetConfig -match "Pokemon_A_Count="; $PokemonCountA = $PokemonCountA -replace "Pokemon_A_Count=", ""
+                    $PokemonAHover = $GetConfig -match "Pokemon_A_Hover="; $PokemonAHover = $PokemonAHover -replace "Pokemon_A_Hover=", ""
+                    # ------------------------------------------------
+                    $PokemonB = $GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
+                    $PokemonCountB = $GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
+                    $PokemonBHover = $GetConfig -match "Pokemon_B_Hover="; $PokemonBHover = $PokemonBHover -replace "Pokemon_B_Hover=", ""
+                    # ------------------------------------------------
+                    $PokemonC = $GetConfig -match "Pokemon_C="; $PokemonC = $PokemonC -replace "Pokemon_C=", ""
+                    $PokemonCountC = $GetConfig -match "Pokemon_C_Count="; $PokemonCountC = $PokemonCountC -replace "Pokemon_C_Count=", ""
+                    $PokemonCHover = $GetConfig -match "Pokemon_C_Hover="; $PokemonCHover = $PokemonCHover -replace "Pokemon_C_Hover=", ""
+                    # ------------------------------------------------
+                    $DetectionCount = $GetConfig -match "Detection_Count="; $DetectionCount = $DetectionCount -replace "Detection_Count=", ""
+                    $ThemeType = $GetConfig -match "Theme_Type="; $ThemeType = $ThemeType -replace "Theme_Type=", ""
+                    $SpriteType = $GetConfig -match "Sprite_Type="; $SpriteType = $SpriteType -replace "Sprite_Type=", ""
+                    $CounterMode = $GetConfig -match "Counter_Mode="; $CounterMode = $CounterMode -replace "Counter_Mode=", ""
+                    # ------------------------------------------------
+                    $AutoRestartCounter = $GetConfig -match "Auto_Restart_Counter="; $AutoRestartCounter = $AutoRestartCounter -replace "Auto_Restart_Counter=", ""
+                    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
+                    # ------------------------------------------------
+                    $AlwaysOnTop = $GetConfig -match "Always_On_Top="; $AlwaysOnTop = $AlwaysOnTop -replace "Always_On_Top=", ""
+                    # ------------------------------------------------
+                    $SetLanguage = $GetConfig -match "Set_Language="; $SetLanguage = $SetLanguage -replace "Set_Language=", ""
+                    $IgnoreSystemLang = $GetConfig -match "Ignore_System_Language="; $IgnoreSystemLang = $IgnoreSystemLang -replace "Ignore_System_Language=", ""
+                    # ------------------------------------------------
+                    $ArchetypeX = $GetConfig -match "Archetype_X="; $ArchetypeX = $ArchetypeX -replace "Archetype_X=", ""
+                    $ArchetypeY = $GetConfig -match "Archetype_Y="; $ArchetypeY = $ArchetypeY -replace "Archetype_Y=", ""
+                    # ------------------------------------------------
+                    $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
+                    $FossilCount = $GetConfig -match "Fossil_Count="; $FossilCount = $FossilCount -replace "Fossil_Count=", ""
+                    $EggCount = $GetConfig -match "Egg_Count="; $EggCount = $EggCount -replace "Egg_Count=", ""
+                    $AlphaCount = $GetConfig -match "Alpha_Count="; $AlphaCount = $AlphaCount -replace "Alpha_Count=", ""
+                    $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
+                    # ------------------------------------------------
+                    $ShinyCount = $GetConfig -match "Shiny_Count="; $ShinyCount = $ShinyCount -replace "Shiny_Count=", ""
+                    # ------------------------------------------------
+                    $PokemonCountA = $PokemonCountA -join '-'; $PokemonCountB = $PokemonCountB -join '-'; $PokemonCountC = $PokemonCountC -join '-'; $EggCount = $EggCount -join '-'; $FossilCount = $FossilCount -join '-'; $AlphaCount = $AlphaCount -join '-'; $ShinyCount = $ShinyCount -join '-' ; $TotalCount = $TotalCount -join '-'; $TotalCountNoEgg = $TotalCountNoEgg -join '-'; $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'
+                    # ------------------------------------------------
+                    $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
                     $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
-                    $TotalPokeSeenCount = $GetConfig[38] -replace 'Pokemon_Seen_Count=',''
-                    $AlphaCount = $GetConfig[40] -replace 'Alpha_Count=', ''
-                    $IgnoreSystemLang = $GetConfig[41] -replace 'Ignore_System_Language=', ''
 
                     # Loads values from external sources for winform (Config file)
                     $SetColorConfig = "$PWD\GUI Form Images\$ThemeType\FormBackgroundColors.txt"
-                    $GetColorConfig = Get-Content $SetColorConfig
-                    $CollapsedStopBGColor = $GetColorConfig[16] -replace 'CollapsedStopBG=', ''
-                    $CollapsedBusyBGColor = $GetColorConfig[17] -replace 'CollapsedBusyBG=', ''
-
-                    # Ensures total count is loaded/correct
-                    $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
-                    $GetConfig[7] = "Total_Count=$TotalCount"
+                    $GetColorConfig = [IO.File]::ReadAllLines("$SetColorConfig")
+                    $CollapsedStopBGColor = $GetColorConfig -match "CollapsedStopBG="; $CollapsedStopBGColor = $CollapsedStopBGColor -replace "CollapsedStopBG=", ""
+                    $CollapsedBusyBGColor = $GetColorConfig -match "CollapsedBusyBG="; $CollapsedBusyBGColor = $CollapsedBusyBGColor -replace "CollapsedBusyBG=", ""
 
                     # Gets the current X and Y coordinates of the form
-                    $ArchetypeReplaceX = $Script:SyncHashTable.ArchetypeForm.Bounds.Left
-                    $ArchetypeReplaceY = $Script:SyncHashTable.ArchetypeForm.Bounds.Top
+                    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
 
                     # Replaces and Sets the starting position on the counter form start
-                    $GetConfig[18] = "Archetype_X=$ArchetypeReplaceX"
-                    $GetConfig[19] = "Archetype_Y=$ArchetypeReplaceY"
+                    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
                     # Sets all current variables int the counter config file
-                    $GetConfig | Set-Content -Path $SetConfig
+                    [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                     # Re-adds variables back into main counter form to "update"
                     $Script:SyncHashTable.ArchetypePokeAFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$PokemonA.png")
@@ -3563,19 +3292,15 @@ Function PlayAction {
                          $Script:SyncHashTable.ArchetypeForm.update()
                          $Script:SyncHashTable.ArchetypeForm.refresh()
 
-                         # Grabs current counter config file state
-                         $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                         $GetConfig = Get-Content $SetConfig
-
                          # Increments the count by 1 (Egg Slot)
-                         $GetEggCountForm = $GetConfig[20] -replace 'Egg_Count=', ''
+                         $GetEggCountForm = $EggCount
                          $GetEggCountForm = [int]$GetEggCountForm + 1
 
                          # Adds correct new count to egg slot
-                         $GetConfig[20] = "Egg_Count=$GetEggCountForm"
+                         $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$GetEggCountForm"
 
                          # Sets all changes back into the Config file
-                         $GetConfig | Set-Content -Path $SetConfig
+                         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                          # Ensures everything on form is updated/refreshed
                          $Script:SyncHashTable.ArchetypeForm.update()
@@ -3591,9 +3316,7 @@ Function PlayAction {
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                          # Grabs counter process and checks for total memory usage
-                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
-                         $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb)
-                         if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; Start-Sleep -Milliseconds 10; $GetConfig[33] = "Auto_Restart_Counter=True"; Start-Sleep -Milliseconds 10; $GetConfig | Set-Content -Path $SetConfig; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow }
+                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                          # Break current loop and re-try
                          Continue
@@ -3609,19 +3332,15 @@ Function PlayAction {
                          $Script:SyncHashTable.ArchetypeForm.update()
                          $Script:SyncHashTable.ArchetypeForm.refresh()
 
-                         # Grabs current counter config file state
-                         $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                         $GetConfig = Get-Content $SetConfig
-
-                         # Increments the count by 1 (Egg Slot)
-                         $GetFossilCountForm = $GetConfig[24] -replace 'Fossil_Count=', ''
+                         # Increments the count by 1 (Fossil Slot)
+                         $GetFossilCountForm = $FossilCount
                          $GetFossilCountForm = [int]$GetFossilCountForm + 1
 
-                         # Adds correct new count to egg slot
-                         $GetConfig[24] = "Fossil_Count=$GetFossilCountForm"
+                         # Adds correct new count to Fossil slot
+                         $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$GetFossilCountForm"
 
                          # Sets all changes back into the Config file
-                         $GetConfig | Set-Content -Path $SetConfig
+                         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                          # Ensures everything on form is updated/refreshed
                          $Script:SyncHashTable.ArchetypeForm.update()
@@ -3637,9 +3356,7 @@ Function PlayAction {
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                          # Grabs counter process and checks for total memory usage
-                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
-                         $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb)
-                         if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[33] = "Auto_Restart_Counter=True"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                          # Break current loop and re-try
                          Continue
@@ -3648,7 +3365,9 @@ Function PlayAction {
 
                     # Loads the "ArchetypeScreenshot" screenshot to read the pixel color value from set coordinates
                     $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose()
-                    #$GetPixelColor | Out-file "$PWD\PixelColorCheck.txt" -Force #(Leaving for debugging purposes)
+                    
+                    # (DEBUG - Output necessary files for debugging/diagnosing issues)
+                    [IO.File]::WriteAllText("$PWD\Counter Functions\ScreenCapture\DEBUG\PixelColorCheck.txt", $GetPixelColor)
 
                     # Checks for specific color pixel value to engage in pokemon scan on screenshot
                     if ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") {
@@ -3673,11 +3392,9 @@ Function PlayAction {
                         if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotMagick.png" }
                         $OCRVariable.text; $OCRCaptured = $OCRVariable.text
 
-                        # (WHEN DEBUGGING MODE IS TURN ON!)
-                        if ($DebugMode -match "True") { Copy-Item -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Destination "$PWD\Counter Functions\ScreenCapture\DEBUG\ArchetypeScreenshot.png" -Force; Copy-Item -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotMagick.png" -Destination "$PWD\Counter Functions\ScreenCapture\DEBUG\ArchetypeScreenshotMagick.png" -Force }
-
-                        # (WHEN DEBUGGING MODE IS TURN ON!)
-                        if ($DebugMode -match "True") { $OCRCaptured | Out-File "$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_BeforeLogic.txt" }
+                        # (DEBUG - Output necessary files for debugging/diagnosing issues)
+                        Copy-Item -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Destination "$PWD\Counter Functions\ScreenCapture\DEBUG\ArchetypeScreenshot.png" -Force; Copy-Item -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotMagick.png" -Destination "$PWD\Counter Functions\ScreenCapture\DEBUG\ArchetypeScreenshotMagick.png" -Force
+                        [IO.File]::WriteAllText("$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_BeforeLogic.txt", $OCRCaptured)
 
                         # Stores 'OCRCaptured' into a variable to check later (For Shiny Pokemon)
                         if ($OCRCaptured -match "Shiny" -or ($OCRCaptured | Where-Object { $_ -match "Shiny" }) -or $OCRCaptured.Contains("Shiny") -or $OCRCaptured.Contains("shiny")) { $OCRCapturedShiny = $true } else { $OCRCapturedShiny = $false }
@@ -3698,23 +3415,19 @@ Function PlayAction {
                         if ($OCRCaptured -match "Nidorane") { $OCRCaptured = $OCRCaptured -Replace 'Nidorane','Nidoran 29'}; if ($OCRCaptured -match "Nidoranon") { $OCRCaptured = $OCRCaptured -Replace 'Nidoranon','Nidoran 32' }; if ($OCRCaptured -match "Nidoranom") { $OCRCaptured = $OCRCaptured -Replace 'Nidoranom','Nidoran 32' }
                         if ($OCRCaptured -match "Nidoran") { $OCRCaptured = $OCRCaptured -Replace 'Nidoran29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran32','Nidoran 32'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  32','Nidoran 32' }
 
-                        # (WHEN DEBUGGING MODE IS TURN ON!)
-                        if ($DebugMode -match "True") { $OCRCaptured | Out-File "$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_AfterLogic.txt" }
+                        # (DEBUG - Output necessary files for debugging/diagnosing issues)
+                        [IO.File]::WriteAllText("$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_AfterLogic.txt", $OCRCaptured)
 
                         # Clears out the ImageMagick Archetype Screenshot
                         Remove-Item "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotMagick.png" -Force
 
-                        # Grabs current counter config file state
-                        $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                        $GetConfig = Get-Content $SetConfig
-
                         # Increments Pokemon seen count by correct value (FOR TOTAL ENCOUNTERED POKEMON)
                         $OCRCapturedHordeNumberCount = ($OCRCaptured | Measure-Object -Line).Lines
                         $TotalPokeSeenCountAmend = [int]$TotalPokeSeenCount + [int]$OCRCapturedHordeNumberCount
-                        $GetConfig[38] = "Pokemon_Seen_Count=$TotalPokeSeenCountAmend"
+                        $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$TotalPokeSeenCountAmend"
 
                         # Sets all changes back into the Config file
-                        $GetConfig | Set-Content -Path $SetConfig
+                        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                         # Small delay (To help avoid clearing the count profile)
                         Start-Sleep -Milliseconds 10
@@ -3730,12 +3443,12 @@ Function PlayAction {
                         $OCRCapturedHordeNumber = ($OCRCaptured | Measure-Object -Line).Lines; if ($OCRCapturedHordeNumber -eq "1") { $OCRCapturedHordeNumber = 0 }
                         if ($OCRCapturedHordeNumber -gt "1") { $OCRCaptured = $OCRCaptured | Select-Object -First 1 -Skip 2 }
 
-                        # (WHEN DEBUGGING MODE IS TURN ON!)
-                        if ($DebugMode -match "True") { $OCRCapturedHordeNumber | Out-File "$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_HordeLogic_Count.txt" }
+                        # (DEBUG - Output necessary files for debugging/diagnosing issues)
+                        [IO.File]::WriteAllText("$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_HordeLogic_Count.txt", $OCRCaptured)
 
                         # Grabs and loads + compares to the captures OCR text
                         $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
-                        $GetPokeConfig = Get-Content $SetPokeConfig
+                        $GetPokeConfig = [IO.File]::ReadAllLines("$SetPokeConfig")
                         $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "\b$OCRCaptured\b" } | Select -First 1
                         $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
                         $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
@@ -3747,19 +3460,12 @@ Function PlayAction {
                             Add-Type -AssemblyName Microsoft.VisualBasic
                             [System.Reflection.Assembly]::LoadWithPartialName("Microsoft.VisualBasic")
 
-                            # Grabs current counter config file state
-                            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                            $GetConfig = Get-Content $SetConfig
-
                             # Increments the count by 1 (Pokemon - Shiny)
-                            $GetPokeShinyCountForm = $GetConfig[21] -replace 'Shiny_Count=', ''
+                            $GetPokeShinyCountForm = $ShinyCount
                             $GetPokeShinyCountForm = [int]$GetPokeShinyCountForm + 1
 
-                            # Adds correct new count to Shiney Pokemon 
-                            $GetConfig[21] = "Shiny_Count=$GetPokeShinyCountForm"
-
-                            # Sets all changes back into the Config file
-                            $GetConfig | Set-Content -Path $SetConfig
+                            # Adds correct new count to Shiny Pokemon 
+                            $GetConfig = $GetConfig -replace "Shiny_Count=.*", "Shiny_Count=$GetPokeShinyCountForm"
 
                             # Removes the word shiny out of the Pokemon name
                             $GetPokemonNameNoShiny = $OCRCaptured -replace 'Shiny', '' -Replace '[0-9]','' -Replace ' ', ''
@@ -3768,19 +3474,19 @@ Function PlayAction {
                             [Microsoft.VisualBasic.Interaction]::MsgBox("You have found a SHINY $GetPokemonNameNoShiny!", "OKOnly,SystemModal,Information", "Archetype Shiny Pokemon")
 
                             # Sets all changes back into the Config file
-                            $GetConfig | Set-Content -Path $SetConfig
+                            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
                             Start-Sleep -Milliseconds 10
-
-                            # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                            if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+
+                            # Grabs counter process and checks for total memory usage
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3790,32 +3496,27 @@ Function PlayAction {
                         # Checks if "Alpha" Pokemon is found
                         if ($OCRCapturedAlpha -match $true) { 
 
-                            # Grabs current counter config file state
-                            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                            $GetConfig = Get-Content $SetConfig
-                            $AlphaCount = $GetConfig[40] -replace 'Alpha_Count=', ''
-
                             # Increments the count by 1 (Pokemon - Alpha)
-                            $GetPokeAlphaCountForm = $GetConfig[40] -replace 'Alpha_Count=', ''
+                            $GetPokeAlphaCountForm = $AlphaCount
                             $GetPokeAlphaCountForm = [int]$GetPokeAlphaCountForm + 1
 
                             # Adds correct new count to Alpha Pokemon 
-                            $GetConfig[40] = "Alpha_Count=$GetPokeAlphaCountForm"
+                            $GetConfig = $GetConfig -replace "Alpha_Count=.*", "Alpha_Count=$GetPokeAlphaCountForm"
 
                             # Sets all changes back into the Config file
-                            $GetConfig | Set-Content -Path $SetConfig
+                            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
                             Start-Sleep -Milliseconds 10
-
-                            # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                            if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+
+                            # Grabs counter process and checks for total memory usage
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3826,13 +3527,13 @@ Function PlayAction {
                         if ($GetPokeConfig | Where-Object { $_ -match "\b$OCRCaptured\b" }) { $DetectedPokeName = $true } else { $DetectedPokeName = $false }
 
                         # Loads capture Poke ID into variable for comparison (Increased seen count) + Detection count
-                        $ComparePokeA_ID = $GetConfig[8] -replace 'Pokemon_A=', ''
-                        $ComparePokeA_Blank = $GetConfig[8] -replace 'Pokemon_A=', ''
-                        $ComparePokeB_ID = $GetConfig[11] -replace 'Pokemon_B=', ''
-                        $ComparePokeB_Blank = $GetConfig[11] -replace 'Pokemon_B=', ''
-                        $ComparePokeC_ID = $GetConfig[14] -replace 'Pokemon_C=', ''
-                        $ComparePokeC_Blank = $GetConfig[14] -replace 'Pokemon_C=', ''
-                        $DetectionCount = $GetConfig[17] -replace 'Detection_Count=', ''
+                        $ComparePokeA_ID = $PokemonA
+                        $ComparePokeA_Blank = $PokemonA
+                        $ComparePokeB_ID = $PokemonB
+                        $ComparePokeB_Blank = $PokemonB
+                        $ComparePokeC_ID = $PokemonC
+                        $ComparePokeC_Blank = $PokemonC
+                        $DetectionCount = $DetectionCount
 
                         # Checks if Pokemon capture names from OCR is blank/null (Ideally the user will be in a Poke battle)
                         if ([string]::IsNullOrEmpty($OCRCaptured) -or [string]::IsNullOrWhitespace($OCRCaptured) -or $OCRCaptured -eq $null) {
@@ -3842,6 +3543,9 @@ Function PlayAction {
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+
+                            # Grabs counter process and checks for total memory usage
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3864,6 +3568,9 @@ Function PlayAction {
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
+                            # Grabs counter process and checks for total memory usage
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+
                             # Break current loop and re-try
                             Continue
 
@@ -3872,32 +3579,21 @@ Function PlayAction {
                         # Checks for pokemon slot 1 and if it is blank (To add pokemon seen)
                         elseif ($ComparePokeA_Blank -match "Blank") {
 
-                            # Grabs current counter config file state
-                            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                            $GetConfig = Get-Content $SetConfig
-                            $PokemonA = $GetConfig[8] -replace 'Pokemon_A=', ''
-
                             # Resets Pokemon slot 1 on form with Pokedex ID and Name
-                            $GetConfig[8] = "Pokemon_A=$GetPokemonID"
-                            $GetConfig[10] = "Pokemon_A_Hover=$GetPokemonName #$GetPokemonID" 
+                            $GetConfig = $GetConfig -replace "Pokemon_A=.*", "Pokemon_A=$GetPokemonID"
+                            $GetConfig = $GetConfig -replace "Pokemon_A_Hover=.*", "Pokemon_A_Hover=$GetPokemonName #$GetPokemonID"
 
                             # Properly sets the initial Pokemon Count for the form
-                            $GetPokeNameACountForm = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
+                            $GetPokeNameACountForm = $PokemonCountA
                             if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }
                             $GetPokeNameACountForm = [int]$OCRCapturedHordeNumber
-                            $GetConfig[9] = "Pokemon_A_Count=$GetPokeNameACountForm" 
-
-                            # Sets the flag for the counter to not Auto Start on "Stop"
-                            $GetConfig[33] = "Auto_Restart_Counter=True"
+                            $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$GetPokeNameACountForm"
 
                             # Sets all changes back into the Config file
-                            $GetConfig | Set-Content -Path $SetConfig
+                            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
                             Start-Sleep -Milliseconds 10
-                           
-                            # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                            if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
                             # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeALabelCount.Text = $GetPokeNameACountForm
@@ -3911,8 +3607,8 @@ Function PlayAction {
 
                             # Loads values from external sources (Config file) + Helps refresh/update initial pokemon slot add
                             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                            $GetConfig = Get-Content $SetConfig
-                            $PokemonA = $GetConfig[8] -replace 'Pokemon_A=', ''
+                            $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+                            $PokemonA = $GetConfig -match "Pokemon_A="; $PokemonA = $PokemonA -replace "Pokemon_A=", ""
                             $Script:SyncHashTable.ArchetypePokeAFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$PokemonA.png")
                             $Script:SyncHashTable.ArchetypePokeAImage.Image = $Script:SyncHashTable.ArchetypePokeAFile
 
@@ -3923,9 +3619,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
-                            $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb)
-                            if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[33] = "Auto_Restart_Counter=True"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3933,37 +3627,24 @@ Function PlayAction {
                         # Checks if same Pokemon has already been seen
                         } elseif($GetPokemonID -match "\b$ComparePokeA_ID\b") {
 
-                            # Grabs current counter config file state
-                            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                            $GetConfig = Get-Content $SetConfig
-                            $PokemonCountA = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
-
-                            # Increments the count by 1 (Pokemon seen)
-                            $GetPokeNameACountForm = $GetConfig[9] -replace 'Pokemon_A_Count=', ''
+                            # Properly sets the initial Pokemon Count for the form
+                            $GetPokeNameACountForm = $PokemonCountA
                             if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }
                             $GetPokeNameACountForm = [int]$GetPokeNameACountForm + [int]$OCRCapturedHordeNumber
-
-                            # Adds correct new count to Pokemon slot 1 seen
-                            $GetConfig[9] = "Pokemon_A_Count=$GetPokeNameACountForm"
+                            $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$GetPokeNameACountForm"
 
                             # Sets all changes back into the Config file
-                            $GetConfig | Set-Content -Path $SetConfig
+                            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
                             Start-Sleep -Milliseconds 10
 
-                            # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                            if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
-
-                            # Refreshes counter and adds +1 on the pokemon scane
+                            # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeALabelCount.Text = $GetPokeNameACountForm
-
+                           
                             # Ensures everything on form is updated/refreshed
                             $Script:SyncHashTable.ArchetypeForm.update()
                             $Script:SyncHashTable.ArchetypeForm.refresh()
-
-                            # Re-adds the Pokemon Sprite back into the image
-                            $Script:SyncHashTable.ArchetypePokeAFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$GetPokemonID.png")
 
                             # Checks for pixel color to ensure user is not in battle anymore
                             While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
@@ -3972,9 +3653,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
-                            $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb)
-                            if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[33] = "Auto_Restart_Counter=True"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3982,35 +3661,25 @@ Function PlayAction {
                         # Checks for pokemon slot 2 and if it is blank (To add pokemon seen)
                         } elseif($ComparePokeB_Blank -match "Blank" -and $DetectionCount -ge "2") {
 
-                            # Grabs current counter config file state
-                            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                            $GetConfig = Get-Content $SetConfig
-
                             # Resets Pokemon slot 2 on form with Pokedex ID and Name
-                            $GetConfig[11] = "Pokemon_B=$GetPokemonID"
-                            $GetConfig[13] = "Pokemon_B_Hover=$GetPokemonName #$GetPokemonID"
+                            $GetConfig = $GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$GetPokemonID"
+                            $GetConfig = $GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$GetPokemonName #$GetPokemonID"
 
                             # Properly sets the initial Pokemon Count for the form
-                            $GetPokeNameBCountForm = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
+                            $GetPokeNameBCountForm = $PokemonCountB
                             if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }
                             $GetPokeNameBCountForm = [int]$OCRCapturedHordeNumber
-                            $GetConfig[12] = "Pokemon_B_Count=$GetPokeNameBCountForm"
-
-                            # Sets the flag for the counter to not Auto Start on "Stop"
-                            $GetConfig[33] = "Auto_Restart_Counter=True"
+                            $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$GetPokeNameBCountForm"
 
                             # Sets all changes back into the Config file
-                            $GetConfig | Set-Content -Path $SetConfig
+                            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
                             Start-Sleep -Milliseconds 10
 
-                            # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                            if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
-
-                            # Refreshes counter and adds +1 on the pokemon scane
+                            # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeBLabelCount.Text = $GetPokeNameBCountForm
-
+                           
                             # Ensures everything on form is updated/refreshed
                             $Script:SyncHashTable.ArchetypeForm.update()
                             $Script:SyncHashTable.ArchetypeForm.refresh()
@@ -4020,8 +3689,8 @@ Function PlayAction {
 
                             # Loads values from external sources (Config file) + Helps refresh/update initial pokemon slot add
                             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                            $GetConfig = Get-Content $SetConfig
-                            $PokemonB = $GetConfig[11] -replace 'Pokemon_B=', ''
+                            $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+                            $PokemonB = $GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
                             $Script:SyncHashTable.ArchetypePokeBFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$PokemonB.png")
                             $Script:SyncHashTable.ArchetypePokeBImage.Image = $Script:SyncHashTable.ArchetypePokeBFile
 
@@ -4032,9 +3701,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
-                            $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb)
-                            if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[33] = "Auto_Restart_Counter=True"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -4042,30 +3709,21 @@ Function PlayAction {
                         # Checks if same Pokemon slot 2 has already been seen
                         } elseif($GetPokemonID -match "\b$ComparePokeB_ID\b" -and $DetectionCount -ge "2") {
 
-                            # Grabs current counter config file state
-                            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                            $GetConfig = Get-Content $SetConfig
-
-                            # Increments the count by 1 (Pokemon seen)
-                            $GetPokeNameBCountForm = $GetConfig[12] -replace 'Pokemon_B_Count=', ''
+                            # Properly sets the initial Pokemon Count for the form
+                            $GetPokeNameBCountForm = $PokemonCountB
                             if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }
                             $GetPokeNameBCountForm = [int]$GetPokeNameBCountForm + [int]$OCRCapturedHordeNumber
-
-                            # Adds correct new count to Pokemon slot 1 seen
-                            $GetConfig[12] = "Pokemon_B_Count=$GetPokeNameBCountForm"
+                            $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$GetPokeNameBCountForm"
 
                             # Sets all changes back into the Config file
-                            $GetConfig | Set-Content -Path $SetConfig
+                            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
                             Start-Sleep -Milliseconds 10
 
-                            # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                            if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
-
-                            # Refreshes counter and adds +1 on the pokemon scane
+                            # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeBLabelCount.Text = $GetPokeNameBCountForm
-
+                           
                             # Ensures everything on form is updated/refreshed
                             $Script:SyncHashTable.ArchetypeForm.update()
                             $Script:SyncHashTable.ArchetypeForm.refresh()
@@ -4077,9 +3735,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
-                            $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb)
-                            if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[33] = "Auto_Restart_Counter=True"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -4087,35 +3743,25 @@ Function PlayAction {
                         # Checks for pokemon slot 3 and if it is blank (To add pokemon seen)
                         } elseif($ComparePokeC_Blank -match "Blank" -and $DetectionCount -match "3") {
 
-                            # Grabs current counter config file state
-                            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                            $GetConfig = Get-Content $SetConfig
-
                             # Resets Pokemon slot 3 on form with Pokedex ID and Name
-                            $GetConfig[14] = "Pokemon_C=$GetPokemonID"
-                            $GetConfig[16] = "Pokemon_C_Hover=$GetPokemonName #$GetPokemonID"
+                            $GetConfig = $GetConfig -replace "Pokemon_C=.*", "Pokemon_C=$GetPokemonID"
+                            $GetConfig = $GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover=$GetPokemonName #$GetPokemonID"
 
                             # Properly sets the initial Pokemon Count for the form
-                            $GetPokeNameCCountForm = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
+                            $GetPokeNameCCountForm = $PokemonCountC
                             if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }
                             $GetPokeNameCCountForm = [int]$OCRCapturedHordeNumber
-                            $GetConfig[15] = "Pokemon_C_Count=$GetPokeNameCCountForm"
-
-                            # Sets the flag for the counter to not Auto Start on "Stop"
-                            $GetConfig[33] = "Auto_Restart_Counter=True"
+                            $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$GetPokeNameCCountForm"
 
                             # Sets all changes back into the Config file
-                            $GetConfig | Set-Content -Path $SetConfig
+                            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
                             Start-Sleep -Milliseconds 10
 
-                            # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                            if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
-
-                            # Refreshes counter and adds +1 on the pokemon scane
+                            # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeCLabelCount.Text = $GetPokeNameCCountForm
-
+                           
                             # Ensures everything on form is updated/refreshed
                             $Script:SyncHashTable.ArchetypeForm.update()
                             $Script:SyncHashTable.ArchetypeForm.refresh()
@@ -4125,8 +3771,8 @@ Function PlayAction {
 
                             # Loads values from external sources (Config file) + Helps refresh/update initial pokemon slot add
                             $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                            $GetConfig = Get-Content $SetConfig
-                            $PokemonC = $GetConfig[14] -replace 'Pokemon_C=', ''
+                            $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+                            $PokemonC = $GetConfig -match "Pokemon_C="; $PokemonC = $PokemonC -replace "Pokemon_C=", ""
                             $Script:SyncHashTable.ArchetypePokeCFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$PokemonC.png")
                             $Script:SyncHashTable.ArchetypePokeCImage.Image = $Script:SyncHashTable.ArchetypePokeCFile
 
@@ -4137,9 +3783,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
-                            $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb)
-                            if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[33] = "Auto_Restart_Counter=True"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -4147,30 +3791,21 @@ Function PlayAction {
                         # Checks if same Pokemon slot 3 has already been seen
                         } elseif($GetPokemonID -match "\b$ComparePokeC_ID\b" -and $DetectionCount -match "3") {
 
-                            # Grabs current counter config file state
-                            $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
-                            $GetConfig = Get-Content $SetConfig
-
-                            # Increments the count by 1 (Pokemon seen)
-                            $GetPokeNameCCountForm = $GetConfig[15] -replace 'Pokemon_C_Count=', ''
+                            # Properly sets the initial Pokemon Count for the form
+                            $GetPokeNameCCountForm = $PokemonCountC
                             if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }
                             $GetPokeNameCCountForm = [int]$GetPokeNameCCountForm + [int]$OCRCapturedHordeNumber
-
-                            # Adds correct new count to Pokemon slot 1 seen
-                            $GetConfig[15] = "Pokemon_C_Count=$GetPokeNameCCountForm"
+                            $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$GetPokeNameCCountForm"
 
                             # Sets all changes back into the Config file
-                            $GetConfig | Set-Content -Path $SetConfig
+                            [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
                             Start-Sleep -Milliseconds 10
 
-                            # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                            if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
-
                             # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeCLabelCount.Text = $GetPokeNameCCountForm
-
+                           
                             # Ensures everything on form is updated/refreshed
                             $Script:SyncHashTable.ArchetypeForm.update()
                             $Script:SyncHashTable.ArchetypeForm.refresh()
@@ -4182,9 +3817,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
-                            $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb)
-                            if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[33] = "Auto_Restart_Counter=True"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -4198,9 +3831,7 @@ Function PlayAction {
                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                         # Grabs counter process and checks for total memory usage
-                        $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
-                        $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb)
-                        if ($GetCounterProcessSize -ge 250) { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = Get-Content $SetConfig; $GetConfig[33] = "Auto_Restart_Counter=True"; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                        $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 250) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                     }
 
@@ -4219,9 +3850,6 @@ Function PlayAction {
                     Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
                 }
-
-                # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-                if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
         # Technically loops until forever (The stop button will be the way to force the stop of the counter)
         } until ($Script:SyncHashTable.ArchetypePlayImage.Visible -match $true -or $Script:SyncHashTable.ArchetypeCollapsedPlayImage.Visible -match $true)
