@@ -12,13 +12,13 @@ Feel like exploring? Give our [client theme](https://github.com/ssjshields/arche
 
 &nbsp;
 # Features
-🚀 option to sync launch with the `PokeMMO.exe`
+🚀 opens PokeMMO if not found
 
 📝 multiple hunt profiles and count slots
 
 🎨 includes x2 themes and x5 sprite sets
 
-🎭 create custom themes and import sprites
+🎭 create custom themes and import new sprites
 
 🗳️ built-in backup system / manually amend counts
 
@@ -146,14 +146,14 @@ to be updated shortly
 ### Does this work with custom PokeMMO client themes?
 > Yes, it will work with all custom themes, but the monster nameplate text will be modified to be OCR compatible. 
 
+> Client theme.xml, font values and graphical assets (AC folder) are inserted into the currently installed theme list 
+
 ### How does the Counter work?
 > In a nutshell; it uses OCR and several other utilities to scan screenshots of monster names and compares them against a list
 
-> Client theme.xml, font values and graphical assets (AC folder) are inserted into the currently installed theme list 
+> Utilities scripted with [GDI+ standard library 1.45 by tic](https://www.autohotkey.com/boards/viewtopic.php?t=6517) and PowerShell 5.1 by AnonymousPoke
 
-> Utilities scripted with legacy [AutoHotKey 1.1.36.02](https://www.autohotkey.com/), packaged with PowerShell 5.1
-
-> Monster nameplates processed using images passed through [Imagemagick](https://imagemagick.org/index.php)
+> Monster nameplates processed using images passed through an [Imagemagick](https://imagemagick.org/index.php) formula by realmadrid1809
 
 ### How are Eggs and Fossils tracked?
 > When the user retrieves them
@@ -168,7 +168,7 @@ to be updated shortly
 > It is not advised to manually edit profiles as it may cause profile corruption- located in `Files\Counter Config Files`
 
 ### How can I report a bug?
-> Open the Debug and Imagemagcik folders from the debug submenu in the Counter menu after the reoccurring issue, attach the `.png` and `.txt` files
+> Open the Debug and Imagemagick folders from the debug submenu in the Counter menu after the reoccurring issue, attach the `.png` and `.txt` files
 
 &nbsp;
 # Disclaimer
