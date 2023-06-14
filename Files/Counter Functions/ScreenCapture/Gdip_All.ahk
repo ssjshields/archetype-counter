@@ -461,7 +461,7 @@ CreatePointF(ByRef PointF, x, y)
 ;
 ; notes					ppvBits will receive the location of the pixels in the DIB
 
-CreateDIBSection(w, h, hdc="", bpp=32, ByRef ppvBits=0)
+CreateDIBSection(w, h, hdc="", bpp=24, ByRef ppvBits=0)
 {
 	Ptr := A_PtrSize ? "UPtr" : "UInt"
 	
