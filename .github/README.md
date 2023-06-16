@@ -65,6 +65,8 @@ to be updated shortly
 # Installation
 **1.** Extract into `PokeMMO\data\mods`
 
+> Alternatively, clone into `PokeMMO\data\mods` using [GitHub Desktop](https://desktop.github.com/) or [Git](https://git-scm.com/downloads), pull to receieve updates
+
 **2.** Run the `Archetype Counter.lnk`, pin to the taskbar if needed
 
 > Do not pin the Counter from the taskbar while it's running, otherwise it will pin the Powershell terminal instead
