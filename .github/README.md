@@ -165,7 +165,7 @@ to be updated shortly
 ### Can I convert data from other counters?
 > Yes, right-click empty slot to manually set monster via dex number, middle-click (scroll wheel) to manually set count
 
-> It is not advised to manually edit profiles as it may cause profile corruption- located in `Files\Counter Config Files`
+> Manually editing profiles may cause corruption- located in `Files\Counter Config Files`
 
 ### How can I report a bug?
 > Before creating a report, check the [prerequisites](https://github.com/ssjshields/archetype-counter/tree/development#prerequisites), [expectations](https://github.com/ssjshields/archetype-counter/tree/development#expectations) and [the existing issues](https://github.com/ssjshields/archetype-counter/issues)
