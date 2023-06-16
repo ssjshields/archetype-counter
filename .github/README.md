@@ -6,9 +6,7 @@ Automatically tracks encounters (Horde, Safari, etc.) and when you receive Eggs 
  
 Does not hook into the PokeMMO or javaw process. Utilizes AHK, Imagemagick and OCR technology.
 
-Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lovers. 
-
-Feel like exploring? Give our [client theme](https://github.com/ssjshields/archetype#readme) a try.
+Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lovers. Feel like exploring? Give our [client theme](https://github.com/ssjshields/archetype#readme) a try.
 
 &nbsp;
 # Features
@@ -168,6 +166,8 @@ to be updated shortly
 > It is not advised to manually edit profiles as it may cause profile corruption- located in `Files\Counter Config Files`
 
 ### How can I report a bug?
+> Before creating a report, check the [prerequisites](https://github.com/ssjshields/archetype-counter/tree/development#prerequisites), [expectations](https://github.com/ssjshields/archetype-counter/tree/development#expectations) and [the existing issues](https://github.com/ssjshields/archetype-counter/issues)
+
 > Open the Debug and Imagemagick folders from the debug submenu in the Counter menu after the reoccurring issue, attach the `.png` and `.txt` files
 
 &nbsp;
