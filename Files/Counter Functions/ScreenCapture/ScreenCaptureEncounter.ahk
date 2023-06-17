@@ -28,7 +28,7 @@ WCropValue := BattleWidth
 
 pBitmap := Gdip_CropImage(pBitmap, XCropValue, 50, WCropValue, 300)
 
-Gdip_SaveBitmapToFile(pBitmap, "Counter Functions\ImageMagick\ArchetypeScreenshot.png")
+Gdip_SaveBitmapToFile(pBitmap, "Counter Functions\ImageMagick\ArchetypeScreenshotEncounter.png")
 
 Gdip_DisposeImage(pBitmap)
 

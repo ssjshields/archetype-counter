@@ -7,4 +7,4 @@ Endlocal
 goto:eof
 #>
 
-cmd.exe /c "magick ArchetypeScreenshot.png ^ ( +clone -colorspace HSL -channel S -separate -negate -fill black -fuzz 99.9% -opaque black ) ^ -alpha off -compose copy_opacity -composite ^ -background black -alpha remove -alpha off ArchetypeScreenshotMagick.png"
+cmd.exe /c "magick ArchetypeScreenshotEncounter.png ^ ( +clone -colorspace HSL -channel S -separate -negate -fill black -fuzz 99.9% -opaque black ) ^ -alpha off -compose copy_opacity -composite ^ -background black -alpha remove -alpha off ArchetypeScreenshotMagick.png"
