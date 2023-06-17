@@ -18,6 +18,7 @@ Detection_Count=3
 Theme_Type=Archetype
 Sprite_Type=Default
 Counter_Mode=Expanded_Egg
+Picture_Mode=Default
 -------------------------------
 Auto_Restart_Counter=False
 Always_On_Top=True
