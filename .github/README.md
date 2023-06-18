@@ -114,7 +114,7 @@ to be updated shortly
 > Choose between expanded (with Egg), expanded (with Fossil), collapsed (encounters), collapsed (with Egg), or collapsed (with Fossil)
 
 ### Picture Mode
-> Choose between two screenshot methods for the Counter to utilize, PrintWindow function (Default) and PrintScreen (alternative)
+> Choose between two screenshot methods for the Counter to utilize, PrintWindow function (Default) and PrintScreen (Alternative)
 
 ### Hunt Profiles
 > Choose or rename up to 10 different Counter profiles
