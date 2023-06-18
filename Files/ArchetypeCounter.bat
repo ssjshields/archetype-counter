@@ -2808,11 +2808,11 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool10.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStripTool10.DropDownItems.Add("NORMAL DEBUG:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool10.DropDownItems.Add("-").Enabled = $false
-        $ArchetypeMenuStripTool10.DropDownItems.Add("-> Open DEBUG Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Functions\ScreenCapture\DEBUG })
+        $ArchetypeMenuStripTool10.DropDownItems.Add("-> Open DEBUG Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Functions\Core\DEBUG })
         $ArchetypeMenuStripTool10.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStripTool10.DropDownItems.Add("ADVANCED DEBUG:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool10.DropDownItems.Add("-").Enabled = $false
-        $ArchetypeMenuStripTool10.DropDownItems.Add("-> Open ImageMagick Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Functions\ImageMagick })
+        $ArchetypeMenuStripTool10.DropDownItems.Add("-> Open Core Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Functions\Core })
 
         # Add "Current Profile" in use on the bottom counter menu
         $ArchetypeMenuStrip.Items.Add("-")
@@ -2920,7 +2920,7 @@ $ArchetypeImage.Add_MouseDown({
             })
 
             # Checks if Counter is "Active" and Enable/Disable menu items accordingly (For Start/Stop options in menu - In Collapsed Mode)
-            if ($CounterActive -match "False") { $ArchetypeMenuStrip.Items[22].Enabled = $true; $ArchetypeMenuStrip.Items[23].Enabled = $false } else { $ArchetypeMenuStrip.Items[22].Enabled = $false; $ArchetypeMenuStrip.Items[23].Enabled = $true }
+            if ($CounterActive -match "False") { $ArchetypeMenuStrip.Items[23].Enabled = $true; $ArchetypeMenuStrip.Items[24].Enabled = $false } else { $ArchetypeMenuStrip.Items[23].Enabled = $false; $ArchetypeMenuStrip.Items[24].Enabled = $true }
 
         }
 
@@ -3168,7 +3168,7 @@ Function PlayAction {
         }
 "@
             
-        $code = @'
+        $PrintWindowCode = @'
         using System; 
         using System.Runtime.InteropServices; 
         using System.Drawing;
@@ -3337,7 +3337,7 @@ Function PlayAction {
 '@
 
         # Loads/Adds User Add-Type (With correct Assemblies)
-        Add-type $code -ReferencedAssemblies 'System.Windows.Forms','System.Drawing' 
+        Add-type $PrintWindowCode -ReferencedAssemblies 'System.Windows.Forms','System.Drawing' 
 
         # Creates the object for the Function (ScreenShotAC.ScreenCapture)
         $ScreenCapture = New-Object ScreenCapture 
