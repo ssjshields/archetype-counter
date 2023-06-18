@@ -23,11 +23,8 @@ $Global:dragging = $false; $Global:mouseDragX = 0; $Global:mouseDragY = 0
 Get-Process "Powershell" | Where-Object { $_.ID -ne $PID } | Stop-Process -Force
 Get-Process "cmd" | Where-Object { $_.ID -ne $PID } | Stop-Process -Force
 
-# Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
-Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
-
 # Removes all "blank.txt" files in counter (Needed for Github)
-Remove-item "$PWD\Counter Config Files\Counter Config Backup\Blank.txt" -Force; Remove-item "$PWD\Counter Functions\ScreenCapture\DEBUG\Blank.txt" -Force; Remove-item "$PWD\Counter Config Files\Counter Config Backup\DEBUG\Blank.txt" -Force
+Remove-item "$PWD\Counter Config Files\Counter Config Backup\Blank.txt" -Force; Remove-item "$PWD\Counter Functions\Core\DEBUG\Blank.txt" -Force; Remove-item "$PWD\Counter Config Files\Counter Config Backup\DEBUG\Blank.txt" -Force
 
 # Removes file "ArchetypeCounterExecute" as the Archetype Counter is running in memory (To prevent seeing main counter script)
 Remove-item "$PWD\ArchetypeCounterExecute.bat" -Force
@@ -454,9 +451,6 @@ $ArchetypeForm.Add_Closing({
 
     # Small wait to ensure no corrupt of config file
     Start-Sleep -Milliseconds 10
-
-    # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
-    Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
     # This exits the application (Winform) properly
     [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force
@@ -1686,7 +1680,7 @@ $ArchetypeStopImage.Add_Click({
     $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"
 
     # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-    if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\ScreenCapture\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
+    if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\Core\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
     # Set visibility of components for counter
     $ArchetypePlayImage.Visible = $true; $ArchetypeStopImage.Visible = $false
@@ -1776,9 +1770,6 @@ $ArchetypeCloseImage.Add_Click({
 
     # Small wait to ensure no corrupt of config file
     Start-Sleep -Milliseconds 10
-
-    # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
-    Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
     # This exits the application (Winform) properly 
     [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force 
@@ -2890,9 +2881,6 @@ $ArchetypeImage.Add_MouseDown({
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
 
-                # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
-                Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
-
                 # Application Variable - Name
                 $ApplicationName = "javaw"
 
@@ -2904,9 +2892,6 @@ $ArchetypeImage.Add_MouseDown({
     
                 # Performs force active window process
                 [void][ForceActiveWin]::SetForegroundWindow($hwnd)
-
-                # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
-                Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
             })
 
@@ -2928,9 +2913,6 @@ $ArchetypeImage.Add_MouseDown({
 
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
-
-                # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
-                Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
                 # This exits the application (Winform) properly 
                 [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force
@@ -2970,13 +2952,6 @@ Function PlayAction {
 
         # Force the "AC" folder to be placed everytime (For future build/releases)
         Copy-Item "$PWD\Counter Functions\AC" -Destination "$PokeMMOWorkingDir\data\themes\$CurrentTheme" -Recurse -Force
-
-        # Checks if AHk v1.1.36.02 is installed on machine (To run scripts)
-        $SetInstalledSoftwareAHK = "$PWD\Counter Config Files\AHKInstallState.txt"
-        $GetInstalledSoftwareAHK = [IO.File]::ReadAllLines("$SetInstalledSoftwareAHK")
-        $AHKCheckVersion = (Get-Item "C:\Program Files\AutoHotkey\AutoHotkey.exe").VersionInfo.FileVersion
-        $InstalledSoftware = (Get-ItemProperty HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*).DisplayName
-        if ($InstalledSoftware -match "AutoHotkey 1.1.36.02" -or $AHKCheckVersion -match "1.1.36.02") { $GetInstalledSoftwareAHK = $GetInstalledSoftwareAHK -replace "Not Installed", "Installed"; [IO.File]::WriteAllLines($SetInstalledSoftwareAHK, $GetInstalledSoftwareAHK) }; if ($GetInstalledSoftwareAHK -match "Not Installed") { $InstalledSoftwareDialog = [System.Windows.MessageBox]::Show("Archetype Counter requires AutoHotKey 1.1.36.02.`n`nWould you like to install AutoHotKey?","  Archetype Counter","YesNo","Warning"); if ($InstalledSoftwareDialog -match "Yes") { Start-Process "$PWD\Counter Functions\AutoHotkey\InvokeInstall.bat" -Wait; $GetInstalledSoftwareAHK = $GetInstalledSoftwareAHK -replace "Not Installed", "Installed" ; [IO.File]::WriteAllLines($SetInstalledSoftwareAHK, $GetInstalledSoftwareAHK); } else { $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"; Start-Sleep -Milliseconds 10; [IO.File]::WriteAllLines($SetInstalledSoftwareAHK, $GetInstalledSoftwareAHK); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } }
 
         # Grabs current working folder - Store as variable
         $CounterWorkingDir = $PWD
@@ -3193,8 +3168,182 @@ Function PlayAction {
         }
 "@
             
+        $code = @'
+        using System; 
+        using System.Runtime.InteropServices; 
+        using System.Drawing;
+        using System.Drawing.Imaging;
+
+        public class ScreenCapture
+        {
+
+        [DllImport("user32.dll")]
+        public static extern bool GetWindowRect(IntPtr hWnd, out RECT lpRect);
+        [DllImport("user32.dll")]
+        public static extern bool PrintWindow(IntPtr hWnd, IntPtr hdcBlt, int nFlags);
+
+        public Bitmap PrintWindow(IntPtr hwnd)    
+        {       
+            RECT rc;        
+            GetWindowRect(hwnd, out rc);
+
+            Bitmap bmp = new Bitmap(rc.Width, rc.Height, PixelFormat.Format32bppArgb);       
+
+            using (Graphics gfxBmp = Graphics.FromImage(bmp))
+            {        
+                IntPtr hdcBitmap = gfxBmp.GetHdc();        
+
+                try
+                {
+                    PrintWindow(hwnd, hdcBitmap, 1);
+                }
+                finally
+                {
+                    gfxBmp.ReleaseHdc(hdcBitmap);
+                    gfxBmp.Dispose();
+                }
+            }
+
+
+            string acPath = System.IO.Directory.GetCurrentDirectory();
+            string currentDir = acPath + "\\Counter Functions\\Core";    
+            System.IO.Directory.SetCurrentDirectory(currentDir);
+
+            bmp.Save("ArchetypeScreenshot.png", ImageFormat.Png);
+
+            try {
+                    return bmp;
+            }
+            finally {
+                    bmp.Dispose();
+                    System.IO.Directory.SetCurrentDirectory(acPath);
+            }
+     
+        }
+
+
+        [StructLayout(LayoutKind.Sequential)]
+        public struct RECT
+        {
+            private int _Left;
+            private int _Top;
+            private int _Right;
+            private int _Bottom;
+
+            public RECT(RECT Rectangle) : this(Rectangle.Left, Rectangle.Top, Rectangle.Right, Rectangle.Bottom)
+            {
+            }
+            public RECT(int Left, int Top, int Right, int Bottom)
+            {
+                _Left = Left;
+                _Top = Top;
+                _Right = Right;
+                _Bottom = Bottom;
+            }
+
+            public int X {
+                get { return _Left; }
+                set { _Left = value; }
+            }
+            public int Y {
+                get { return _Top; }
+                set { _Top = value; }
+            }
+            public int Left {
+                get { return _Left; }
+                set { _Left = value; }
+            }
+            public int Top {
+                get { return _Top; }
+                set { _Top = value; }
+            }
+            public int Right {
+                get { return _Right; }
+                set { _Right = value; }
+            }
+            public int Bottom {
+                get { return _Bottom; }
+                set { _Bottom = value; }
+            }
+            public int Height {
+                get { return _Bottom - _Top; }
+                set { _Bottom = value + _Top; }
+            }
+            public int Width {
+                get { return _Right - _Left; }
+                set { _Right = value + _Left; }
+            }
+            public Point Location {
+                get { return new Point(Left, Top); }
+                set {
+                    _Left = value.X;
+                    _Top = value.Y;
+                }
+            }
+            public Size Size {
+                get { return new Size(Width, Height); }
+                set {
+                    _Right = value.Width + _Left;
+                    _Bottom = value.Height + _Top;
+                }
+            }
+
+            public static implicit operator Rectangle(RECT Rectangle)
+            {
+                return new Rectangle(Rectangle.Left, Rectangle.Top, Rectangle.Width, Rectangle.Height);
+            }
+            public static implicit operator RECT(Rectangle Rectangle)
+            {
+                return new RECT(Rectangle.Left, Rectangle.Top, Rectangle.Right, Rectangle.Bottom);
+            }
+            public static bool operator ==(RECT Rectangle1, RECT Rectangle2)
+            {
+                return Rectangle1.Equals(Rectangle2);
+            }
+            public static bool operator !=(RECT Rectangle1, RECT Rectangle2)
+            {
+                return !Rectangle1.Equals(Rectangle2);
+            }
+
+            public override string ToString()
+            {
+                return "{Left: " + _Left + "; " + "Top: " + _Top + "; Right: " + _Right + "; Bottom: " + _Bottom + "}";
+            }
+
+            public override int GetHashCode()
+            {
+                return ToString().GetHashCode();
+            }
+
+            public bool Equals(RECT Rectangle)
+            {
+                return Rectangle.Left == _Left && Rectangle.Top == _Top && Rectangle.Right == _Right && Rectangle.Bottom == _Bottom;
+            }
+
+            public override bool Equals(object Object)
+            {
+                if (Object is RECT) {
+                    return Equals((RECT)Object);
+                } else if (Object is Rectangle) {
+                    return Equals(new RECT((Rectangle)Object));
+                }
+
+                return false;
+            }
+          }
+
+        }
+
+'@
+
+        # Loads/Adds User Add-Type (With correct Assemblies)
+        Add-type $code -ReferencedAssemblies 'System.Windows.Forms','System.Drawing' 
+
+        # Creates the object for the Function (ScreenShotAC.ScreenCapture)
+        $ScreenCapture = New-Object ScreenCapture 
+
         # PowerShell function to take screenshot of PokeMMO (Not using PrintWindow() method)
-        Function PokeMMOScreenShot { $Handle = (Get-Process -Name 'javaw').MainWindowHandle; $WindowRect = New-Object RECT; $GotWindowRect = [Window]::GetWindowRect($Handle, [ref]$WindowRect); $GetPokeMMO_X = ConvertTo-Json($WindowRect)."Left"; $GetPokeMMO_Y = ConvertTo-Json($WindowRect)."Top"; $GetPokeMMO_Width = ConvertTo-Json($WindowRect)."Right"; $GetPokeMMO_Height = ConvertTo-Json($WindowRect)."Bottom"; $Screen = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds; $Width = ([int]$GetPokeMMO_Width - [int]$GetPokeMMO_X) - 16; $Height = ([int]$GetPokeMMO_Height - [int]$GetPokeMMO_Y) - 39; $Left = [int]$GetPokeMMO_X + 8; $Top = [int]$GetPokeMMO_Y + 31; $ScreenBitmap = New-Object System.Drawing.Bitmap $Width, $Height; $BuiltGraphic = [System.Drawing.Graphics]::FromImage($ScreenBitmap); $BuiltGraphic.CopyFromScreen($Left, $Top, 0, 0, $ScreenBitmap.Size); $FileOutput = "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $ScreenBitmap.Save($FileOutput) }
+        Function PokeMMOScreenShot { $Handle = (Get-Process -Name 'javaw').MainWindowHandle; $WindowRect = New-Object RECT; $GotWindowRect = [Window]::GetWindowRect($Handle, [ref]$WindowRect); $GetPokeMMO_X = ConvertTo-Json($WindowRect)."Left"; $GetPokeMMO_Y = ConvertTo-Json($WindowRect)."Top"; $GetPokeMMO_Width = ConvertTo-Json($WindowRect)."Right"; $GetPokeMMO_Height = ConvertTo-Json($WindowRect)."Bottom"; $Screen = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds; $Width = ([int]$GetPokeMMO_Width - [int]$GetPokeMMO_X) - 16; $Height = ([int]$GetPokeMMO_Height - [int]$GetPokeMMO_Y) - 39; $Left = [int]$GetPokeMMO_X + 8; $Top = [int]$GetPokeMMO_Y + 31; $ScreenBitmap = New-Object System.Drawing.Bitmap $Width, $Height; $BuiltGraphic = [System.Drawing.Graphics]::FromImage($ScreenBitmap); $BuiltGraphic.CopyFromScreen($Left, $Top, 0, 0, $ScreenBitmap.Size); $FileOutput = "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $ScreenBitmap.Save($FileOutput) }
 
         # Do loop for the play functionality of the counter
         Do {
@@ -3325,11 +3474,11 @@ Function PlayAction {
                     $GetPixelColor = ''
 
                     # Take/request screenshot of PokeMMO window
-                    if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" } else { Remove-Item "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }
+                    if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }
 
                     # Loads the OCR module into a variable
-                    if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language en } }
-                    if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" }
+                    if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language en } }
+                    if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" }
                     $OCRVariable.text; $OCRCaptured = $OCRVariable.text
 
                     # Checks if the word "recieved" and "egg" is on the screenshot
@@ -3359,7 +3508,7 @@ Function PlayAction {
                          Start-Sleep -Milliseconds 10
 
                          # Checks text for "Egg" hunting for OCR scan 
-                         While ((($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\begg\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecu\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\boeuf\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\berhalten\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bei\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecibido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bhuevo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecebido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bricevuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\buovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\botrzymane\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bjajko\b' }))) { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
+                         While ((($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\begg\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecu\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\boeuf\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\berhalten\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bei\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecibido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bhuevo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecebido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bricevuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\buovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\botrzymane\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bjajko\b' }))) { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
 
                          # Properly sets the visibility of start/stop images on counter
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3399,7 +3548,7 @@ Function PlayAction {
                          Start-Sleep -Milliseconds 10
 
                          # Checks text for "Egg" hunting for OCR scan 
-                         While (($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and (($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bSheildon\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
+                         While (($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and (($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bSheildon\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
 
                          # Properly sets the visibility of start/stop images on counter
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3413,10 +3562,10 @@ Function PlayAction {
                     }
 
                     # Loads the "ArchetypeScreenshot" screenshot to read the pixel color value from set coordinates
-                    $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose()
+                    $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose()
                     
                     # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                    [IO.File]::WriteAllText("$PWD\Counter Functions\ScreenCapture\DEBUG\PixelColorCheck.txt", $GetPixelColor)
+                    [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\PixelColorCheck.txt", $GetPixelColor)
 
                     # Checks for specific color pixel value to engage in pokemon scan on screenshot
                     if ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") {
@@ -3430,20 +3579,20 @@ Function PlayAction {
                         Start-Sleep -Milliseconds 3700
 
                         # Take/request screenshot of PokeMMO window
-                        if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCaptureEncounter.ahk" -Wait } else { Remove-Item "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot; $ArchetypeScreenshot2 = New-Object System.Drawing.Bitmap("$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"); $GameWidth = $ArchetypeScreenshot2.Width; $GameHeight = $ArchetypeScreenshot2.Height; $BattleWidth = [math]::Ceiling(($GameWidth- 15.999)*0.7); if ($BattleWidth -le "760") { $BattleWidth = "760" }; $XCropValue = [Math]::Floor(($GameWidth - 15.999 - $BattleWidth) / 2); $WCropValue = $BattleWidth; $RectImage2 = New-Object System.Drawing.Rectangle($XCropValue,50,$WCropValue,300); $CropSlice2 = $ArchetypeScreenshot2.Clone($RectImage2, $ArchetypeScreenshot2.PixelFormat); $CropSlice2.save("$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotEncounter.png"); $ArchetypeScreenshot2.dispose() }
+                        if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle); $ArchetypeScreenshot2 = New-Object System.Drawing.Bitmap("$PWD\Counter Functions\Core\ArchetypeScreenshot.png"); $GameWidth = $ArchetypeScreenshot2.Width; $GameHeight = $ArchetypeScreenshot2.Height; $BattleWidth = [math]::Ceiling(($GameWidth- 15.999)*0.7); if ($BattleWidth -le "760") { $BattleWidth = "760" }; $XCropValue = [Math]::Floor(($GameWidth - 15.999 - $BattleWidth) / 2); $WCropValue = $BattleWidth; $RectImage2 = New-Object System.Drawing.Rectangle($XCropValue,50,$WCropValue,300); $CropSlice2 = $ArchetypeScreenshot2.Clone($RectImage2, $ArchetypeScreenshot2.PixelFormat); $CropSlice2.save("$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.png"); $ArchetypeScreenshot2.dispose() } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot; $ArchetypeScreenshot2 = New-Object System.Drawing.Bitmap("$PWD\Counter Functions\Core\ArchetypeScreenshot.png"); $GameWidth = $ArchetypeScreenshot2.Width; $GameHeight = $ArchetypeScreenshot2.Height; $BattleWidth = [math]::Ceiling(($GameWidth- 15.999)*0.7); if ($BattleWidth -le "760") { $BattleWidth = "760" }; $XCropValue = [Math]::Floor(($GameWidth - 15.999 - $BattleWidth) / 2); $WCropValue = $BattleWidth; $RectImage2 = New-Object System.Drawing.Rectangle($XCropValue,50,$WCropValue,300); $CropSlice2 = $ArchetypeScreenshot2.Clone($RectImage2, $ArchetypeScreenshot2.PixelFormat); $CropSlice2.save("$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.png"); $ArchetypeScreenshot2.dispose() }
 
                         # ImageMagick call to process ArchetypeScreenshot.png and perform filtering process for Windows OCR
-                        $ImageMagickCall = "$PWD\Counter Functions\ImageMagick\InvokeMagickFilter.bat"
+                        $ImageMagickCall = "$PWD\Counter Functions\Core\InvokeMagickFilter.bat"
                         Start-Process -WindowStyle hidden $ImageMagickCall -Wait
 
                         # Loads the OCR module into a variable
-                        if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotMagick.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotMagick.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotMagick.png" -Language en } }
-                        if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotMagick.png" }
+                        if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.png" -Language en } }
+                        if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.png" }
                         $OCRVariable.text; $OCRCaptured = $OCRVariable.text
 
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                        Copy-Item -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png" -Destination "$PWD\Counter Functions\ScreenCapture\DEBUG\ArchetypeScreenshot.png" -Force; Copy-Item -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotMagick.png" -Destination "$PWD\Counter Functions\ScreenCapture\DEBUG\ArchetypeScreenshotMagick.png" -Force; Copy-Item -Path "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshotEncounter.png" -Destination "$PWD\Counter Functions\ScreenCapture\DEBUG\ArchetypeScreenshotEncounter.png" -Force
-                        [IO.File]::WriteAllText("$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_BeforeLogic.txt", $OCRCaptured)
+                        Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshot.png" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.png" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotMagick.png" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.png" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotEncounter.png" -Force
+                        [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_BeforeLogic.txt", $OCRCaptured)
 
                         # Stores 'OCRCaptured' into a variable to check later (For Shiny Pokemon)
                         if ($OCRCaptured -match "Shiny" -or ($OCRCaptured | Where-Object { $_ -match "Shiny" }) -or $OCRCaptured.Contains("Shiny") -or $OCRCaptured.Contains("shiny")) { $OCRCapturedShiny = $true } else { $OCRCapturedShiny = $false }
@@ -3465,7 +3614,7 @@ Function PlayAction {
                         if ($OCRCaptured -match "Nidoran") { $OCRCaptured = $OCRCaptured -Replace 'Nidoran29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran32','Nidoran 32'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  32','Nidoran 32' }
 
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                        [IO.File]::WriteAllText("$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_AfterLogic.txt", $OCRCaptured)
+                        [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_AfterLogic.txt", $OCRCaptured)
 
                         # Increments Pokemon seen count by correct value (FOR TOTAL ENCOUNTERED POKEMON)
                         $OCRCapturedHordeNumberCount = ($OCRCaptured | Measure-Object -Line).Lines
@@ -3490,10 +3639,10 @@ Function PlayAction {
                         if ($OCRCapturedHordeNumber -gt "1") { $OCRCaptured = $OCRCaptured | Select-Object -First 1 -Skip 2 }
 
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                        [IO.File]::WriteAllText("$PWD\Counter Functions\ScreenCapture\DEBUG\DEBUG_OCR_HordeLogic_Count.txt", $OCRCaptured)
+                        [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_HordeLogic_Count.txt", $OCRCaptured)
 
                         # Copies "DEBUG" folder to Counter Config Backup as a form of backup (Adds more ease of use when debugging)
-                        Copy-Item "$PWD\Counter Functions\ScreenCapture\DEBUG" -Destination "$PWD\Counter Config Files\Counter Config Backup" -Recurse -Force
+                        Copy-Item "$PWD\Counter Functions\Core\DEBUG" -Destination "$PWD\Counter Config Files\Counter Config Backup" -Recurse -Force
 
                         # Grabs and loads + compares to the captures OCR text
                         $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
@@ -3529,7 +3678,7 @@ Function PlayAction {
                             Start-Sleep -Milliseconds 10
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3559,7 +3708,7 @@ Function PlayAction {
                             Start-Sleep -Milliseconds 10
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3588,7 +3737,7 @@ Function PlayAction {
                         if ([string]::IsNullOrEmpty($OCRCaptured) -or [string]::IsNullOrWhitespace($OCRCaptured) -or $OCRCaptured -eq $null) {
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3612,7 +3761,7 @@ Function PlayAction {
                             [Microsoft.VisualBasic.Interaction]::MsgBox("Unable to scan Pokémon.`n`nThis can occur when the counter fails on scanning properly.`n`n(Increase count manually, if needed.)", "OKOnly,SystemModal,Critical", "Archetype Counter")
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3662,7 +3811,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeAImage.Image = $Script:SyncHashTable.ArchetypePokeAFile
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3696,7 +3845,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypeForm.refresh()
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3744,7 +3893,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeBImage.Image = $Script:SyncHashTable.ArchetypePokeBFile
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3778,7 +3927,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypeForm.refresh()
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3826,7 +3975,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeCImage.Image = $Script:SyncHashTable.ArchetypePokeCFile
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3860,7 +4009,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypeForm.refresh()
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3874,7 +4023,7 @@ Function PlayAction {
                         } 
 
                         # Checks for pixel color to ensure user is not in battle anymore
-                        While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { Start-Process -WindowStyle hidden "$PWD\Counter Functions\ScreenCapture\ScreenCapture.ahk" -Wait } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\ImageMagick\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                        While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                         # Properly sets the visibility of start/stop images on counter
                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3890,9 +4039,6 @@ Function PlayAction {
                     # Displays Message Dialog Box - Cannot scan pokemon from screenshot
                     $NotFoundDialog = [System.Windows.MessageBox]::Show("PokeMMO cannot be found.`n`nWould you like to launch PokeMMO?","  Archetype Counter","YesNo","Warning")
                     if ($NotFoundDialog -match "Yes") { $CounterWorkingDir = $PWD; Set-Location ..\..; Set-Location ..\..; $PokeMMOWorkingDir = $PWD; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe"; Start-Sleep -Milliseconds 100; Set-Location $CounterWorkingDir } else { Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-
-                    # Kills any orphaned AutoHotkey processes from closing down PokeMMO while running counter
-                    Get-Process | Where-Object { $_.Name -eq "AutoHotkey" } | Stop-Process -Force
 
                 }
 
