@@ -65,7 +65,7 @@ to be updated shortly
 # Installation
 **1.** Extract into `PokeMMO\data\mods`
 
-> Alternatively, clone into `PokeMMO\data\mods` using [GitHub Desktop](https://desktop.github.com/) or [Git](https://git-scm.com/downloads), pull to receieve updates
+> Alternatively, clone into `PokeMMO\data\mods` using [GitHub Desktop](https://desktop.github.com/) or [Git](https://git-scm.com/downloads), pull to receive updates
 
 **2.** Run the `Archetype Counter.lnk`, pin to the taskbar if needed
 
@@ -112,6 +112,9 @@ to be updated shortly
 
 ### Counter Mode
 > Choose between expanded (with Egg), expanded (with Fossil), collapsed (encounters), collapsed (with Egg), or collapsed (with Fossil)
+
+### Picture Mode
+> Choose between two screenshot methods for the Counter to utilize, PrintWindow function (Default) and PrintScreen (alternative)
 
 ### Hunt Profiles
 > Choose or rename up to 10 different Counter profiles
