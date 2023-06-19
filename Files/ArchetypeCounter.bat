@@ -419,9 +419,6 @@ $ArchetypeForm.Add_Load({
     # Performs force active window process
     [void][ForceActiveWin]::SetForegroundWindow($hwnd)
 
-    # Checks if Auto Restart Counter is set to "True"
-    if ($AutoRestartCounter -match "True") { PlayAction } else { $GetConfig = $GetConfig -replace "Counter_Active.*", "Counter_Active=False" }
-
     # Sets the flag for the counter to not Auto Start on "Stop"
     $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
 
@@ -434,27 +431,6 @@ $ArchetypeForm.Add_Load({
     # Sets up Winform from C# (So it can have its own Taskbar Icon)
     [PSAppID]::SetAppIdForWindow($ArchetypeForm.Handle, "Archetype Counter")
 
-})
-$ArchetypeForm.Add_Closing({
-
-    # Sets the flag for the counter to not Auto Start on "Stop"
-    $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
-
-    # Gets the current X and Y coordinates of the form
-    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
-
-    # Replaces and Sets the starting position on the counter form start
-    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
-
-    # Sets all changes back into the Config file
-    [IO.File]::WriteAllLines($SetConfig, $GetConfig)
-
-    # Small wait to ensure no corrupt of config file
-    Start-Sleep -Milliseconds 10
-
-    # This exits the application (Winform) properly
-    [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force
-    
 })
 
 # Creates the correct image that indicates the count pokemon seen
@@ -544,11 +520,11 @@ $ArchetypeMainFossilImage.Add_Click({
     # Checks Left Mouse Click - If so, gives ability to manually increase count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon fossil slot and increases the count
         $FossilCount = $FossilCount -join '-'; $FossilCount = [int]$FossilCount + 1
@@ -574,11 +550,11 @@ $ArchetypeMainFossilImage.Add_Click({
     # Checks Left Mouse Click - If so, gives ability to manually decrease count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon fossil slot and decreases the count
         $FossilCount = $FossilCount -join '-'; if ($FossilCount -eq "0") { $FossilCount = 0 } else { $FossilCount = [int]$FossilCount - 1 }
@@ -638,11 +614,11 @@ $ArchetypeFossilLabelCount.Add_Click({
     # Checks Left Mouse Click - If so, gives ability to manually increase count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon fossil slot and increases the count
         $FossilCount = $FossilCount -join '-'; $FossilCount = [int]$FossilCount + 1
@@ -668,11 +644,11 @@ $ArchetypeFossilLabelCount.Add_Click({
     # Checks Left Mouse Click - If so, gives ability to manually decrease count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon fossil slot and decreases the count
         $FossilCount = $FossilCount -join '-'; if ($FossilCount -eq "0") { $FossilCount = 0 } else { $FossilCount = [int]$FossilCount - 1 }
@@ -728,11 +704,11 @@ $ArchetypeMainEggImage.Add_Click({
     # Checks Left Mouse Click - If so, gives ability to manually increase count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon egg slot and increases the count
         $EggCount = $EggCount -join '-'; $EggCount = [int]$EggCount + 1
@@ -758,11 +734,11 @@ $ArchetypeMainEggImage.Add_Click({
     # Checks Left Mouse Click - If so, gives ability to manually decrease count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon egg slot and decreases the count
         $EggCount = $EggCount -join '-'; if ($EggCount -eq "0") { $EggCount = 0 } else { $EggCount = [int]$EggCount - 1 }
@@ -821,11 +797,11 @@ $ArchetypeEggLabelCount.Add_Click({
     # Checks Left Mouse Click - If so, gives ability to manually increase count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon egg slot and increases the count
         $EggCount = $EggCount -join '-'; $EggCount = [int]$EggCount + 1
@@ -851,11 +827,11 @@ $ArchetypeEggLabelCount.Add_Click({
     # Checks Left Mouse Click - If so, gives ability to manually decrease count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon egg slot and decreases the count
         $EggCount = $EggCount -join '-'; if ($EggCount -eq "0") { $EggCount = 0 } else { $EggCount = [int]$EggCount - 1 }
@@ -913,11 +889,11 @@ $ArchetypeCollapsedCount.Add_Click({
     # Checks Left Mouse Click - If so, gives ability to manually increase count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon and increases the "seen" count
         $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; $TotalPokeSeenCount = [int]$TotalPokeSeenCount + 1
@@ -943,11 +919,11 @@ $ArchetypeCollapsedCount.Add_Click({
     # Checks Left Mouse Click - If so, gives ability to manually decrease count
     if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon and increases the "seen" count
         $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
@@ -1019,11 +995,11 @@ $ArchetypePokeAImage.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonA -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 1 and increases the "seen" count
         $PokemonCountA = $PokemonCountA -join '-'; $PokemonCountA = [int]$PokemonCountA + 1
@@ -1054,11 +1030,11 @@ $ArchetypePokeAImage.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonA -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 1 and increases the "seen" count
         $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
@@ -1125,11 +1101,11 @@ $ArchetypePokeALabelCount.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonA -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 1 and increases the "seen" count
         $PokemonCountA = $PokemonCountA -join '-'; $PokemonCountA = [int]$PokemonCountA + 1
@@ -1160,11 +1136,11 @@ $ArchetypePokeALabelCount.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonA -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 1 and decreases the "seen" count
         $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
@@ -1242,11 +1218,11 @@ $ArchetypePokeBImage.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonB -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 2 and increases the "seen" count
         $PokemonCountB = $PokemonCountB -join '-'; $PokemonCountB = [int]$PokemonCountB + 1
@@ -1277,11 +1253,11 @@ $ArchetypePokeBImage.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonB -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 2 and decreases the "seen" count
         $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
@@ -1349,11 +1325,11 @@ $ArchetypePokeBLabelCount.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonB -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 2 and increases the "seen" count
         $PokemonCountB = $PokemonCountB -join '-'; $PokemonCountB = [int]$PokemonCountB + 1
@@ -1384,11 +1360,11 @@ $ArchetypePokeBLabelCount.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonB -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 2 and decreases the "seen" count
         $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
@@ -1466,11 +1442,11 @@ $ArchetypePokeCImage.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonC -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 3 and increases the "seen" count
         $PokemonCountC = $PokemonCountC -join '-'; $PokemonCountC = [int]$PokemonCountC + 1
@@ -1501,11 +1477,11 @@ $ArchetypePokeCImage.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonC -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 3 and decreases the "seen" count
         $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
@@ -1573,11 +1549,11 @@ $ArchetypePokeCLabelCount.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Left) -and ($PokemonC -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 3 and increases the "seen" count
         $PokemonCountC = $PokemonCountC -join '-'; $PokemonCountC = [int]$PokemonCountC + 1
@@ -1608,11 +1584,11 @@ $ArchetypePokeCLabelCount.Add_Click({
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually decrease count
     if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonC -notmatch "Blank")) {
 
-        # Gets the current X and Y coordinates of the form
-        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+        
+        
 
-        # Replaces and Sets the starting position on the counter form start
-        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+        
+        
 
         # Grabs Pokemon from slot 3 and decreases the "seen" count
         $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'; if ($TotalPokeSeenCount -eq "0") { $TotalPokeSeenCount = 0 } else { $TotalPokeSeenCount = [int]$TotalPokeSeenCount - 1 }
@@ -1667,20 +1643,12 @@ $ArchetypeStopImage.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
 
-    # Gets the current X and Y coordinates of the form
-    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
-
-    # Replaces and Sets the starting position on the counter form start
-    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
     # Sets the flag for the counter to not Auto Start on "Stop"
     $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
 
     # Sets Counter Active to "True" (To make menu options available disabled)
     $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"
-
-    # Removes all screenshot(s) from folder (To ensure counter does not grab a previous screenshot)
-    if ($DebugMode -match "False") { Remove-Item "$PWD\Counter Functions\Core\DEBUG\*.*" | Where { ! $_.PSIsContainer } }
 
     # Set visibility of components for counter
     $ArchetypePlayImage.Visible = $true; $ArchetypeStopImage.Visible = $false
@@ -1691,17 +1659,8 @@ $ArchetypeStopImage.Add_Click({
     # Small wait to ensure no corrupt of config file
     Start-Sleep -Milliseconds 10
 
-    # Application Variable - Name
-    $ApplicationName = "javaw"
-
-    # Finds application process
-    $Process = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "$ApplicationName"}
-
-    # Puts $Process.MainWindowHandle into a variable
-    $hwnd = $Process.MainWindowHandle
- 
-    # Performs force active window process
-    [void][ForceActiveWin]::SetForegroundWindow($hwnd)
+    #
+    Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
 })
 $ArchetypeForm.controls.Add($ArchetypeStopImage)
@@ -1719,11 +1678,11 @@ $ArchetypePlayImage.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
 
-    # Gets the current X and Y coordinates of the form
-    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+    
+    
 
-    # Replaces and Sets the starting position on the counter form start
-    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+    
+    
 
     # Sets Counter Active to "True" (To make menu options available disabled)
     $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=True"
@@ -1753,11 +1712,11 @@ $ArchetypeCloseImage.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
 
-    # Gets the current X and Y coordinates of the form
-    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+    
+    
 
-    # Replaces and Sets the starting position on the counter form start
-    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+    
+    
 
     # Sets the flag for the counter to not Auto Start on "Stop"
     $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
@@ -1914,6 +1873,7 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripReadme = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Readme.png")
         $ArchetypeMenuStripPrintWindow = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\PrintWindow.png")
         $ArchetypeMenuStripPrintScreen = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\PrintScreen.png")
+        $ArchetypeMenuStripLocation = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\SaveLocation.png")
         
         # Adds Counter Menu - Header
         $ArchetypeMenuStrip.Items.Add("-")
@@ -1936,11 +1896,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "English" selection  
             $ArchetypeMenuStripTool1.DropDownItems.Add("English", $ArchetypeMenuStripEnglish).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=English"
@@ -1964,11 +1924,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "French" selection 
             $ArchetypeMenuStripTool1.DropDownItems.Add("Français (French)", $ArchetypeMenuStripFrench).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=French"
@@ -1992,11 +1952,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "German" selection 
             $ArchetypeMenuStripTool1.DropDownItems.Add("Deutsch (German)", $ArchetypeMenuStripGerman).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=German"
@@ -2020,11 +1980,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Spanish" selection 
             $ArchetypeMenuStripTool1.DropDownItems.Add("Español (Spanish)", $ArchetypeMenuStripSpanish).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=Spanish"
@@ -2048,11 +2008,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Brazilian Portuguese" selection
             $ArchetypeMenuStripTool1.DropDownItems.Add("Português Brasileiro (Brazilian Portuguese)", $ArchetypeMenuStripBrazilianPortuguese).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=Brazilian_Portuguese"
@@ -2076,11 +2036,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Italian" selection
             $ArchetypeMenuStripTool1.DropDownItems.Add("Italiano (Italian)", $ArchetypeMenuStripItalian).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=Italian"
@@ -2104,11 +2064,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Italian" selection
             $ArchetypeMenuStripTool1.DropDownItems.Add("Polski (Polish)", $ArchetypeMenuStripPolish).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Set_Language=.*", "Set_Language=Polish"
@@ -2142,11 +2102,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Archetype" selection
             $ArchetypeMenuStripTool2.DropDownItems.Add("Archetype", $ArchetypeMenuStripMain).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Theme_Type=.*", "Theme_Type=Archetype"
@@ -2170,11 +2130,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Default" selection
             $ArchetypeMenuStripTool2.DropDownItems.Add("Default", $ArchetypeMenuStripPokeMMO).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Theme_Type=.*", "Theme_Type=Default"
@@ -2199,11 +2159,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Custom" selection
             $ArchetypeMenuStripTool2.DropDownItems.Add("Custom", $ArchetypeMenuStripCustom).add_Click({ 
         
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Theme_Type=.*", "Theme_Type=Custom"
@@ -2237,11 +2197,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Default" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Default", $ArchetypeMenuStripToolDefault).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Sprite_Type=.*", "Sprite_Type=Default"
@@ -2265,11 +2225,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "3DS" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("3DS", $ArchetypeMenuStripTool3DS).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Sprite_Type=.*", "Sprite_Type=3DS"
@@ -2293,11 +2253,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Gen8" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Gen 8", $ArchetypeMenuStripToolGen8).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Sprite_Type=.*", "Sprite_Type=Gen8"
@@ -2321,11 +2281,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Shuffle" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Home", $ArchetypeMenuStripToolHome).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Sprite_Type=.*", "Sprite_Type=Home"
@@ -2349,11 +2309,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Shuffle" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Shuffle", $ArchetypeMenuStripToolShuffle).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Sprite_Type=.*", "Sprite_Type=Shuffle"
@@ -2387,11 +2347,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "1" selection 
             $ArchetypeMenuStripTool5.DropDownItems.Add("1 - Displays one Pokemon", $ArchetypeMenuStripToolNumber1).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Detection_Count=.*", "Detection_Count=1"
@@ -2415,11 +2375,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "2" selection 
             $ArchetypeMenuStripTool5.DropDownItems.Add("2 - Displays two Pokemon", $ArchetypeMenuStripToolNumber2).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Detection_Count=.*", "Detection_Count=2"
@@ -2443,11 +2403,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "3" selection 
             $ArchetypeMenuStripTool5.DropDownItems.Add("3 - Displays three Pokemon", $ArchetypeMenuStripToolNumber3).add_Click({ 
         
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Detection_Count=.*", "Detection_Count=3"
@@ -2490,11 +2450,11 @@ $ArchetypeImage.Add_MouseDown({
             $PokemonCountC = $GetConfig -match "Pokemon_C_Count="; $PokemonCountC = $PokemonCountC -replace "Pokemon_C_Count=", ""
             $PokemonCHover = $GetConfig -match "Pokemon_C_Hover="; $PokemonCHover = $PokemonCHover -replace "Pokemon_C_Hover=", ""
 
-            # Gets the current X and Y coordinates of the form
-            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+            
+            
 
-            # Replaces and Sets the starting position on the counter form start
-            $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+            
+            
             
             # Move pokemon up in slots accordingly
             $GetConfig = $GetConfig -replace "Pokemon_A=.*", "Pokemon_A=$PokemonB"
@@ -2529,11 +2489,11 @@ $ArchetypeImage.Add_MouseDown({
             $PokemonCountB = $GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
             $PokemonBHover = $GetConfig -match "Pokemon_B_Hover="; $PokemonBHover = $PokemonBHover -replace "Pokemon_B_Hover=", ""
 
-            # Gets the current X and Y coordinates of the form
-            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+            
+            
 
-            # Replaces and Sets the starting position on the counter form start
-            $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+            
+            
             
             # Move pokemon up in slots accordingly
             $GetConfig = $GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$PokemonC"
@@ -2557,11 +2517,11 @@ $ArchetypeImage.Add_MouseDown({
         # Adds click to "Poke Slot 3" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Poke Slot 3", $ArchetypeMenuStripToolNumber3).add_Click({ 
 
-            # Gets the current X and Y coordinates of the form
-            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+            
+            
 
-            # Replaces and Sets the starting position on the counter form start
-            $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+            
+            
             
             # Move pokemon up in slots accordingly (Poke Slot C is just cleared)
             $GetConfig = $GetConfig -replace "Pokemon_C=.*", "Pokemon_C=Blank"
@@ -2582,11 +2542,11 @@ $ArchetypeImage.Add_MouseDown({
         # Adds click to "Egg Slot" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Egg Count", $ArchetypeMenuStripToolEgg).add_Click({ 
 
-            # Gets the current X and Y coordinates of the form
-            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+            
+            
 
-            # Replaces and Sets the starting position on the counter form start
-            $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+            
+            
 
             # Sets the replace for Egg Count
             $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=0"
@@ -2605,11 +2565,11 @@ $ArchetypeImage.Add_MouseDown({
          # Adds click to "Egg Slot" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Fossil Count", $ArchetypeMenuStripToolFossil).add_Click({ 
 
-            # Gets the current X and Y coordinates of the form
-            $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+            
+            
 
-            # Replaces and Sets the starting position on the counter form start
-            $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+            
+            
 
             # Sets the replace for Fossil Count
             $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=0"
@@ -2637,11 +2597,11 @@ $ArchetypeImage.Add_MouseDown({
             # Checks if Message Dialog Box "Yes" has been selected
             if ($ResetResult -match "Yes") { 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the replace all Counts
                 $GetConfig = $GetConfig -replace "Total_Count=.*", "Total_Count=0"
@@ -2682,11 +2642,11 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool21.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool21)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool21.Enabled = $false } else { $ArchetypeMenuStripTool21.Enabled = $true }
-        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }  
-        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Encounter"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }   
-        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else { ; ; $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Add_Click({ ; ; $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }  
+        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Add_Click({ ; ; $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Encounter"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }   
+        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Add_Click({ ; ; $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Add_Click({ ; ; $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
 
         # Adds "Picture Mode" selection
         $ArchetypeMenuStripTool37 = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -2696,8 +2656,8 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool37.DropDownItems.Add("PICTURE MODE:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool37.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool37)
-        if ($PictureMode -match "Default") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Default"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($PictureMode -match "Alternate") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen (Alternate)", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen (Alternate)", $ArchetypeMenuStripPrintScreen).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Default") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Add_Click({ ; ; $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Default"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Alternate") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen (Alternate)", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen (Alternate)", $ArchetypeMenuStripPrintScreen).Add_Click({ ; ; $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool37.Enabled = $false } else { $ArchetypeMenuStripTool37.Enabled = $true }
 
         # Adds "Hunt Profiles" selection
@@ -2709,16 +2669,16 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool15.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool15)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool15.Enabled = $false } else { $ArchetypeMenuStripTool15.Enabled = $true }
-        if ($GetProfile -match "Profile1") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile1", $ArchetypeMenuStripToolProfile1).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile1", $ArchetypeMenuStripToolProfile1).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName1Replace = $GetProfileConfig -match "Hunt_Profile_Name_1="; $HuntName1Replace = $HuntName1Replace -replace "Hunt_Profile_Name_1=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName1Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile2") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile2", $ArchetypeMenuStripToolProfile2).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile2", $ArchetypeMenuStripToolProfile2).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName2Replace = $GetProfileConfig -match "Hunt_Profile_Name_2="; $HuntName2Replace = $HuntName2Replace -replace "Hunt_Profile_Name_2=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName2Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile3") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile3", $ArchetypeMenuStripToolProfile3).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile3", $ArchetypeMenuStripToolProfile3).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName3Replace = $GetProfileConfig -match "Hunt_Profile_Name_3="; $HuntName3Replace = $HuntName3Replace -replace "Hunt_Profile_Name_3=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName3Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile4") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile4", $ArchetypeMenuStripToolProfile4).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile4", $ArchetypeMenuStripToolProfile4).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName4Replace = $GetProfileConfig -match "Hunt_Profile_Name_4="; $HuntName4Replace = $HuntName4Replace -replace "Hunt_Profile_Name_4=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName4Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile5") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile5", $ArchetypeMenuStripToolProfile5).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile5", $ArchetypeMenuStripToolProfile5).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName5Replace = $GetProfileConfig -match "Hunt_Profile_Name_5="; $HuntName5Replace = $HuntName5Replace -replace "Hunt_Profile_Name_5=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName5Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile6") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile6", $ArchetypeMenuStripToolProfile6).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile6", $ArchetypeMenuStripToolProfile6).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName6Replace = $GetProfileConfig -match "Hunt_Profile_Name_6="; $HuntName6Replace = $HuntName6Replace -replace "Hunt_Profile_Name_6=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName6Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile7") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile7", $ArchetypeMenuStripToolProfile7).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile7", $ArchetypeMenuStripToolProfile7).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName7Replace = $GetProfileConfig -match "Hunt_Profile_Name_7="; $HuntName7Replace = $HuntName7Replace -replace "Hunt_Profile_Name_7=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName7Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile8") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile8", $ArchetypeMenuStripToolProfile8).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile8", $ArchetypeMenuStripToolProfile8).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName8Replace = $GetProfileConfig -match "Hunt_Profile_Name_8="; $HuntName8Replace = $HuntName8Replace -replace "Hunt_Profile_Name_8=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName8Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolProfile9).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolProfile9).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName9Replace = $GetProfileConfig -match "Hunt_Profile_Name_9="; $HuntName9Replace = $HuntName9Replace -replace "Hunt_Profile_Name_9=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName9Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolProfile10).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolProfile10).Add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $HuntName10Replace = $GetProfileConfig -match "Hunt_Profile_Name_10="; $HuntName10Replace = $HuntName10Replace -replace "Hunt_Profile_Name_10=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName10Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile1") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile1", $ArchetypeMenuStripToolProfile1).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile1", $ArchetypeMenuStripToolProfile1).Add_Click({ ; ; $HuntName1Replace = $GetProfileConfig -match "Hunt_Profile_Name_1="; $HuntName1Replace = $HuntName1Replace -replace "Hunt_Profile_Name_1=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName1Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile2") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile2", $ArchetypeMenuStripToolProfile2).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile2", $ArchetypeMenuStripToolProfile2).Add_Click({ ; ; $HuntName2Replace = $GetProfileConfig -match "Hunt_Profile_Name_2="; $HuntName2Replace = $HuntName2Replace -replace "Hunt_Profile_Name_2=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName2Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile3") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile3", $ArchetypeMenuStripToolProfile3).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile3", $ArchetypeMenuStripToolProfile3).Add_Click({ ; ; $HuntName3Replace = $GetProfileConfig -match "Hunt_Profile_Name_3="; $HuntName3Replace = $HuntName3Replace -replace "Hunt_Profile_Name_3=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName3Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile4") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile4", $ArchetypeMenuStripToolProfile4).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile4", $ArchetypeMenuStripToolProfile4).Add_Click({ ; ; $HuntName4Replace = $GetProfileConfig -match "Hunt_Profile_Name_4="; $HuntName4Replace = $HuntName4Replace -replace "Hunt_Profile_Name_4=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName4Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile5") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile5", $ArchetypeMenuStripToolProfile5).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile5", $ArchetypeMenuStripToolProfile5).Add_Click({ ; ; $HuntName5Replace = $GetProfileConfig -match "Hunt_Profile_Name_5="; $HuntName5Replace = $HuntName5Replace -replace "Hunt_Profile_Name_5=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName5Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile6") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile6", $ArchetypeMenuStripToolProfile6).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile6", $ArchetypeMenuStripToolProfile6).Add_Click({ ; ; $HuntName6Replace = $GetProfileConfig -match "Hunt_Profile_Name_6="; $HuntName6Replace = $HuntName6Replace -replace "Hunt_Profile_Name_6=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName6Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile7") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile7", $ArchetypeMenuStripToolProfile7).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile7", $ArchetypeMenuStripToolProfile7).Add_Click({ ; ; $HuntName7Replace = $GetProfileConfig -match "Hunt_Profile_Name_7="; $HuntName7Replace = $HuntName7Replace -replace "Hunt_Profile_Name_7=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName7Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile8") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile8", $ArchetypeMenuStripToolProfile8).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile8", $ArchetypeMenuStripToolProfile8).Add_Click({ ; ; $HuntName8Replace = $GetProfileConfig -match "Hunt_Profile_Name_8="; $HuntName8Replace = $HuntName8Replace -replace "Hunt_Profile_Name_8=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName8Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolProfile9).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolProfile9).Add_Click({ ; ; $HuntName9Replace = $GetProfileConfig -match "Hunt_Profile_Name_9="; $HuntName9Replace = $HuntName9Replace -replace "Hunt_Profile_Name_9=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName9Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolProfile10).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolProfile10).Add_Click({ ; ; $HuntName10Replace = $GetProfileConfig -match "Hunt_Profile_Name_10="; $HuntName10Replace = $HuntName10Replace -replace "Hunt_Profile_Name_10=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName10Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         $ArchetypeMenuStripTool15.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStripTool15.DropDownItems.Add("-> Open Hunt Profile Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Config Files })
 
@@ -2755,9 +2715,11 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool3.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool3)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool3.Enabled = $false } else { $ArchetypeMenuStripTool3.Enabled = $true }
+        $ArchetypeMenuStripTool3.DropDownItems.Add("-> Save Counter Location <-", $ArchetypeMenuStripLocation).add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; [IO.File]::WriteAllLines($SetConfig, $GetConfig) })
+        $ArchetypeMenuStripTool3.DropDownItems.Add("-")
         if ($AlwaysOnTop -match "True") { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Enabled" } else { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Disabled" }
-        $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; if ($AlwaysOnTop -match "True") { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=False" } else { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=True" }; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
-        if ($IgnoreSystemLang -match "True") { $PokeMMOMenuSystemLangText = "Ignore System Language: True" } else { $PokeMMOMenuSystemLangText = "Ignore System Language: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuSystemLangText", $ArchetypeMenuStripToolSystemLanguage).add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; if ($IgnoreSystemLang -match "True") { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=False" } else { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=True" }; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ ; ; if ($AlwaysOnTop -match "True") { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=False" } else { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=True" }; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        if ($IgnoreSystemLang -match "True") { $PokeMMOMenuSystemLangText = "Ignore System Language: True" } else { $PokeMMOMenuSystemLangText = "Ignore System Language: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuSystemLangText", $ArchetypeMenuStripToolSystemLanguage).add_Click({ ; ; if ($IgnoreSystemLang -match "True") { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=False" } else { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=True" }; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
         $ArchetypeMenuStripTool3.DropDownItems.Add("-")
         $ArchetypeMenuStripTool3.DropDownItems.Add("Archetype Counter Uninstaller", $ArchetypeMenuStripUninstall).add_Click({ $UninstallACDialog = [System.Windows.MessageBox]::Show("Would you like to uninstall Archetype Counter?","  Archetype Counter","YesNo","Warning"); if ($UninstallACDialog -match "Yes") { [System.Windows.MessageBox]::Show("Thank you for using Archetype Counter!","  Archetype Counter","OK","Asterisk"); $ThemeNames = (Get-ChildItem "$PokeMMOWorkingDir\data\themes" -directory).Name; $SetThemeConfig = "$PokeMMOWorkingDir\data\themes\$ThemeName\theme.xml"; $GetThemeConfig = [IO.File]::ReadAllLines("$SetThemeConfig"); foreach ($ThemeName in $ThemeNames) { Remove-Item "$PokeMMOWorkingDir\data\themes\$ThemeName\AC" -Recurse -Force; $GetThemeConfig = $GetThemeConfig -replace '<include filename="AC/1.0_Scaling.xml"/>',''; [IO.File]::WriteAllLines($SetThemeConfig, $GetThemeConfig) }; Start-Process -WindowStyle hidden "$PWD\Counter Functions\Uninstaller\Uninstaller.bat"; [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force } })
 
@@ -2814,6 +2776,9 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool10.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStripTool10.DropDownItems.Add("-> Open Core Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Functions\Core })
 
+        #
+
+
         # Add "Current Profile" in use on the bottom counter menu
         $ArchetypeMenuStrip.Items.Add("-")
         $ArchetypeMenuStrip.Items.Add("Hunt: $GetProfile", $ArchetypeMenuStripCurrentHunt).Enabled = $false
@@ -2837,11 +2802,11 @@ $ArchetypeImage.Add_MouseDown({
             $ArchetypeMenuStrip.Items.Add("-")
             $ArchetypeMenuStrip.Items.Add("Start Counter", $ArchetypeMenuStripStart).add_Click({ 
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=True"
@@ -2860,11 +2825,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Stop Counter" selection
             $ArchetypeMenuStrip.Items.Add("Stop Counter", $ArchetypeMenuStripStop).add_Click({ 
        
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
@@ -2898,11 +2863,11 @@ $ArchetypeImage.Add_MouseDown({
             # Adds click to "Exit Counter" selection
             $ArchetypeMenuStrip.Items.Add("Exit Counter", $ArchetypeMenuStripExit).add_Click({  
 
-                # Gets the current X and Y coordinates of the form
-                $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+                
+                
 
-                # Replaces and Sets the starting position on the counter form start
-                $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                
+                
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
@@ -3427,11 +3392,11 @@ Function PlayAction {
                     $CollapsedStopBGColor = $GetColorConfig -match "CollapsedStopBG="; $CollapsedStopBGColor = $CollapsedStopBGColor -replace "CollapsedStopBG=", ""
                     $CollapsedBusyBGColor = $GetColorConfig -match "CollapsedBusyBG="; $CollapsedBusyBGColor = $CollapsedBusyBGColor -replace "CollapsedBusyBG=", ""
 
-                    # Gets the current X and Y coordinates of the form
-                    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; 
+                    
+                    ; 
 
-                    # Replaces and Sets the starting position on the counter form start
-                    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+                    
+                    
 
                     # Sets all current variables int the counter config file
                     [IO.File]::WriteAllLines($SetConfig, $GetConfig)
@@ -3514,7 +3479,7 @@ Function PlayAction {
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                          # Grabs counter process and checks for total memory usage
-                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
         
                          # Break current loop and re-try
                          Continue
@@ -3554,7 +3519,7 @@ Function PlayAction {
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                          # Grabs counter process and checks for total memory usage
-                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                          # Break current loop and re-try
                          Continue
@@ -3684,7 +3649,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3714,7 +3679,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3743,7 +3708,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3767,7 +3732,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3817,7 +3782,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3851,7 +3816,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3899,7 +3864,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3933,7 +3898,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3981,7 +3946,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -4015,7 +3980,7 @@ Function PlayAction {
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -4029,7 +3994,7 @@ Function PlayAction {
                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                         # Grabs counter process and checks for total memory usage
-                        $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                        $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { ; ; $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                     }
 
