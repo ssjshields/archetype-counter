@@ -1643,7 +1643,6 @@ $ArchetypeStopImage.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
 
-
     # Sets the flag for the counter to not Auto Start on "Stop"
     $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
 
@@ -2824,14 +2823,12 @@ $ArchetypeImage.Add_MouseDown({
 
             # Adds click to "Stop Counter" selection
             $ArchetypeMenuStrip.Items.Add("Stop Counter", $ArchetypeMenuStripStop).add_Click({ 
-       
                 
-                
+                # Loads values from external sources (Config file)
+                $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
+                $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
 
-                
-                
-
-                # Sets the flag for the counter to not Auto Start on "Stop"
+                # Sets the flag for the counter to not Auto Start on "Stop" + Counter is NOT running
                 $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
                 $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"
 
@@ -2846,17 +2843,8 @@ $ArchetypeImage.Add_MouseDown({
                 # Small wait to ensure no corrupt of config file
                 Start-Sleep -Milliseconds 10
 
-                # Application Variable - Name
-                $ApplicationName = "javaw"
-
-                # Finds application process
-                $Process = Get-Process | where {$_.mainWindowTItle } | where {$_.Name -like "$ApplicationName"}
-
-                # Puts $Process.MainWindowHandle into a variable
-                $hwnd = $Process.MainWindowHandle
-    
-                # Performs force active window process
-                [void][ForceActiveWin]::SetForegroundWindow($hwnd)
+                #
+                Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
             })
 
