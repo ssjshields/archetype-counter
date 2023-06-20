@@ -1511,6 +1511,12 @@ $ArchetypeStopImage.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
 
+    # Gets the current X and Y coordinates of the form
+    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+
+    # Replaces and Sets the starting position on the counter form start
+    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+
     # Sets the flag for the counter to not Auto Start on "Stop"
     $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
 
@@ -1572,6 +1578,12 @@ $ArchetypeCloseImage.Add_Click({
     # Loads values from external sources (Config file)
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
+
+    # Gets the current X and Y coordinates of the form
+    $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+
+    # Replaces and Sets the starting position on the counter form start
+    $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
 
     # Sets the flag for the counter to not Auto Start on "Stop"
     $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
@@ -1728,7 +1740,6 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripReadme = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Readme.png")
         $ArchetypeMenuStripPrintWindow = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\PrintWindow.png")
         $ArchetypeMenuStripPrintScreen = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\PrintScreen.png")
-        $ArchetypeMenuStripLocation = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\SaveLocation.png")
         
         # Adds Counter Menu - Header
         $ArchetypeMenuStrip.Items.Add("-")
@@ -2426,8 +2437,6 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool3.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool3)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool3.Enabled = $false } else { $ArchetypeMenuStripTool3.Enabled = $true }
-        $ArchetypeMenuStripTool3.DropDownItems.Add("-> Save Counter Screen Position <-", $ArchetypeMenuStripLocation).add_Click({ $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top; $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; [IO.File]::WriteAllLines($SetConfig, $GetConfig) })
-        $ArchetypeMenuStripTool3.DropDownItems.Add("-")
         if ($AlwaysOnTop -match "True") { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Enabled" } else { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Disabled" }
         $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ if ($AlwaysOnTop -match "True") { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=False" } else { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=True" }; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
         if ($IgnoreSystemLang -match "True") { $PokeMMOMenuSystemLangText = "Ignore System Language: True" } else { $PokeMMOMenuSystemLangText = "Ignore System Language: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuSystemLangText", $ArchetypeMenuStripToolSystemLanguage).add_Click({ if ($IgnoreSystemLang -match "True") { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=False" } else { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=True" }; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
@@ -2632,6 +2641,15 @@ Function PlayAction {
         # Set the counter start/stop images properly
         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeBusyImage.Visible = $false; $ArchetypeCollapsedPlayImage.Visible = $false; $ArchetypeCollapsedStopImage.Visible = $true; $ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $ArchetypeCollapsedStopImage.Visible = $false; $ArchetypeCollapsedPlayImage.Visible = $false; $ArchetypeCollapsedStopImage.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $true }
         $ArchetypeForm.Refresh()
+
+        # Gets the current X and Y coordinates of the form
+        $ArchetypeReplaceX = $ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $ArchetypeForm.Bounds.Top
+
+        # Replaces and Sets the starting position on the counter form start
+        $GetConfig = $GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $GetConfig = $GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+
+        # Sets all changes back into the Config file
+        [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Created HashTable to pass winform controls to new runspace and back
         $Script:SyncHashTable = [Hashtable]::Synchronized(@{})
