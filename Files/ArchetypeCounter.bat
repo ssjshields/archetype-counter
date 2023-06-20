@@ -505,16 +505,22 @@ $ArchetypeMainFossilImage.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
     $FossilCount = $GetConfig -match "Fossil_Count="; $FossilCount = $FossilCount -replace "Fossil_Count=", ""
+    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
 
-    # Checks Middle Mouse Click - To manually add value count in Fossil slot
-    if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
+    # Checks if counter is Active or not (Prevent usage while counter is running)
+    if ($CounterActive -match "False") {
 
-        # Allows manual pre-load of the number value in fossil slot (Without having to manually increase to a high value number)
-        $PokemonFossilInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Fossil Count:`n(Example: 267)", ' Archetype Counter')
+        # Checks Middle Mouse Click - To manually add value count in Fossil slot
+        if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
+
+            # Allows manual pre-load of the number value in fossil slot (Without having to manually increase to a high value number)
+            $PokemonFossilInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Fossil Count:`n(Example: 267)", ' Archetype Counter')
         
-        # Checks if input was made on VB dialog
-        if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$PokemonFossilInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            # Checks if input was made on VB dialog
+            if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$PokemonFossilInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
+        }
+
     }
 
     # Checks Left Mouse Click - If so, gives ability to manually increase count
@@ -587,16 +593,22 @@ $ArchetypeFossilLabelCount.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
     $FossilCount = $GetConfig -match "Fossil_Count="; $FossilCount = $FossilCount -replace "Fossil_Count=", ""
+    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
 
-    # Checks Middle Mouse Click - To manually add value count in Fossil slot
-    if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
+    # Checks if counter is Active or not (Prevent usage while counter is running)
+    if ($CounterActive -match "False") {
 
-        # Allows manual pre-load of the number value in fossil slot (Without having to manually increase to a high value number)
-        $PokemonFossilInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Fossil Count:`n(Example: 267)", ' Archetype Counter')
+        # Checks Middle Mouse Click - To manually add value count in Fossil slot
+        if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
+
+            # Allows manual pre-load of the number value in fossil slot (Without having to manually increase to a high value number)
+            $PokemonFossilInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Fossil Count:`n(Example: 267)", ' Archetype Counter')
         
-        # Checks if input was made on VB dialog
-        if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$PokemonFossilInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            # Checks if input was made on VB dialog
+            if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$PokemonFossilInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
+        }
+
     }
 
     # Checks Left Mouse Click - If so, gives ability to manually increase count
@@ -665,16 +677,22 @@ $ArchetypeMainEggImage.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
     $EggCount = $GetConfig -match "Egg_Count="; $EggCount = $EggCount -replace "Egg_Count=", ""
+    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
 
-    # Checks Middle Mouse Click - To manually add value count in Egg slot
-    if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
+    # Checks if counter is Active or not (Prevent usage while counter is running)
+    if ($CounterActive -match "False") {
 
-        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
-        $PokemonEggInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Egg Count:`n(Example: 267)", ' Archetype Counter')
+        # Checks Middle Mouse Click - To manually add value count in Egg slot
+        if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
+
+            # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+            $PokemonEggInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Egg Count:`n(Example: 267)", ' Archetype Counter')
         
-        # Checks if input was made on VB dialog
-        if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$PokemonEggInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            # Checks if input was made on VB dialog
+            if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$PokemonEggInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
+        }
+
     }
 
     # Checks Left Mouse Click - If so, gives ability to manually increase count
@@ -746,16 +764,22 @@ $ArchetypeEggLabelCount.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
     $EggCount = $GetConfig -match "Egg_Count="; $EggCount = $EggCount -replace "Egg_Count=", ""
+    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
 
-    # Checks Middle Mouse Click - To manually add value count in Egg slot
-    if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
+    # Checks if counter is Active or not (Prevent usage while counter is running)
+    if ($CounterActive -match "False") {
 
-        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
-        $PokemonEggInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Egg Count:`n(Example: 267)", ' Archetype Counter')
+        # Checks Middle Mouse Click - To manually add value count in Egg slot
+        if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
+
+            # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+            $PokemonEggInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Egg Count:`n(Example: 267)", ' Archetype Counter')
         
-        # Checks if input was made on VB dialog
-        if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$PokemonEggInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            # Checks if input was made on VB dialog
+            if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$PokemonEggInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
+        }
+
     }
 
     # Checks Left Mouse Click - If so, gives ability to manually increase count
@@ -826,15 +850,21 @@ $ArchetypeCollapsedCount.Add_Click({
     $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"
     $GetConfig = [IO.File]::ReadAllLines("$SetConfig")
     $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
+    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
 
-    # Checks Middle Mouse Click - To manually add Pokemon total count in slot
-    if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
+    # Checks if counter is Active or not (Prevent usage while counter is running)
+    if ($CounterActive -match "False") {
 
-        # Allows manual pre-load of the number value in pokemon seen (Without having to manually increase to a high value number)
-        $PokemonTotalInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for All Pokemon Seen:`n(Example: 267)", ' Archetype Counter')
+        # Checks Middle Mouse Click - To manually add Pokemon total count in slot
+        if ($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) {
+
+            # Allows manual pre-load of the number value in pokemon seen (Without having to manually increase to a high value number)
+            $PokemonTotalInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for All Pokemon Seen:`n(Example: 267)", ' Archetype Counter')
         
-        # Checks if input was made on VB dialog
-        if ($PokemonTotalInput) { $PokemonTotalInput = $PokemonTotalInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$PokemonTotalInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            # Checks if input was made on VB dialog
+            if ($PokemonTotalInput) { $PokemonTotalInput = $PokemonTotalInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$PokemonTotalInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+
+        }
 
     }
 
@@ -905,31 +935,37 @@ $ArchetypePokeAImage.Add_Click({
     $PokemonA = $GetConfig -match "Pokemon_A="; $PokemonA = $PokemonA -replace "Pokemon_A=", ""
     $PokemonCountA = $GetConfig -match "Pokemon_A_Count="; $PokemonCountA = $PokemonCountA -replace "Pokemon_A_Count=", ""
     $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
+    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
 
-    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
-    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonA -notmatch "Blank")) {
+    # Checks if counter is Active or not (Prevent usage while counter is running)
+    if ($CounterActive -match "False") {
 
-        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
-        $PokemonAInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 1 Count:`n(Example: 267)", ' Archetype Counter')
+        # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+        if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonA -notmatch "Blank")) {
+
+            # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+            $PokemonAInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 1 Count:`n(Example: 267)", ' Archetype Counter')
         
-        # Checks if input was made on VB dialog
-        if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonAInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            # Checks if input was made on VB dialog
+            if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonAInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
-    }
+        }
 
-    # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
-    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonA -match "Blank")) {
+        # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
+        if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonA -match "Blank")) {
 
-        # Allows manual pre-load of the Pokemon in counter slot (Without having to find pokemon in the wild)
-        $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot 1:`n(Dex Number Example: 33)", ' Archetype Counter')
-        $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
-        $GetPokeConfig = [IO.File]::ReadAllLines("$SetPokeConfig")
-        $PokemonDexInput = $PokemonDexInput.trimstart('0')
-        $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
-        $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
-        $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_A=.*", "Pokemon_A=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_A_Hover=.*", "Pokemon_A_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+            # Allows manual pre-load of the Pokemon in counter slot (Without having to find pokemon in the wild)
+            $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot 1:`n(Dex Number Example: 33)", ' Archetype Counter')
+            $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
+            $GetPokeConfig = [IO.File]::ReadAllLines("$SetPokeConfig")
+            $PokemonDexInput = $PokemonDexInput.trimstart('0')
+            $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
+            $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
+            $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
+            if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_A=.*", "Pokemon_A=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_A_Hover=.*", "Pokemon_A_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
     
+        }
+
     }
 
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
@@ -1014,15 +1050,21 @@ $ArchetypePokeALabelCount.Add_Click({
     $PokemonA = $GetConfig -match "Pokemon_A="; $PokemonA = $PokemonA -replace "Pokemon_A=", ""
     $PokemonCountA = $GetConfig -match "Pokemon_A_Count="; $PokemonCountA = $PokemonCountA -replace "Pokemon_A_Count=", ""
     $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
+    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
 
-    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
-    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonA -notmatch "Blank")) {
+    # Checks if counter is Active or not (Prevent usage while counter is running)
+    if ($CounterActive -match "False") {
 
-        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
-        $PokemonAInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 1 Count:`n(Example: 267)", ' Archetype Counter')
+        # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+        if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonA -notmatch "Blank")) {
+
+            # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+            $PokemonAInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 1 Count:`n(Example: 267)", ' Archetype Counter')
         
-        # Checks if input was made on VB dialog
-        if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonAInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            # Checks if input was made on VB dialog
+            if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonAInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+
+        }
 
     }
 
@@ -1104,30 +1146,36 @@ $ArchetypePokeBImage.Add_Click({
     $PokemonB = $GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
     $PokemonCountB = $GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
     $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
+    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
 
-    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
-    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonB -notmatch "Blank")) {
+    # Checks if counter is Active or not (Prevent usage while counter is running)
+    if ($CounterActive -match "False") {
 
-        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
-        $PokemonBInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 2 Count:`n(Example: 267)", ' Archetype Counter')
+        # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+        if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonB -notmatch "Blank")) {
+
+            # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+            $PokemonBInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 2 Count:`n(Example: 267)", ' Archetype Counter')
         
-        # Checks if input was made on VB dialog
-        if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonBInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            # Checks if input was made on VB dialog
+            if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonBInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
-    }
+        }
 
-    # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
-    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonB -match "Blank")) {
+        # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
+        if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonB -match "Blank")) {
 
-        # Allows manual pre-load of the Pokemon in counter slot (Without having to find pokemon in the wild)
-        $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot 2:`n(Dex Number Example: 33)", ' Archetype Counter')
-        $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
-        $GetPokeConfig = [IO.File]::ReadAllLines("$SetPokeConfig")
-        $PokemonDexInput = $PokemonDexInput.trimstart('0')
-        $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
-        $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
-        $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+            # Allows manual pre-load of the Pokemon in counter slot (Without having to find pokemon in the wild)
+            $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot 2:`n(Dex Number Example: 33)", ' Archetype Counter')
+            $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
+            $GetPokeConfig = [IO.File]::ReadAllLines("$SetPokeConfig")
+            $PokemonDexInput = $PokemonDexInput.trimstart('0')
+            $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
+            $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
+            $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
+            if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+
+        }
 
     }
 
@@ -1214,16 +1262,22 @@ $ArchetypePokeBLabelCount.Add_Click({
     $PokemonB = $GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
     $PokemonCountB = $GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
     $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
+    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
 
-    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
-    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonB -notmatch "Blank")) {
+    # Checks if counter is Active or not (Prevent usage while counter is running)
+    if ($CounterActive -match "False") {
 
-        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
-        $PokemonBInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 2 Count:`n(Example: 267)", ' Archetype Counter')
+        # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+        if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonB -notmatch "Blank")) {
+
+            # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+            $PokemonBInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 2 Count:`n(Example: 267)", ' Archetype Counter')
         
-        # Checks if input was made on VB dialog
-        if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonBInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            # Checks if input was made on VB dialog
+            if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonBInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
+        }
+
     }
 
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
@@ -1304,30 +1358,36 @@ $ArchetypePokeCImage.Add_Click({
     $PokemonC = $GetConfig -match "Pokemon_C="; $PokemonC = $PokemonC -replace "Pokemon_C=", ""
     $PokemonCountC = $GetConfig -match "Pokemon_C_Count="; $PokemonCountC = $PokemonCountC -replace "Pokemon_C_Count=", ""
     $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
+    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
 
-    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
-    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonC -notmatch "Blank")) {
+    # Checks if counter is Active or not (Prevent usage while counter is running)
+    if ($CounterActive -match "False") {
 
-        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
-        $PokemonCInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 3 Count:`n(Example: 267)", ' Archetype Counter')
+        # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+        if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonC -notmatch "Blank")) {
+
+            # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+            $PokemonCInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 3 Count:`n(Example: 267)", ' Archetype Counter')
         
-        # Checks if input was made on VB dialog
-        if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            # Checks if input was made on VB dialog
+            if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
-    }
+        }
 
-    # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
-    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonC -match "Blank")) {
+        # Checks Right Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon in slot
+        if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Right) -and ($PokemonC -match "Blank")) {
 
-        # Allows manual pre-load of the Pokemon in counter slot (Without having to find pokemon in the wild)
-        $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot 3:`n(Dex Number Example: 33)", ' Archetype Counter')
-        $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
-        $GetPokeConfig = [IO.File]::ReadAllLines("$SetPokeConfig")
-        $PokemonDexInput = $PokemonDexInput.trimstart('0')
-        $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
-        $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
-        $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-        if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_C=.*", "Pokemon_C=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+            # Allows manual pre-load of the Pokemon in counter slot (Without having to find pokemon in the wild)
+            $PokemonDexInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Pokemon Dex Number for Slot 3:`n(Dex Number Example: 33)", ' Archetype Counter')
+            $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
+            $GetPokeConfig = [IO.File]::ReadAllLines("$SetPokeConfig")
+            $PokemonDexInput = $PokemonDexInput.trimstart('0')
+            $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
+            $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
+            $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
+            if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_C=.*", "Pokemon_C=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+
+        }
 
     }
 
@@ -1414,16 +1474,22 @@ $ArchetypePokeCLabelCount.Add_Click({
     $PokemonC = $GetConfig -match "Pokemon_C="; $PokemonC = $PokemonC -replace "Pokemon_C=", ""
     $PokemonCountC = $GetConfig -match "Pokemon_C_Count="; $PokemonCountC = $PokemonCountC -replace "Pokemon_C_Count=", ""
     $TotalPokeSeenCount = $GetConfig -match "Pokemon_Seen_Count="; $TotalPokeSeenCount = $TotalPokeSeenCount -replace "Pokemon_Seen_Count=", ""
+    $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
 
-    # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
-    if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonC -notmatch "Blank")) {
+    # Checks if counter is Active or not (Prevent usage while counter is running)
+    if ($CounterActive -match "False") {
 
-        # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
-        $PokemonCInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 3 Count:`n(Example: 267)", ' Archetype Counter')
+        # Checks Middle Mouse Click & if Poke Counter Slot is blank - To manually add Pokemon total count in slot
+        if (($_.Button -eq [System.Windows.Forms.MouseButtons]::Middle) -and ($PokemonC -notmatch "Blank")) {
+
+            # Allows manual pre-load of the number value in egg slot (Without having to manually increase to a high value number)
+            $PokemonCInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 3 Count:`n(Example: 267)", ' Archetype Counter')
         
-        # Checks if input was made on VB dialog
-        if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            # Checks if input was made on VB dialog
+            if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
+        }
+
     }
 
     # Checks Left Mouse Click & if Poke Counter Slot is blank - If so, gives ability to manually increase count
@@ -2379,7 +2445,9 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool37.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool37)
         if ($PictureMode -match "Default") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Default"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($PictureMode -match "Alternate") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen (Alternate)", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen (Alternate)", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Alternate1") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 1", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 1", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate1"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Alternate2") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 2", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 2", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate2"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Alternate3") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 3", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 3", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate3"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool37.Enabled = $false } else { $ArchetypeMenuStripTool37.Enabled = $true }
 
         # Adds "Hunt Profiles" selection
@@ -2877,7 +2945,7 @@ Function PlayAction {
             string currentDir = acPath + "\\Counter Functions\\Core";    
             System.IO.Directory.SetCurrentDirectory(currentDir);
 
-            bmp.Save("ArchetypeScreenshot.png", ImageFormat.Png);
+            bmp.Save("ArchetypeScreenshot.bmp", ImageFormat.Bmp);
 
             try {
                     return bmp;
@@ -3011,15 +3079,15 @@ Function PlayAction {
         $ScreenCapture = New-Object ScreenCapture 
 
         # PowerShell function to take screenshot of PokeMMO (Not using PrintWindow() method)
-        Function PokeMMOScreenShot { $Handle = (Get-Process -Name 'javaw').MainWindowHandle; $WindowRect = New-Object RECT; $GotWindowRect = [Window]::GetWindowRect($Handle, [ref]$WindowRect); $GetPokeMMO_X = ConvertTo-Json($WindowRect)."Left"; $GetPokeMMO_Y = ConvertTo-Json($WindowRect)."Top"; $GetPokeMMO_Width = ConvertTo-Json($WindowRect)."Right"; $GetPokeMMO_Height = ConvertTo-Json($WindowRect)."Bottom"; $Screen = [System.Windows.Forms.Screen]::PrimaryScreen.Bounds; $Width = ([int]$GetPokeMMO_Width - [int]$GetPokeMMO_X) - 16; $Height = ([int]$GetPokeMMO_Height - [int]$GetPokeMMO_Y) - 39; $Left = [int]$GetPokeMMO_X + 8; $Top = [int]$GetPokeMMO_Y + 31; $ScreenBitmap = New-Object System.Drawing.Bitmap $Width, $Height; $BuiltGraphic = [System.Drawing.Graphics]::FromImage($ScreenBitmap); $BuiltGraphic.CopyFromScreen($Left, $Top, 0, 0, $ScreenBitmap.Size); $FileOutput = "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $ScreenBitmap.Save($FileOutput) }
+        Function PokeMMOScreenShot { $Handle = (Get-Process -Name 'javaw').MainWindowHandle; $WindowRect = New-Object RECT; $GotWindowRect = [Window]::GetWindowRect($Handle, [ref]$WindowRect); $GetPokeMMO_X = ConvertTo-Json($WindowRect)."Left"; $GetPokeMMO_Y = ConvertTo-Json($WindowRect)."Top"; $GetPokeMMO_Width = ConvertTo-Json($WindowRect)."Right"; $GetPokeMMO_Height = ConvertTo-Json($WindowRect)."Bottom"; if ($PictureMode -match "Alternate1") { $Screen = [System.Windows.Forms.Screen]::AllScreens[0].Bounds }; if ($PictureMode -match "Alternate2") { $Screen = [System.Windows.Forms.Screen]::AllScreens[1].Bounds }; if ($PictureMode -match "Alternate3") { $Screen = [System.Windows.Forms.Screen]::AllScreens[2].Bounds }; $Width = ([int]$GetPokeMMO_Width - [int]$GetPokeMMO_X) - 16; $Height = ([int]$GetPokeMMO_Height - [int]$GetPokeMMO_Y) - 39; $Left = [int]$GetPokeMMO_X + 8; $Top = [int]$GetPokeMMO_Y + 31; $ScreenBitmap = New-Object System.Drawing.Bitmap $Width, $Height; $BuiltGraphic = [System.Drawing.Graphics]::FromImage($ScreenBitmap); $BuiltGraphic.CopyFromScreen($Left, $Top, 0, 0, $ScreenBitmap.Size); $FileOutput = "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $ScreenBitmap.Save($FileOutput); $ScreenBitmap.Dispose(); $BuiltGraphic.Dispose() }
 
         # Do loop for the play functionality of the counter
         Do {
 
             # Collects memory garbage - ensures no memory leak (https://docs.microsoft.com/en-us/dotnet/api/system.gc.collect?view=netframework-4.5)
-            [System.GC]::Collect()         
-            [GC]::Collect()
-            [GC]::WaitForPendingFinalizers()
+            #[System.GC]::Collect()         
+            #[GC]::Collect()
+            #[GC]::WaitForPendingFinalizers()
 
                 # Checks if PokeMMO is process is actively running
                 $PokeMMOActive = Get-Process -Name "PokeMMO"
@@ -3028,8 +3096,8 @@ Function PlayAction {
                 if ($PokeMMOActive -ne $null) {
                     
                     # Debugging Loop Speed (WHEN NEEDED)
-                    #$GetLoopSpeed = Get-Date -Format HH:mm:ss.fff; $GetLoopSpeed = "$GetLoopSpeed`n"
-                    #[IO.File]::AppendAllText("$PWD\LoopSpeed.txt", "$GetLoopSpeed")
+                    $GetLoopSpeed = Get-Date -Format HH:mm:ss.fff; $GetLoopSpeed = "$GetLoopSpeed`n"
+                    [IO.File]::AppendAllText("$PWD\LoopSpeed.txt", "$GetLoopSpeed")
 
                     # Loads hunt string from external source (CurrentProfileState.txt file)
                     $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"
@@ -3145,11 +3213,11 @@ Function PlayAction {
                     $GetPixelColor = ''
 
                     # Take/request screenshot of PokeMMO window
-                    if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }
+                    if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot } 
 
                     # Loads the OCR module into a variable
-                    if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language en } }
-                    if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" }
+                    if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language en } }
+                    if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" }
                     $OCRVariable.text; $OCRCaptured = $OCRVariable.text
 
                     # Checks if the word "recieved" and "egg" is on the screenshot
@@ -3179,7 +3247,7 @@ Function PlayAction {
                          Start-Sleep -Milliseconds 10
 
                          # Checks text for "Egg" hunting for OCR scan 
-                         While ((($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\begg\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecu\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\boeuf\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\berhalten\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bei\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecibido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bhuevo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecebido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bricevuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\buovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\botrzymane\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bjajko\b' }))) { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
+                         While ((($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\begg\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecu\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\boeuf\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\berhalten\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bei\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecibido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bhuevo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\brecebido\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\bricevuto\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\buovo\b' })) -or (($OCRCaptured | Where-Object { $_ -match '\botrzymane\b' }) -and ($OCRCaptured | Where-Object { $_ -match '\bjajko\b' }))) { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
 
                          # Properly sets the visibility of start/stop images on counter
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3219,7 +3287,7 @@ Function PlayAction {
                          Start-Sleep -Milliseconds 10
 
                          # Checks text for "Egg" hunting for OCR scan 
-                         While (($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and (($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bSheildon\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
+                         While (($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and (($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bSheildon\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
 
                          # Properly sets the visibility of start/stop images on counter
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3233,7 +3301,7 @@ Function PlayAction {
                     }
 
                     # Loads the "ArchetypeScreenshot" screenshot to read the pixel color value from set coordinates
-                    $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose()
+                    $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose()
                     
                     # (DEBUG - Output necessary files for debugging/diagnosing issues)
                     [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\PixelColorCheck.txt", $GetPixelColor)
@@ -3250,19 +3318,19 @@ Function PlayAction {
                         Start-Sleep -Milliseconds 3700
 
                         # Take/request screenshot of PokeMMO window
-                        if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle); $ArchetypeScreenshot2 = New-Object System.Drawing.Bitmap("$PWD\Counter Functions\Core\ArchetypeScreenshot.png"); $GameWidth = $ArchetypeScreenshot2.Width; $GameHeight = $ArchetypeScreenshot2.Height; $BattleWidth = [math]::Ceiling(($GameWidth- 15.999)*0.7); if ($BattleWidth -le "760") { $BattleWidth = "760" }; $XCropValue = [Math]::Floor(($GameWidth - 15.999 - $BattleWidth) / 2); $WCropValue = $BattleWidth; $RectImage2 = New-Object System.Drawing.Rectangle($XCropValue,50,$WCropValue,300); $CropSlice2 = $ArchetypeScreenshot2.Clone($RectImage2, $ArchetypeScreenshot2.PixelFormat); $CropSlice2.save("$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.png"); $ArchetypeScreenshot2.dispose() } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot; $ArchetypeScreenshot2 = New-Object System.Drawing.Bitmap("$PWD\Counter Functions\Core\ArchetypeScreenshot.png"); $GameWidth = $ArchetypeScreenshot2.Width; $GameHeight = $ArchetypeScreenshot2.Height; $BattleWidth = [math]::Ceiling(($GameWidth- 15.999)*0.7); if ($BattleWidth -le "760") { $BattleWidth = "760" }; $XCropValue = [Math]::Floor(($GameWidth - 15.999 - $BattleWidth) / 2); $WCropValue = $BattleWidth; $RectImage2 = New-Object System.Drawing.Rectangle($XCropValue,50,$WCropValue,300); $CropSlice2 = $ArchetypeScreenshot2.Clone($RectImage2, $ArchetypeScreenshot2.PixelFormat); $CropSlice2.save("$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.png"); $ArchetypeScreenshot2.dispose() }
+                        if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle); $ArchetypeScreenshot2 = New-Object System.Drawing.Bitmap("$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"); $GameWidth = $ArchetypeScreenshot2.Width; $GameHeight = $ArchetypeScreenshot2.Height; $BattleWidth = [math]::Ceiling(($GameWidth- 15.999)*0.7); if ($BattleWidth -le "760") { $BattleWidth = "760" }; $XCropValue = [Math]::Floor(($GameWidth - 15.999 - $BattleWidth) / 2); $WCropValue = $BattleWidth; $RectImage2 = New-Object System.Drawing.Rectangle($XCropValue,50,$WCropValue,300); $CropSlice2 = $ArchetypeScreenshot2.Clone($RectImage2, $ArchetypeScreenshot2.PixelFormat); $CropSlice2.save("$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.bmp"); $ArchetypeScreenshot2.dispose(); $RectImage2.Dispose() } else { PokeMMOScreenShot; $ArchetypeScreenshot2 = New-Object System.Drawing.Bitmap("$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"); $GameWidth = $ArchetypeScreenshot2.Width; $GameHeight = $ArchetypeScreenshot2.Height; $BattleWidth = [math]::Ceiling(($GameWidth- 15.999)*0.7); if ($BattleWidth -le "760") { $BattleWidth = "760" }; $XCropValue = [Math]::Floor(($GameWidth - 15.999 - $BattleWidth) / 2); $WCropValue = $BattleWidth; $RectImage2 = New-Object System.Drawing.Rectangle($XCropValue,50,$WCropValue,300); $CropSlice2 = $ArchetypeScreenshot2.Clone($RectImage2, $ArchetypeScreenshot2.PixelFormat); $CropSlice2.save("$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.bmp"); $ArchetypeScreenshot2.Dispose(); $RectImage2.Dispose() }
 
-                        # ImageMagick call to process ArchetypeScreenshot.png and perform filtering process for Windows OCR
+                        # ImageMagick call to process ArchetypeScreenshot.bmp and perform filtering process for Windows OCR
                         $ImageMagickCall = "$PWD\Counter Functions\Core\InvokeMagickFilter.bat"
                         Start-Process -WindowStyle hidden $ImageMagickCall -Wait
 
                         # Loads the OCR module into a variable
-                        if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.png" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.png" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.png" -Language en } }
-                        if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.png" }
+                        if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" -Language en } }
+                        if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" }
                         $OCRVariable.text; $OCRCaptured = $OCRVariable.text
 
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                        Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshot.png" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.png" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotMagick.png" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.png" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotEncounter.png" -Force
+                        Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshot.bmp" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotMagick.bmp" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotEncounter.bmp" -Force
                         [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_BeforeLogic.txt", $OCRCaptured)
 
                         # Stores 'OCRCaptured' into a variable to check later (For Shiny Pokemon)
@@ -3349,7 +3417,7 @@ Function PlayAction {
                             Start-Sleep -Milliseconds 10
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3379,7 +3447,7 @@ Function PlayAction {
                             Start-Sleep -Milliseconds 10
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3408,7 +3476,7 @@ Function PlayAction {
                         if ([string]::IsNullOrEmpty($OCRCaptured) -or [string]::IsNullOrWhitespace($OCRCaptured) -or $OCRCaptured -eq $null) {
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3432,7 +3500,7 @@ Function PlayAction {
                             [Microsoft.VisualBasic.Interaction]::MsgBox("Unable to scan Pokémon.`n`nThis can occur when the counter fails on scanning properly.`n`n(Increase count manually, if needed.)", "OKOnly,SystemModal,Critical", "Archetype Counter")
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3482,7 +3550,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeAImage.Image = $Script:SyncHashTable.ArchetypePokeAFile
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3516,7 +3584,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypeForm.refresh()
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3564,7 +3632,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeBImage.Image = $Script:SyncHashTable.ArchetypePokeBFile
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3598,7 +3666,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypeForm.refresh()
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3646,7 +3714,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeCImage.Image = $Script:SyncHashTable.ArchetypePokeCFile
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3680,7 +3748,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypeForm.refresh()
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                            While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3694,7 +3762,7 @@ Function PlayAction {
                         } 
 
                         # Checks for pixel color to ensure user is not in battle anymore
-                        While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.png" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.png"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
+                        While ($GetPixelColor -match "fffb00fb" -or $GetPixelColor -match "fd00fdff" -or $GetPixelColor -match "f900f9ff" -or $GetPixelColor -match "fb00fbff" -or $GetPixelColor -match "fff900f9" -or $GetPixelColor -match "fffd00fd") { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { Remove-Item "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Force; PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose() }
 
                         # Properly sets the visibility of start/stop images on counter
                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
