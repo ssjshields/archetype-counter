@@ -3096,8 +3096,8 @@ Function PlayAction {
                 if ($PokeMMOActive -ne $null) {
                     
                     # Debugging Loop Speed (WHEN NEEDED)
-                    $GetLoopSpeed = Get-Date -Format HH:mm:ss.fff; $GetLoopSpeed = "$GetLoopSpeed`n"
-                    [IO.File]::AppendAllText("$PWD\LoopSpeed.txt", "$GetLoopSpeed")
+                    #$GetLoopSpeed = Get-Date -Format HH:mm:ss.fff; $GetLoopSpeed = "$GetLoopSpeed`n"
+                    #[IO.File]::AppendAllText("$PWD\LoopSpeed.txt", "$GetLoopSpeed")
 
                     # Loads hunt string from external source (CurrentProfileState.txt file)
                     $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"
