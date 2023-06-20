@@ -274,7 +274,7 @@ Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawi
 # Loads hunt string from external source (CurrentProfileState.txt file)
 $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"
 $GetProfileConfig = [IO.File]::ReadAllLines("$SetProfileConfig")
-$GetProfile = $GetProfileConfig -match "Current_Hunt_Profile="; $GetProfile = $GetProfile -replace "Current_Hunt_Profile=", ""
+$GetProfile = $GetProfileConfig -match "Current_Hunt_Profile="; $GetProfile = $GetProfile -replace "Current_Hunt_Profile=", ""; $CounterShowProfile = $GetProfile
 $CheckProfile1 = $GetProfileConfig -match "Hunt_Profile_Name_1="; $CheckProfile1 = $CheckProfile1 -replace "Hunt_Profile_Name_1=", ""
 $CheckProfile2 = $GetProfileConfig -match "Hunt_Profile_Name_2="; $CheckProfile2 = $CheckProfile2 -replace "Hunt_Profile_Name_2=", ""
 $CheckProfile3 = $GetProfileConfig -match "Hunt_Profile_Name_3="; $CheckProfile3 = $CheckProfile3 -replace "Hunt_Profile_Name_3=", ""
@@ -2489,7 +2489,7 @@ $ArchetypeImage.Add_MouseDown({
 
         # Add "Current Profile" in use on the bottom counter menu
         $ArchetypeMenuStrip.Items.Add("-")
-        $ArchetypeMenuStrip.Items.Add("Hunt: $GetProfile", $ArchetypeMenuStripCurrentHunt).Enabled = $false
+        $ArchetypeMenuStrip.Items.Add("Hunt: $CounterShowProfile", $ArchetypeMenuStripCurrentHunt).Enabled = $false
 
         # Adds "Windows Info" selections (Greyed out)
         $PSVersionMajor = $PSVersionTable.PSVersion.Major; $PSVersionMinor = $PSVersionTable.PSVersion.Minor; $PSVersionInfo = "$PSVersionMajor" + '.' + "$PSVersionMinor"
@@ -3013,10 +3013,15 @@ Function PlayAction {
                     #$GetLoopSpeed = Get-Date -Format HH:mm:ss.fff; $GetLoopSpeed = "$GetLoopSpeed`n"
                     #[IO.File]::AppendAllText("$PWD\LoopSpeed.txt", "$GetLoopSpeed")
 
-                    # Loads/Sets for Hunt Profile States
+                    # Loads hunt string from external source (CurrentProfileState.txt file)
                     $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"
                     $GetProfileConfig = [IO.File]::ReadAllLines("$SetProfileConfig")
                     $GetProfile = $GetProfileConfig -match "Current_Hunt_Profile="; $GetProfile = $GetProfile -replace "Current_Hunt_Profile=", ""
+
+                    # Loads/Sets for Hunt Profile States
+                    $SetProfileConfig = "$PWD\Counter Config Files\CurrentProfileState.txt"
+                    $GetProfileConfig = [IO.File]::ReadAllLines("$SetProfileConfig")
+                    $GetProfile = $GetProfileConfig -match "Current_Hunt_Profile="; $GetProfile = $GetProfile -replace "Current_Hunt_Profile=", ""; $CounterShowProfile = $GetProfile
                     $CheckProfile1 = $GetProfileConfig -match "Hunt_Profile_Name_1="; $CheckProfile1 = $CheckProfile1 -replace "Hunt_Profile_Name_1=", ""
                     $CheckProfile2 = $GetProfileConfig -match "Hunt_Profile_Name_2="; $CheckProfile2 = $CheckProfile2 -replace "Hunt_Profile_Name_2=", ""
                     $CheckProfile3 = $GetProfileConfig -match "Hunt_Profile_Name_3="; $CheckProfile3 = $CheckProfile3 -replace "Hunt_Profile_Name_3=", ""
