@@ -3081,8 +3081,14 @@ Function PlayAction {
         # PowerShell function to take screenshot of PokeMMO (Not using PrintWindow() method)
         Function PokeMMOScreenShot { $Handle = (Get-Process -Name 'javaw').MainWindowHandle; $WindowRect = New-Object RECT; $GotWindowRect = [Window]::GetWindowRect($Handle, [ref]$WindowRect); $GetPokeMMO_X = ConvertTo-Json($WindowRect)."Left"; $GetPokeMMO_Y = ConvertTo-Json($WindowRect)."Top"; $GetPokeMMO_Width = ConvertTo-Json($WindowRect)."Right"; $GetPokeMMO_Height = ConvertTo-Json($WindowRect)."Bottom"; if ($PictureMode -match "Alternate1") { $Screen = [System.Windows.Forms.Screen]::AllScreens[0].Bounds }; if ($PictureMode -match "Alternate2") { $Screen = [System.Windows.Forms.Screen]::AllScreens[1].Bounds }; if ($PictureMode -match "Alternate3") { $Screen = [System.Windows.Forms.Screen]::AllScreens[2].Bounds }; $Width = ([int]$GetPokeMMO_Width - [int]$GetPokeMMO_X) - 16; $Height = ([int]$GetPokeMMO_Height - [int]$GetPokeMMO_Y) - 39; $Left = [int]$GetPokeMMO_X + 8; $Top = [int]$GetPokeMMO_Y + 31; $ScreenBitmap = New-Object System.Drawing.Bitmap $Width, $Height; $BuiltGraphic = [System.Drawing.Graphics]::FromImage($ScreenBitmap); $BuiltGraphic.CopyFromScreen($Left, $Top, 0, 0, $ScreenBitmap.Size); $FileOutput = "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $ScreenBitmap.Save($FileOutput); $ScreenBitmap.Dispose(); $BuiltGraphic.Dispose() }
 
+        # Grabs counter process and checks for total memory usage
+        $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
+
         # Do loop for the play functionality of the counter
         Do {
+
+                # Checks for counter memory limit - if it ever happens
+                $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                 # Checks if PokeMMO is process is actively running
                 $PokeMMOActive = Get-Process -Name "PokeMMO"
@@ -3247,9 +3253,6 @@ Function PlayAction {
                          # Properly sets the visibility of start/stop images on counter
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
-                         # Grabs counter process and checks for total memory usage
-                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-        
                          # Break current loop and re-try
                          Continue
 
@@ -3282,13 +3285,10 @@ Function PlayAction {
                          Start-Sleep -Milliseconds 10
 
                          # Checks text for "Egg" hunting for OCR scan 
-                         While (($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and (($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bSheildon\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
+                         While (($OCRCaptured | Where-Object { $_ -match '\breceived\b' }) -and (($OCRCaptured | Where-Object { $_ -match '\bAerodactyl\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bArchen\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bCranidos\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bTirtouga\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bAnorith\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bOmanyte\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bShieldon\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bKabuto\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bAmonita\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bAmonitas\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bPtéra\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bArkéapti\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bFlapteryx\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bKoknodon\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bKranidos\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bCarapagos\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bGalapaflos\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bLilia\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bLiliep\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bDinoclier\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bSchilterus\b' }) -or ($OCRCaptured | Where-Object { $_ -match '\bLileep\b' }))) { if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
 
                          # Properly sets the visibility of start/stop images on counter
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
-
-                         # Grabs counter process and checks for total memory usage
-                         $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                          # Break current loop and re-try
                          Continue
@@ -3417,9 +3417,6 @@ Function PlayAction {
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
-                            # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-
                             # Break current loop and re-try
                             Continue
 
@@ -3447,9 +3444,6 @@ Function PlayAction {
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
-                            # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-
                             # Break current loop and re-try
                             Continue
                         
@@ -3476,9 +3470,6 @@ Function PlayAction {
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
-                            # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-
                             # Break current loop and re-try
                             Continue
 
@@ -3499,9 +3490,6 @@ Function PlayAction {
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
-
-                            # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3549,10 +3537,7 @@ Function PlayAction {
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
-
-                            # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-
+                            
                             # Break current loop and re-try
                             Continue
 
@@ -3583,9 +3568,6 @@ Function PlayAction {
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
-
-                            # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3632,9 +3614,6 @@ Function PlayAction {
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
-                            # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-
                             # Break current loop and re-try
                             Continue
 
@@ -3665,9 +3644,6 @@ Function PlayAction {
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
-
-                            # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                             # Break current loop and re-try
                             Continue
@@ -3714,9 +3690,6 @@ Function PlayAction {
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
-                            # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-
                             # Break current loop and re-try
                             Continue
 
@@ -3748,9 +3721,6 @@ Function PlayAction {
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
-                            # Grabs counter process and checks for total memory usage
-                            $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
-
                             # Break current loop and re-try
                             Continue
 
@@ -3761,9 +3731,6 @@ Function PlayAction {
 
                         # Properly sets the visibility of start/stop images on counter
                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
-
-                        # Grabs counter process and checks for total memory usage
-                        $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }; $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                     }
 
