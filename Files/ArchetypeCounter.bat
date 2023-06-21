@@ -2539,7 +2539,7 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool9.Text = 'Total Current Counts'
         $ArchetypeMenuStripTool9.Image = $ArchetypeMenuStripCount
         $ArchetypeMenuStripTool9.DropDownItems.Add("-").Enabled = $false
-        $ArchetypeMenuStripTool9.DropDownItems.Add("TOTAL CURRENT COUNTS::", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool9.DropDownItems.Add("TOTAL CURRENT COUNTS:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool9.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool9)
         $ArchetypeMenuStripTool9.DropDownItems.Add("Total Counted (Slots+Egg+Fossil): $TotalCount", $ArchetypeMenuStripToolNumber1).Enabled = $false
