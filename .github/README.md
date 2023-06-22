@@ -8,6 +8,8 @@ Does not hook into the PokeMMO or javaw process. Utilizes Imagemagick and OCR te
 
 Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lovers. Feel like exploring? Give our [client theme](https://github.com/ssjshields/archetype#readme) a try.
 
+**Requires Windows 10+**
+
 &nbsp;
 # Features
 🚀 opens PokeMMO if not found
@@ -46,11 +48,6 @@ to be updated shortly
 
 ![fossil expand](https://github.com/ssjshields/archetype-counter/assets/88489119/0034da2d-853b-42e7-9548-a0eab426b89b)
 
-
-&nbsp;
-# Prerequisites
-
-**Requires Windows 10+**
 
 &nbsp;
 # Expectations
