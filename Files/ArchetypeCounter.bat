@@ -3220,6 +3220,9 @@ Function PlayAction {
                          $Script:SyncHashTable.ArchetypeForm.update()
                          $Script:SyncHashTable.ArchetypeForm.refresh()
 
+                         # Performs "Beep" system sound to indicate count happened (When it is enabled)
+                         if ($BeepSound -match "True") { [System.Console]::Beep(180,400) }
+
                          # Wait
                          Start-Sleep -Milliseconds 10
 
@@ -3256,6 +3259,9 @@ Function PlayAction {
                          # Ensures everything on form is updated/refreshed
                          $Script:SyncHashTable.ArchetypeForm.update()
                          $Script:SyncHashTable.ArchetypeForm.refresh()
+
+                         # Performs "Beep" system sound to indicate count happened (When it is enabled)
+                         if ($BeepSound -match "True") { [System.Console]::Beep(180,400) }
 
                          # Small delay (To help avoid clearing the count profile)
                          Start-Sleep -Milliseconds 10
@@ -3343,6 +3349,9 @@ Function PlayAction {
                         $Script:SyncHashTable.ArchetypeForm.update()
                         $Script:SyncHashTable.ArchetypeForm.refresh()
 
+                        # Performs "Beep" system sound to indicate count happened (When it is enabled)
+                        if ($BeepSound -match "True") { [System.Console]::Beep(180,400) }
+
                         # Counts number of lines for a Pokemon HORDE
                         $OCRCapturedHordeNumber = ($OCRCaptured | Measure-Object -Line).Lines; if ($OCRCapturedHordeNumber -eq "1") { $OCRCapturedHordeNumber = 0 }
                         if ($OCRCapturedHordeNumber -gt "1") { $OCRCaptured = $OCRCaptured | Select-Object -First 1 -Skip 2 }
@@ -3359,9 +3368,6 @@ Function PlayAction {
                         $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "\b$OCRCaptured\b" } | Select -First 1
                         $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
                         $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-                        
-                        # Performs "Beep" system sound to indicate count happened (When it is enabled)
-                        if ($BeepSound -match "True") { [System.Console]::Beep(180,400) }
 
                         # Checks if current just seen pokemon is a "Shiny"
                         if ($OCRCapturedShiny -match $true) {
