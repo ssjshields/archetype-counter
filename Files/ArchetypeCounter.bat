@@ -314,6 +314,7 @@ $PictureMode = $GetConfig -match "Picture_Mode="; $PictureMode = $PictureMode -r
 # ------------------------------------------------
 $AutoRestartCounter = $GetConfig -match "Auto_Restart_Counter="; $AutoRestartCounter = $AutoRestartCounter -replace "Auto_Restart_Counter=", ""
 $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
+$BeepSound = $GetConfig -match "Beep_Sound="; $BeepSound = $BeepSound -replace "Beep_Sound=", ""
 # ------------------------------------------------
 $AlwaysOnTop = $GetConfig -match "Always_On_Top="; $AlwaysOnTop = $AlwaysOnTop -replace "Always_On_Top=", ""
 # ------------------------------------------------
@@ -1714,6 +1715,7 @@ $ArchetypeImage.Add_MouseDown({
         # ------------------------------------------------
         $AutoRestartCounter = $GetConfig -match "Auto_Restart_Counter="; $AutoRestartCounter = $AutoRestartCounter -replace "Auto_Restart_Counter=", ""
         $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
+        $BeepSound = $GetConfig -match "Beep_Sound="; $BeepSound = $BeepSound -replace "Beep_Sound=", ""
         # ------------------------------------------------
         $AlwaysOnTop = $GetConfig -match "Always_On_Top="; $AlwaysOnTop = $AlwaysOnTop -replace "Always_On_Top=", ""
         # ------------------------------------------------
@@ -1806,6 +1808,7 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripReadme = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Readme.png")
         $ArchetypeMenuStripPrintWindow = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\PrintWindow.png")
         $ArchetypeMenuStripPrintScreen = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\PrintScreen.png")
+        $ArchetypeMenuStripToolBeepSound = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\BeepSound.png")
         
         # Adds Counter Menu - Header
         $ArchetypeMenuStrip.Items.Add("-")
@@ -2505,9 +2508,9 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool3.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool3)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool3.Enabled = $false } else { $ArchetypeMenuStripTool3.Enabled = $true }
-        if ($AlwaysOnTop -match "True") { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Enabled" } else { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Disabled" }
-        $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ if ($AlwaysOnTop -match "True") { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=False" } else { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=True" }; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        if ($AlwaysOnTop -match "True") { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Enabled" } else { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ if ($AlwaysOnTop -match "True") { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=False" } else { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=True" }; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
         if ($IgnoreSystemLang -match "True") { $PokeMMOMenuSystemLangText = "Ignore System Language: True" } else { $PokeMMOMenuSystemLangText = "Ignore System Language: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuSystemLangText", $ArchetypeMenuStripToolSystemLanguage).add_Click({ if ($IgnoreSystemLang -match "True") { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=False" } else { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=True" }; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        if ($BeepSound -match "True") { $SoundModeText = "Beep Count Sound: Enabled" } else { $SoundModeText = "Beep Count Sound: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$SoundModeText", $ArchetypeMenuStripToolBeepSound).add_Click({ if ($BeepSound -match "True") { $GetConfig = $GetConfig -replace "Beep_Sound=.*", "Beep_Sound=False" } else { $GetConfig = $GetConfig -replace "Beep_Sound=.*", "Beep_Sound=True" }; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
         $ArchetypeMenuStripTool3.DropDownItems.Add("-")
         $ArchetypeMenuStripTool3.DropDownItems.Add("Archetype Counter Uninstaller", $ArchetypeMenuStripUninstall).add_Click({ $UninstallACDialog = [System.Windows.MessageBox]::Show("Would you like to uninstall Archetype Counter?","  Archetype Counter","YesNo","Warning"); if ($UninstallACDialog -match "Yes") { [System.Windows.MessageBox]::Show("Thank you for using Archetype Counter!","  Archetype Counter","OK","Asterisk"); $ThemeNames = (Get-ChildItem "$PokeMMOWorkingDir\data\themes" -directory).Name; $SetThemeConfig = "$PokeMMOWorkingDir\data\themes\$ThemeName\theme.xml"; $GetThemeConfig = [IO.File]::ReadAllLines("$SetThemeConfig"); foreach ($ThemeName in $ThemeNames) { Remove-Item "$PokeMMOWorkingDir\data\themes\$ThemeName\AC" -Recurse -Force; $GetThemeConfig = $GetThemeConfig -replace '<include filename="AC/1.0_Scaling.xml"/>',''; [IO.File]::WriteAllLines($SetThemeConfig, $GetThemeConfig) }; Start-Process -WindowStyle hidden "$PWD\Counter Functions\Uninstaller\Uninstaller.bat"; [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force } })
 
@@ -3130,6 +3133,7 @@ Function PlayAction {
                     $PictureMode = $GetConfig -match "Picture_Mode="; $PictureMode = $PictureMode -replace "Picture_Mode=", ""
                     # ------------------------------------------------
                     $CounterActive = $GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
+                    $BeepSound = $GetConfig -match "Beep_Sound="; $BeepSound = $BeepSound -replace "Beep_Sound=", ""
                     # ------------------------------------------------
                     $SetLanguage = $GetConfig -match "Set_Language="; $SetLanguage = $SetLanguage -replace "Set_Language=", ""
                     $IgnoreSystemLang = $GetConfig -match "Ignore_System_Language="; $IgnoreSystemLang = $IgnoreSystemLang -replace "Ignore_System_Language=", ""
@@ -3356,6 +3360,9 @@ Function PlayAction {
                         $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
                         $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
                         
+                        # Performs "Beep" system sound to indicate count happened (When it is enabled)
+                        if ($BeepSound -match "True") { [System.Console]::Beep(180,400) }
+
                         # Checks if current just seen pokemon is a "Shiny"
                         if ($OCRCapturedShiny -match $true) {
 

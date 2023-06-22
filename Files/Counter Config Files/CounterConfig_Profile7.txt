@@ -23,6 +23,7 @@ Picture_Mode=Default
 Auto_Restart_Counter=False
 Always_On_Top=True
 Counter_Active=False
+Beep_Sound=False
 -------------------------------
 Set_Language=English
 Ignore_System_Language=False
