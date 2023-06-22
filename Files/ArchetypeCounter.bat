@@ -1823,7 +1823,7 @@ $ArchetypeImage.Add_MouseDown({
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool1.Enabled = $false } else { $ArchetypeMenuStripTool1.Enabled = $true }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($SetLanguage -match "English") { $ArchetypeMenuStripTool1.DropDownItems.Add("English", $ArchetypeMenuStripEnglish).Enabled = $false } else {
+        if ($SetLanguage -match "English") { $ArchetypeMenuStripTool1.DropDownItems.Add("-> English", $ArchetypeMenuStripEnglish).Enabled = $false } else {
 
             # Adds click to "English" selection  
             $ArchetypeMenuStripTool1.DropDownItems.Add("English", $ArchetypeMenuStripEnglish).add_Click({ 
@@ -1845,7 +1845,7 @@ $ArchetypeImage.Add_MouseDown({
         }
     
         # Checks if sub selection needs to be enabled or disabled
-        if ($SetLanguage -match "French") { $ArchetypeMenuStripTool1.DropDownItems.Add("Français (French)", $ArchetypeMenuStripFrench).Enabled = $false } else {
+        if ($SetLanguage -match "French") { $ArchetypeMenuStripTool1.DropDownItems.Add("-> Français (French)", $ArchetypeMenuStripFrench).Enabled = $false } else {
 
             # Adds click to "French" selection 
             $ArchetypeMenuStripTool1.DropDownItems.Add("Français (French)", $ArchetypeMenuStripFrench).add_Click({ 
@@ -1867,7 +1867,7 @@ $ArchetypeImage.Add_MouseDown({
         }
     
         # Checks if sub selection needs to be enabled or disabled
-        if ($SetLanguage -match "German") { $ArchetypeMenuStripTool1.DropDownItems.Add("Deutsch (German)", $ArchetypeMenuStripGerman).Enabled = $false } else {
+        if ($SetLanguage -match "German") { $ArchetypeMenuStripTool1.DropDownItems.Add("-> Deutsch (German)", $ArchetypeMenuStripGerman).Enabled = $false } else {
 
             # Adds click to "German" selection 
             $ArchetypeMenuStripTool1.DropDownItems.Add("Deutsch (German)", $ArchetypeMenuStripGerman).add_Click({ 
@@ -1889,7 +1889,7 @@ $ArchetypeImage.Add_MouseDown({
         }
     
         # Checks if sub selection needs to be enabled or disabled
-        if ($SetLanguage -match "Spanish") { $ArchetypeMenuStripTool1.DropDownItems.Add("Español (Spanish)", $ArchetypeMenuStripSpanish).Enabled = $false } else {
+        if ($SetLanguage -match "Spanish") { $ArchetypeMenuStripTool1.DropDownItems.Add("-> Español (Spanish)", $ArchetypeMenuStripSpanish).Enabled = $false } else {
 
             # Adds click to "Spanish" selection 
             $ArchetypeMenuStripTool1.DropDownItems.Add("Español (Spanish)", $ArchetypeMenuStripSpanish).add_Click({ 
@@ -1911,7 +1911,7 @@ $ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($SetLanguage -match "Brazilian_Portuguese") { $ArchetypeMenuStripTool1.DropDownItems.Add("Português Brasileiro (Brazilian Portuguese)", $ArchetypeMenuStripBrazilianPortuguese).Enabled = $false } else {
+        if ($SetLanguage -match "Brazilian_Portuguese") { $ArchetypeMenuStripTool1.DropDownItems.Add("-> Português Brasileiro (Brazilian Portuguese)", $ArchetypeMenuStripBrazilianPortuguese).Enabled = $false } else {
 
             # Adds click to "Brazilian Portuguese" selection
             $ArchetypeMenuStripTool1.DropDownItems.Add("Português Brasileiro (Brazilian Portuguese)", $ArchetypeMenuStripBrazilianPortuguese).add_Click({ 
@@ -1933,7 +1933,7 @@ $ArchetypeImage.Add_MouseDown({
         }
     
         # Checks if sub selection needs to be enabled or disabled
-        if ($SetLanguage -match "Italian") { $ArchetypeMenuStripTool1.DropDownItems.Add("Italiano (Italian)", $ArchetypeMenuStripItalian).Enabled = $false } else {
+        if ($SetLanguage -match "Italian") { $ArchetypeMenuStripTool1.DropDownItems.Add("-> Italiano (Italian)", $ArchetypeMenuStripItalian).Enabled = $false } else {
 
             # Adds click to "Italian" selection
             $ArchetypeMenuStripTool1.DropDownItems.Add("Italiano (Italian)", $ArchetypeMenuStripItalian).add_Click({ 
@@ -1955,7 +1955,7 @@ $ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($SetLanguage -match "Polish") { $ArchetypeMenuStripTool1.DropDownItems.Add("Polski (Polish)", $ArchetypeMenuStripPolish).Enabled = $false } else {
+        if ($SetLanguage -match "Polish") { $ArchetypeMenuStripTool1.DropDownItems.Add("-> Polski (Polish)", $ArchetypeMenuStripPolish).Enabled = $false } else {
 
             # Adds click to "Italian" selection
             $ArchetypeMenuStripTool1.DropDownItems.Add("Polski (Polish)", $ArchetypeMenuStripPolish).add_Click({ 
@@ -1987,7 +1987,7 @@ $ArchetypeImage.Add_MouseDown({
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool2.Enabled = $false } else { $ArchetypeMenuStripTool2.Enabled = $true }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($ThemeType -match "Archetype") { $ArchetypeMenuStripTool2.DropDownItems.Add("Archetype", $ArchetypeMenuStripMain).Enabled = $false } else {
+        if ($ThemeType -match "Archetype") { $ArchetypeMenuStripTool2.DropDownItems.Add("-> Archetype", $ArchetypeMenuStripMain).Enabled = $false } else {
     
             # Adds click to "Archetype" selection
             $ArchetypeMenuStripTool2.DropDownItems.Add("Archetype", $ArchetypeMenuStripMain).add_Click({ 
@@ -2009,7 +2009,7 @@ $ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($ThemeType -match "Default") { $ArchetypeMenuStripTool2.DropDownItems.Add("Default", $ArchetypeMenuStripPokeMMO).Enabled = $false } else {
+        if ($ThemeType -match "Default") { $ArchetypeMenuStripTool2.DropDownItems.Add("-> Default", $ArchetypeMenuStripPokeMMO).Enabled = $false } else {
     
             # Adds click to "Default" selection
             $ArchetypeMenuStripTool2.DropDownItems.Add("Default", $ArchetypeMenuStripPokeMMO).add_Click({ 
@@ -2032,7 +2032,7 @@ $ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($ThemeType -match "Custom") { $ArchetypeMenuStripTool2.DropDownItems.Add("Custom", $ArchetypeMenuStripCustom).Enabled = $false } else {
+        if ($ThemeType -match "Custom") { $ArchetypeMenuStripTool2.DropDownItems.Add("-> Custom", $ArchetypeMenuStripCustom).Enabled = $false } else {
 
             # Adds click to "Custom" selection
             $ArchetypeMenuStripTool2.DropDownItems.Add("Custom", $ArchetypeMenuStripCustom).add_Click({ 
@@ -2064,7 +2064,7 @@ $ArchetypeImage.Add_MouseDown({
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool11.Enabled = $false } else { $ArchetypeMenuStripTool11.Enabled = $true }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($SpriteType -match "Default") { $ArchetypeMenuStripTool11.DropDownItems.Add("Default", $ArchetypeMenuStripToolDefault).Enabled = $false } else {
+        if ($SpriteType -match "Default") { $ArchetypeMenuStripTool11.DropDownItems.Add("-> Default", $ArchetypeMenuStripToolDefault).Enabled = $false } else {
     
             # Adds click to "Default" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Default", $ArchetypeMenuStripToolDefault).add_Click({ 
@@ -2086,7 +2086,7 @@ $ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($SpriteType -match "3DS") { $ArchetypeMenuStripTool11.DropDownItems.Add("3DS", $ArchetypeMenuStripTool3DS).Enabled = $false } else {
+        if ($SpriteType -match "3DS") { $ArchetypeMenuStripTool11.DropDownItems.Add("-> 3DS", $ArchetypeMenuStripTool3DS).Enabled = $false } else {
 
             # Adds click to "3DS" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("3DS", $ArchetypeMenuStripTool3DS).add_Click({ 
@@ -2108,7 +2108,7 @@ $ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($SpriteType -match "Gen8") { $ArchetypeMenuStripTool11.DropDownItems.Add("Gen 8", $ArchetypeMenuStripToolGen8).Enabled = $false } else {
+        if ($SpriteType -match "Gen8") { $ArchetypeMenuStripTool11.DropDownItems.Add("-> Gen 8", $ArchetypeMenuStripToolGen8).Enabled = $false } else {
 
             # Adds click to "Gen8" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Gen 8", $ArchetypeMenuStripToolGen8).add_Click({ 
@@ -2130,7 +2130,7 @@ $ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($SpriteType -match "Home") { $ArchetypeMenuStripTool11.DropDownItems.Add("Home", $ArchetypeMenuStripToolHome).Enabled = $false } else {
+        if ($SpriteType -match "Home") { $ArchetypeMenuStripTool11.DropDownItems.Add("-> Home", $ArchetypeMenuStripToolHome).Enabled = $false } else {
 
             # Adds click to "Shuffle" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Home", $ArchetypeMenuStripToolHome).add_Click({ 
@@ -2152,7 +2152,7 @@ $ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($SpriteType -match "Shuffle") { $ArchetypeMenuStripTool11.DropDownItems.Add("Shuffle", $ArchetypeMenuStripToolShuffle).Enabled = $false } else {
+        if ($SpriteType -match "Shuffle") { $ArchetypeMenuStripTool11.DropDownItems.Add("-> Shuffle", $ArchetypeMenuStripToolShuffle).Enabled = $false } else {
 
             # Adds click to "Shuffle" selection 
             $ArchetypeMenuStripTool11.DropDownItems.Add("Shuffle", $ArchetypeMenuStripToolShuffle).add_Click({ 
@@ -2184,10 +2184,10 @@ $ArchetypeImage.Add_MouseDown({
         if ($CounterActive -match "True" -or $CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool5.Enabled = $false } else { $ArchetypeMenuStripTool5.Enabled = $true }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($DetectionCount -match "1") { $ArchetypeMenuStripTool5.DropDownItems.Add("1 - Displays one Pokemon", $ArchetypeMenuStripToolNumber1).Enabled = $false } else {
+        if ($DetectionCount -match "1") { $ArchetypeMenuStripTool5.DropDownItems.Add("-> 1 (Displays one Pokemon)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else {
 
             # Adds click to "1" selection 
-            $ArchetypeMenuStripTool5.DropDownItems.Add("1 - Displays one Pokemon", $ArchetypeMenuStripToolNumber1).add_Click({ 
+            $ArchetypeMenuStripTool5.DropDownItems.Add("1 (Displays one Pokemon)", $ArchetypeMenuStripToolNumber1).add_Click({ 
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Detection_Count=.*", "Detection_Count=1"
@@ -2206,10 +2206,10 @@ $ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($DetectionCount -match "2") { $ArchetypeMenuStripTool5.DropDownItems.Add("2 - Displays two Pokemon", $ArchetypeMenuStripToolNumber2).Enabled = $false } else {
+        if ($DetectionCount -match "2") { $ArchetypeMenuStripTool5.DropDownItems.Add("-> 2 (Displays two Pokemon)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else {
     
             # Adds click to "2" selection 
-            $ArchetypeMenuStripTool5.DropDownItems.Add("2 - Displays two Pokemon", $ArchetypeMenuStripToolNumber2).add_Click({ 
+            $ArchetypeMenuStripTool5.DropDownItems.Add("2 (Displays two Pokemon)", $ArchetypeMenuStripToolNumber2).add_Click({ 
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Detection_Count=.*", "Detection_Count=2"
@@ -2228,10 +2228,10 @@ $ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($DetectionCount -match "3") { $ArchetypeMenuStripTool5.DropDownItems.Add("3 - Displays three Pokemon", $ArchetypeMenuStripToolNumber3).Enabled = $false } else {
+        if ($DetectionCount -match "3") { $ArchetypeMenuStripTool5.DropDownItems.Add("-> 3 (Displays three Pokemon)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else {
 
             # Adds click to "3" selection 
-            $ArchetypeMenuStripTool5.DropDownItems.Add("3 - Displays three Pokemon", $ArchetypeMenuStripToolNumber3).add_Click({ 
+            $ArchetypeMenuStripTool5.DropDownItems.Add("3 (Displays three Pokemon)", $ArchetypeMenuStripToolNumber3).add_Click({ 
         
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $GetConfig = $GetConfig -replace "Detection_Count=.*", "Detection_Count=3"
@@ -2430,11 +2430,11 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool21.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool21)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool21.Enabled = $false } else { $ArchetypeMenuStripTool21.Enabled = $true }
-        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }  
-        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Encounter"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }   
-        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolNumber1).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolNumber2).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }  
+        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolNumber3).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Encounter"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }   
+        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolNumber4).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolNumber5).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
 
         # Adds "Picture Mode" selection
         $ArchetypeMenuStripTool37 = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -2444,10 +2444,10 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool37.DropDownItems.Add("PICTURE MODE:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool37.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool37)
-        if ($PictureMode -match "Default") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Default"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($PictureMode -match "Alternate1") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 1", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 1", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate1"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($PictureMode -match "Alternate2") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 2", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 2", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate2"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($PictureMode -match "Alternate3") { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 3", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 3", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate3"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Default") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Default"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Alternate1") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen - Screen 1", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 1", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate1"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Alternate2") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen - Screen 2", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 2", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate2"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Alternate3") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen - Screen 3", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 3", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate3"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool37.Enabled = $false } else { $ArchetypeMenuStripTool37.Enabled = $true }
 
         # Adds "Hunt Profiles" selection
@@ -2459,16 +2459,16 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool15.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool15)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool15.Enabled = $false } else { $ArchetypeMenuStripTool15.Enabled = $true }
-        if ($GetProfile -match "Profile1") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile1", $ArchetypeMenuStripToolProfile1).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile1", $ArchetypeMenuStripToolProfile1).Add_Click({ $HuntName1Replace = $GetProfileConfig -match "Hunt_Profile_Name_1="; $HuntName1Replace = $HuntName1Replace -replace "Hunt_Profile_Name_1=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName1Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile2") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile2", $ArchetypeMenuStripToolProfile2).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile2", $ArchetypeMenuStripToolProfile2).Add_Click({ $HuntName2Replace = $GetProfileConfig -match "Hunt_Profile_Name_2="; $HuntName2Replace = $HuntName2Replace -replace "Hunt_Profile_Name_2=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName2Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile3") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile3", $ArchetypeMenuStripToolProfile3).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile3", $ArchetypeMenuStripToolProfile3).Add_Click({ $HuntName3Replace = $GetProfileConfig -match "Hunt_Profile_Name_3="; $HuntName3Replace = $HuntName3Replace -replace "Hunt_Profile_Name_3=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName3Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile4") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile4", $ArchetypeMenuStripToolProfile4).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile4", $ArchetypeMenuStripToolProfile4).Add_Click({ $HuntName4Replace = $GetProfileConfig -match "Hunt_Profile_Name_4="; $HuntName4Replace = $HuntName4Replace -replace "Hunt_Profile_Name_4=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName4Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile5") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile5", $ArchetypeMenuStripToolProfile5).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile5", $ArchetypeMenuStripToolProfile5).Add_Click({ $HuntName5Replace = $GetProfileConfig -match "Hunt_Profile_Name_5="; $HuntName5Replace = $HuntName5Replace -replace "Hunt_Profile_Name_5=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName5Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile6") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile6", $ArchetypeMenuStripToolProfile6).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile6", $ArchetypeMenuStripToolProfile6).Add_Click({ $HuntName6Replace = $GetProfileConfig -match "Hunt_Profile_Name_6="; $HuntName6Replace = $HuntName6Replace -replace "Hunt_Profile_Name_6=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName6Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile7") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile7", $ArchetypeMenuStripToolProfile7).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile7", $ArchetypeMenuStripToolProfile7).Add_Click({ $HuntName7Replace = $GetProfileConfig -match "Hunt_Profile_Name_7="; $HuntName7Replace = $HuntName7Replace -replace "Hunt_Profile_Name_7=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName7Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile8") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile8", $ArchetypeMenuStripToolProfile8).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile8", $ArchetypeMenuStripToolProfile8).Add_Click({ $HuntName8Replace = $GetProfileConfig -match "Hunt_Profile_Name_8="; $HuntName8Replace = $HuntName8Replace -replace "Hunt_Profile_Name_8=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName8Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolProfile9).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolProfile9).Add_Click({ $HuntName9Replace = $GetProfileConfig -match "Hunt_Profile_Name_9="; $HuntName9Replace = $HuntName9Replace -replace "Hunt_Profile_Name_9=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName9Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolProfile10).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolProfile10).Add_Click({ $HuntName10Replace = $GetProfileConfig -match "Hunt_Profile_Name_10="; $HuntName10Replace = $HuntName10Replace -replace "Hunt_Profile_Name_10=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName10Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile1") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile1", $ArchetypeMenuStripToolProfile1).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile1", $ArchetypeMenuStripToolProfile1).Add_Click({ $HuntName1Replace = $GetProfileConfig -match "Hunt_Profile_Name_1="; $HuntName1Replace = $HuntName1Replace -replace "Hunt_Profile_Name_1=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName1Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile2") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile2", $ArchetypeMenuStripToolProfile2).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile2", $ArchetypeMenuStripToolProfile2).Add_Click({ $HuntName2Replace = $GetProfileConfig -match "Hunt_Profile_Name_2="; $HuntName2Replace = $HuntName2Replace -replace "Hunt_Profile_Name_2=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName2Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile3") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile3", $ArchetypeMenuStripToolProfile3).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile3", $ArchetypeMenuStripToolProfile3).Add_Click({ $HuntName3Replace = $GetProfileConfig -match "Hunt_Profile_Name_3="; $HuntName3Replace = $HuntName3Replace -replace "Hunt_Profile_Name_3=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName3Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile4") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile4", $ArchetypeMenuStripToolProfile4).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile4", $ArchetypeMenuStripToolProfile4).Add_Click({ $HuntName4Replace = $GetProfileConfig -match "Hunt_Profile_Name_4="; $HuntName4Replace = $HuntName4Replace -replace "Hunt_Profile_Name_4=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName4Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile5") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile5", $ArchetypeMenuStripToolProfile5).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile5", $ArchetypeMenuStripToolProfile5).Add_Click({ $HuntName5Replace = $GetProfileConfig -match "Hunt_Profile_Name_5="; $HuntName5Replace = $HuntName5Replace -replace "Hunt_Profile_Name_5=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName5Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile6") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile6", $ArchetypeMenuStripToolProfile6).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile6", $ArchetypeMenuStripToolProfile6).Add_Click({ $HuntName6Replace = $GetProfileConfig -match "Hunt_Profile_Name_6="; $HuntName6Replace = $HuntName6Replace -replace "Hunt_Profile_Name_6=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName6Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile7") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile7", $ArchetypeMenuStripToolProfile7).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile7", $ArchetypeMenuStripToolProfile7).Add_Click({ $HuntName7Replace = $GetProfileConfig -match "Hunt_Profile_Name_7="; $HuntName7Replace = $HuntName7Replace -replace "Hunt_Profile_Name_7=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName7Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile8") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile8", $ArchetypeMenuStripToolProfile8).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile8", $ArchetypeMenuStripToolProfile8).Add_Click({ $HuntName8Replace = $GetProfileConfig -match "Hunt_Profile_Name_8="; $HuntName8Replace = $HuntName8Replace -replace "Hunt_Profile_Name_8=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName8Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile9", $ArchetypeMenuStripToolProfile9).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolProfile9).Add_Click({ $HuntName9Replace = $GetProfileConfig -match "Hunt_Profile_Name_9="; $HuntName9Replace = $HuntName9Replace -replace "Hunt_Profile_Name_9=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName9Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile10", $ArchetypeMenuStripToolProfile10).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolProfile10).Add_Click({ $HuntName10Replace = $GetProfileConfig -match "Hunt_Profile_Name_10="; $HuntName10Replace = $HuntName10Replace -replace "Hunt_Profile_Name_10=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName10Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         $ArchetypeMenuStripTool15.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStripTool15.DropDownItems.Add("-> Open Hunt Profile Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Config Files })
 
