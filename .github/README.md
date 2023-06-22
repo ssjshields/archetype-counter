@@ -51,7 +51,6 @@ to be updated shortly
 # Prerequisites
 
 **Requires Windows 10+**
-> Linux and MacOS will not be supported, there is no AHK equivilant for these platforms
 
 &nbsp;
 # Expectations
