@@ -173,7 +173,7 @@ to be updated shortly
 
 &nbsp;
 # Disclaimer
-This software has been created purely for the purposes of academic research. It is not intended to be used to attack other systems, nor does it provide the user any unfair advantage. There are no artificial inputs or hotkeys simulated. Project maintainers are not responsible or liable for misuse of the software. Source code can be viewed from the AHK scripts or in batch files. Use responsibly.
+This software has been created purely for the purposes of academic research. It is not intended to be used to attack other systems, nor does it provide the user any unfair advantage. There are no artificial inputs or hotkeys simulated. Project maintainers are not responsible or liable for misuse of the software. Source code can be viewed in the batch files. Use responsibly.
 
 &nbsp;
 # Contact and Support
