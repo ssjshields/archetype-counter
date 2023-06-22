@@ -167,7 +167,7 @@ to be updated shortly
 > Manually editing profiles may cause corruption- located in `Files\Counter Config Files`
 
 ### How can I report a bug?
-> Before creating a report, check the [prerequisites](https://github.com/ssjshields/archetype-counter/tree/development#prerequisites), [expectations](https://github.com/ssjshields/archetype-counter/tree/development#expectations) and [the existing issues](https://github.com/ssjshields/archetype-counter/issues)
+> Before creating a report, check [expectations](https://github.com/ssjshields/archetype-counter/tree/development#expectations) and [the existing issues](https://github.com/ssjshields/archetype-counter/issues)
 
 > Open the Debug and Imagemagick folders from the Debug submenu, attach the `.png` and `.txt` files
 
