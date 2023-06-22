@@ -150,7 +150,7 @@ to be updated shortly
 ### How does the Counter work?
 > In a nutshell; it uses OCR and several other utilities to scan screenshots of monster names and compares them against a list
 
-> Utilities scripted with [GDI+ standard library 1.45 by tic](https://www.autohotkey.com/boards/viewtopic.php?t=6517) and PowerShell 5.1 by AnonymousPoke
+> Utilities scripted with PowerShell 5.1 by AnonymousPoke
 
 > Monster nameplates processed using images passed through an [Imagemagick](https://imagemagick.org/index.php) formula by realmadrid1809
 
