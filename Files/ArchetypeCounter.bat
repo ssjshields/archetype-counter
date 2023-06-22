@@ -419,8 +419,8 @@ $ArchetypeForm.Add_Load({
     # Performs force active window process
     [void][ForceActiveWin]::SetForegroundWindow($hwnd)
 
-    # Sets the flag for the counter to not Auto Start on "Stop"
-    $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
+    # Checks/Sets the flag for the counter to not Auto Start on "Stop"
+    if ($AutoRestartCounter -match "True") { PlayAction } else { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False" }
 
     # Sets all changes back into the Config file(s)
     [IO.File]::WriteAllLines($SetConfig, $GetConfig)
@@ -3702,7 +3702,7 @@ Function PlayAction {
 
                     # Displays Message Dialog Box - Cannot scan pokemon from screenshot
                     $NotFoundDialog = [System.Windows.MessageBox]::Show("PokeMMO cannot be found.`n`nWould you like to launch PokeMMO?","  Archetype Counter","YesNo","Warning")
-                    if ($NotFoundDialog -match "Yes") { $CounterWorkingDir = $PWD; Set-Location ..\..; Set-Location ..\..; $PokeMMOWorkingDir = $PWD; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe"; Start-Sleep -Milliseconds 100; Set-Location $CounterWorkingDir } else { Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                    if ($NotFoundDialog -match "Yes") { $CounterWorkingDir = $PWD; Set-Location ..\..; Set-Location ..\..; $PokeMMOWorkingDir = $PWD; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe"; Start-Sleep -Milliseconds 50; Set-Location $CounterWorkingDir } else { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = [IO.File]::ReadAllLines("$SetConfig"); $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"; $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                 }
 
