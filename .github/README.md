@@ -133,7 +133,7 @@ to be updated shortly
 > Displays the count between all seen monsters for a total count 
 
 ### Debug
->  Open the debug file directory, fetching important data in the form of `.png` and `.txt` files for error reporting
+>  Open the debug file directory, fetching important data in the form of `.bmp` and `.txt` files for error reporting
 
 </details>
 &nbsp;
@@ -169,7 +169,7 @@ to be updated shortly
 ### How can I report a bug?
 > Before creating a report, check [expectations](https://github.com/ssjshields/archetype-counter/tree/development#expectations) and [the existing issues](https://github.com/ssjshields/archetype-counter/issues)
 
-> Open the Debug and Imagemagick folders from the Debug submenu, attach the `.png` and `.txt` files
+> Open the Debug and Imagemagick folders from the Debug submenu, attach the `.bmp` and `.txt` files
 
 &nbsp;
 # Disclaimer
