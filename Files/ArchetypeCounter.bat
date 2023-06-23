@@ -1828,6 +1828,7 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripFolderCore = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\FolderCore.png")
         $ArchetypeMenuStripFolderFailed = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\FolderFailed.png")
         $ArchetypeMenuStripFolderBackup = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\FolderBackup.png")
+        $ArchetypeMenuStripFolderHunt = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\FolderHunt.png")
         $ArchetypeMenuStripEdit = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Edit.png")
         $ArchetypeMenuStripCurrentHunt = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\CurrentHunt.png")
         $ArchetypeMenuStripUninstall = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Uninstall.png")
@@ -2573,7 +2574,7 @@ $ArchetypeImage.Add_MouseDown({
         if ($GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile9", $ArchetypeMenuStripToolProfile9).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolProfile9).Add_Click({ $HuntName9Replace = $GetProfileConfig -match "Hunt_Profile_Name_9="; $HuntName9Replace = $HuntName9Replace -replace "Hunt_Profile_Name_9=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName9Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         if ($GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile10", $ArchetypeMenuStripToolProfile10).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolProfile10).Add_Click({ $HuntName10Replace = $GetProfileConfig -match "Hunt_Profile_Name_10="; $HuntName10Replace = $HuntName10Replace -replace "Hunt_Profile_Name_10=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName10Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         $ArchetypeMenuStripTool15.DropDownItems.Add("-").Enabled = $false
-        $ArchetypeMenuStripTool15.DropDownItems.Add("-> Open Hunt Profile Folder <-", $ArchetypeMenuStripFolder).add_Click({ Explorer .\Counter Config Files })
+        $ArchetypeMenuStripTool15.DropDownItems.Add("-> Open Hunt Profile Folder <-", $ArchetypeMenuStripFolderHunt).add_Click({ Explorer .\Counter Config Files })
 
         # Adds "Rename Hunt Profiles" selection
         $ArchetypeMenuStripTool16 = New-Object System.Windows.Forms.ToolStripMenuItem
