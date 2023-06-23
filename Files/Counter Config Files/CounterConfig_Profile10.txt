@@ -39,6 +39,27 @@ Total_Count=0
 -------------------------------
 Shiny_Count=0
 -------------------------------
+Pokemon_D=Blank
+Pokemon_D_Count=0
+-------------------------------
+Pokemon_E=Blank
+Pokemon_E_Count=0
+-------------------------------
+Pokemon_F=Blank
+Pokemon_F_Count0
+-------------------------------
+Pokemon_G=Blank
+Pokemon_G_Count=0
+-------------------------------
+Pokemon_H=Blank
+Pokemon_H_Count=0
+-------------------------------
+Pokemon_I=Blank
+Pokemon_I_Count=0
+-------------------------------
+Pokemon_J=Blank
+Pokemon_J_Count=0
+-------------------------------
 ###############################
 #    END OF COUNTER CONFIG    #
 ###############################
