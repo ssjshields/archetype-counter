@@ -1839,6 +1839,9 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripToolExtraCount = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\ExtraCount.png")
         $ArchetypeMenuStripToolRenameHunt = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Rename.png")
         $ArchetypeMenuStripToolExtraReset = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\ExtraReset.png")
+        $ArchetypeMenuStripToolPokeSpriteA = [System.Drawing.Bitmap]::FromFile("$PWD\Pokemon Icon Sprites\$SpriteType\$SpriteTypeEX\$PokemonA.png")
+        $ArchetypeMenuStripToolPokeSpriteB = [System.Drawing.Bitmap]::FromFile("$PWD\Pokemon Icon Sprites\$SpriteType\$SpriteTypeEX\$PokemonB.png")
+        $ArchetypeMenuStripToolPokeSpriteC = [System.Drawing.Bitmap]::FromFile("$PWD\Pokemon Icon Sprites\$SpriteType\$SpriteTypeEX\$PokemonC.png")
         $ArchetypeMenuStripToolPokeSpriteD = [System.Drawing.Bitmap]::FromFile("$PWD\Pokemon Icon Sprites\$SpriteType\$SpriteTypeEX\$PokemonD_ID.png")
         $ArchetypeMenuStripToolPokeSpriteE = [System.Drawing.Bitmap]::FromFile("$PWD\Pokemon Icon Sprites\$SpriteType\$SpriteTypeEX\$PokemonE_ID.png")
         $ArchetypeMenuStripToolPokeSpriteF = [System.Drawing.Bitmap]::FromFile("$PWD\Pokemon Icon Sprites\$SpriteType\$SpriteTypeEX\$PokemonF_ID.png")
@@ -2543,7 +2546,8 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool59.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStripTool59.DropDownItems.Add("EXTRA POKEMON SLOTS:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool59.DropDownItems.Add("-").Enabled = $false
-        if ($PokemonD -match "Blank" ) { $Slot4 = "" } else { $Slot4 = "$PokemonCountD - $PokemonD" }; if ($PokemonE -match "Blank" ) { $Slot5 = "" } else { $Slot5 = "$PokemonCountE - $PokemonE" }; if ($PokemonF -match "Blank" ) { $Slot6 = "" } else { $Slot6 = "$PokemonCountF - $PokemonF" }; if ($PokemonG -match "Blank" ) { $Slot7 = "" } else { $Slot7 = "$PokemonCountG - $PokemonG" }; if ($PokemonH -match "Blank" ) { $Slot8 = "" } else { $Slot8 = "$PokemonCountH - $PokemonH" }; if ($PokemonI -match "Blank" ) { $Slot9 = "" } else { $Slot9 = "$PokemonCountI - $PokemonI" }; if ($PokemonJ -match "Blank" ) { $Slot10 = "" } else { $Slot10 = "$PokemonCountJ - $PokemonJ" }
+        if ($PokemonA -match "Blank" ) { $Slot1 = "" } else { $Slot1 = "$PokemonCountA - $PokemonAHover" }; if ($PokemonB -match "Blank" ) { $Slot2 = "" } else { $Slot2 = "$PokemonCountB - $PokemonBHover" }; if ($PokemonC -match "Blank" ) { $Slot3 = "" } else { $Slot3 = "$PokemonCountC - $PokemonCHover" }; if ($PokemonD -match "Blank" ) { $Slot4 = "" } else { $Slot4 = "$PokemonCountD - $PokemonD" }; if ($PokemonE -match "Blank" ) { $Slot5 = "" } else { $Slot5 = "$PokemonCountE - $PokemonE" }; if ($PokemonF -match "Blank" ) { $Slot6 = "" } else { $Slot6 = "$PokemonCountF - $PokemonF" }; if ($PokemonG -match "Blank" ) { $Slot7 = "" } else { $Slot7 = "$PokemonCountG - $PokemonG" }; if ($PokemonH -match "Blank" ) { $Slot8 = "" } else { $Slot8 = "$PokemonCountH - $PokemonH" }; if ($PokemonI -match "Blank" ) { $Slot9 = "" } else { $Slot9 = "$PokemonCountI - $PokemonI" }; if ($PokemonJ -match "Blank" ) { $Slot10 = "" } else { $Slot10 = "$PokemonCountJ - $PokemonJ" }
+        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot1", $ArchetypeMenuStripToolPokeSpriteA).Enabled = $true; $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot2", $ArchetypeMenuStripToolPokeSpriteB).Enabled = $true; $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot3", $ArchetypeMenuStripToolPokeSpriteC).Enabled = $true; $ArchetypeMenuStripTool59.DropDownItems.Add("-").Enabled = $false }
         $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot4", $ArchetypeMenuStripToolPokeSpriteD).Enabled = $true
         $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot5", $ArchetypeMenuStripToolPokeSpriteE).Enabled = $true
         $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot6", $ArchetypeMenuStripToolPokeSpriteF).Enabled = $true
@@ -2751,7 +2755,7 @@ $ArchetypeImage.Add_MouseDown({
             })
 
             # Checks if Counter is "Active" and Enable/Disable menu items accordingly (For Start/Stop options in menu - In Collapsed Mode)
-            if ($CounterActive -match "False") { $ArchetypeMenuStrip.Items[23].Enabled = $true; $ArchetypeMenuStrip.Items[24].Enabled = $false } else { $ArchetypeMenuStrip.Items[23].Enabled = $false; $ArchetypeMenuStrip.Items[24].Enabled = $true }
+            if ($CounterActive -match "False") { $ArchetypeMenuStrip.Items[25].Enabled = $true; $ArchetypeMenuStrip.Items[26].Enabled = $false } else { $ArchetypeMenuStrip.Items[25].Enabled = $false; $ArchetypeMenuStrip.Items[26].Enabled = $true }
 
         }
 
