@@ -3197,6 +3197,9 @@ Function PlayAction {
         # Do loop for the play functionality of the counter
         Do {
 
+                # Small delay (To give the CPU a breathing moment - helps with CPU Usage)
+                Start-Sleep -Milliseconds 1
+
                 # Checks for counter memory limit - if it ever happens
                 $GetCounterProcess = Get-Process | where {$_.mainWindowTitle -match "Archetype Counter" -and $_.ProcessName -match "powershell" }
                 $GetCounterProcessSize = [Math]::Round(($GetCounterProcess).WS / 1024kb); if ($GetCounterProcessSize -ge 500) { $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=True"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
