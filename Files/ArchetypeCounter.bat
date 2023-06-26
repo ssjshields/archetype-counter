@@ -427,7 +427,7 @@ $ArchetypeForm.Add_Load({
     [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
     # Small wait to ensure no corrupt of config file
-    Start-Sleep -Milliseconds 10
+    [System.Threading.Thread]::Sleep(10)
 
     # Sets up Winform from C# (So it can have its own Taskbar Icon)
     [PSAppID]::SetAppIdForWindow($ArchetypeForm.Handle, "Archetype Counter")
@@ -518,7 +518,7 @@ $ArchetypeMainFossilImage.Add_Click({
             $PokemonFossilInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Fossil Count:`n(Example: 267)", ' Archetype Counter')
         
             # Checks if input was made on VB dialog
-            if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$PokemonFossilInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$PokemonFossilInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
         }
 
@@ -537,7 +537,7 @@ $ArchetypeMainFossilImage.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeFossilLabelCount.update()
@@ -561,7 +561,7 @@ $ArchetypeMainFossilImage.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeFossilLabelCount.update()
@@ -606,7 +606,7 @@ $ArchetypeFossilLabelCount.Add_Click({
             $PokemonFossilInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Fossil Count:`n(Example: 267)", ' Archetype Counter')
         
             # Checks if input was made on VB dialog
-            if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$PokemonFossilInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            if ($PokemonFossilInput) { $PokemonFossilInput = $PokemonFossilInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Fossil_Count=.*", "Fossil_Count=$PokemonFossilInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
         }
 
@@ -625,7 +625,7 @@ $ArchetypeFossilLabelCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeFossilLabelCount.update()
@@ -649,7 +649,7 @@ $ArchetypeFossilLabelCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeFossilLabelCount.update()
@@ -690,7 +690,7 @@ $ArchetypeMainEggImage.Add_Click({
             $PokemonEggInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Egg Count:`n(Example: 267)", ' Archetype Counter')
         
             # Checks if input was made on VB dialog
-            if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$PokemonEggInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$PokemonEggInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
         }
 
@@ -709,7 +709,7 @@ $ArchetypeMainEggImage.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeEggLabelCount.update()
@@ -733,7 +733,7 @@ $ArchetypeMainEggImage.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeEggLabelCount.update()
@@ -777,7 +777,7 @@ $ArchetypeEggLabelCount.Add_Click({
             $PokemonEggInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Egg Count:`n(Example: 267)", ' Archetype Counter')
         
             # Checks if input was made on VB dialog
-            if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$PokemonEggInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            if ($PokemonEggInput) { $PokemonEggInput = $PokemonEggInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Egg_Count=.*", "Egg_Count=$PokemonEggInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
         }
 
@@ -796,7 +796,7 @@ $ArchetypeEggLabelCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeEggLabelCount.update()
@@ -820,7 +820,7 @@ $ArchetypeEggLabelCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeEggLabelCount.update()
@@ -863,7 +863,7 @@ $ArchetypeCollapsedCount.Add_Click({
             $PokemonTotalInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for All Pokemon Seen:`n(Example: 267)", ' Archetype Counter')
         
             # Checks if input was made on VB dialog
-            if ($PokemonTotalInput) { $PokemonTotalInput = $PokemonTotalInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$PokemonTotalInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            if ($PokemonTotalInput) { $PokemonTotalInput = $PokemonTotalInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_Seen_Count=.*", "Pokemon_Seen_Count=$PokemonTotalInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
         }
 
@@ -882,7 +882,7 @@ $ArchetypeCollapsedCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -906,7 +906,7 @@ $ArchetypeCollapsedCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -948,7 +948,7 @@ $ArchetypePokeAImage.Add_Click({
             $PokemonAInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 1 Count:`n(Example: 267)", ' Archetype Counter')
         
             # Checks if input was made on VB dialog
-            if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonAInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonAInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
         }
 
@@ -963,7 +963,7 @@ $ArchetypePokeAImage.Add_Click({
             $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
             $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
             $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-            if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_A=.*", "Pokemon_A=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_A_Hover=.*", "Pokemon_A_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+            if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_A=.*", "Pokemon_A=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_A_Hover=.*", "Pokemon_A_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
     
         }
 
@@ -984,7 +984,7 @@ $ArchetypePokeAImage.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1013,7 +1013,7 @@ $ArchetypePokeAImage.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1063,7 +1063,7 @@ $ArchetypePokeALabelCount.Add_Click({
             $PokemonAInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 1 Count:`n(Example: 267)", ' Archetype Counter')
         
             # Checks if input was made on VB dialog
-            if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonAInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            if ($PokemonAInput) { $PokemonAInput = $PokemonAInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_A_Count=.*", "Pokemon_A_Count=$PokemonAInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
         }
 
@@ -1084,7 +1084,7 @@ $ArchetypePokeALabelCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1113,7 +1113,7 @@ $ArchetypePokeALabelCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1159,7 +1159,7 @@ $ArchetypePokeBImage.Add_Click({
             $PokemonBInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 2 Count:`n(Example: 267)", ' Archetype Counter')
         
             # Checks if input was made on VB dialog
-            if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonBInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonBInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
         }
 
@@ -1174,7 +1174,7 @@ $ArchetypePokeBImage.Add_Click({
             $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
             $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
             $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-            if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+            if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
 
         }
 
@@ -1195,7 +1195,7 @@ $ArchetypePokeBImage.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1224,7 +1224,7 @@ $ArchetypePokeBImage.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1275,7 +1275,7 @@ $ArchetypePokeBLabelCount.Add_Click({
             $PokemonBInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 2 Count:`n(Example: 267)", ' Archetype Counter')
         
             # Checks if input was made on VB dialog
-            if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonBInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            if ($PokemonBInput) { $PokemonBInput = $PokemonBInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_B_Count=.*", "Pokemon_B_Count=$PokemonBInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
         }
 
@@ -1296,7 +1296,7 @@ $ArchetypePokeBLabelCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1325,7 +1325,7 @@ $ArchetypePokeBLabelCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1371,7 +1371,7 @@ $ArchetypePokeCImage.Add_Click({
             $PokemonCInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 3 Count:`n(Example: 267)", ' Archetype Counter')
         
             # Checks if input was made on VB dialog
-            if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
         }
 
@@ -1386,7 +1386,7 @@ $ArchetypePokeCImage.Add_Click({
             $GetPokemonWithIDFromFile = $GetPokeConfig | Where-Object { $_ -match "$PokemonDexInput" } | Select -First 1
             $GetPokemonID = $GetPokemonWithIDFromFile -Replace '[^0-9]','' -Replace ' ', ''
             $GetPokemonName = $GetPokemonWithIDFromFile -Replace '[0-9]','' -Replace ' ', ''
-            if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_C=.*", "Pokemon_C=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
+            if ($PokemonDexInput) { if ($GetPokemonID | Where-Object { $_ -match "\b$PokemonDexInput\b" }) { $GetConfig = $GetConfig -replace "Pokemon_C=.*", "Pokemon_C=$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover=$GetPokemonName #$GetPokemonID"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } else { [System.Windows.MessageBox]::Show("No match found for the Pokemon Dex Number. Please ensure you input a correct number value for the specific Pokemon.","Archetype Counter","OK","Asterisk") } }
 
         }
 
@@ -1407,7 +1407,7 @@ $ArchetypePokeCImage.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1436,7 +1436,7 @@ $ArchetypePokeCImage.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1487,7 +1487,7 @@ $ArchetypePokeCLabelCount.Add_Click({
             $PokemonCInput = [Microsoft.VisualBasic.Interaction]::InputBox("Enter Total Number Value for Poke Slot 3 Count:`n(Example: 267)", ' Archetype Counter')
         
             # Checks if input was made on VB dialog
-            if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+            if ($PokemonCInput) { $PokemonCInput = $PokemonCInput -Replace '[^0-9]','' -Replace ' ', ''; $GetConfig = $GetConfig -replace "Pokemon_C_Count=.*", "Pokemon_C_Count=$PokemonCInput"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
     
         }
 
@@ -1508,7 +1508,7 @@ $ArchetypePokeCLabelCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1537,7 +1537,7 @@ $ArchetypePokeCLabelCount.Add_Click({
         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
         # Small wait to ensure no corrupt of config file
-        Start-Sleep -Milliseconds 10
+        [System.Threading.Thread]::Sleep(10)
 
         # Refreshes Form and Poke count label
         $ArchetypeCollapsedCount.update()
@@ -1597,7 +1597,7 @@ $ArchetypeStopImage.Add_Click({
     [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
     # Small wait to ensure no corrupt of config file
-    Start-Sleep -Milliseconds 10
+    [System.Threading.Thread]::Sleep(10)
 
     # Restarts counter to update form
     Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -1625,7 +1625,7 @@ $ArchetypePlayImage.Add_Click({
     [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
     # Small wait to ensure no corrupt of config file
-    Start-Sleep -Milliseconds 10
+    [System.Threading.Thread]::Sleep(10)
 
     # Starts the play/record action upon pokemon added or seen count
     PlayAction
@@ -1662,7 +1662,7 @@ $ArchetypeCloseImage.Add_Click({
     [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
     # Small wait to ensure no corrupt of config file
-    Start-Sleep -Milliseconds 10
+    [System.Threading.Thread]::Sleep(10)
 
     # This exits the application (Winform) properly 
     [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force 
@@ -1878,7 +1878,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -1900,7 +1900,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -1922,7 +1922,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -1944,7 +1944,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -1966,7 +1966,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -1988,7 +1988,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2010,7 +2010,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2042,7 +2042,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2064,7 +2064,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2087,7 +2087,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2119,7 +2119,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2141,7 +2141,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2163,7 +2163,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2185,7 +2185,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2207,7 +2207,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2239,7 +2239,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2261,7 +2261,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2283,7 +2283,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2332,7 +2332,7 @@ $ArchetypeImage.Add_MouseDown({
             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
             # Small wait to ensure no corrupt of config file
-            Start-Sleep -Milliseconds 10
+            [System.Threading.Thread]::Sleep(10)
 
             # Restarts counter to update form
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2362,7 +2362,7 @@ $ArchetypeImage.Add_MouseDown({
             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
             # Small wait to ensure no corrupt of config file
-            Start-Sleep -Milliseconds 10
+            [System.Threading.Thread]::Sleep(10)
 
             # Restarts counter to update form
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2381,7 +2381,7 @@ $ArchetypeImage.Add_MouseDown({
             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
             # Small wait to ensure no corrupt of config file
-            Start-Sleep -Milliseconds 10
+            [System.Threading.Thread]::Sleep(10)
 
             # Restarts counter to update form
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2411,7 +2411,7 @@ $ArchetypeImage.Add_MouseDown({
             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
             # Small wait to ensure no corrupt of config file
-            Start-Sleep -Milliseconds 10
+            [System.Threading.Thread]::Sleep(10)
 
             # Restarts counter to update form
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2428,7 +2428,7 @@ $ArchetypeImage.Add_MouseDown({
             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
             # Small wait to ensure no corrupt of config file
-            Start-Sleep -Milliseconds 10
+            [System.Threading.Thread]::Sleep(10)
 
             # Restarts counter to update form
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2445,7 +2445,7 @@ $ArchetypeImage.Add_MouseDown({
             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
             # Small wait to ensure no corrupt of config file
-            Start-Sleep -Milliseconds 10
+            [System.Threading.Thread]::Sleep(10)
 
             # Restarts counter to update form
             Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2499,7 +2499,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2517,11 +2517,11 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool21.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool21)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool21.Enabled = $false } else { $ArchetypeMenuStripTool21.Enabled = $true }
-        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Expanded (with Egg)", $ArchetypeMenuStripToolZubat).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolZubat).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Expanded (with Fossil)", $ArchetypeMenuStripToolRattata).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolRattata).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }  
-        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Encounter)", $ArchetypeMenuStripToolSquirtle).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolSquirtle).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Encounter"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }   
-        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Egg)", $ArchetypeMenuStripToolCharmander).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolCharmander).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Fossil)", $ArchetypeMenuStripToolBulbasaur).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolBulbasaur).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Expanded (with Egg)", $ArchetypeMenuStripToolZubat).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolZubat).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Expanded (with Fossil)", $ArchetypeMenuStripToolRattata).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolRattata).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }  
+        if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Encounter)", $ArchetypeMenuStripToolSquirtle).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolSquirtle).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Encounter"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }   
+        if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Egg)", $ArchetypeMenuStripToolCharmander).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolCharmander).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Fossil)", $ArchetypeMenuStripToolBulbasaur).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolBulbasaur).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         
         # Adds "Picture Mode" selection
         $ArchetypeMenuStripTool37 = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -2531,10 +2531,10 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool37.DropDownItems.Add("PICTURE MODE:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool37.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool37)
-        if ($PictureMode -match "Default") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Default"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($PictureMode -match "Alternate1") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen - Screen 1", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 1", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate1"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($PictureMode -match "Alternate2") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen - Screen 2", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 2", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate2"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($PictureMode -match "Alternate3") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen - Screen 3", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 3", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate3"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Default") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Default"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Alternate1") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen - Screen 1", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 1", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate1"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Alternate2") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen - Screen 2", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 2", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate2"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($PictureMode -match "Alternate3") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen - Screen 3", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen - Screen 3", $ArchetypeMenuStripPrintScreen).Add_Click({ $GetConfig = $GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate3"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool37.Enabled = $false } else { $ArchetypeMenuStripTool37.Enabled = $true }
 
         # Adds "Extra Pokemon Slots" selection
@@ -2567,16 +2567,16 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool15.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool15)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool15.Enabled = $false } else { $ArchetypeMenuStripTool15.Enabled = $true }
-        if ($GetProfile -match "Profile1") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile1", $ArchetypeMenuStripToolHuntProfileM).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile1", $ArchetypeMenuStripToolHuntProfileM).Add_Click({ $HuntName1Replace = $GetProfileConfig -match "Hunt_Profile_Name_1="; $HuntName1Replace = $HuntName1Replace -replace "Hunt_Profile_Name_1=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName1Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile2") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile2", $ArchetypeMenuStripToolHuntProfileF).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile2", $ArchetypeMenuStripToolHuntProfileF).Add_Click({ $HuntName2Replace = $GetProfileConfig -match "Hunt_Profile_Name_2="; $HuntName2Replace = $HuntName2Replace -replace "Hunt_Profile_Name_2=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName2Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile3") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile3", $ArchetypeMenuStripToolHuntProfileM).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile3", $ArchetypeMenuStripToolHuntProfileM).Add_Click({ $HuntName3Replace = $GetProfileConfig -match "Hunt_Profile_Name_3="; $HuntName3Replace = $HuntName3Replace -replace "Hunt_Profile_Name_3=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName3Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile4") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile4", $ArchetypeMenuStripToolHuntProfileF).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile4", $ArchetypeMenuStripToolHuntProfileF).Add_Click({ $HuntName4Replace = $GetProfileConfig -match "Hunt_Profile_Name_4="; $HuntName4Replace = $HuntName4Replace -replace "Hunt_Profile_Name_4=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName4Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile5") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile5", $ArchetypeMenuStripToolHuntProfileM).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile5", $ArchetypeMenuStripToolHuntProfileM).Add_Click({ $HuntName5Replace = $GetProfileConfig -match "Hunt_Profile_Name_5="; $HuntName5Replace = $HuntName5Replace -replace "Hunt_Profile_Name_5=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName5Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile6") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile6", $ArchetypeMenuStripToolHuntProfileF).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile6", $ArchetypeMenuStripToolHuntProfileF).Add_Click({ $HuntName6Replace = $GetProfileConfig -match "Hunt_Profile_Name_6="; $HuntName6Replace = $HuntName6Replace -replace "Hunt_Profile_Name_6=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName6Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile7") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile7", $ArchetypeMenuStripToolHuntProfileM).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile7", $ArchetypeMenuStripToolHuntProfileM).Add_Click({ $HuntName7Replace = $GetProfileConfig -match "Hunt_Profile_Name_7="; $HuntName7Replace = $HuntName7Replace -replace "Hunt_Profile_Name_7=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName7Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile8") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile8", $ArchetypeMenuStripToolHuntProfileF).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile8", $ArchetypeMenuStripToolHuntProfileF).Add_Click({ $HuntName8Replace = $GetProfileConfig -match "Hunt_Profile_Name_8="; $HuntName8Replace = $HuntName8Replace -replace "Hunt_Profile_Name_8=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName8Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile9", $ArchetypeMenuStripToolHuntProfileM).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolHuntProfileM).Add_Click({ $HuntName9Replace = $GetProfileConfig -match "Hunt_Profile_Name_9="; $HuntName9Replace = $HuntName9Replace -replace "Hunt_Profile_Name_9=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName9Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
-        if ($GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile10", $ArchetypeMenuStripToolHuntProfileF).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolHuntProfileF).Add_Click({ $HuntName10Replace = $GetProfileConfig -match "Hunt_Profile_Name_10="; $HuntName10Replace = $HuntName10Replace -replace "Hunt_Profile_Name_10=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName10Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile1") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile1", $ArchetypeMenuStripToolHuntProfileM).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile1", $ArchetypeMenuStripToolHuntProfileM).Add_Click({ $HuntName1Replace = $GetProfileConfig -match "Hunt_Profile_Name_1="; $HuntName1Replace = $HuntName1Replace -replace "Hunt_Profile_Name_1=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName1Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile2") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile2", $ArchetypeMenuStripToolHuntProfileF).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile2", $ArchetypeMenuStripToolHuntProfileF).Add_Click({ $HuntName2Replace = $GetProfileConfig -match "Hunt_Profile_Name_2="; $HuntName2Replace = $HuntName2Replace -replace "Hunt_Profile_Name_2=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName2Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile3") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile3", $ArchetypeMenuStripToolHuntProfileM).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile3", $ArchetypeMenuStripToolHuntProfileM).Add_Click({ $HuntName3Replace = $GetProfileConfig -match "Hunt_Profile_Name_3="; $HuntName3Replace = $HuntName3Replace -replace "Hunt_Profile_Name_3=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName3Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile4") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile4", $ArchetypeMenuStripToolHuntProfileF).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile4", $ArchetypeMenuStripToolHuntProfileF).Add_Click({ $HuntName4Replace = $GetProfileConfig -match "Hunt_Profile_Name_4="; $HuntName4Replace = $HuntName4Replace -replace "Hunt_Profile_Name_4=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName4Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile5") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile5", $ArchetypeMenuStripToolHuntProfileM).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile5", $ArchetypeMenuStripToolHuntProfileM).Add_Click({ $HuntName5Replace = $GetProfileConfig -match "Hunt_Profile_Name_5="; $HuntName5Replace = $HuntName5Replace -replace "Hunt_Profile_Name_5=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName5Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile6") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile6", $ArchetypeMenuStripToolHuntProfileF).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile6", $ArchetypeMenuStripToolHuntProfileF).Add_Click({ $HuntName6Replace = $GetProfileConfig -match "Hunt_Profile_Name_6="; $HuntName6Replace = $HuntName6Replace -replace "Hunt_Profile_Name_6=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName6Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile7") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile7", $ArchetypeMenuStripToolHuntProfileM).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile7", $ArchetypeMenuStripToolHuntProfileM).Add_Click({ $HuntName7Replace = $GetProfileConfig -match "Hunt_Profile_Name_7="; $HuntName7Replace = $HuntName7Replace -replace "Hunt_Profile_Name_7=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName7Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile8") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile8", $ArchetypeMenuStripToolHuntProfileF).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile8", $ArchetypeMenuStripToolHuntProfileF).Add_Click({ $HuntName8Replace = $GetProfileConfig -match "Hunt_Profile_Name_8="; $HuntName8Replace = $HuntName8Replace -replace "Hunt_Profile_Name_8=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName8Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile9", $ArchetypeMenuStripToolHuntProfileM).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile9", $ArchetypeMenuStripToolHuntProfileM).Add_Click({ $HuntName9Replace = $GetProfileConfig -match "Hunt_Profile_Name_9="; $HuntName9Replace = $HuntName9Replace -replace "Hunt_Profile_Name_9=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName9Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
+        if ($GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $CheckProfile10", $ArchetypeMenuStripToolHuntProfileF).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$CheckProfile10", $ArchetypeMenuStripToolHuntProfileF).Add_Click({ $HuntName10Replace = $GetProfileConfig -match "Hunt_Profile_Name_10="; $HuntName10Replace = $HuntName10Replace -replace "Hunt_Profile_Name_10=", ""; $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName10Replace"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         $ArchetypeMenuStripTool15.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStripTool15.DropDownItems.Add("-> Open Hunt Profile Folder <-", $ArchetypeMenuStripFolderHunt).add_Click({ Explorer .\Counter Config Files })
 
@@ -2588,16 +2588,16 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool16.DropDownItems.Add("RENAME HUNT PROFILES:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool16.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool16)
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile1", $ArchetypeMenuStripEdit).Add_Click({ $Profile1Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 1:', ' Archetype Counter'); if ($Profile1Text) { if ($GetProfile -match $CheckProfile1) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile1Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_1=.*", "Hunt_Profile_Name_1=$Profile1Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile2", $ArchetypeMenuStripEdit).Add_Click({ $Profile2Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 2:', ' Archetype Counter'); if ($Profile2Text) { if ($GetProfile -match $CheckProfile2) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile2Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_2=.*", "Hunt_Profile_Name_2=$Profile2Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile3", $ArchetypeMenuStripEdit).Add_Click({ $Profile3Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 3:', ' Archetype Counter'); if ($Profile3Text) { if ($GetProfile -match $CheckProfile3) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile3Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_3=.*", "Hunt_Profile_Name_3=$Profile3Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile4", $ArchetypeMenuStripEdit).Add_Click({ $Profile4Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 4:', ' Archetype Counter'); if ($Profile4Text) { if ($GetProfile -match $CheckProfile4) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile4Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_4=.*", "Hunt_Profile_Name_4=$Profile4Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile5", $ArchetypeMenuStripEdit).Add_Click({ $Profile5Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 5:', ' Archetype Counter'); if ($Profile5Text) { if ($GetProfile -match $CheckProfile5) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile5Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_5=.*", "Hunt_Profile_Name_5=$Profile5Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile6", $ArchetypeMenuStripEdit).Add_Click({ $Profile6Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 6:', ' Archetype Counter'); if ($Profile6Text) { if ($GetProfile -match $CheckProfile6) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile6Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_6=.*", "Hunt_Profile_Name_6=$Profile6Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile7", $ArchetypeMenuStripEdit).Add_Click({ $Profile7Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 7:', ' Archetype Counter'); if ($Profile7Text) { if ($GetProfile -match $CheckProfile7) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile7Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_7=.*", "Hunt_Profile_Name_7=$Profile7Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile8", $ArchetypeMenuStripEdit).Add_Click({ $Profile8Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 8:', ' Archetype Counter'); if ($Profile8Text) { if ($GetProfile -match $CheckProfile8) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile8Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_8=.*", "Hunt_Profile_Name_8=$Profile8Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile9", $ArchetypeMenuStripEdit).Add_Click({ $Profile9Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 9:', ' Archetype Counter'); if ($Profile9Text) { if ($GetProfile -match $CheckProfile9) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile9Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_9=.*", "Hunt_Profile_Name_9=$Profile9Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
-        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile10", $ArchetypeMenuStripEdit).Add_Click({ $Profile10Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 10:', ' Archetype Counter'); if ($Profile10Text) { if ($GetProfile -match $CheckProfile10) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile10Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_10=.*", "Hunt_Profile_Name_10=$Profile10Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile1", $ArchetypeMenuStripEdit).Add_Click({ $Profile1Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 1:', ' Archetype Counter'); if ($Profile1Text) { if ($GetProfile -match $CheckProfile1) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile1Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_1=.*", "Hunt_Profile_Name_1=$Profile1Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile2", $ArchetypeMenuStripEdit).Add_Click({ $Profile2Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 2:', ' Archetype Counter'); if ($Profile2Text) { if ($GetProfile -match $CheckProfile2) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile2Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_2=.*", "Hunt_Profile_Name_2=$Profile2Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile3", $ArchetypeMenuStripEdit).Add_Click({ $Profile3Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 3:', ' Archetype Counter'); if ($Profile3Text) { if ($GetProfile -match $CheckProfile3) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile3Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_3=.*", "Hunt_Profile_Name_3=$Profile3Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile4", $ArchetypeMenuStripEdit).Add_Click({ $Profile4Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 4:', ' Archetype Counter'); if ($Profile4Text) { if ($GetProfile -match $CheckProfile4) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile4Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_4=.*", "Hunt_Profile_Name_4=$Profile4Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile5", $ArchetypeMenuStripEdit).Add_Click({ $Profile5Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 5:', ' Archetype Counter'); if ($Profile5Text) { if ($GetProfile -match $CheckProfile5) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile5Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_5=.*", "Hunt_Profile_Name_5=$Profile5Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile6", $ArchetypeMenuStripEdit).Add_Click({ $Profile6Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 6:', ' Archetype Counter'); if ($Profile6Text) { if ($GetProfile -match $CheckProfile6) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile6Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_6=.*", "Hunt_Profile_Name_6=$Profile6Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile7", $ArchetypeMenuStripEdit).Add_Click({ $Profile7Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 7:', ' Archetype Counter'); if ($Profile7Text) { if ($GetProfile -match $CheckProfile7) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile7Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_7=.*", "Hunt_Profile_Name_7=$Profile7Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile8", $ArchetypeMenuStripEdit).Add_Click({ $Profile8Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 8:', ' Archetype Counter'); if ($Profile8Text) { if ($GetProfile -match $CheckProfile8) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile8Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_8=.*", "Hunt_Profile_Name_8=$Profile8Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile9", $ArchetypeMenuStripEdit).Add_Click({ $Profile9Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 9:', ' Archetype Counter'); if ($Profile9Text) { if ($GetProfile -match $CheckProfile9) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile9Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_9=.*", "Hunt_Profile_Name_9=$Profile9Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
+        $ArchetypeMenuStripTool16.DropDownItems.Add("Rename $CheckProfile10", $ArchetypeMenuStripEdit).Add_Click({ $Profile10Text = [Microsoft.VisualBasic.Interaction]::InputBox('Name change for Hunt Profile 10:', ' Archetype Counter'); if ($Profile10Text) { if ($GetProfile -match $CheckProfile10) { $GetProfileConfig = $GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$Profile10Text" }; $GetProfileConfig = $GetProfileConfig -replace "Hunt_Profile_Name_10=.*", "Hunt_Profile_Name_10=$Profile10Text"; [IO.File]::WriteAllLines($SetProfileConfig, $GetProfileConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } })
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool16.Enabled = $false } else { $ArchetypeMenuStripTool16.Enabled = $true }
 
         # Adds "Backup" selection
@@ -2633,9 +2633,9 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool3.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool3)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool3.Enabled = $false } else { $ArchetypeMenuStripTool3.Enabled = $true }
-        if ($AlwaysOnTop -match "True") { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Enabled" } else { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ if ($AlwaysOnTop -match "True") { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=False" } else { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=True" }; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
-        if ($IgnoreSystemLang -match "True") { $PokeMMOMenuSystemLangText = "Ignore System Language: True" } else { $PokeMMOMenuSystemLangText = "Ignore System Language: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuSystemLangText", $ArchetypeMenuStripToolSystemLanguage).add_Click({ if ($IgnoreSystemLang -match "True") { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=False" } else { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=True" }; $GetConfig | Set-Content -Path $SetConfig; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
-        if ($BeepSound -match "True") { $SoundModeText = "Beep Count Sound: Enabled" } else { $SoundModeText = "Beep Count Sound: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$SoundModeText", $ArchetypeMenuStripToolBeepSound).add_Click({ if ($BeepSound -match "True") { $GetConfig = $GetConfig -replace "Beep_Sound=.*", "Beep_Sound=False" } else { $GetConfig = $GetConfig -replace "Beep_Sound=.*", "Beep_Sound=True" }; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        if ($AlwaysOnTop -match "True") { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Enabled" } else { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ if ($AlwaysOnTop -match "True") { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=False" } else { $GetConfig = $GetConfig -replace "Always_On_Top=.*", "Always_On_Top=True" }; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        if ($IgnoreSystemLang -match "True") { $PokeMMOMenuSystemLangText = "Ignore System Language: True" } else { $PokeMMOMenuSystemLangText = "Ignore System Language: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuSystemLangText", $ArchetypeMenuStripToolSystemLanguage).add_Click({ if ($IgnoreSystemLang -match "True") { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=False" } else { $GetConfig = $GetConfig -replace "Ignore_System_Language=.*", "Ignore_System_Language=True" }; $GetConfig | Set-Content -Path $SetConfig; [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        if ($BeepSound -match "True") { $SoundModeText = "Beep Count Sound: Enabled" } else { $SoundModeText = "Beep Count Sound: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$SoundModeText", $ArchetypeMenuStripToolBeepSound).add_Click({ if ($BeepSound -match "True") { $GetConfig = $GetConfig -replace "Beep_Sound=.*", "Beep_Sound=False" } else { $GetConfig = $GetConfig -replace "Beep_Sound=.*", "Beep_Sound=True" }; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
         $ArchetypeMenuStripTool3.DropDownItems.Add("-")
         $ArchetypeMenuStripTool3.DropDownItems.Add("Archetype Counter Uninstaller", $ArchetypeMenuStripUninstall).add_Click({ $UninstallACDialog = [System.Windows.MessageBox]::Show("Would you like to uninstall Archetype Counter?","  Archetype Counter","YesNo","Warning"); if ($UninstallACDialog -match "Yes") { [System.Windows.MessageBox]::Show("Thank you for using Archetype Counter!","  Archetype Counter","OK","Asterisk"); $ThemeNames = (Get-ChildItem "$PokeMMOWorkingDir\data\themes" -directory).Name; $SetThemeConfig = "$PokeMMOWorkingDir\data\themes\$ThemeName\theme.xml"; $GetThemeConfig = [IO.File]::ReadAllLines("$SetThemeConfig"); foreach ($ThemeName in $ThemeNames) { Remove-Item "$PokeMMOWorkingDir\data\themes\$ThemeName\AC" -Recurse -Force; $GetThemeConfig = $GetThemeConfig -replace '<include filename="AC/1.0_Scaling.xml"/>',''; [IO.File]::WriteAllLines($SetThemeConfig, $GetThemeConfig) }; Start-Process -WindowStyle hidden "$PWD\Counter Functions\Uninstaller\Uninstaller.bat"; [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force } })
 
@@ -2702,7 +2702,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Starts the play/record action upon pokemon added or seen count
                 PlayAction
@@ -2729,7 +2729,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
@@ -2747,7 +2747,7 @@ $ArchetypeImage.Add_MouseDown({
                 [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                 # Small wait to ensure no corrupt of config file
-                Start-Sleep -Milliseconds 10
+                [System.Threading.Thread]::Sleep(10)
 
                 # This exits the application (Winform) properly 
                 [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force
@@ -3205,7 +3205,7 @@ Function PlayAction {
         Do {
 
                 # Small delay (To give the CPU a breathing moment - helps with CPU Usage)
-                Start-Sleep -Milliseconds 0.01
+                [System.Threading.Thread]::Sleep(0.05)
 
                 # Checks if PokeMMO is process is actively running
                 $PokeMMOActive = Get-Process -Name "PokeMMO"
@@ -3339,10 +3339,10 @@ Function PlayAction {
                          if ($BeepSound -match "True") { [System.Console]::Beep(180,400) }
 
                          # Wait
-                         Start-Sleep -Milliseconds 10
+                         [System.Threading.Thread]::Sleep(10)
 
                          # Checks text for "Egg" hunting for OCR scan 
-                         While ($OCRCaptured -match '\breceived\b' -and ($OCRCaptured -match '\b('+($EggMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
+                         While ($OCRCaptured -match '\breceived\b' -and ($OCRCaptured -match '\b('+($EggMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
 
                          # Properly sets the visibility of start/stop images on counter
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3379,10 +3379,10 @@ Function PlayAction {
                          if ($BeepSound -match "True") { [System.Console]::Beep(180,400) }
 
                          # Small delay (To help avoid clearing the count profile)
-                         Start-Sleep -Milliseconds 10
+                         [System.Threading.Thread]::Sleep(10)
 
                          # Checks text for "Egg" hunting for OCR scan 
-                         While ($OCRCaptured -match '\breceived\b' -and ($OCRCaptured -match '\b('+($FossilMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
+                         While ($OCRCaptured -match '\breceived\b' -and ($OCRCaptured -match '\b('+($FossilMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" }; $OCRVariable.text; $OCRCaptured = $OCRVariable.text }
 
                          # Properly sets the visibility of start/stop images on counter
                          if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3460,7 +3460,7 @@ Function PlayAction {
                         [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                         # Small delay (To help avoid clearing the count profile)
-                        Start-Sleep -Milliseconds 10
+                        [System.Threading.Thread]::Sleep(10)
 
                         # Automatically count/adjust number value when in collapsed mode
                         $Script:SyncHashTable.ArchetypeCollapsedCount.Text = $TotalPokeSeenCountAmend
@@ -3506,10 +3506,10 @@ Function PlayAction {
                             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
-                            Start-Sleep -Milliseconds 10
+                            [System.Threading.Thread]::Sleep(10)
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
+                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3533,10 +3533,10 @@ Function PlayAction {
                             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
-                            Start-Sleep -Milliseconds 10
+                            [System.Threading.Thread]::Sleep(10)
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
+                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3553,7 +3553,7 @@ Function PlayAction {
                         if ([string]::IsNullOrEmpty($OCRCaptured) -or [string]::IsNullOrWhitespace($OCRCaptured) -or $OCRCaptured -eq $null) {
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
+                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3571,10 +3571,10 @@ Function PlayAction {
 
                             # Displays Message Dialog Box - Cannot scan pokemon from screenshot
                             $UnableToScanDialog = [Microsoft.VisualBasic.Interaction]::MsgBox("Unable to scan Pokémon.`n`nThis can occur when the counter fails on scanning properly.`n`nIf you do not know why you received this notification, please file a bug report containing your error logs.`n`n- Would you like to report?", "YesNo,SystemModal,Critical", "Archetype Counter")
-                            if ($UnableToScanDialog -match "Yes") { Start-Sleep -Milliseconds 10; Start-Process "https://github.com/ssjshields/archetype-counter#how-can-i-report-a-bug"; Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } 
+                            if ($UnableToScanDialog -match "Yes") { [System.Threading.Thread]::Sleep(10); Start-Process "https://github.com/ssjshields/archetype-counter#how-can-i-report-a-bug"; [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait } 
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
+                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3601,7 +3601,7 @@ Function PlayAction {
                             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
-                            Start-Sleep -Milliseconds 10
+                            [System.Threading.Thread]::Sleep(10)
 
                             # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeALabelCount.Text = $GetPokeNameACountForm
@@ -3621,7 +3621,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeAImage.Image = $Script:SyncHashTable.ArchetypePokeAFile
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
+                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3642,7 +3642,7 @@ Function PlayAction {
                             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
-                            Start-Sleep -Milliseconds 10
+                            [System.Threading.Thread]::Sleep(10)
 
                             # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeALabelCount.Text = $GetPokeNameACountForm
@@ -3652,7 +3652,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypeForm.refresh()
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
+                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3677,7 +3677,7 @@ Function PlayAction {
                             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
-                            Start-Sleep -Milliseconds 10
+                            [System.Threading.Thread]::Sleep(10)
 
                             # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeBLabelCount.Text = $GetPokeNameBCountForm
@@ -3697,7 +3697,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeBImage.Image = $Script:SyncHashTable.ArchetypePokeBFile
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
+                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3718,7 +3718,7 @@ Function PlayAction {
                             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
-                            Start-Sleep -Milliseconds 10
+                            [System.Threading.Thread]::Sleep(10)
 
                             # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeBLabelCount.Text = $GetPokeNameBCountForm
@@ -3728,7 +3728,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypeForm.refresh()
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
+                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3753,7 +3753,7 @@ Function PlayAction {
                             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
-                            Start-Sleep -Milliseconds 10
+                            [System.Threading.Thread]::Sleep(10)
 
                             # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeCLabelCount.Text = $GetPokeNameCCountForm
@@ -3773,7 +3773,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypePokeCImage.Image = $Script:SyncHashTable.ArchetypePokeCFile
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
+                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3794,7 +3794,7 @@ Function PlayAction {
                             [IO.File]::WriteAllLines($SetConfig, $GetConfig)
 
                             # Small delay (To help avoid clearing the count profile)
-                            Start-Sleep -Milliseconds 10
+                            [System.Threading.Thread]::Sleep(10)
 
                             # Refreshes counter and adds +1 on the pokemon scan
                             $Script:SyncHashTable.ArchetypePokeCLabelCount.Text = $GetPokeNameCCountForm
@@ -3804,7 +3804,7 @@ Function PlayAction {
                             $Script:SyncHashTable.ArchetypeForm.refresh()
 
                             # Checks for pixel color to ensure user is not in battle anymore
-                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
+                            While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
                             
                             # Properly sets the visibility of start/stop images on counter
                             if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3815,23 +3815,23 @@ Function PlayAction {
                         }                     
 
                         # Checks and adds to additonal Pokemon slots in couner menu
-                        elseif ($PokemonD -match "Blank") { $GetPokeNameDCountForm = $PokemonCountD; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameDCountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_D=.*", "Pokemon_D=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_D_Count=.*", "Pokemon_D_Count=$GetPokeNameDCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
-                        elseif ($GetPokemonID -match ($PokemonD -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameDCountForm = $PokemonCountD; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameDCountForm = [int]$GetPokeNameDCountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_D_Count=.*", "Pokemon_D_Count=$GetPokeNameDCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
-                        elseif ($PokemonE -match "Blank") { $GetPokeNameECountForm = $PokemonCountE; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameECountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_E=.*", "Pokemon_E=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_E_Count=.*", "Pokemon_E_Count=$GetPokeNameECountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
-                        elseif ($GetPokemonID -match ($PokemonE -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameECountForm = $PokemonCountE; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameECountForm = [int]$GetPokeNameECountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_E_Count=.*", "Pokemon_E_Count=$GetPokeNameECountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
-                        elseif ($PokemonF -match "Blank") { $GetPokeNameFCountForm = $PokemonCountF; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameFCountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_F=.*", "Pokemon_F=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_F_Count=.*", "Pokemon_F_Count=$GetPokeNameFCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
-                        elseif ($GetPokemonID -match ($PokemonF -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameFCountForm = $PokemonCountF; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameFCountForm = [int]$GetPokeNameFCountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_F_Count=.*", "Pokemon_F_Count=$GetPokeNameFCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }  
-                        elseif ($PokemonG -match "Blank") { $GetPokeNameGCountForm = $PokemonCountG; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameGCountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_G=.*", "Pokemon_G=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_G_Count=.*", "Pokemon_G_Count=$GetPokeNameGCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
-                        elseif ($GetPokemonID -match ($PokemonG -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameGCountForm = $PokemonCountG; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameGCountForm = [int]$GetPokeNameGCountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_G_Count=.*", "Pokemon_G_Count=$GetPokeNameGCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }                      
-                        elseif ($PokemonH -match "Blank") { $GetPokeNameHCountForm = $PokemonCountH; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameHCountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_H_Count=.*", "Pokemon_H_Count=$GetPokeNameHCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
-                        elseif ($GetPokemonID -match ($PokemonH -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameHCountForm = $PokemonCountH; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameHCountForm = [int]$GetPokeNameHCountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_H_Count=.*", "Pokemon_H_Count=$GetPokeNameHCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
-                        elseif ($PokemonI -match "Blank") { $GetPokeNameICountForm = $PokemonCountI; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameICountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_I_Count=.*", "Pokemon_I_Count=$GetPokeNameICountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
-                        elseif ($GetPokemonID -match ($PokemonI -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameICountForm = $PokemonCountI; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameICountForm = [int]$GetPokeNameICountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_I_Count=.*", "Pokemon_I_Count=$GetPokeNameICountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
-                        elseif ($PokemonJ -match "Blank") { $GetPokeNameJCountForm = $PokemonCountJ; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameJCountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_J=.*", "Pokemon_J=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_J_Count=.*", "Pokemon_J_Count=$GetPokeNameJCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
-                        elseif ($GetPokemonID -match ($PokemonJ -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameJCountForm = $PokemonCountJ; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameJCountForm = [int]$GetPokeNameJCountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_J_Count=.*", "Pokemon_J_Count=$GetPokeNameJCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10 }
+                        elseif ($PokemonD -match "Blank") { $GetPokeNameDCountForm = $PokemonCountD; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameDCountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_D=.*", "Pokemon_D=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_D_Count=.*", "Pokemon_D_Count=$GetPokeNameDCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonD -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameDCountForm = $PokemonCountD; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameDCountForm = [int]$GetPokeNameDCountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_D_Count=.*", "Pokemon_D_Count=$GetPokeNameDCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($PokemonE -match "Blank") { $GetPokeNameECountForm = $PokemonCountE; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameECountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_E=.*", "Pokemon_E=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_E_Count=.*", "Pokemon_E_Count=$GetPokeNameECountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonE -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameECountForm = $PokemonCountE; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameECountForm = [int]$GetPokeNameECountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_E_Count=.*", "Pokemon_E_Count=$GetPokeNameECountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($PokemonF -match "Blank") { $GetPokeNameFCountForm = $PokemonCountF; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameFCountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_F=.*", "Pokemon_F=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_F_Count=.*", "Pokemon_F_Count=$GetPokeNameFCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonF -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameFCountForm = $PokemonCountF; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameFCountForm = [int]$GetPokeNameFCountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_F_Count=.*", "Pokemon_F_Count=$GetPokeNameFCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }  
+                        elseif ($PokemonG -match "Blank") { $GetPokeNameGCountForm = $PokemonCountG; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameGCountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_G=.*", "Pokemon_G=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_G_Count=.*", "Pokemon_G_Count=$GetPokeNameGCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonG -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameGCountForm = $PokemonCountG; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameGCountForm = [int]$GetPokeNameGCountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_G_Count=.*", "Pokemon_G_Count=$GetPokeNameGCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }                      
+                        elseif ($PokemonH -match "Blank") { $GetPokeNameHCountForm = $PokemonCountH; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameHCountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_H_Count=.*", "Pokemon_H_Count=$GetPokeNameHCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonH -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameHCountForm = $PokemonCountH; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameHCountForm = [int]$GetPokeNameHCountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_H_Count=.*", "Pokemon_H_Count=$GetPokeNameHCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($PokemonI -match "Blank") { $GetPokeNameICountForm = $PokemonCountI; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameICountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_I_Count=.*", "Pokemon_I_Count=$GetPokeNameICountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonI -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameICountForm = $PokemonCountI; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameICountForm = [int]$GetPokeNameICountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_I_Count=.*", "Pokemon_I_Count=$GetPokeNameICountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($PokemonJ -match "Blank") { $GetPokeNameJCountForm = $PokemonCountJ; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameJCountForm = [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_J=.*", "Pokemon_J=$GetPokemonName #$GetPokemonID"; $GetConfig = $GetConfig -replace "Pokemon_J_Count=.*", "Pokemon_J_Count=$GetPokeNameJCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonJ -Replace '[^0-9]','' -Replace ' ')) { $GetPokeNameJCountForm = $PokemonCountJ; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameJCountForm = [int]$GetPokeNameJCountForm + [int]$OCRCapturedHordeNumber; $GetConfig = $GetConfig -replace "Pokemon_J_Count=.*", "Pokemon_J_Count=$GetPokeNameJCountForm"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10) }
 
                         # Checks for pixel color to ensure user is not in battle anymore
-                        While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { Start-Sleep -Milliseconds 0.01; if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
+                        While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(0.05); if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
 
                         # Properly sets the visibility of start/stop images on counter
                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
@@ -3843,7 +3843,7 @@ Function PlayAction {
 
                     # Displays Message Dialog Box - Cannot scan pokemon from screenshot
                     $NotFoundDialog = [System.Windows.MessageBox]::Show("PokeMMO cannot be found.`n`nWould you like to launch PokeMMO?","  Archetype Counter","YesNo","Warning")
-                    if ($NotFoundDialog -match "Yes") { $CounterWorkingDir = $PWD; Set-Location ..\..; Set-Location ..\..; $PokeMMOWorkingDir = $PWD; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe"; Start-Sleep -Milliseconds 10; Set-Location $CounterWorkingDir } else { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = [IO.File]::ReadAllLines("$SetConfig"); $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"; $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); Start-Sleep -Milliseconds 10; Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
+                    if ($NotFoundDialog -match "Yes") { $CounterWorkingDir = $PWD; Set-Location ..\..; Set-Location ..\..; $PokeMMOWorkingDir = $PWD; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe"; [System.Threading.Thread]::Sleep(10); Set-Location $CounterWorkingDir } else { $SetConfig = "$PWD\Counter Config Files\CounterConfig_$GetProfile.txt"; $GetConfig = [IO.File]::ReadAllLines("$SetConfig"); $GetConfig = $GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"; $GetConfig = $GetConfig -replace "Counter_Active=.*", "Counter_Active=False"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                 }
 
