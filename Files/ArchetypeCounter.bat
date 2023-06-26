@@ -1599,11 +1599,6 @@ $ArchetypeStopImage.Add_Click({
     # Small wait to ensure no corrupt of config file
     [System.Threading.Thread]::Sleep(10)
 
-    # Collects memory garbage - ensures no memory leak (https://docs.microsoft.com/en-us/dotnet/api/system.gc.collect?view=netframework-4.5)
-    [System.GC]::Collect()         
-    [GC]::Collect()
-    [GC]::WaitForPendingFinalizers()
-
     # Restarts counter to update form
     Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
@@ -1668,11 +1663,6 @@ $ArchetypeCloseImage.Add_Click({
 
     # Small wait to ensure no corrupt of config file
     [System.Threading.Thread]::Sleep(10)
-
-    # Collects memory garbage - ensures no memory leak (https://docs.microsoft.com/en-us/dotnet/api/system.gc.collect?view=netframework-4.5)
-    [System.GC]::Collect()         
-    [GC]::Collect()
-    [GC]::WaitForPendingFinalizers()
 
     # This exits the application (Winform) properly 
     [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force 
@@ -2741,11 +2731,6 @@ $ArchetypeImage.Add_MouseDown({
                 # Small wait to ensure no corrupt of config file
                 [System.Threading.Thread]::Sleep(10)
 
-                # Collects memory garbage - ensures no memory leak (https://docs.microsoft.com/en-us/dotnet/api/system.gc.collect?view=netframework-4.5)
-                [System.GC]::Collect()         
-                [GC]::Collect()
-                [GC]::WaitForPendingFinalizers()
-
                 # Restarts counter to update form
                 Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait
 
@@ -2763,11 +2748,6 @@ $ArchetypeImage.Add_MouseDown({
 
                 # Small wait to ensure no corrupt of config file
                 [System.Threading.Thread]::Sleep(10)
-
-                # Collects memory garbage - ensures no memory leak (https://docs.microsoft.com/en-us/dotnet/api/system.gc.collect?view=netframework-4.5)
-                [System.GC]::Collect()         
-                [GC]::Collect()
-                [GC]::WaitForPendingFinalizers()
 
                 # This exits the application (Winform) properly 
                 [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force
