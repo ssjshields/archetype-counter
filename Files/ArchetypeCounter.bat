@@ -3393,7 +3393,7 @@ Function PlayAction {
                     }
 
                     # Loads the "ArchetypeScreenshot" screenshot to read the pixel color value from set coordinates
-                    $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0); $GetPixelColor = ($GetPixelColor).Name; $PixelSearchImage.Dispose()
+                    $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose()
                     
                     # (DEBUG - Output necessary files for debugging/diagnosing issues)
                     [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\PixelColorCheck.txt", $GetPixelColor)
