@@ -46,7 +46,7 @@ Pokemon_E=Blank
 Pokemon_E_Count=0
 -------------------------------
 Pokemon_F=Blank
-Pokemon_F_Count0
+Pokemon_F_Count=0
 -------------------------------
 Pokemon_G=Blank
 Pokemon_G_Count=0
