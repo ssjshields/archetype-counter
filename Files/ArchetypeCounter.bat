@@ -3406,7 +3406,7 @@ Function PlayAction {
                         $Script:SyncHashTable.ArchetypeForm.update()
                         $Script:SyncHashTable.ArchetypeForm.refresh()
 
-                        # Wait
+                        # Wait (For main Pokemon name - OCR scan)
                         [System.Threading.Thread]::Sleep(3850)
 
                         # Take/request screenshot of PokeMMO window
