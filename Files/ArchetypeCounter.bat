@@ -1675,6 +1675,15 @@ $ArchetypeCloseImage.Add_Click({
 })
 $ArchetypeForm.controls.Add($ArchetypeCloseImage)
 
+# Adds Bottom half of counter image when in "Expanded (Enounter)" mode
+$ArchetypeBaseFile4 = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\4.png")
+$ArchetypeImageEX = New-Object system.windows.Forms.PictureBox
+$ArchetypeImageEX.Image = $ArchetypeBaseFile4
+$ArchetypeImageEX.Visible = $false
+$ArchetypeImageEX.Width = 94
+$ArchetypeImageEX.Height = 33
+$ArchetypeForm.controls.Add($ArchetypeImageEX)
+
 # Adds the main base image on the Archetype Winform (Plus the right click menu)
 $ArchetypeBaseFileCollapsed = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\Collapsed.png")
 $ArchetypeBaseFile3 = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\3.png")
@@ -1682,7 +1691,7 @@ $ArchetypeBaseFile2 = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$Th
 $ArchetypeBaseFile1 = [System.Drawing.Image]::Fromfile("$PWD\GUI Form Images\$ThemeType\1.png")
 $ArchetypeImage = New-Object system.windows.Forms.PictureBox
 $ArchetypeImage.Width = 94
-$ArchetypeImage.Height = 330
+if ($CounterMode -match "Expanded_Encounter") { $ArchetypeImageEX.Visible = $true; if ($DetectionCount -match "3") { $ArchetypeForm.ClientSize = "94, 273"; $ArchetypeImage.Height = 240; $ArchetypeImageEX.location = New-object system.drawing.point(0,240); $ArchetypePlayImage.location = New-object system.drawing.point(15,240); $ArchetypeStopImage.location = New-object system.drawing.point(15,240); $ArchetypeBusyImage.location = New-object system.drawing.point(15,240) } elseif ($DetectionCount -match "2") { $ArchetypeForm.ClientSize = "94, 216"; $ArchetypeImage.Height = 183; $ArchetypeImageEX.location = New-object system.drawing.point(0,183); $ArchetypePlayImage.location = New-object system.drawing.point(15,183); $ArchetypeStopImage.location = New-object system.drawing.point(15,183); $ArchetypeBusyImage.location = New-object system.drawing.point(15,183) } elseif ($DetectionCount -match "1") { $ArchetypeForm.ClientSize = "94, 159"; $ArchetypeImage.Height = 126; $ArchetypeImageEX.location = New-object system.drawing.point(0,126); $ArchetypePlayImage.location = New-object system.drawing.point(15,126); $ArchetypeStopImage.location = New-object system.drawing.point(15,126); $ArchetypeBusyImage.location = New-object system.drawing.point(15,126) }; $ArchetypeMainFossilImage.Visible = $false; $ArchetypeFossilLabelCount.Visible = $false; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false } else { $ArchetypeImage.Height = 330 }
 if ($DetectionCount -match "3") { $ArchetypeImage.Image = $ArchetypeBaseFile3 } elseif ($DetectionCount -match "2") { $ArchetypeImage.Image = $ArchetypeBaseFile2 } elseif ($DetectionCount -match "1") { $ArchetypeImage.Image = $ArchetypeBaseFile1 }
 if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeForm.ClientSize = "114, 42"; $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeEggLabelCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
 if ($CounterMode -match "Collapsed_Egg") { $ArchetypeForm.ClientSize = "114, 42"; $ArchetypeImage.Width = 115; $ArchetypeImage.Height = 38; $ArchetypeImage.Image = $ArchetypeBaseFileCollapsed; $ArchetypeMainEggImage.Visible = $false; $ArchetypeCollapsedCount.Visible = $false; $ArchetypePokeAImage.Visible = $false; $ArchetypePokeALabelCount.Visible = $false; $ArchetypePokeBImage.Visible = $false; $ArchetypePokeBLabelCount.Visible = $false; $ArchetypePokeCImage.Visible = $false; $ArchetypePokeCLabelCount.Visible = $false; $ArchetypePlayImage.Visible = $false; $ArchetypeStopImage.Visible = $false; $ArchetypeCloseImage.Visible = $false }
@@ -2522,8 +2531,10 @@ $ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool21.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool21)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool21.Enabled = $false } else { $ArchetypeMenuStripTool21.Enabled = $true }
+        if ($CounterMode -match "Expanded_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Expanded (Encounter)", $ArchetypeMenuStripToolZubat).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (Encounter)", $ArchetypeMenuStripToolZubat).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Encounter"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         if ($CounterMode -match "Expanded_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Expanded (with Egg)", $ArchetypeMenuStripToolZubat).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Egg)", $ArchetypeMenuStripToolZubat).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         if ($CounterMode -match "Expanded_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Expanded (with Fossil)", $ArchetypeMenuStripToolRattata).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Expanded (with Fossil)", $ArchetypeMenuStripToolRattata).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Expanded_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }  
+        $ArchetypeMenuStripTool21.DropDownItems.Add("-").Enabled = $false
         if ($CounterMode -match "Collapsed_Encounter") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Encounter)", $ArchetypeMenuStripToolSquirtle).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Encounter)", $ArchetypeMenuStripToolSquirtle).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Encounter"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }   
         if ($CounterMode -match "Collapsed_Egg") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Egg)", $ArchetypeMenuStripToolCharmander).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Egg)", $ArchetypeMenuStripToolCharmander).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Egg"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
         if ($CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool21.DropDownItems.Add("-> Collapsed (Fossil)", $ArchetypeMenuStripToolBulbasaur).Enabled = $false } else { $ArchetypeMenuStripTool21.DropDownItems.Add("Collapsed (Fossil)", $ArchetypeMenuStripToolBulbasaur).Add_Click({ $GetConfig = $GetConfig -replace "Counter_Mode=.*", "Counter_Mode=Collapsed_Fossil"; [IO.File]::WriteAllLines($SetConfig, $GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }) }
@@ -2772,7 +2783,7 @@ $ArchetypeImage.Add_MouseDown({
 
     })
 
-    $ArchetypeForm.controls.Add($ArchetypeImage)
+$ArchetypeForm.controls.Add($ArchetypeImage)
 
 # "Play" button counter functionality (What makes the counter work)
 Function PlayAction {

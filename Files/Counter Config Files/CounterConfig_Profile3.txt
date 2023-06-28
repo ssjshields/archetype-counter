@@ -17,7 +17,7 @@ Pokemon_C_Hover=
 Detection_Count=3
 Theme_Type=Archetype
 Sprite_Type=Default
-Counter_Mode=Expanded_Egg
+Counter_Mode=Expanded_Encounter
 Picture_Mode=Default
 -------------------------------
 Auto_Restart_Counter=False

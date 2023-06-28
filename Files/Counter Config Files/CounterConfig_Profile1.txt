@@ -2,22 +2,22 @@
 #   ARCHETYPE COUNTER CONFIG  #
 ###############################
 -------------------------------
-Pokemon_A=32
-Pokemon_A_Count=3
-Pokemon_A_Hover=Nidoran #32
+Pokemon_A=Blank
+Pokemon_A_Count=0
+Pokemon_A_Hover=
 -------------------------------
-Pokemon_B=111
-Pokemon_B_Count=2
-Pokemon_B_Hover=Rhyhorn #111
+Pokemon_B=Blank
+Pokemon_B_Count=0
+Pokemon_B_Hover=
 -------------------------------
-Pokemon_C=127
-Pokemon_C_Count=1
-Pokemon_C_Hover=Pinsir #127
+Pokemon_C=Blank
+Pokemon_C_Count=0
+Pokemon_C_Hover=
 -------------------------------
 Detection_Count=3
 Theme_Type=Archetype
 Sprite_Type=Default
-Counter_Mode=Expanded_Egg
+Counter_Mode=Expanded_Encounter
 Picture_Mode=Default
 -------------------------------
 Auto_Restart_Counter=False
@@ -28,10 +28,10 @@ Beep_Sound=False
 Set_Language=English
 Ignore_System_Language=False
 -------------------------------
-Archetype_X=26
-Archetype_Y=342
+Archetype_X=-123
+Archetype_Y=-123
 -------------------------------
-Pokemon_Seen_Count=9
+Pokemon_Seen_Count=0
 Fossil_Count=0
 Egg_Count=0
 Alpha_Count=0
@@ -39,14 +39,14 @@ Total_Count=0
 -------------------------------
 Shiny_Count=0
 -------------------------------
-Pokemon_D=Chansey #113
-Pokemon_D_Count=1
+Pokemon_D=Blank
+Pokemon_D_Count=0
 -------------------------------
-Pokemon_E=Venonat #48
-Pokemon_E_Count=1
+Pokemon_E=Blank
+Pokemon_E_Count=0
 -------------------------------
-Pokemon_F=Parasect #47
-Pokemon_F_Count=1
+Pokemon_F=Blank
+Pokemon_F_Count=0
 -------------------------------
 Pokemon_G=Blank
 Pokemon_G_Count=0
