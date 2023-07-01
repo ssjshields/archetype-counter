@@ -289,7 +289,7 @@ Add-Type -AssemblyName System.Windows.Forms; Add-Type -AssemblyName System.Drawi
 $GlobalControlPosition = "60"
 
 # Refresh Counter function for counter
-Function RefreshCounter { $Script:ArchetypeForm.Hide(); $Script:ArchetypeForm.Close(); $Script:ArchetypeForm.Dispose(); StartCounter }
+Function RefreshCounter { $Script:ArchetypeForm.Close(); $Script:ArchetypeForm.Dispose(); StartCounter }
 
 # Start Counter function to start counter (Used together with "RefreshCounter" function)
 Function StartCounter {
@@ -423,8 +423,6 @@ $Script:ArchetypeFormIcon = New-Object System.Drawing.Icon ("$PWD\GUI Form Image
 $Script:ArchetypeForm.Icon = $Script:ArchetypeFormIcon
 if ($ArchetypeX -match "-123" -and $ArchetypeY -match "-123") { $Script:ArchetypeForm.StartPosition = "CenterScreen" } else { $Script:ArchetypeForm.StartPosition = "Manual" }
 $Script:ArchetypeForm.Location = "$ArchetypeX, $ArchetypeY"
-$Script:ArchetypeForm.AllowTransparency = $true
-$Script:ArchetypeForm.TransparencyKey = $Script:ArchetypeForm.BackColor
 $Script:ArchetypeForm.FormBorderStyle = "None"
 if ($AlwaysOnTop -match "True") { $Script:ArchetypeForm.Topmost = $true }
 $Script:ArchetypeForm.Add_Load({   
@@ -459,8 +457,11 @@ $Script:ArchetypeForm.Add_Load({
     # Checks if counter config backup current day folder is set (Creates a backup of the current day the counter is ran each day)
     if (!(Test-Path -Path "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate\CounterConfig_$Script:GetProfile.txt")) { New-Item -Path "$PWD\Counter Config Files\Counter Config Backup" -Type Directory -Name $TodaysDate; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile1.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile2.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile3.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile4.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile5.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile6.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile7.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile8.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile9.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile10.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CurrentProfileState.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse }
 
+    # Adds transparency on Winform load (Needed here to resolve flicker issue)
+    $Script:ArchetypeForm.AllowTransparency = $true
+    $Script:ArchetypeForm.TransparencyKey = $Script:ArchetypeForm.BackColor
+
 })
-$Script:ArchetypeForm.SuspendLayout()
 
 # Creates the correct image that indicates the count pokemon seen
 if ($CounterMode -match "Collapsed_Encounter") { $Script:ArchetypeMainEncounterCollapsedImageFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\Pokeball.png") }
@@ -2821,9 +2822,6 @@ $Script:ArchetypeImage.Add_MouseDown({
 
 $Script:ArchetypeForm.controls.Add($Script:ArchetypeImage)
 
-# Resume Archetype form layout (To help with form responsiveness)
-$Script:ArchetypeForm.ResumeLayout()
-
 # Show the ArchetypeForm & Creates an application context (Helps with responsivness and threading)
 $Script:ArchetypeForm.Show()
 $ArchetypeAppContext = New-Object System.Windows.Forms.ApplicationContext 
@@ -3906,7 +3904,7 @@ Function PlayAction {
 
                     # Displays Message Dialog Box - Cannot scan pokemon from screenshot
                     $NotFoundDialog = [System.Windows.MessageBox]::Show("PokeMMO cannot be found.`n`nWould you like to launch PokeMMO?","  Archetype Counter","YesNo","Warning")
-                    if ($NotFoundDialog -match "Yes") { $CounterWorkingDir = $PWD; Set-Location ..\..; Set-Location ..\..; $PokeMMOWorkingDir = $PWD; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe"; [System.Threading.Thread]::Sleep(10); Set-Location $CounterWorkingDir } else { $Script:SetConfig = "$PWD\Counter Config Files\CounterConfig_$Script:GetProfile.txt"; $Script:GetConfig = [IO.File]::ReadAllLines("$Script:SetConfig"); $Script:GetConfig = $Script:GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"; $Script:GetConfig = $Script:GetConfig -replace "Counter_Active=.*", "Counter_Active=False"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter }
+                    if ($NotFoundDialog -match "Yes") { $CounterWorkingDir = $PWD; Set-Location ..\..; Set-Location ..\..; $PokeMMOWorkingDir = $PWD; Start-Process "$PokeMMOWorkingDir\PokeMMO.exe"; [System.Threading.Thread]::Sleep(10); Set-Location $CounterWorkingDir } else { $Script:SetConfig = "$PWD\Counter Config Files\CounterConfig_$Script:GetProfile.txt"; $Script:GetConfig = [IO.File]::ReadAllLines("$Script:SetConfig"); $Script:GetConfig = $Script:GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"; $Script:GetConfig = $Script:GetConfig -replace "Counter_Active=.*", "Counter_Active=False"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait }
 
                 }
 
