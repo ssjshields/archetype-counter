@@ -22,6 +22,7 @@ Picture_Mode=Default
 -------------------------------
 Auto_Restart_Counter=False
 Always_On_Top=True
+Close_PokeMMO=False
 Counter_Active=False
 Beep_Sound=False
 -------------------------------
