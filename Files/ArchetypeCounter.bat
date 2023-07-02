@@ -2279,10 +2279,10 @@ $Script:ArchetypeImage.Add_MouseDown({
         if ($CounterActive -match "True" -or $CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool5.Enabled = $false } else { $ArchetypeMenuStripTool5.Enabled = $true }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($DetectionCount -match "1") { $ArchetypeMenuStripTool5.DropDownItems.Add("-> 1 (Displays one Pokemon)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else {
+        if ($DetectionCount -match "1") { $ArchetypeMenuStripTool5.DropDownItems.Add("-> 1 (Displays one Pokémon)", $ArchetypeMenuStripToolNumber1).Enabled = $false } else {
 
             # Adds click to "1" selection 
-            $ArchetypeMenuStripTool5.DropDownItems.Add("1 (Displays one Pokemon)", $ArchetypeMenuStripToolNumber1).add_Click({ 
+            $ArchetypeMenuStripTool5.DropDownItems.Add("1 (Displays one Pokémon)", $ArchetypeMenuStripToolNumber1).add_Click({ 
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $Script:GetConfig = $Script:GetConfig -replace "Detection_Count=.*", "Detection_Count=1"
@@ -2301,10 +2301,10 @@ $Script:ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($DetectionCount -match "2") { $ArchetypeMenuStripTool5.DropDownItems.Add("-> 2 (Displays two Pokemon)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else {
+        if ($DetectionCount -match "2") { $ArchetypeMenuStripTool5.DropDownItems.Add("-> 2 (Displays two Pokémon)", $ArchetypeMenuStripToolNumber2).Enabled = $false } else {
     
             # Adds click to "2" selection 
-            $ArchetypeMenuStripTool5.DropDownItems.Add("2 (Displays two Pokemon)", $ArchetypeMenuStripToolNumber2).add_Click({ 
+            $ArchetypeMenuStripTool5.DropDownItems.Add("2 (Displays two Pokémon)", $ArchetypeMenuStripToolNumber2).add_Click({ 
 
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $Script:GetConfig = $Script:GetConfig -replace "Detection_Count=.*", "Detection_Count=2"
@@ -2323,10 +2323,10 @@ $Script:ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($DetectionCount -match "3") { $ArchetypeMenuStripTool5.DropDownItems.Add("-> 3 (Displays three Pokemon)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else {
+        if ($DetectionCount -match "3") { $ArchetypeMenuStripTool5.DropDownItems.Add("-> 3 (Displays three Pokémon)", $ArchetypeMenuStripToolNumber3).Enabled = $false } else {
 
             # Adds click to "3" selection 
-            $ArchetypeMenuStripTool5.DropDownItems.Add("3 (Displays three Pokemon)", $ArchetypeMenuStripToolNumber3).add_Click({ 
+            $ArchetypeMenuStripTool5.DropDownItems.Add("3 (Displays three Pokémon)", $ArchetypeMenuStripToolNumber3).add_Click({ 
         
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $Script:GetConfig = $Script:GetConfig -replace "Detection_Count=.*", "Detection_Count=3"
@@ -2595,10 +2595,10 @@ $Script:ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStrip.Items.Add("-")
         $ArchetypeMenuStripCount = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Count.png")
         $ArchetypeMenuStripTool59 = New-Object System.Windows.Forms.ToolStripMenuItem
-        $ArchetypeMenuStripTool59.Text = 'Extra Pokemon Slots'
+        $ArchetypeMenuStripTool59.Text = 'Extra Pokémon Slots'
         $ArchetypeMenuStripTool59.Image = $ArchetypeMenuStripToolExtraReset
         $ArchetypeMenuStripTool59.DropDownItems.Add("-").Enabled = $false
-        $ArchetypeMenuStripTool59.DropDownItems.Add("EXTRA POKEMON SLOTS:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool59.DropDownItems.Add("EXTRA POKÉMON SLOTS:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool59.DropDownItems.Add("-").Enabled = $false
         if ($PokemonA -match "Blank" ) { $Slot1 = "" } else { $Slot1 = "$PokemonCountA - $PokemonAHover" }; if ($PokemonB -match "Blank" ) { $Slot2 = "" } else { $Slot2 = "$PokemonCountB - $PokemonBHover" }; if ($PokemonC -match "Blank" ) { $Slot3 = "" } else { $Slot3 = "$PokemonCountC - $PokemonCHover" }; if ($PokemonD -match "Blank" ) { $Slot4 = "" } else { $Slot4 = "$PokemonCountD - $PokemonD" }; if ($PokemonE -match "Blank" ) { $Slot5 = "" } else { $Slot5 = "$PokemonCountE - $PokemonE" }; if ($PokemonF -match "Blank" ) { $Slot6 = "" } else { $Slot6 = "$PokemonCountF - $PokemonF" }; if ($PokemonG -match "Blank" ) { $Slot7 = "" } else { $Slot7 = "$PokemonCountG - $PokemonG" }; if ($PokemonH -match "Blank" ) { $Slot8 = "" } else { $Slot8 = "$PokemonCountH - $PokemonH" }; if ($PokemonI -match "Blank" ) { $Slot9 = "" } else { $Slot9 = "$PokemonCountI - $PokemonI" }; if ($PokemonJ -match "Blank" ) { $Slot10 = "" } else { $Slot10 = "$PokemonCountJ - $PokemonJ" }
         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot1", $ArchetypeMenuStripToolPokeSpriteA).Enabled = $true; $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot2", $ArchetypeMenuStripToolPokeSpriteB).Enabled = $true; $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot3", $ArchetypeMenuStripToolPokeSpriteC).Enabled = $true; $ArchetypeMenuStripTool59.DropDownItems.Add("-").Enabled = $false }
@@ -2632,7 +2632,7 @@ $Script:ArchetypeImage.Add_MouseDown({
         if ($Script:GetProfile -match "Profile9") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $Script:CheckProfile9", $ArchetypeMenuStripToolHuntProfileM).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$Script:CheckProfile9", $ArchetypeMenuStripToolHuntProfileM).Add_Click({ $HuntName9Replace = $Script:GetProfileConfig -match "Hunt_Profile_Name_9="; $HuntName9Replace = $HuntName9Replace -replace "Hunt_Profile_Name_9=", ""; $Script:GetProfileConfig = $Script:GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName9Replace"; [IO.File]::WriteAllLines($Script:SetProfileConfig, $Script:GetProfileConfig); [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter }) }
         if ($Script:GetProfile -match "Profile10") { $ArchetypeMenuStripTool15.DropDownItems.Add("-> $Script:CheckProfile10", $ArchetypeMenuStripToolHuntProfileF).Enabled = $false } else { $ArchetypeMenuStripTool15.DropDownItems.Add("$Script:CheckProfile10", $ArchetypeMenuStripToolHuntProfileF).Add_Click({ $HuntName10Replace = $Script:GetProfileConfig -match "Hunt_Profile_Name_10="; $HuntName10Replace = $HuntName10Replace -replace "Hunt_Profile_Name_10=", ""; $Script:GetProfileConfig = $Script:GetProfileConfig -replace "Current_Hunt_Profile=.*", "Current_Hunt_Profile=$HuntName10Replace"; [IO.File]::WriteAllLines($Script:SetProfileConfig, $Script:GetProfileConfig); [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter }) }
         $ArchetypeMenuStripTool15.DropDownItems.Add("-").Enabled = $false
-        $ArchetypeMenuStripTool15.DropDownItems.Add("-> Open Hunt Profile Folder <-", $ArchetypeMenuStripFolderHunt).add_Click({ Explorer .\Counter Config Files })
+        $ArchetypeMenuStripTool15.DropDownItems.Add("-> Open Profile Folder <-", $ArchetypeMenuStripFolderHunt).add_Click({ Explorer .\Counter Config Files })
 
         # Adds "Rename Hunt Profiles" selection
         $ArchetypeMenuStripTool16 = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -2707,7 +2707,7 @@ $Script:ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool9)
         $ArchetypeMenuStripTool9.DropDownItems.Add("Total Counted (Slots+Egg+Fossil): $TotalCount", $ArchetypeMenuStripToolTotalCount).Enabled = $false
         $ArchetypeMenuStripTool9.DropDownItems.Add("Total Individual Slots: $TotalCountNoEgg", $ArchetypeMenuStripToolIndividualCount).Enabled = $false
-        $ArchetypeMenuStripTool9.DropDownItems.Add("Total Pokemon Seen: $TotalPokeSeenCount", $ArchetypeMenuStripToolSeenCount).Enabled = $false
+        $ArchetypeMenuStripTool9.DropDownItems.Add("Total Pokémon Seen: $TotalPokeSeenCount", $ArchetypeMenuStripToolSeenCount).Enabled = $false
         $ArchetypeMenuStripTool9.DropDownItems.Add("-")
         $ArchetypeMenuStripTool9.DropDownItems.Add("Total Alphas: $AlphaCount", $ArchetypeMenuStripToolAlphaCount).Enabled = $false
         $ArchetypeMenuStripTool9.DropDownItems.Add("Total Shinies: $ShinyCount", $ArchetypeMenuStripToolShinyCount).Enabled = $false
