@@ -2070,7 +2070,7 @@ $Script:ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool2.Text = 'Theme Selector'
         $ArchetypeMenuStripTool2.Image = $ArchetypeMenuStripToolTheme
         $ArchetypeMenuStripTool2.DropDownItems.Add("-").Enabled = $false
-        $ArchetypeMenuStripTool2.DropDownItems.Add("THEME:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool2.DropDownItems.Add("DEFAULT THEME:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool2.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool2)
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool2.Enabled = $false } else { $ArchetypeMenuStripTool2.Enabled = $true }
@@ -2121,13 +2121,60 @@ $Script:ArchetypeImage.Add_MouseDown({
         }
 
         # Checks if sub selection needs to be enabled or disabled
-        if ($ThemeType -match "Custom") { $ArchetypeMenuStripTool2.DropDownItems.Add("-> Custom", $ArchetypeMenuStripCustom).Enabled = $false } else {
+        $ArchetypeMenuStripTool2.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool2.DropDownItems.Add("CUSTOM THEME:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool2.DropDownItems.Add("-").Enabled = $false
+        if ($ThemeType -match "Custom1") { $ArchetypeMenuStripTool2.DropDownItems.Add("-> Custom 1", $ArchetypeMenuStripCustom).Enabled = $false } else {
 
             # Adds click to "Custom" selection
-            $ArchetypeMenuStripTool2.DropDownItems.Add("Custom", $ArchetypeMenuStripCustom).add_Click({ 
+            $ArchetypeMenuStripTool2.DropDownItems.Add("Custom 1", $ArchetypeMenuStripCustom).add_Click({ 
         
                 # Sets the flag for the counter to not Auto Start on "Stop"
-                $Script:GetConfig = $Script:GetConfig -replace "Theme_Type=.*", "Theme_Type=Custom"
+                $Script:GetConfig = $Script:GetConfig -replace "Theme_Type=.*", "Theme_Type=Custom1"
+
+                # Sets all changes back into the Config file
+                [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
+
+                # Small wait to ensure no corrupt of config file
+                [System.Threading.Thread]::Sleep(10)
+
+                # Refreshes counter to update form
+                RefreshCounter
+
+            }) 
+        
+        }
+
+        # Checks if sub selection needs to be enabled or disabled
+        if ($ThemeType -match "Custom2") { $ArchetypeMenuStripTool2.DropDownItems.Add("-> Custom 2", $ArchetypeMenuStripCustom).Enabled = $false } else {
+
+            # Adds click to "Custom" selection
+            $ArchetypeMenuStripTool2.DropDownItems.Add("Custom 2", $ArchetypeMenuStripCustom).add_Click({ 
+        
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $Script:GetConfig = $Script:GetConfig -replace "Theme_Type=.*", "Theme_Type=Custom2"
+
+                # Sets all changes back into the Config file
+                [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
+
+                # Small wait to ensure no corrupt of config file
+                [System.Threading.Thread]::Sleep(10)
+
+                # Refreshes counter to update form
+                RefreshCounter
+
+            }) 
+        
+        }
+
+        # Checks if sub selection needs to be enabled or disabled
+        if ($ThemeType -match "Custom3") { $ArchetypeMenuStripTool2.DropDownItems.Add("-> Custom 3", $ArchetypeMenuStripCustom).Enabled = $false } else {
+
+            # Adds click to "Custom" selection
+            $ArchetypeMenuStripTool2.DropDownItems.Add("Custom 3", $ArchetypeMenuStripCustom).add_Click({ 
+        
+                # Sets the flag for the counter to not Auto Start on "Stop"
+                $Script:GetConfig = $Script:GetConfig -replace "Theme_Type=.*", "Theme_Type=Custom3"
 
                 # Sets all changes back into the Config file
                 [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
