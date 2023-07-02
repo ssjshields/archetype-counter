@@ -3539,8 +3539,7 @@ Function PlayAction {
                         Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshot.bmp" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotMagick.bmp" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotEncounter.bmp" -Force
                         
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                        $OCRCapturedDEBUG = $OCRCaptured
-                        [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "###################################`n#   ARCHETYPE COUNTER OCR DEBUG   #`n###################################`n`n-------------------`n| Before Cleanup: |`n-------------------`n`n$OCRCapturedDEBUG`n`n")
+                        [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "###################################`n#   ARCHETYPE COUNTER OCR DEBUG   #`n###################################`n`n-------------------`n| Before Cleanup: |`n-------------------`n`n$OCRCaptured`n`n")
 
                         # Converts original .bmp screenshots to .png format for DEBUG folder
                         Get-ChildItem -File "$PWD\Counter Functions\Core\DEBUG\*.bmp" -Recurse | ForEach-Object { $Bitmap = [System.Drawing.Bitmap]::new($_.FullName); $NewFormat = $_.FullName -replace '.bmp$','.png'; $Bitmap.Save($NewFormat, "png"); $Bitmap.Dispose(); Remove-Item $_.FullName -Force }
@@ -3566,7 +3565,6 @@ Function PlayAction {
                         if ($OCRCaptured -match "Nidoran") { $OCRCaptured = $OCRCaptured -Replace 'Nidoran29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran32','Nidoran 32'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  32','Nidoran 32' }
 
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                        $OCRCapturedDEBUG = $OCRCaptured
                         [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "------------------`n| After Cleanup: |`n------------------`n`n$OCRCaptured`n`n")
 
                         # Increments Pokemon seen count by correct value (FOR TOTAL ENCOUNTERED POKEMON)
