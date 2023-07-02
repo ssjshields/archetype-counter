@@ -1632,12 +1632,11 @@ $Script:ArchetypeStopImage.Add_Click({
     # Closes down running "Runspace" counter loop (Stops counter from actively running)
     $PowerShell.EndInvoke($PSAsyncObject) | Out-Null; $Script:RunSpace.Close(); $Script:RunSpace.Dispose()
 
+    # Refreshes counter to update form
+    RefreshCounter
+
     # Collects memory garbage - ensures no memory leak (https://docs.microsoft.com/en-us/dotnet/api/system.gc.collect?view=netframework-4.5)
     [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers()
-
-    # Refreshes counter to update form
-    #RefreshCounter
-
 
 })
 $Script:ArchetypeForm.controls.Add($Script:ArchetypeStopImage)
@@ -3540,7 +3539,8 @@ Function PlayAction {
                         Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshot.bmp" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotMagick.bmp" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotEncounter.bmp" -Force
                         
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                        [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_BeforeLogic.txt", $OCRCaptured)
+                        $OCRCapturedDEBUG = $OCRCaptured
+                        [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "###################################`n#   ARCHETYPE COUNTER OCR DEBUG   #`n###################################`n`n-------------------`n| Before Cleanup: |`n-------------------`n`n$OCRCapturedDEBUG`n`n")
 
                         # Converts original .bmp screenshots to .png format for DEBUG folder
                         Get-ChildItem -File "$PWD\Counter Functions\Core\DEBUG\*.bmp" -Recurse | ForEach-Object { $Bitmap = [System.Drawing.Bitmap]::new($_.FullName); $NewFormat = $_.FullName -replace '.bmp$','.png'; $Bitmap.Save($NewFormat, "png"); $Bitmap.Dispose(); Remove-Item $_.FullName -Force }
@@ -3566,7 +3566,8 @@ Function PlayAction {
                         if ($OCRCaptured -match "Nidoran") { $OCRCaptured = $OCRCaptured -Replace 'Nidoran29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran32','Nidoran 32'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  32','Nidoran 32' }
 
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                        [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_AfterLogic.txt", $OCRCaptured)
+                        $OCRCapturedDEBUG = $OCRCaptured
+                        [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "------------------`n| After Cleanup: |`n------------------`n`n$OCRCaptured`n`n")
 
                         # Increments Pokemon seen count by correct value (FOR TOTAL ENCOUNTERED POKEMON)
                         $OCRCapturedHordeNumberCount = ($OCRCaptured | Measure-Object -Line).Lines
@@ -3594,7 +3595,7 @@ Function PlayAction {
                         if ($OCRCapturedHordeNumber -gt "1") { $OCRCaptured = $OCRCaptured | Select-Object -First 1 -Skip 2 }
 
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                        [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_HordeLogic_Count.txt", $OCRCaptured)
+                        [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "----------------`n| Horde Count: |`n----------------`n`n$OCRCapturedHordeNumber")
 
                         # Grabs and loads + compares to the captures OCR text
                         $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
