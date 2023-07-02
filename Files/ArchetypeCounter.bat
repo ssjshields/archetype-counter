@@ -339,7 +339,7 @@ $CounterActive = $Script:GetConfig -match "Counter_Active="; $CounterActive = $C
 $BeepSound = $Script:GetConfig -match "Beep_Sound="; $BeepSound = $BeepSound -replace "Beep_Sound=", ""
 # ------------------------------------------------
 $AlwaysOnTop = $Script:GetConfig -match "Always_On_Top="; $AlwaysOnTop = $AlwaysOnTop -replace "Always_On_Top=", ""
-$ClosePokeMMO = $Script:GetConfig -match "Close_PokeMMO="; $ClosePokeMMO = $ClosePokeMMO -replace "Close_PokeMMO=", ""
+$Script:ClosePokeMMO = $Script:GetConfig -match "Close_PokeMMO="; $Script:ClosePokeMMO = $Script:ClosePokeMMO -replace "Close_PokeMMO=", ""
 # ------------------------------------------------
 $SetLanguage = $Script:GetConfig -match "Set_Language="; $SetLanguage = $SetLanguage -replace "Set_Language=", ""
 $IgnoreSystemLang = $Script:GetConfig -match "Ignore_System_Language="; $IgnoreSystemLang = $IgnoreSystemLang -replace "Ignore_System_Language=", ""
@@ -1680,7 +1680,7 @@ $Script:ArchetypeCloseImage.location = New-object system.drawing.point((73+$Glob
 $Script:ArchetypeCloseImage.Add_Click({
 
     # Closes down PokeMMO with counter if Enabled in counter menu
-    if ($ClosePokeMMO -match "True") { Get-Process -Name javaw | Stop-Process -Force }
+    if ($Script:ClosePokeMMO -match "True") { Get-Process -Name javaw | Stop-Process -Force }
 
     # Loads values from external sources (Config file)
     $Script:SetConfig = "$PWD\Counter Config Files\CounterConfig_$Script:GetProfile.txt"
@@ -1782,7 +1782,7 @@ $Script:ArchetypeImage.Add_MouseDown({
         $BeepSound = $Script:GetConfig -match "Beep_Sound="; $BeepSound = $BeepSound -replace "Beep_Sound=", ""
         # ------------------------------------------------
         $AlwaysOnTop = $Script:GetConfig -match "Always_On_Top="; $AlwaysOnTop = $AlwaysOnTop -replace "Always_On_Top=", ""
-        $ClosePokeMMO = $Script:GetConfig -match "Close_PokeMMO="; $ClosePokeMMO = $ClosePokeMMO -replace "Close_PokeMMO=", ""
+        $Script:ClosePokeMMO = $Script:GetConfig -match "Close_PokeMMO="; $Script:ClosePokeMMO = $Script:ClosePokeMMO -replace "Close_PokeMMO=", ""
         # ------------------------------------------------
         $SetLanguage = $Script:GetConfig -match "Set_Language="; $SetLanguage = $SetLanguage -replace "Set_Language=", ""
         $IgnoreSystemLang = $Script:GetConfig -match "Ignore_System_Language="; $IgnoreSystemLang = $IgnoreSystemLang -replace "Ignore_System_Language=", ""
@@ -2686,7 +2686,7 @@ $Script:ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool3.DropDownItems.Add("SETTINGS:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool3.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool3)
-        if ($ClosePokeMMO -match "True") { $ClosePokeMMOText = "Close PokeMMO: Enabled" } else { $ClosePokeMMOText = "Close PokeMMO: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$ClosePokeMMOText", $ArchetypeMenuStripPokeMMO).add_Click({ if ($ClosePokeMMO -match "True") { $Script:GetConfig = $Script:GetConfig -replace "Close_PokeMMO=.*", "Close_PokeMMO=False" } else { $Script:GetConfig = $Script:GetConfig -replace "Close_PokeMMO=.*", "Close_PokeMMO=True" }; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        if ($Script:ClosePokeMMO -match "True") { $Script:ClosePokeMMOText = "Close PokeMMO: Enabled" } else { $Script:ClosePokeMMOText = "Close PokeMMO: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$Script:ClosePokeMMOText", $ArchetypeMenuStripPokeMMO).add_Click({ if ($Script:ClosePokeMMO -match "True") { $Script:GetConfig = $Script:GetConfig -replace "Close_PokeMMO=.*", "Close_PokeMMO=False" } else { $Script:GetConfig = $Script:GetConfig -replace "Close_PokeMMO=.*", "Close_PokeMMO=True" }; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter })
         $ArchetypeMenuStripTool3.DropDownItems.Add("-")
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool3.Enabled = $false } else { $ArchetypeMenuStripTool3.Enabled = $true }
         if ($AlwaysOnTop -match "True") { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Enabled" } else { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ if ($AlwaysOnTop -match "True") { $Script:GetConfig = $Script:GetConfig -replace "Always_On_Top=.*", "Always_On_Top=False" } else { $Script:GetConfig = $Script:GetConfig -replace "Always_On_Top=.*", "Always_On_Top=True" }; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter })     
@@ -2800,7 +2800,7 @@ $Script:ArchetypeImage.Add_MouseDown({
                 $Script:GetConfig = $Script:GetConfig -replace "Counter_Active=.*", "Counter_Active=False"
 
                 # Closes down PokeMMO with counter if Enabled in counter menu
-                if ($ClosePokeMMO -match "True") { Get-Process -Name javaw | Stop-Process -Force }
+                if ($Script:ClosePokeMMO -match "True") { Get-Process -Name javaw | Stop-Process -Force }
 
                 # Sets all changes back into the Config file + # Resets Counter Active to "False"
                 [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
