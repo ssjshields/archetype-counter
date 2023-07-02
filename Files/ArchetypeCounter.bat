@@ -3511,7 +3511,7 @@ Function PlayAction {
                     $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose()
                     
                     # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                    [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\PixelColorCheck.txt", $GetPixelColor)
+                    [IO.File]::WriteAllText("$PWD\Counter Functions\Core\PixelColorCheck.txt", $GetPixelColor)
 
                     # Checks for specific color pixel value to engage in pokemon scan on screenshot
                     if (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { 
@@ -3535,10 +3535,10 @@ Function PlayAction {
                         if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" }
                         $OCRVariable.text; $OCRCaptured = $OCRVariable.text
 
-                        # (DEBUG - Copies necessary files for debugging/diagnosing issues)
+                        # (DEBUG - Copies necessary files for debugging/diagnosing issues - Copy files)
                         Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshot.bmp" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotMagick.bmp" -Force; Copy-Item -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.bmp" -Destination "$PWD\Counter Functions\Core\DEBUG\ArchetypeScreenshotEncounter.bmp" -Force
                         
-                        # (DEBUG - Output necessary files for debugging/diagnosing issues)
+                        # (DEBUG - Output necessary files for debugging/diagnosing issues - Before OCR cleanup)
                         [IO.File]::WriteAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "###################################`n#   ARCHETYPE COUNTER OCR DEBUG   #`n###################################`n`n-------------------`n| Before Cleanup: |`n-------------------`n`n$OCRCaptured`n`n")
 
                         # Converts original .bmp screenshots to .png format for DEBUG folder
@@ -3564,7 +3564,7 @@ Function PlayAction {
                         if ($OCRCaptured -match "Nidorane") { $OCRCaptured = $OCRCaptured -Replace 'Nidorane','Nidoran 29'}; if ($OCRCaptured -match "Nidoranon") { $OCRCaptured = $OCRCaptured -Replace 'Nidoranon','Nidoran 32' }; if ($OCRCaptured -match "Nidoranom") { $OCRCaptured = $OCRCaptured -Replace 'Nidoranom','Nidoran 32' }
                         if ($OCRCaptured -match "Nidoran") { $OCRCaptured = $OCRCaptured -Replace 'Nidoran29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  29','Nidoran 29'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran32','Nidoran 32'; $OCRCaptured = $OCRCaptured -Replace 'Nidoran  32','Nidoran 32' }
 
-                        # (DEBUG - Output necessary files for debugging/diagnosing issues)
+                        # (DEBUG - Output necessary files for debugging/diagnosing issues - After OCR cleanup)
                         [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "------------------`n| After Cleanup: |`n------------------`n`n$OCRCaptured`n`n")
 
                         # Increments Pokemon seen count by correct value (FOR TOTAL ENCOUNTERED POKEMON)
@@ -3592,8 +3592,11 @@ Function PlayAction {
                         $OCRCapturedHordeNumber = ($OCRCaptured | Measure-Object -Line).Lines; if ($OCRCapturedHordeNumber -eq "1") { $OCRCapturedHordeNumber = 0 }
                         if ($OCRCapturedHordeNumber -gt "1") { $OCRCaptured = $OCRCaptured | Select-Object -First 1 -Skip 2 }
 
-                        # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                        [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "----------------`n| Horde Count: |`n----------------`n`n$OCRCapturedHordeNumber`n`n########################`n#   END OF OCR DEBUG   #`n########################")
+                        # (DEBUG - Output necessary files for debugging/diagnosing issues - Horde Count)
+                        [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "----------------`n| Horde Count: |`n----------------`n`n$OCRCapturedHordeNumber`n`n")
+
+                        # (DEBUG - Output necessary files for debugging/diagnosing issues - Pixel Color Check)
+                        [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "----------------------`n| Pixel Color Check: |`n----------------------`n`n$GetPixelColor`n`n################################`n#   END OF COUNTER OCR DEBUG   #`n################################")
 
                         # Grabs and loads + compares to the captures OCR text
                         $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
