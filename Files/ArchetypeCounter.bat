@@ -3595,7 +3595,7 @@ Function PlayAction {
                         if ($OCRCapturedHordeNumber -gt "1") { $OCRCaptured = $OCRCaptured | Select-Object -First 1 -Skip 2 }
 
                         # (DEBUG - Output necessary files for debugging/diagnosing issues)
-                        [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "----------------`n| Horde Count: |`n----------------`n`n$OCRCapturedHordeNumber")
+                        [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "----------------`n| Horde Count: |`n----------------`n`n$OCRCapturedHordeNumber`n`n########################`n#   END OF OCR DEBUG   #`n########################")
 
                         # Grabs and loads + compares to the captures OCR text
                         $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SetLanguage.txt" 
