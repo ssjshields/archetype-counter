@@ -57,11 +57,11 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 &nbsp;
 ![egg expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458808148344943/image.png)  
 &nbsp;
-![fossil expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458845649617017/image.png)
+![fossil expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458845649617017/image.png)  
 &nbsp;
-![Counter Mode - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458544267894834/image.png)
+![Counter Mode - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458544267894834/image.png)  
 &nbsp;
-![Sprite Selector - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125459593775034521/image.png)
+![Sprite Selector - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125459593775034521/image.png)  
 &nbsp;
 ![Extra Poke Slots - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458980404207636/image.png)
 
