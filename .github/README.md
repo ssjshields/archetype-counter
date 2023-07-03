@@ -51,6 +51,8 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 &nbsp;
 ![encounter collapsed - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125459348706041886/image.png)
 &nbsp;
+&nbsp;
+&nbsp;
 ![encounter expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125457882016657418/image.png)
 &nbsp;
 ![encounter expanded - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125457920335806474/image.png)
