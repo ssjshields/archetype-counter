@@ -12,25 +12,29 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 &nbsp;
 # Features
-🚀 opens PokeMMO if not found
+🚀 Opens PokeMMO if not found
 
-📝 multiple hunt profiles and count slots
+📝 10 hunt profiles and 3 count slots (7 additional non-focused slots = 10 total)
 
-🎨 includes x2 themes and x5 sprite sets
+🎨 Includes x2 themes (Archetype & Default) and x5 sprite sets
 
-🎭 create custom themes and import new sprites
+🎭 Ability to create custom theme
 
-🗳️ built-in backup system / manually amend counts
+🗳️ Built-in backup system / manually amend counts (Plus "Auto Restore" if hunt profiles corrupt)
 
 &nbsp;
 # Trackables
-🍃 regular encounters
+🍃 Regular/Horde encounters
 
-🦥 safari encounters 
+🦥 Safari encounters 
 
-🐣 when receiving Eggs
+🔥 Alpha encounters
 
-🦣 when receiving Fossils
+🌟 Shiny encounters
+
+🐣 When receiving Eggs
+
+🦣 When receiving Fossils
 
 &nbsp;
 # Compatibility
@@ -38,7 +42,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 🔍 multi-interface support
 
-📚 multi-language support
+📚 multi-language support (Except CJK)
 
 &nbsp;
 # Media
@@ -63,7 +67,7 @@ to be updated shortly
 
 > Alternatively, clone into `PokeMMO\data\mods` using [GitHub Desktop](https://desktop.github.com/) or [Git](https://git-scm.com/downloads), pull to receive updates
 
-**2.** Run the `Archetype Counter.lnk`, pin to the taskbar if needed
+**2.** Run the `Archetype Counter.lnk`, pin to the taskbar if needed (After you run at least once)
 
 > Do not pin the Counter from the taskbar while it's running, otherwise it will pin the Powershell terminal instead
 
@@ -75,15 +79,15 @@ to be updated shortly
 
 &nbsp;
 # Main Navigation
-> right-click window title area to access the Counter menu
+> Right-click window title area to access the Counter menu
 
-> right-click empty slot to manually set monster via dex number
+> Right-click empty slot to manually set monster via dex number
 
-> right-click to decrease count, left-click to increase count
+> Right-click to decrease count, left-click to increase count
 
-> middle-click (scroll wheel) to manually set count
+> Middle-click (scroll wheel) to manually set count
 
-> hover over monster sprite to display dex number and name 
+> Hover over monster sprite to display dex number and name 
 
 &nbsp;
 # Counter Menu Navigation
@@ -95,25 +99,31 @@ to be updated shortly
 > Select PokeMMO client language for OCR to detect
 
 ### Theme Selector
-> Choose Counter themes and or collapsed mode 
+> Choose Counter themes (Archetype, Default) + 3 Custom theme options (Create your own theme)
 
 ### Sprite Selector
-> Choose between several different monster sprite sets
+> Choose between several different monster sprite sets (Default, 3DS, Gen 8, Home, Shuffle)
 
 ### Detection Selector
-> Choose the amount of monsters to track at one given time
+> Choose the amount of monsters to track at one given time (1 to 3)
 
 ### Reset selector
-> Clear seen monsters from specific slot, Egg or Fossil count- this does not affect the total count
+> Clear seen monsters from specific slots, extra slots, Egg/Fossil count and current hunt profile - this does not affect the total count
 
 ### Counter Mode
-> Choose between expanded (with Egg), expanded (with Fossil), collapsed (encounters), collapsed (with Egg), or collapsed (with Fossil)
+> Choose between Expanded (Encounter), Expanded (Egg), Expanded (Fossil), Collapsed (Encounter), Collapsed (Egg), or Collapsed (Fossil)
 
 ### Picture Mode
 > Choose between two screenshot methods for the Counter to utilize, PrintWindow function (Default) and PrintScreen (Alternative)
 
+### Extra Pokémon Slots
+> Displays 7 additional pokémon detected
+
 ### Hunt Profiles
-> Choose or rename up to 10 different Counter profiles
+> Choose between 10 hunt profiles for current hunt
+
+### Raname Hunt Profiles
+> Choose hunt profile to change name
 
 ### Backup
 > Save the Counter in its current state to avoid possible lost config data, daily backup is automatic
@@ -123,24 +133,28 @@ to be updated shortly
 
 ### Settings
 
-> Set whether the Counter retains priority over the PokeMMO window or not
+> Close PokeMMO: Set PokeMMO will close down when you exit counter
 
-> Ignore the Windows operating system language (use when the operating system language does not match in-game language.)
+> Always on Top: Set whether the Counter retains priority over the PokeMMO window or not
 
-> Uninstall Archetype Counter and its dependencies 
+> Ignore System Language: Ignore the Windows operating system language (use when the operating system language does not match in-game language.)
+
+> Beep Count Sound: Set system sound effect when a pokémon is tracked by counter
+
+> AC Uninstaller: Uninstall Archetype Counter and its dependencies 
 
 ### Total Current Counts
-> Displays the count between all seen monsters for a total count 
+> Displays the count(s) from counter and total count between all seen monsters
 
 ### Debug
->  Open the debug file directory, fetching important data in the form of `.bmp` and `.txt` files for error reporting
+>  Open the debug or failed scanned file directory, fetching important data in the form of `.png` and `.txt` files for error reporting
 
 </details>
 &nbsp;
 
 # FAQ
 ### Does this work on Linux, MacOS or mobile?
-> Unfortunately, no- the Counter utilizes built in Windows features (OCR, Powershell, etc.) as well as AHK
+> Unfortunately, no- the Counter utilizes built in Windows features (OCR, Powershell, etc.)
 
 ### Does this work with custom PokeMMO client themes?
 > Yes, it will work with all custom themes, but the monster nameplate text will be modified to be OCR compatible. 
