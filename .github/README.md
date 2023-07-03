@@ -53,7 +53,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 &nbsp;
 ![encounter expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125457882016657418/image.png)
 &nbsp;
-![encounter expanded - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125457920335806474/image.png)
+![encounter expanded - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125457920335806474/image.png)  
 &nbsp;
 ![egg expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458808148344943/image.png)  
 &nbsp;
