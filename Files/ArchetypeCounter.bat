@@ -2800,6 +2800,11 @@ $Script:ArchetypeImage.Add_MouseDown({
                 # Sets the flag for the counter to not Auto Start on "Stop"
                 $Script:GetConfig = $Script:GetConfig -replace "Counter_Active=.*", "Counter_Active=True"
 
+                # Set visibility of components for counter
+                $Script:ArchetypeCollapsedPlayImage.Visible = $false
+                $Script:ArchetypeCollapsedStopImage.Visible = $true
+                $Script:ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor)
+
                 # Sets all changes back into the Config file + # Resets Counter Active to "False"
                 [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
 
