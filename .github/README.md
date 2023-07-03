@@ -50,10 +50,6 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 &nbsp;
 ![encounter expanded - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125457920335806474/image.png)
 &nbsp;
-![encounter collapsed - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125459286001193010/image.png)
-&nbsp;
-![encounter collapsed - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125459348706041886/image.png)
-&nbsp;
 ![egg expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458808148344943/image.png)
 &nbsp;
 ![fossil expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458845649617017/image.png)
@@ -63,6 +59,10 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 ![Sprite Selector - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125459593775034521/image.png)
 &nbsp;
 ![Extra Poke Slots - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458980404207636/image.png)
+&nbsp;
+![encounter collapsed - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125459286001193010/image.png)
+&nbsp;
+![encounter collapsed - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125459348706041886/image.png)
 
 &nbsp;
 # Expectations
