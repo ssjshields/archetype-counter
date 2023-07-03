@@ -183,7 +183,7 @@ to be updated shortly
 ### How can I report a bug?
 > Before creating a report, check [expectations](https://github.com/ssjshields/archetype-counter/tree/development#expectations) and [the existing issues](https://github.com/ssjshields/archetype-counter/issues)
 
-> Open the Debug and Imagemagick folders from the Debug submenu, attach the `.bmp` and `.txt` files
+> Open the Debug folders from the Debug submenu, attach the `.png` and `.txt` files
 
 &nbsp;
 # Disclaimer
