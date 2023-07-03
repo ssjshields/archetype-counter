@@ -48,23 +48,10 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 # Media
 to be updated shortly
 
-![encounter expanded - Archetype] (https://cdn.discordapp.com/attachments/1032300868491546654/1125457882016657418/image.png)
+![egg expand](https://github.com/ssjshields/archetype-counter/assets/88489119/03bff079-4e46-4f1c-8fc3-9204863b1bd1)
 
-![encounter expanded - Default] (https://cdn.discordapp.com/attachments/1032300868491546654/1125457920335806474/image.png)
+![fossil expand](https://github.com/ssjshields/archetype-counter/assets/88489119/0034da2d-853b-42e7-9548-a0eab426b89b)
 
-![encounter collapsed - Archetype] (https://cdn.discordapp.com/attachments/1032300868491546654/1125459286001193010/image.png)
-
-![encounter collapsed - Default] (https://cdn.discordapp.com/attachments/1032300868491546654/1125459348706041886/image.png)
-
-![egg expanded - Archetype] (https://cdn.discordapp.com/attachments/1032300868491546654/1125458808148344943/image.png)
-
-![fossil expanded - Archetype] (https://cdn.discordapp.com/attachments/1032300868491546654/1125458845649617017/image.png)
-
-![Counter Mode - Archetype] (https://cdn.discordapp.com/attachments/1032300868491546654/1125458544267894834/image.png)
-
-![Sprite Selector - Archetype] (https://cdn.discordapp.com/attachments/1032300868491546654/1125459593775034521/image.png)
-
-![Extra Poke Slots - Archetype] (https://cdn.discordapp.com/attachments/1032300868491546654/1125458980404207636/image.png)
 
 &nbsp;
 # Expectations
