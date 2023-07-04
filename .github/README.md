@@ -143,11 +143,11 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 ### Settings
 
-> Close PokeMMO: Set PokeMMO will close down when you exit counter
+> Close PokeMMO: PokeMMO will close down when you exit counter
 
 > Always on Top: Set whether the Counter retains priority over the PokeMMO window or not
 
-> Ignore System Language: Ignore the Windows operating system language (use when the operating system language does not match in-game language.)
+> Ignore System Language: Ignore the Windows operating system language (Use when the operating system language does not match in-game language.)
 
 > Beep Count Sound: Set system sound effect when a pokémon is tracked by counter
 
@@ -157,7 +157,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 > Displays the count(s) from counter and total count between all seen monsters
 
 ### Debug
->  Open the debug or failed scanned file directory, fetching important data in the form of `.bmp` and `.txt` files for error reporting
+>  Open the debug or failed scanned file directory, fetching important data in the form of `.png` and `.txt` files for error reporting
 
 </details>
 &nbsp;
@@ -193,7 +193,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 ### How can I report a bug?
 > Before creating a report, check [expectations](https://github.com/ssjshields/archetype-counter/tree/development#expectations) and [the existing issues](https://github.com/ssjshields/archetype-counter/issues)
 
-> Open the Debug folders from the Debug submenu, attach the `.bmp` and `.txt` files
+> Open the Debug folders from the Debug submenu, attach the `.png` and `.txt` files
 
 &nbsp;
 # Disclaimer
