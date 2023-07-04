@@ -359,19 +359,19 @@ $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + 
 $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
 
 # Loads values from external sources for winform (Config file)
-$SetColorConfig = "$PWD\GUI Form Images\$ThemeType\FormBackgroundColors.txt"
-$GetColorConfig = [IO.File]::ReadAllLines("$SetColorConfig")
-$PokeSlot1BGColor = $GetColorConfig -match "PokemonBG_1="; $PokeSlot1BGColor = $PokeSlot1BGColor -replace "PokemonBG_1=", ""
-$PokeSlot1CountBGColor = $GetColorConfig -match "PokemonCountBGLabel_1="; $PokeSlot1CountBGColor = $PokeSlot1CountBGColor -replace "PokemonCountBGLabel_1=", ""
-$PokeSlot2BGColor = $GetColorConfig -match "PokemonBG_2="; $PokeSlot2BGColor = $PokeSlot2BGColor -replace "PokemonBG_2=", ""
-$PokeSlot2CountBGColor = $GetColorConfig -match "PokemonCountBGLabel_2="; $PokeSlot2CountBGColor = $PokeSlot2CountBGColor -replace "PokemonCountBGLabel_2=", ""
-$PokeSlot3BGColor = $GetColorConfig -match "PokemonBG_3="; $PokeSlot3BGColor = $PokeSlot3BGColor -replace "PokemonBG_3=", ""
-$PokeSlot3CountBGColor = $GetColorConfig -match "PokemonCountBGLabel_3="; $PokeSlot3CountBGColor = $PokeSlot3CountBGColor -replace "PokemonCountBGLabel_3=", ""
-$EggCountBGColor = $GetColorConfig -match "EggCountBGLabel="; $EggCountBGColor = $EggCountBGColor -replace "EggCountBGLabel=", ""
-$CollapsedCountBGColor = $GetColorConfig -match "CollapsedCountBGLabel="; $CollapsedCountBGColor = $CollapsedCountBGColor -replace "CollapsedCountBGLabel=", ""
-$CollapsedPlayBGColor = $GetColorConfig -match "CollapsedPlayBG="; $CollapsedPlayBGColor = $CollapsedPlayBGColor -replace "CollapsedPlayBG=", ""
-$CollapsedStopBGColor = $GetColorConfig -match "CollapsedStopBG="; $CollapsedStopBGColor = $CollapsedStopBGColor -replace "CollapsedStopBG=", ""
-$CollapsedBusyBGColor = $GetColorConfig -match "CollapsedBusyBG="; $CollapsedBusyBGColor = $CollapsedBusyBGColor -replace "CollapsedBusyBG=", ""
+$Script:SetColorConfig = "$PWD\GUI Form Images\$ThemeType\FormBackgroundColors.txt"
+$Script:GetColorConfig = [IO.File]::ReadAllLines("$Script:SetColorConfig")
+$PokeSlot1BGColor = $Script:GetColorConfig -match "PokemonBG_1="; $PokeSlot1BGColor = $PokeSlot1BGColor -replace "PokemonBG_1=", ""
+$PokeSlot1CountBGColor = $Script:GetColorConfig -match "PokemonCountBGLabel_1="; $PokeSlot1CountBGColor = $PokeSlot1CountBGColor -replace "PokemonCountBGLabel_1=", ""
+$PokeSlot2BGColor = $Script:GetColorConfig -match "PokemonBG_2="; $PokeSlot2BGColor = $PokeSlot2BGColor -replace "PokemonBG_2=", ""
+$PokeSlot2CountBGColor = $Script:GetColorConfig -match "PokemonCountBGLabel_2="; $PokeSlot2CountBGColor = $PokeSlot2CountBGColor -replace "PokemonCountBGLabel_2=", ""
+$PokeSlot3BGColor = $Script:GetColorConfig -match "PokemonBG_3="; $PokeSlot3BGColor = $PokeSlot3BGColor -replace "PokemonBG_3=", ""
+$PokeSlot3CountBGColor = $Script:GetColorConfig -match "PokemonCountBGLabel_3="; $PokeSlot3CountBGColor = $PokeSlot3CountBGColor -replace "PokemonCountBGLabel_3=", ""
+$EggCountBGColor = $Script:GetColorConfig -match "EggCountBGLabel="; $EggCountBGColor = $EggCountBGColor -replace "EggCountBGLabel=", ""
+$CollapsedCountBGColor = $Script:GetColorConfig -match "CollapsedCountBGLabel="; $CollapsedCountBGColor = $CollapsedCountBGColor -replace "CollapsedCountBGLabel=", ""
+$CollapsedPlayBGColor = $Script:GetColorConfig -match "CollapsedPlayBG="; $CollapsedPlayBGColor = $CollapsedPlayBGColor -replace "CollapsedPlayBG=", ""
+$Script:CollapsedStopBGColor = $Script:GetColorConfig -match "CollapsedStopBG="; $Script:CollapsedStopBGColor = $Script:CollapsedStopBGColor -replace "CollapsedStopBG=", ""
+$Script:CollapsedBusyBGColor = $Script:GetColorConfig -match "CollapsedBusyBG="; $Script:CollapsedBusyBGColor = $Script:CollapsedBusyBGColor -replace "CollapsedBusyBG=", ""
 
 # Grabs current working directory/location
 $CounterWorkingDir = $PWD
@@ -2625,16 +2625,11 @@ $Script:ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool37.Text = 'Picture Mode'
         $ArchetypeMenuStripTool37.Image = $ArchetypeMenuStripToolPictureMode
         $ArchetypeMenuStripTool37.DropDownItems.Add("-").Enabled = $false
-        $ArchetypeMenuStripTool37.DropDownItems.Add("DEFAULT PICTURE MODE:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool37.DropDownItems.Add("PICTURE MODE:", $ArchetypeMenuStripMenu).Enabled = $false
         $ArchetypeMenuStripTool37.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool37)
-        if ($PictureMode -match "Default") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintWindow", $ArchetypeMenuStripPrintWindow).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow", $ArchetypeMenuStripPrintWindow).Add_Click({ $Script:GetConfig = $Script:GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Default"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter }) }
-        $ArchetypeMenuStripTool37.DropDownItems.Add("-").Enabled = $false
-        $ArchetypeMenuStripTool37.DropDownItems.Add("ALTERNATE PICTURE MODE:", $ArchetypeMenuStripMenu).Enabled = $false
-        $ArchetypeMenuStripTool37.DropDownItems.Add("-").Enabled = $false
-        if ($PictureMode -match "Alternate1") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen (Screen 1)", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen (Screen 1)", $ArchetypeMenuStripPrintScreen).Add_Click({ $Script:GetConfig = $Script:GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate1"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter }) }
-        if ($PictureMode -match "Alternate2") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen (Screen 2)", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen (Screen 2)", $ArchetypeMenuStripPrintScreen).Add_Click({ $Script:GetConfig = $Script:GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate2"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter }) }
-        if ($PictureMode -match "Alternate3") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen (Screen 3)", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen (Screen 3)", $ArchetypeMenuStripPrintScreen).Add_Click({ $Script:GetConfig = $Script:GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate3"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter }) }
+        if ($PictureMode -match "Default") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintWindow (Default)", $ArchetypeMenuStripPrintWindow).Add_Click({ $Script:GetConfig = $Script:GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Default"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter }) }
+        if ($PictureMode -match "Alternate") { $ArchetypeMenuStripTool37.DropDownItems.Add("-> PrintScreen (Alternate)", $ArchetypeMenuStripPrintScreen).Enabled = $false } else { $ArchetypeMenuStripTool37.DropDownItems.Add("PrintScreen (Alternate)", $ArchetypeMenuStripPrintScreen).Add_Click({ $Script:GetConfig = $Script:GetConfig -replace "Picture_Mode=.*", "Picture_Mode=Alternate"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter }) }
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool37.Enabled = $false } else { $ArchetypeMenuStripTool37.Enabled = $true }
 
         # Adds "Extra Pokemon Slots" selection
@@ -2803,7 +2798,7 @@ $Script:ArchetypeImage.Add_MouseDown({
                 # Set visibility of components for counter
                 $Script:ArchetypeCollapsedPlayImage.Visible = $false
                 $Script:ArchetypeCollapsedStopImage.Visible = $true
-                $Script:ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor)
+                $Script:ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor)
 
                 # Sets all changes back into the Config file + # Resets Counter Active to "False"
                 [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
@@ -2818,28 +2813,41 @@ $Script:ArchetypeImage.Add_MouseDown({
 
             # Adds click to "Stop Counter" selection
             $ArchetypeMenuStrip.Items.Add("Stop Counter", $ArchetypeMenuStripStop).add_Click({ 
-                
+               
                 # Loads values from external sources (Config file)
                 $Script:SetConfig = "$PWD\Counter Config Files\CounterConfig_$Script:GetProfile.txt"
                 $Script:GetConfig = [IO.File]::ReadAllLines("$Script:SetConfig")
 
-                # Sets the flag for the counter to not Auto Start on "Stop" + Counter is NOT running
+                # Gets the current X and Y coordinates of the form
+                $ArchetypeReplaceX = $Script:ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $Script:ArchetypeForm.Bounds.Top
+
+                # Replaces and Sets the starting position on the counter form start
+                $Script:GetConfig = $Script:GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $Script:GetConfig = $Script:GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"
+
+                # Sets the flag for the counter to not Auto Start on "Stop"
                 $Script:GetConfig = $Script:GetConfig -replace "Auto_Restart_Counter=.*", "Auto_Restart_Counter=False"
+
+                # Sets Counter Active to "True" (To make menu options available disabled)
                 $Script:GetConfig = $Script:GetConfig -replace "Counter_Active=.*", "Counter_Active=False"
 
                 # Set visibility of components for counter
-                $Script:ArchetypeCollapsedPlayImage.Visible = $true
-                $Script:ArchetypeCollapsedStopImage.Visible = $false
+                $Script:ArchetypePlayImage.Visible = $true; $Script:ArchetypeStopImage.Visible = $false
                 $Script:ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedPlayBGColor)
 
-                # Sets all changes back into the Config file + Resets Counter Active to "False"
+                # Sets all changes back into the Config file
                 [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
 
                 # Small wait to ensure no corrupt of config file
                 [System.Threading.Thread]::Sleep(10)
 
+                # Closes down running "Runspace" counter loop (Stops counter from actively running)
+                $PowerShell.EndInvoke($PSAsyncObject) | Out-Null; $Script:RunSpace.Close(); $Script:RunSpace.Dispose()
+
                 # Refreshes counter to update form
                 RefreshCounter
+
+                # Collects memory garbage - ensures no memory leak (https://docs.microsoft.com/en-us/dotnet/api/system.gc.collect?view=netframework-4.5)
+                [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers()
 
             })
 
@@ -2932,7 +2940,7 @@ Function PlayAction {
         [void][ForceActiveWin]::SetForegroundWindow($hwnd)     
 
         # Set the counter start/stop images properly
-        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:ArchetypePlayImage.Visible = $false; $Script:ArchetypeStopImage.Visible = $false; $Script:ArchetypeBusyImage.Visible = $false; $Script:ArchetypeCollapsedPlayImage.Visible = $false; $Script:ArchetypeCollapsedStopImage.Visible = $true; $Script:ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:ArchetypeCollapsedStopImage.Visible = $false; $Script:ArchetypeCollapsedPlayImage.Visible = $false; $Script:ArchetypeCollapsedStopImage.Visible = $false; $Script:ArchetypePlayImage.Visible = $false; $Script:ArchetypeStopImage.Visible = $true }
+        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:ArchetypePlayImage.Visible = $false; $Script:ArchetypeStopImage.Visible = $false; $Script:ArchetypeBusyImage.Visible = $false; $Script:ArchetypeCollapsedPlayImage.Visible = $false; $Script:ArchetypeCollapsedStopImage.Visible = $true; $Script:ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:ArchetypeCollapsedStopImage.Visible = $false; $Script:ArchetypeCollapsedPlayImage.Visible = $false; $Script:ArchetypeCollapsedStopImage.Visible = $false; $Script:ArchetypePlayImage.Visible = $false; $Script:ArchetypeStopImage.Visible = $true }
         $Script:ArchetypeForm.Refresh()
 
         # Gets the current X and Y coordinates of the form
@@ -3305,7 +3313,7 @@ Function PlayAction {
         $ScreenCapture = New-Object ScreenCapture 
 
         # PowerShell function to take screenshot of PokeMMO (Not using PrintWindow() method)
-        Function PokeMMOScreenShot { $WindowRect = New-Object RECT; $GotWindowRect = [Window]::GetWindowRect((Get-Process -Name 'javaw').MainWindowHandle, [ref]$WindowRect); $GetPokeMMO_X = ConvertTo-Json($WindowRect)."Left"; $GetPokeMMO_Y = ConvertTo-Json($WindowRect)."Top"; $GetPokeMMO_Width = ConvertTo-Json($WindowRect)."Right"; $GetPokeMMO_Height = ConvertTo-Json($WindowRect)."Bottom"; if ($PictureMode -match "Alternate1") { $Screen = [System.Windows.Forms.Screen]::AllScreens[0].Bounds }; if ($PictureMode -match "Alternate2") { $Screen = [System.Windows.Forms.Screen]::AllScreens[1].Bounds }; if ($PictureMode -match "Alternate3") { $Screen = [System.Windows.Forms.Screen]::AllScreens[2].Bounds }; $Width = ([int]$GetPokeMMO_Width - [int]$GetPokeMMO_X) - 16; $Height = ([int]$GetPokeMMO_Height - [int]$GetPokeMMO_Y) - 39; $Left = [int]$GetPokeMMO_X + 8; $Top = [int]$GetPokeMMO_Y + 31; $ScreenBitmap = New-Object System.Drawing.Bitmap $Width, $Height; $BuiltGraphic = [System.Drawing.Graphics]::FromImage($ScreenBitmap); $BuiltGraphic.CopyFromScreen($Left, $Top, 0, 0, $ScreenBitmap.Size); $FileOutput = "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $ScreenBitmap.Save($FileOutput); $ScreenBitmap.Dispose(); $BuiltGraphic.Dispose() }
+        Function PokeMMOScreenShot { $WindowRect = New-Object RECT; $GotWindowRect = [Window]::GetWindowRect((Get-Process -Name 'javaw').MainWindowHandle, [ref]$WindowRect); $GetPokeMMO_X = ConvertTo-Json($WindowRect)."Left"; $GetPokeMMO_Y = ConvertTo-Json($WindowRect)."Top"; $GetPokeMMO_Width = ConvertTo-Json($WindowRect)."Right"; $GetPokeMMO_Height = ConvertTo-Json($WindowRect)."Bottom"; $Screen = [System.Windows.Forms.Screen]::FromHandle((Get-Process -Name javaw).MainWindowHandle).Bounds; $Width = ([int]$GetPokeMMO_Width - [int]$GetPokeMMO_X) - 16; $Height = ([int]$GetPokeMMO_Height - [int]$GetPokeMMO_Y) - 39; $Left = [int]$GetPokeMMO_X + 8; $Top = [int]$GetPokeMMO_Y + 31; $ScreenBitmap = New-Object System.Drawing.Bitmap $Width, $Height; $BuiltGraphic = [System.Drawing.Graphics]::FromImage($ScreenBitmap); $BuiltGraphic.CopyFromScreen($Left, $Top, 0, 0, $ScreenBitmap.Size); $FileOutput = "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $ScreenBitmap.Save($FileOutput); $ScreenBitmap.Dispose(); $BuiltGraphic.Dispose() }
 
         # Loads existing "GetProfile" variable into runspace for main counter loop
         $Script:GetProfile = $Script:SyncHashTable.ArchetypeGetProfile
@@ -3397,10 +3405,10 @@ Function PlayAction {
                     $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
 
                     # Loads values from external sources for winform (Config file)
-                    $SetColorConfig = "$PWD\GUI Form Images\$ThemeType\FormBackgroundColors.txt"
-                    $GetColorConfig = [IO.File]::ReadAllLines("$SetColorConfig")
-                    $CollapsedStopBGColor = $GetColorConfig -match "CollapsedStopBG="; $CollapsedStopBGColor = $CollapsedStopBGColor -replace "CollapsedStopBG=", ""
-                    $CollapsedBusyBGColor = $GetColorConfig -match "CollapsedBusyBG="; $CollapsedBusyBGColor = $CollapsedBusyBGColor -replace "CollapsedBusyBG=", ""
+                    $Script:SetColorConfig = "$PWD\GUI Form Images\$ThemeType\FormBackgroundColors.txt"
+                    $Script:GetColorConfig = [IO.File]::ReadAllLines("$Script:SetColorConfig")
+                    $Script:CollapsedStopBGColor = $Script:GetColorConfig -match "CollapsedStopBG="; $Script:CollapsedStopBGColor = $Script:CollapsedStopBGColor -replace "CollapsedStopBG=", ""
+                    $Script:CollapsedBusyBGColor = $Script:GetColorConfig -match "CollapsedBusyBG="; $Script:CollapsedBusyBGColor = $Script:CollapsedBusyBGColor -replace "CollapsedBusyBG=", ""
 
                     # Re-adds variables back into main counter form to "update"
                     $Script:SyncHashTable.ArchetypePokeAFile = [System.Drawing.Image]::Fromfile("$PWD\Pokemon Icon Sprites\$SpriteType\$PokemonA.png")
@@ -3433,7 +3441,7 @@ Function PlayAction {
                     if ($OCRCaptured -match '\breceived\b' -and ($OCRCaptured -match '\b('+($EggMatchArray -join '|')+')\b')) {
 
                          # Show counter is "Busy" while running through main processing
-                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedBusyBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
+                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedBusyBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
 
                          $Script:SyncHashTable.ArchetypeForm.update()
                          $Script:SyncHashTable.ArchetypeForm.refresh()
@@ -3462,7 +3470,7 @@ Function PlayAction {
                          While ($OCRCaptured -match '\breceived\b' -and ($OCRCaptured -match '\b('+($EggMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" }; $OCRCaptured = $OCRVariable.text; ; [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
 
                          # Properly sets the visibility of start/stop images on counter
-                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                          # Break current loop and re-try
                          Continue
@@ -3473,7 +3481,7 @@ Function PlayAction {
                     if ($OCRCaptured -match '\breceived\b' -and ($OCRCaptured -match '\b('+($FossilMatchArray -join '|')+')\b')) { 
 
                          # Show counter is "Busy" while running through main processing
-                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedBusyBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
+                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedBusyBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
 
                          $Script:SyncHashTable.ArchetypeForm.update()
                          $Script:SyncHashTable.ArchetypeForm.refresh()
@@ -3502,7 +3510,7 @@ Function PlayAction {
                          While ($OCRCaptured -match '\breceived\b' -and ($OCRCaptured -match '\b('+($FossilMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp" }; $OCRCaptured = $OCRVariable.text; [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
 
                          # Properly sets the visibility of start/stop images on counter
-                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                         if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                          # Break current loop and re-try
                          Continue
@@ -3519,7 +3527,7 @@ Function PlayAction {
                     if (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { 
                     
                         # Show counter is "Busy" while running through main processing
-                        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedBusyBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
+                        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedBusyBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
                         $Script:SyncHashTable.ArchetypeForm.update()
                         $Script:SyncHashTable.ArchetypeForm.refresh()
 
@@ -3633,7 +3641,7 @@ Function PlayAction {
                             While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
 
                             # Properly sets the visibility of start/stop images on counter
-                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Break current loop and re-try
                             Continue
@@ -3660,7 +3668,7 @@ Function PlayAction {
                             While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
 
                             # Properly sets the visibility of start/stop images on counter
-                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Break current loop and re-try
                             Continue
@@ -3677,7 +3685,7 @@ Function PlayAction {
                             While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(10); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose() }
 
                             # Properly sets the visibility of start/stop images on counter
-                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Break current loop and re-try
                             Continue
@@ -3698,7 +3706,7 @@ Function PlayAction {
                             While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
 
                             # Properly sets the visibility of start/stop images on counter
-                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Break current loop and re-try
                             Continue
@@ -3745,7 +3753,7 @@ Function PlayAction {
                             While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
 
                             # Properly sets the visibility of start/stop images on counter
-                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
                             
                             # Break current loop and re-try
                             Continue
@@ -3776,7 +3784,7 @@ Function PlayAction {
                             While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
 
                             # Properly sets the visibility of start/stop images on counter
-                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Break current loop and re-try
                             Continue
@@ -3821,7 +3829,7 @@ Function PlayAction {
                             While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
                             
                             # Properly sets the visibility of start/stop images on counter
-                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Break current loop and re-try
                             Continue
@@ -3852,7 +3860,7 @@ Function PlayAction {
                             While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
                             
                             # Properly sets the visibility of start/stop images on counter
-                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Break current loop and re-try
                             Continue
@@ -3897,7 +3905,7 @@ Function PlayAction {
                             While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
                             
                             # Properly sets the visibility of start/stop images on counter
-                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Break current loop and re-try
                             Continue
@@ -3928,7 +3936,7 @@ Function PlayAction {
                             While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
                             
                             # Properly sets the visibility of start/stop images on counter
-                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                            if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                             # Break current loop and re-try
                             Continue
@@ -3955,7 +3963,7 @@ Function PlayAction {
                         While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
 
                         # Properly sets the visibility of start/stop images on counter
-                        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
+                        if ($CounterMode -match "Collapsed_Encounter" -or $CounterMode -match "Collapsed_Egg" -or $CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $false; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedStopBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $true; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $false }
 
                     }
 
