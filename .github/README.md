@@ -12,15 +12,13 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 &nbsp;
 # Features
-🚀 Opens PokeMMO if not found
+🚀 Prompts to open the PokeMMO client if its not currently running
 
-📝 10 hunt profiles and 3 count slots (7 additional non-focused slots = 10 total)
+📝 10 hunt profiles and 3 count slots, includes 7 additional non-focused slots
 
-🎨 Includes x2 themes (Archetype & Default) and x5 sprite sets
+🎨 Includes x2 themes (Archetype & Default) and x5 sprite sets, supports up to x3 custom themes
 
-🎭 Ability to create custom theme
-
-🗳️ Built-in backup system / manually amend counts (Plus "Auto Restore" if hunt profiles corrupt)
+🗳️ Built-in backup system / manually amend counts, automatic restore if hunt profiles corrupt
 
 &nbsp;
 # Trackables
@@ -38,11 +36,11 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 &nbsp;
 # Compatibility
-🖥️ multi-monitor support
+🖥️ Multi-monitor support
 
-🔍 multi-interface support
+🔍 Multi-interface support
 
-📚 multi-language support (Except CJK)
+📚 Multi-language support (Except CJK)
 
 &nbsp;
 # Media
@@ -129,13 +127,13 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 > Choose between two screenshot methods for the Counter to utilize, PrintWindow function (Default) and PrintScreen (Alternative)
 
 ### Extra Pokémon Slots
-> Displays 7 additional pokémon detected
+> Displays the last 7 previously encountered monsters
 
 ### Hunt Profiles
 > Choose between 10 hunt profiles for current hunt
 
-### Raname Hunt Profiles
-> Choose hunt profile to change name
+### Rename Hunt Profiles
+> Change the name of hunt profiles
 
 ### Backup
 > Save the Counter in its current state to avoid possible lost config data, daily backup is automatic
@@ -159,7 +157,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 > Displays the count(s) from counter and total count between all seen monsters
 
 ### Debug
->  Open the debug or failed scanned file directory, fetching important data in the form of `.png` and `.txt` files for error reporting
+>  Open the debug or failed scanned file directory, fetching important data in the form of `.bmp` and `.txt` files for error reporting
 
 </details>
 &nbsp;
@@ -176,9 +174,9 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 ### How does the Counter work?
 > In a nutshell; it uses OCR and several other utilities to scan screenshots of monster names and compares them against a list
 
-> Utilities scripted with PowerShell 5.1 by AnonymousPoke
-
 > Monster nameplates processed using images passed through an [Imagemagick](https://imagemagick.org/index.php) formula by realmadrid1809
+
+> Utilities scripted with PowerShell 5.1 by AnonymousPoke
 
 ### How are Eggs and Fossils tracked?
 > When the user retrieves them
@@ -195,7 +193,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 ### How can I report a bug?
 > Before creating a report, check [expectations](https://github.com/ssjshields/archetype-counter/tree/development#expectations) and [the existing issues](https://github.com/ssjshields/archetype-counter/issues)
 
-> Open the Debug folders from the Debug submenu, attach the `.png` and `.txt` files
+> Open the Debug folders from the Debug submenu, attach the `.bmp` and `.txt` files
 
 &nbsp;
 # Disclaimer
