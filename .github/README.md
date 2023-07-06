@@ -103,7 +103,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 # Counter Menu Navigation
 *Note: Some options will appear "grayed out" and cannot be modified while the Counter is in counting mode (ON) or (BUSY)*
 
-![Counter Menu](https://github.com/ssjshields/archetype-counter/assets/88489119/aac25da5-c6b5-4e34-832d-e9903b3a17e2)
+![Counter Menu](https://cdn.discordapp.com/attachments/1032300868491546654/1126591751310823424/image.png)
 
 ### Language
 > Select PokeMMO client language for OCR to detect
