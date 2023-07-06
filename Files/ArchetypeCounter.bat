@@ -3315,6 +3315,9 @@ Function PlayAction {
         # PowerShell function to take screenshot of PokeMMO (Not using PrintWindow() method)
         Function PokeMMOScreenShot { $WindowRect = New-Object RECT; $GotWindowRect = [Window]::GetWindowRect((Get-Process -Name 'javaw').MainWindowHandle, [ref]$WindowRect); $GetPokeMMO_X = ConvertTo-Json($WindowRect)."Left"; $GetPokeMMO_Y = ConvertTo-Json($WindowRect)."Top"; $GetPokeMMO_Width = ConvertTo-Json($WindowRect)."Right"; $GetPokeMMO_Height = ConvertTo-Json($WindowRect)."Bottom"; $Screen = [System.Windows.Forms.Screen]::FromHandle((Get-Process -Name javaw).MainWindowHandle).Bounds; $Width = ([int]$GetPokeMMO_Width - [int]$GetPokeMMO_X) - 16; $Height = ([int]$GetPokeMMO_Height - [int]$GetPokeMMO_Y) - 39; $Left = [int]$GetPokeMMO_X + 8; $Top = [int]$GetPokeMMO_Y + 31; $ScreenBitmap = New-Object System.Drawing.Bitmap $Width, $Height; $BuiltGraphic = [System.Drawing.Graphics]::FromImage($ScreenBitmap); $BuiltGraphic.CopyFromScreen($Left, $Top, 0, 0, $ScreenBitmap.Size); $FileOutput = "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $ScreenBitmap.Save($FileOutput); $ScreenBitmap.Dispose(); $BuiltGraphic.Dispose() }
 
+        # PowerShell function to compress PNG images in Debug folder 
+        Function CompressPNGs { $MagickExePath = "$PWD\Counter Functions\Core\magick.exe"; $MagickArguments = 'mogrify','-depth','24','-define','png:compression-filter=2','-define','png:compression-level=9','-define','png:compression-strategy=1',"$PWD\Counter Functions\Core\DEBUG\*.png"; & $MagickExePath $MagickArguments }
+
         # Loads existing "GetProfile" variable into runspace for main counter loop
         $Script:GetProfile = $Script:SyncHashTable.ArchetypeGetProfile
 
@@ -3618,6 +3621,9 @@ Function PlayAction {
                         # Checks if current just seen pokemon is a "Shiny"
                         if ($OCRCapturedShiny -match $true) {
 
+                            # Compress .png(s) to make easier to share/diagnose/distribute
+                            CompressPNGs 
+
                             # Increments the count by 1 (Pokemon - Shiny)
                             $GetPokeShinyCountForm = $ShinyCount
                             $GetPokeShinyCountForm = [int]$GetPokeShinyCountForm + 1
@@ -3650,6 +3656,9 @@ Function PlayAction {
 
                         # Checks if "Alpha" Pokemon is found
                         if ($OCRCapturedAlpha -match $true) { 
+
+                            # Compress .png(s) to make easier to share/diagnose/distribute
+                            CompressPNGs
 
                             # Increments the count by 1 (Pokemon - Alpha)
                             $GetPokeAlphaCountForm = $AlphaCount
@@ -3695,12 +3704,15 @@ Function PlayAction {
                         # Checks if Pokemon capture names from OCR match the Pokemon in the counter list
                         elseif ($DetectedPokeName -eq $false) {
 
+                            # Compress .png(s) to make easier to share/diagnose/distribute
+                            CompressPNGs
+
                             # Moves current DEBUG files into "Failed Scan" folder (Ensure the user can show issue without files being overwritten)
                             Copy-Item -Path "$PWD\Counter Functions\Core\DEBUG\*" -Destination "$PWD\Counter Functions\Core\DEBUG\Failed Scan" -Recurse -Force
 
                             # Displays Message Dialog Box - Cannot scan pokemon from screenshot
                             $UnableToScanDialog = [Microsoft.VisualBasic.Interaction]::MsgBox("Unable to scan Pokémon.`n`nThis can occur when the counter fails on scanning properly.`n`nIf you do not know why you received this notification, please file a bug report containing your error logs.`n`n- Would you like to report?", "YesNo,SystemModal,Critical", "Archetype Counter")
-                            if ($UnableToScanDialog -match "Yes") { [System.Threading.Thread]::Sleep(10); Start-Process "https://github.com/ssjshields/archetype-counter#how-can-i-report-a-bug"; [System.Threading.Thread]::Sleep(10); RefreshCounter } 
+                            if ($UnableToScanDialog -match "Yes") { Start-Process "https://github.com/ssjshields/archetype-counter#how-can-i-report-a-bug"; [System.Threading.Thread]::Sleep(10) } 
 
                             # Checks for pixel color to ensure user is not in battle anymore
                             While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
@@ -3715,6 +3727,9 @@ Function PlayAction {
 
                         # Checks for pokemon slot 1 and if it is blank (To add pokemon seen)
                         elseif ($PokemonA -match "Blank") {
+
+                            # Compress .png(s) to make easier to share/diagnose/distribute
+                            CompressPNGs
 
                             # Resets Pokemon slot 1 on form with Pokedex ID and Name
                             $Script:GetConfig = $Script:GetConfig -replace "Pokemon_A=.*", "Pokemon_A=$GetPokemonID"
@@ -3761,6 +3776,9 @@ Function PlayAction {
                         # Checks if same Pokemon has already been seen
                         } elseif($GetPokemonID -match "\b$PokemonA\b") {
 
+                            # Compress .png(s) to make easier to share/diagnose/distribute
+                            CompressPNGs
+
                             # Properly sets the initial Pokemon Count for the form
                             $GetPokeNameACountForm = $PokemonCountA
                             if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }
@@ -3791,6 +3809,9 @@ Function PlayAction {
 
                         # Checks for pokemon slot 2 and if it is blank (To add pokemon seen)
                         } elseif($PokemonB -match "Blank" -and $DetectionCount -ge "2") {
+
+                            # Compress .png(s) to make easier to share/diagnose/distribute
+                            CompressPNGs
 
                             # Resets Pokemon slot 2 on form with Pokedex ID and Name
                             $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$GetPokemonID"
@@ -3837,6 +3858,9 @@ Function PlayAction {
                         # Checks if same Pokemon slot 2 has already been seen
                         } elseif($GetPokemonID -match "\b$PokemonB\b" -and $DetectionCount -ge "2") {
 
+                            # Compress .png(s) to make easier to share/diagnose/distribute
+                            CompressPNGs
+
                             # Properly sets the initial Pokemon Count for the form
                             $GetPokeNameBCountForm = $PokemonCountB
                             if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }
@@ -3867,6 +3891,9 @@ Function PlayAction {
 
                         # Checks for pokemon slot 3 and if it is blank (To add pokemon seen)
                         } elseif($PokemonC -match "Blank" -and $DetectionCount -match "3") {
+
+                            # Compress .png(s) to make easier to share/diagnose/distribute
+                            CompressPNGs
 
                             # Resets Pokemon slot 3 on form with Pokedex ID and Name
                             $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C=.*", "Pokemon_C=$GetPokemonID"
@@ -3913,6 +3940,9 @@ Function PlayAction {
                         # Checks if same Pokemon slot 3 has already been seen
                         } elseif($GetPokemonID -match "\b$PokemonC\b" -and $DetectionCount -match "3") {
 
+                            # Compress .png(s) to make easier to share/diagnose/distribute
+                            CompressPNGs
+
                             # Properly sets the initial Pokemon Count for the form
                             $GetPokeNameCCountForm = $PokemonCountC
                             if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }
@@ -3944,20 +3974,20 @@ Function PlayAction {
                         }                     
 
                         # Checks and adds to additonal Pokemon slots in couner menu
-                        elseif ($PokemonD -match "Blank") { $GetPokeNameDCountForm = $PokemonCountD; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameDCountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D=.*", "Pokemon_D=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D_Count=.*", "Pokemon_D_Count=$GetPokeNameDCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
-                        elseif ($GetPokemonID -match ($PokemonD -Replace '[^0-9]','')) { $GetPokeNameDCountForm = $PokemonCountD; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameDCountForm = [int]$GetPokeNameDCountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D_Count=.*", "Pokemon_D_Count=$GetPokeNameDCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
-                        elseif ($PokemonE -match "Blank") { $GetPokeNameECountForm = $PokemonCountE; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameECountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E=.*", "Pokemon_E=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E_Count=.*", "Pokemon_E_Count=$GetPokeNameECountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
-                        elseif ($GetPokemonID -match ($PokemonE -Replace '[^0-9]','')) { $GetPokeNameECountForm = $PokemonCountE; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameECountForm = [int]$GetPokeNameECountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E_Count=.*", "Pokemon_E_Count=$GetPokeNameECountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
-                        elseif ($PokemonF -match "Blank") { $GetPokeNameFCountForm = $PokemonCountF; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameFCountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F=.*", "Pokemon_F=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count=.*", "Pokemon_F_Count=$GetPokeNameFCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
-                        elseif ($GetPokemonID -match ($PokemonF -Replace '[^0-9]','')) { $GetPokeNameFCountForm = $PokemonCountF; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameFCountForm = [int]$GetPokeNameFCountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count=.*", "Pokemon_F_Count=$GetPokeNameFCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }  
-                        elseif ($PokemonG -match "Blank") { $GetPokeNameGCountForm = $PokemonCountG; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameGCountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G=.*", "Pokemon_G=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count=.*", "Pokemon_G_Count=$GetPokeNameGCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
-                        elseif ($GetPokemonID -match ($PokemonG -Replace '[^0-9]','')) { $GetPokeNameGCountForm = $PokemonCountG; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameGCountForm = [int]$GetPokeNameGCountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count=.*", "Pokemon_G_Count=$GetPokeNameGCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }                      
-                        elseif ($PokemonH -match "Blank") { $GetPokeNameHCountForm = $PokemonCountH; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameHCountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count=.*", "Pokemon_H_Count=$GetPokeNameHCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
-                        elseif ($GetPokemonID -match ($PokemonH -Replace '[^0-9]','')) { $GetPokeNameHCountForm = $PokemonCountH; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameHCountForm = [int]$GetPokeNameHCountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count=.*", "Pokemon_H_Count=$GetPokeNameHCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
-                        elseif ($PokemonI -match "Blank") { $GetPokeNameICountForm = $PokemonCountI; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameICountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count=.*", "Pokemon_I_Count=$GetPokeNameICountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
-                        elseif ($GetPokemonID -match ($PokemonI -Replace '[^0-9]','')) { $GetPokeNameICountForm = $PokemonCountI; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameICountForm = [int]$GetPokeNameICountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count=.*", "Pokemon_I_Count=$GetPokeNameICountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
-                        elseif ($PokemonJ -match "Blank") { $GetPokeNameJCountForm = $PokemonCountJ; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameJCountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count=.*", "Pokemon_J_Count=$GetPokeNameJCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
-                        elseif ($GetPokemonID -match ($PokemonJ -Replace '[^0-9]','')) { $GetPokeNameJCountForm = $PokemonCountJ; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameJCountForm = [int]$GetPokeNameJCountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count=.*", "Pokemon_J_Count=$GetPokeNameJCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($PokemonD -match "Blank") { CompressPNGs; $GetPokeNameDCountForm = $PokemonCountD; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameDCountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D=.*", "Pokemon_D=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D_Count=.*", "Pokemon_D_Count=$GetPokeNameDCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonD -Replace '[^0-9]','')) { CompressPNGs; $GetPokeNameDCountForm = $PokemonCountD; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameDCountForm = [int]$GetPokeNameDCountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D_Count=.*", "Pokemon_D_Count=$GetPokeNameDCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($PokemonE -match "Blank") { CompressPNGs; $GetPokeNameECountForm = $PokemonCountE; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameECountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E=.*", "Pokemon_E=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E_Count=.*", "Pokemon_E_Count=$GetPokeNameECountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonE -Replace '[^0-9]','')) { CompressPNGs; $GetPokeNameECountForm = $PokemonCountE; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameECountForm = [int]$GetPokeNameECountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E_Count=.*", "Pokemon_E_Count=$GetPokeNameECountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($PokemonF -match "Blank") { CompressPNGs; $GetPokeNameFCountForm = $PokemonCountF; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameFCountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F=.*", "Pokemon_F=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count=.*", "Pokemon_F_Count=$GetPokeNameFCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonF -Replace '[^0-9]','')) { CompressPNGs; $GetPokeNameFCountForm = $PokemonCountF; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameFCountForm = [int]$GetPokeNameFCountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count=.*", "Pokemon_F_Count=$GetPokeNameFCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }  
+                        elseif ($PokemonG -match "Blank") { CompressPNGs; $GetPokeNameGCountForm = $PokemonCountG; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameGCountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G=.*", "Pokemon_G=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count=.*", "Pokemon_G_Count=$GetPokeNameGCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonG -Replace '[^0-9]','')) { CompressPNGs; $GetPokeNameGCountForm = $PokemonCountG; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameGCountForm = [int]$GetPokeNameGCountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count=.*", "Pokemon_G_Count=$GetPokeNameGCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }                      
+                        elseif ($PokemonH -match "Blank") { CompressPNGs; $GetPokeNameHCountForm = $PokemonCountH; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameHCountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count=.*", "Pokemon_H_Count=$GetPokeNameHCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonH -Replace '[^0-9]','')) { CompressPNGs; $GetPokeNameHCountForm = $PokemonCountH; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameHCountForm = [int]$GetPokeNameHCountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count=.*", "Pokemon_H_Count=$GetPokeNameHCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($PokemonI -match "Blank") { CompressPNGs; $GetPokeNameICountForm = $PokemonCountI; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameICountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count=.*", "Pokemon_I_Count=$GetPokeNameICountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonI -Replace '[^0-9]','')) { CompressPNGs; $GetPokeNameICountForm = $PokemonCountI; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameICountForm = [int]$GetPokeNameICountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count=.*", "Pokemon_I_Count=$GetPokeNameICountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($PokemonJ -match "Blank") { CompressPNGs; $GetPokeNameJCountForm = $PokemonCountJ; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameJCountForm = [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=$GetPokemonName #$GetPokemonID"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count=.*", "Pokemon_J_Count=$GetPokeNameJCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
+                        elseif ($GetPokemonID -match ($PokemonJ -Replace '[^0-9]','')) { CompressPNGs; $GetPokeNameJCountForm = $PokemonCountJ; if ($OCRCapturedHordeNumber -eq "0") { $OCRCapturedHordeNumber = 1 }; $GetPokeNameJCountForm = [int]$GetPokeNameJCountForm + [int]$OCRCapturedHordeNumber; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count=.*", "Pokemon_J_Count=$GetPokeNameJCountForm"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10) }
 
                         # Checks for pixel color to ensure user is not in battle anymore
                         While (($GetPixelColor -match '\b('+($PixelMatchArray -join '|')+')\b')) { [System.Threading.Thread]::Sleep(100); if ($PictureMode -match "Default") { $ScreenCapture.PrintWindow(((Get-Process -Name javaw).MainWindowHandle)) } else { PokeMMOScreenShot }; $PixelSearchImage = New-Object System.Drawing.Bitmap "$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"; $GetPixelColor = $PixelSearchImage.GetPixel(0,0).Name; $PixelSearchImage.Dispose(); [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
