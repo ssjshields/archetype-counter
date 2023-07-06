@@ -3540,9 +3540,14 @@ Function PlayAction {
                         # Take/request screenshot of PokeMMO window
                         if ($PictureMode -match "Default") { $Handle = (Get-Process -Name javaw).MainWindowHandle; $ScreenCapture.PrintWindow($Handle); $ArchetypeScreenshot2 = New-Object System.Drawing.Bitmap("$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"); $GameWidth = $ArchetypeScreenshot2.Width; $GameHeight = $ArchetypeScreenshot2.Height; $BattleWidth = [math]::Ceiling(($GameWidth- 15.999)*0.7); if ($BattleWidth -le "760") { $BattleWidth = "760" }; $XCropValue = [Math]::Floor(($GameWidth - 15.999 - $BattleWidth) / 2); $WCropValue = $BattleWidth; $RectImage2 = New-Object System.Drawing.Rectangle($XCropValue,50,$WCropValue,300); $CropSlice2 = $ArchetypeScreenshot2.Clone($RectImage2, $ArchetypeScreenshot2.PixelFormat); $CropSlice2.save("$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.bmp"); $ArchetypeScreenshot2.dispose(); $RectImage2.Dispose() } else { PokeMMOScreenShot; $ArchetypeScreenshot2 = New-Object System.Drawing.Bitmap("$PWD\Counter Functions\Core\ArchetypeScreenshot.bmp"); $GameWidth = $ArchetypeScreenshot2.Width; $GameHeight = $ArchetypeScreenshot2.Height; $BattleWidth = [math]::Ceiling(($GameWidth- 15.999)*0.7); if ($BattleWidth -le "760") { $BattleWidth = "760" }; $XCropValue = [Math]::Floor(($GameWidth - 15.999 - $BattleWidth) / 2); $WCropValue = $BattleWidth; $RectImage2 = New-Object System.Drawing.Rectangle($XCropValue,50,$WCropValue,300); $CropSlice2 = $ArchetypeScreenshot2.Clone($RectImage2, $ArchetypeScreenshot2.PixelFormat); $CropSlice2.save("$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.bmp"); $ArchetypeScreenshot2.Dispose(); $RectImage2.Dispose() }
 
-                        # ImageMagick call to process ArchetypeScreenshot.bmp and perform filtering process for Windows OCR
-                        $ImageMagickCall = "$PWD\Counter Functions\Core\InvokeMagickFilter.bat"
-                        Start-Process -WindowStyle hidden $ImageMagickCall -Wait
+                        # Stores/Saves current working directory and sets to "Core" to run ImageMagick processing without an issue
+                        $CounterLoopWorkingDir = $PWD; Set-Location "$PWD\Counter Functions\Core"
+
+                        # Calls ImageMagick command to filter out "ArchetypeScreenshotEncounter" image
+                        cmd.exe /c "magick ArchetypeScreenshotEncounter.bmp ^ ( +clone -colorspace HSL -channel S -separate -negate -fill black -fuzz 99.9% -opaque black ) ^ -alpha off -compose copy_opacity -composite ^ -background black -alpha remove -alpha off ArchetypeScreenshotMagick.bmp" | Out-Null 
+
+                        # Resets working counter loop directory
+                        Set-Location $CounterLoopWorkingDir
 
                         # Loads the OCR module into a variable
                         if ($IgnoreSystemLang -match "True") { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" -Language $LangTag; if($?) { } else { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" -Language en } }; if ($OCRVariable -eq $null) { $OCRVariable = Convert-PsoImageToText -Path "$PWD\Counter Functions\Core\ArchetypeScreenshotMagick.bmp" }
