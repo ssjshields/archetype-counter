@@ -64,7 +64,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 > Tracking occurs via battle monster nameplates, OCR will not process properly if there is anything blocking them
 
-> String ids which contain crucial text such as "{user} recieved Eggs / Fossils" cannot be removed from the game entirely
+> String ids which contain text such as "{user} recieved Eggs / Fossils" cannot be removed from the game entirely
 
 &nbsp;
 # Installation
