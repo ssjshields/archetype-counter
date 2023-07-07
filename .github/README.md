@@ -44,7 +44,6 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 &nbsp;
 # Media
-
 ![encounter collapsed - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125459286001193010/image.png)
 &nbsp;
 ![encounter collapsed - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125459348706041886/image.png)  
@@ -58,10 +57,6 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 ![fossil expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458845649617017/image.png)  
 &nbsp;
 ![Counter Mode - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458544267894834/image.png)  
-&nbsp;
-![Sprite Selector - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125459593775034521/image.png)  
-&nbsp;
-![Extra Poke Slots - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458980404207636/image.png)
 
 &nbsp;
 # Expectations
@@ -103,7 +98,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 # Counter Menu Navigation
 *Note: Some options will appear "grayed out" and cannot be modified while the Counter is in counting mode (ON) or (BUSY)*
 
-![Counter Menu](https://cdn.discordapp.com/attachments/1032300868491546654/1126591751310823424/image.png)
+![Extra Poke Slots - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458980404207636/image.png)
 
 ### Language
 > Select PokeMMO client language for OCR to detect
@@ -147,7 +142,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 > Always on Top: Set whether the Counter retains priority over the PokeMMO window or not
 
-> Ignore System Language: Ignore the Windows operating system language (Use when the operating system language does not match in-game language.)
+> Ignore System Language: Use when the operating system language does not match in-game language
 
 > Beep Count Sound: Set system sound effect when a pokémon is tracked by counter
 
@@ -172,7 +167,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 > Client theme.xml, font values and graphical assets (AC folder) are inserted into the currently installed theme list 
 
 ### How does the Counter work?
-> In a nutshell; it uses OCR and several other utilities to scan screenshots of monster names and compares them against a list
+> OCR and several other utilities are used to scan screenshots of monster names and compares them against a list
 
 > Monster nameplates processed using images passed through an [Imagemagick](https://imagemagick.org/index.php) formula by realmadrid1809
 
@@ -183,7 +178,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 > Events / trades do not log towards count
 
-> DO NOT COMPLETELY REMOVE RECEIVED EGG / FOSSIL DIALOG USING CUSTOM STRINGS
+> If you are using custom strings do not completely remove receieved Egg / Fossil dialog
 
 ### Can I convert data from other counters?
 > Yes, right-click empty slot to manually set monster via dex number, middle-click (scroll wheel) to manually set count
@@ -191,7 +186,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 > Manually editing profiles may cause corruption- located in `Files\Counter Config Files`
 
 ### How can I report a bug?
-> Before creating a report, check [expectations](https://github.com/ssjshields/archetype-counter/tree/development#expectations) and [the existing issues](https://github.com/ssjshields/archetype-counter/issues)
+> Before creating a report, review this readme and [the existing issues](https://github.com/ssjshields/archetype-counter/issues)
 
 > Open the Debug folders from the Debug submenu, attach the `.png` and `.txt` files
 
