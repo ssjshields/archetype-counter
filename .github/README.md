@@ -4,7 +4,7 @@ Archetype Counter is a PowerShell WinForm script for the online video game [Poke
 
 Automatically tracks encounters (Horde, Safari, etc.) and when you receive Eggs or Fossils.
  
-Does not hook into the PokeMMO or javaw process. Utilizes Imagemagick and OCR technology.
+Does not hook into the PokeMMO or javaw process. Utilizes ImageMagick and OCR technology.
 
 Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lovers. Feel like exploring? Give our [client theme](https://github.com/ssjshields/archetype#readme) a try.
 
@@ -161,7 +161,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 ### How does the Counter work?
 > OCR and several other utilities are used to scan screenshots of monster names and compares them against a list
 
-> Monster nameplates processed using images passed through an [Imagemagick](https://imagemagick.org/index.php) formula by realmadrid1809
+> Monster nameplates processed using images passed through an [ImageMagick](https://imagemagick.org/index.php) formula by realmadrid1809
 
 > Utilities scripted with PowerShell 5.1 by AnonymousPoke
 
