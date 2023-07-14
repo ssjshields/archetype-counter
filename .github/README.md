@@ -4,7 +4,7 @@ Archetype Counter is a PowerShell WinForm script for the online video game [Poke
 
 Automatically tracks encounters (Horde, Safari, etc.) and when you receive Eggs or Fossils.
  
-Does not hook into the PokeMMO or javaw process. Utilizes Imagemagick and OCR technology.
+Does not hook into the PokeMMO or javaw process. Utilizes ImageMagick and OCR technology.
 
 Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lovers. Feel like exploring? Give our [client theme](https://github.com/ssjshields/archetype#readme) a try.
 
@@ -44,19 +44,11 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 &nbsp;
 # Media
-![encounter collapsed - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125459286001193010/image.png)
-&nbsp;
-![encounter collapsed - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125459348706041886/image.png)  
-&nbsp;
-![encounter expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125457882016657418/image.png)
-&nbsp;
-![encounter expanded - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125457920335806474/image.png)  
-&nbsp;
-![egg expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458808148344943/image.png)
-&nbsp;
-![fossil expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458845649617017/image.png)  
-&nbsp;
+![encounter collapsed - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125459286001193010/image.png) &nbsp; ![encounter collapsed - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125459348706041886/image.png)  
+
 ![Counter Mode - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458544267894834/image.png)  
+
+![encounter expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125457882016657418/image.png) &nbsp; ![encounter expanded - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125457920335806474/image.png) &nbsp; ![egg expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458808148344943/image.png) &nbsp; ![fossil expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458845649617017/image.png)  
 
 &nbsp;
 # Expectations
@@ -169,7 +161,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 ### How does the Counter work?
 > OCR and several other utilities are used to scan screenshots of monster names and compares them against a list
 
-> Monster nameplates processed using images passed through an [Imagemagick](https://imagemagick.org/index.php) formula by realmadrid1809
+> Monster nameplates processed using images passed through an [ImageMagick](https://imagemagick.org/index.php) formula by realmadrid1809
 
 > Utilities scripted with PowerShell 5.1 by AnonymousPoke
 
