@@ -25,6 +25,7 @@ Always_On_Top=True
 Close_PokeMMO=False
 Counter_Active=False
 Beep_Sound=False
+Screen_Position=Unlocked
 -------------------------------
 Set_Language=English
 Ignore_System_Language=False
