@@ -16,3 +16,7 @@ CollapsedCountBGLabel=#263137
 CollapsedPlayBG=#263137
 CollapsedStopBG=#74cc1d
 CollapsedBusyBG=#ce2020
+FontLabelColor=#ffffff
+FontLabelSize=7.5
+FontLabelType=Regular
+(Font Label type can be Regular, Bold or Italic)
