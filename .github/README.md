@@ -4,7 +4,7 @@ Archetype Counter is a PowerShell WinForm script for the online video game [Poke
 
 Automatically tracks encounters (Horde, Safari, etc.) and when you receive Eggs or Fossils.
  
-Does not hook into the PokeMMO or javaw process. Utilizes ImageMagick and OCR technology.
+Does not hook into the PokeMMO or javaw process. Utilizes [ImageMagick](https://imagemagick.org/index.php) and [OCR](https://www.ibm.com/blog/optical-character-recognition/) technology.
 
 Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lovers. Feel like exploring? Give our [client theme](https://github.com/ssjshields/archetype#readme) a try.
 
@@ -54,7 +54,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 # Expectations
 > Counter must be in counting mode (ON) before receiving Eggs / Fossils or when encounters begin
 
-> Tracking occurs via battle monster nameplates, OCR will not process properly if there is anything blocking them
+> Tracking occurs via battle monster nameplates, [OCR](https://www.ibm.com/blog/optical-character-recognition/) will not process properly if there is anything blocking them
 
 > String ids which contain text such as "{user} recieved Eggs / Fossils" cannot be removed from the game entirely
 
@@ -88,7 +88,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 
 &nbsp;
 # Counter Menu Navigation
-*Note: Some options will appear "grayed out" and cannot be modified while the Counter is in counting mode (ON) or (BUSY)*
+*Options will appear "grayed out" and cannot be modified while the Counter is in counting mode (ON) or (BUSY)*
 
 ![Extra Poke Slots - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458980404207636/image.png)
 
@@ -159,7 +159,7 @@ Useful for [shiny hunting](https://pokemondb.net/pokedex/shiny) or metrics lover
 > Client theme.xml, font values and graphical assets (AC folder) are inserted into the currently installed theme list 
 
 ### How does the Counter work?
-> OCR and several other utilities are used to scan screenshots of monster names and compares them against a list
+> [OCR](https://www.ibm.com/blog/optical-character-recognition/) and several other utilities are used to scan screenshots of monster names and compares them against a list
 
 > Monster nameplates processed using images passed through an [ImageMagick](https://imagemagick.org/index.php) formula by realmadrid1809
 
