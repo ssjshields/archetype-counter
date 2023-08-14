@@ -37,6 +37,7 @@ Pokemon_Seen_Count=0
 Fossil_Count=0
 Egg_Count=0
 Alpha_Count=0
+Legendary_Count=0
 Total_Count=0
 -------------------------------
 Shiny_Count=0
