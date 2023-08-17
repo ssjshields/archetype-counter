@@ -12,3 +12,4 @@ Gastiy; Gastly
 Raits; Ralts
 Marili; Marill
 Swabiu; Swablu
+Farfetchd; Farfetch’d
