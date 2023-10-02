@@ -7,7 +7,7 @@ Endlocal
 goto:eof
 #>
 
-# Sets the error action for the entire script to 'SilentlyContinue'
+# Sets the error action for the entire script to 'Continue'
 $ErrorActionPreference = 'Continue'
 
 # Set the counter running process to "Above Normal"
@@ -3750,6 +3750,9 @@ Function PlayAction {
                             # Checks if current just seen pokemon is a "Shiny"
                             if ($OCRCapturedShiny -match $true) {
 
+                                # Adding in VisualBasic assembly load
+                                [void][System.Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
+
                                 # Compress .png(s) to make easier to share/diagnose/distribute
                                 CompressPNGs 
 
@@ -3816,6 +3819,9 @@ Function PlayAction {
                             # Checks if current just seen pokemon is a "Shiny"
                             if ($OCRCapturedDogs -match $true) {
 
+                                # Adding in VisualBasic assembly load
+                                [void][System.Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
+
                                 # Compress .png(s) to make easier to share/diagnose/distribute
                                 CompressPNGs 
 
@@ -3865,6 +3871,9 @@ Function PlayAction {
 
                             # Checks if Pokemon capture names from OCR match the Pokemon in the counter list
                             elseif ($DetectedPokeName -eq $false) {
+
+                                # Adding in VisualBasic assembly load
+                                [void][System.Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
 
                                 # Compress .png(s) to make easier to share/diagnose/distribute
                                 CompressPNGs
