@@ -175,7 +175,7 @@ Useful for [shiny hunting](https://Pokémondb.net/pokedex/shiny) or metrics love
 > Client theme.xml, font values and graphical assets (AC folder) are inserted into the currently installed theme list
 
 ### How do I make custom Counter theme?
-> Open the counter menu and navigate to -> Theme Selector -> Open Theme Folder and modify the .png images accordingly
+> Open the counter menu and navigate to -> Theme Selector -> "Open Theme Folder" and modify the .png images accordingly
 
 > Modifying the `ThemeConfig.txt` file will allow you to change the font/background colors along with font sizing & types
 
@@ -183,7 +183,7 @@ Useful for [shiny hunting](https://Pokémondb.net/pokedex/shiny) or metrics love
 > Yes it does and it will also provide a prompt provided by the counter indicating a shiny is on the screen (Extra layer to prevent defeating or running from the shiny)
 
 ### Does the Counter track Alpha Pokémon?
-> Yes
+> Yes, but only as a total count in the counter - will not add to the normal tracked monster count
 
 ### Does the Counter track Legendary Pokémon?
 > Yes, but currently only the 3 legendary dogs from Johto (Raikou, Suicune, and Entei)
@@ -212,16 +212,16 @@ Useful for [shiny hunting](https://Pokémondb.net/pokedex/shiny) or metrics love
 ### How do I fix incorrect scanned Pokémon names with the 'Name Fix' file?
 > When a monster is incorrectly scanned via OCR, you take the 'failed' name and place it on the left hand side of the semi-colon and then take the correct monster name and place to the right of the semi-colon
 
-> (Ex: Gastiy; Gastly)
+> `(Ex: Gastiy; Gastly)`
 
 > You will need to turn the counter OFF and then back ON for these changes to take effect
 
 ### How do I manually remove additional characters/symbols from the failed scan?
 > Open up the 'Name Fix' file from the counter menu and take the partial/incorrect text and place on the left hand side of the semi-colon and then place the word 'Blank' on the right hand side of the semi-colon
 
-> (Ex: GastE; Blank)
+> `(Ex: GastE; Blank)`
 
-> When a 'Blank' is provided on the right hand side of the semi-colon, this indicates the counter to completely remove that specific text
+> When a 'Blank' is provided on the right hand side of the semi-colon, this indicates the counter to completely remove that specific text - You will need to turn the counter OFF and then back ON for these changes to take effect
 
 ### Does the Counter support transparency when making custom themes?
 > No - this is a limitation with the PowerShell WinForms GUI
