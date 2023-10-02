@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <themes>
-    <fontDef name="Counter_Monster_Name" filename="NotoSans-Medium.ttc" color="#ffffff" border_width="1.1" border_color="#000000" size="19" hinting="Full" offsetY="-3"/>
+    <fontDef name="Counter_Monster_Name" filename="NotoSans-Medium.ttc" color="#ffffff" border_width="1.1" border_color="#000000" size="18" hinting="Full" offsetY="-3"/>
 
 	<fontGen/>
 
 	<images file="Base_Dot.png" filter="nearest">
 		<area name="Screen_Filter" xywh="*" tint="#04ffffff"/>
-		<area name="Battle_Pattern" xywh="*" splitx="L6,R0" splity="T6,B0" inset="0,0,1,1"/>
+		<area name="Battle_Pattern" xywh="*" splitx="L6,R0" splity="T6,B0" inset="-1,-1,1,1"/>
 
 		<composed name="battle-ui-enemy">
 			<alias ref="battle-ui-enemy" tint="#fbffff"/>
@@ -23,11 +23,11 @@
 	</images>
 
 	<images file="Speech_Dot.png" filter="nearest">
-		<area name="Speech_Pattern" xywh="*" splitx="L6,R0" splity="T6,B0" inset="0,0,1,1"/>
+		<area name="Speech_Pattern" xywh="*" splitx="L6,R0" splity="T6,B0" inset="-1,-1,1,1"/>
 	</images>
 
 	<images file="Default_Dot.png" filter="nearest">
-		<area name="Default_Pattern" xywh="*" splitx="L6,R0" splity="T6,B0" inset="0,0,1,1"/>
+		<area name="Default_Pattern" xywh="*" splitx="L6,R0" splity="T6,B0" inset="-1,-1,1,1"/>
 	</images>
 
 	<theme name="battle-gui-enemy" ref="battle-gui-enemy">
