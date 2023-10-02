@@ -1,0 +1,606 @@
+'\" t
+.\"     Title: tesseract
+.\"    Author: [see the "AUTHOR" section]
+.\" Generator: DocBook XSL Stylesheets v1.79.2 <http://docbook.sf.net/>
+.\"      Date: 08/30/2023
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "TESSERACT" "1" "08/30/2023" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+
+
+.SH "NAME"
+tesseract \- command\-line OCR engine
+.SH "SYNOPSIS"
+.sp
+\fBtesseract\fR \fIFILE\fR \fIOUTPUTBASE\fR [\fIOPTIONS\fR]\&... [\fICONFIGFILE\fR]\&...
+
+.SH "DESCRIPTION"
+
+.sp
+tesseract(1) is a commercial quality OCR engine originally developed at HP between 1985 and 1995\&. In 1995, this engine was among the top 3 evaluated by UNLV\&. It was open\-sourced by HP and UNLV in 2005, and has been developed at Google since then\&.
+
+.SH "IN/OUT ARGUMENTS"
+
+
+
+.PP
+\fIFILE\fR
+.RS 4
+
+
+
+The name of the input file\&. This can either be an image file or a text file\&.
+
+Most image file formats (anything readable by Leptonica) are supported\&.
+
+A text file lists the names of all input images (one image name per line)\&. The results will be combined in a single file for each output file format (txt, pdf, hocr, xml)\&.
+
+If
+\fIFILE\fR
+is
+stdin
+or
+\-
+then the standard input is used\&.
+
+.RE
+.PP
+\fIOUTPUTBASE\fR
+.RS 4
+
+
+
+The basename of the output file (to which the appropriate extension will be appended)\&. By default the output will be a text file with
+\&.txt
+added to the basename unless there are one or more parameters set which explicitly specify the desired output\&.
+
+If
+\fIOUTPUTBASE\fR
+is
+stdout
+or
+\-
+then the standard output is used\&.
+
+.RE
+
+.SH "OPTIONS"
+
+
+
+.PP
+\fB\-c\fR \fICONFIGVAR=VALUE\fR
+.RS 4
+
+
+
+Set value for parameter
+\fICONFIGVAR\fR
+to VALUE\&. Multiple
+\fB\-c\fR
+arguments are allowed\&.
+
+.RE
+.PP
+\fB\-\-dpi\fR \fIN\fR
+.RS 4
+
+
+
+Specify the resolution
+\fIN\fR
+in DPI for the input image(s)\&. A typical value for
+\fIN\fR
+is
+300\&. Without this option, the resolution is read from the metadata included in the image\&. If an image does not include that information, Tesseract tries to guess it\&.
+
+.RE
+.PP
+\fB\-l\fR \fILANG\fR, \fB\-l\fR \fISCRIPT\fR
+.RS 4
+
+
+
+
+The language or script to use\&. If none is specified,
+eng
+(English) is assumed\&. Multiple languages may be specified, separated by plus characters\&. Tesseract uses 3\-character ISO 639\-2 language codes (see
+\fBLANGUAGES AND SCRIPTS\fR)\&.
+
+.RE
+.PP
+\fB\-\-psm\fR \fIN\fR
+.RS 4
+
+
+
+Set Tesseract to only run a subset of layout analysis and assume a certain form of image\&. The options for
+\fIN\fR
+are:
+
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+0 = Orientation and script detection (OSD) only\&.
+1 = Automatic page segmentation with OSD\&.
+2 = Automatic page segmentation, but no OSD, or OCR\&. (not implemented)
+3 = Fully automatic page segmentation, but no OSD\&. (Default)
+4 = Assume a single column of text of variable sizes\&.
+5 = Assume a single uniform block of vertically aligned text\&.
+6 = Assume a single uniform block of text\&.
+7 = Treat the image as a single text line\&.
+8 = Treat the image as a single word\&.
+9 = Treat the image as a single word in a circle\&.
+10 = Treat the image as a single character\&.
+11 = Sparse text\&. Find as much text as possible in no particular order\&.
+12 = Sparse text with OSD\&.
+13 = Raw line\&. Treat the image as a single text line,
+     bypassing hacks that are Tesseract\-specific\&.
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+
+.RE
+.PP
+\fB\-\-oem\fR \fIN\fR
+.RS 4
+
+
+
+Specify OCR Engine mode\&. The options for
+\fIN\fR
+are:
+
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+0 = Original Tesseract only\&.
+1 = Neural nets LSTM only\&.
+2 = Tesseract + LSTM\&.
+3 = Default, based on what is available\&.
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+
+.RE
+.PP
+\fB\-\-tessdata\-dir\fR \fIPATH\fR
+.RS 4
+
+
+
+Specify the location of tessdata path\&.
+
+.RE
+.PP
+\fB\-\-user\-patterns\fR \fIFILE\fR
+.RS 4
+
+
+
+Specify the location of user patterns file\&.
+
+.RE
+.PP
+\fB\-\-user\-words\fR \fIFILE\fR
+.RS 4
+
+
+
+Specify the location of user words file\&.
+
+.RE
+.PP
+\fICONFIGFILE\fR
+.RS 4
+
+
+
+The name of a config to use\&. The name can be a file in
+tessdata/configs
+or
+tessdata/tessconfigs, or an absolute or relative file path\&. A config is a plain text file which contains a list of parameters and their values, one per line, with a space separating parameter from value\&.
+
+Interesting config files include:
+
+
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fBalto\fR \(em Output in ALTO format (\fIOUTPUTBASE\fR\&.xml)\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fBhocr\fR \(em Output in hOCR format (\fIOUTPUTBASE\fR\&.hocr)\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fBpdf\fR \(em Output PDF (\fIOUTPUTBASE\fR\&.pdf)\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fBtsv\fR \(em Output TSV (\fIOUTPUTBASE\fR\&.tsv)\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fBtxt\fR \(em Output plain text (\fIOUTPUTBASE\fR\&.txt)\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fBget\&.images\fR \(em Write processed input images to file (\fIOUTPUTBASE\fR\&.processedPAGENUMBER\&.tif)\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fBlogfile\fR \(em Redirect debug messages to file (tesseract\&.log)\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fBlstm\&.train\fR \(em Output files used by LSTM training (\fIOUTPUTBASE\fR\&.lstmf)\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fBmakebox\fR \(em Write box file (\fIOUTPUTBASE\fR\&.box)\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+
+\fBquiet\fR \(em Redirect debug messages to
+\fI/dev/null\fR\&.
+.RE
+.sp
+
+.RE
+.sp
+It is possible to select several config files, for example tesseract image\&.png demo alto hocr pdf txt will create four output files demo\&.alto, demo\&.hocr, demo\&.pdf and demo\&.txt with the OCR results\&.
+.sp
+\fBNota bene:\fR The options \fB\-l\fR \fILANG\fR, \fB\-l\fR \fISCRIPT\fR and \fB\-\-psm\fR \fIN\fR must occur before any \fICONFIGFILE\fR\&.
+
+.SH "SINGLE OPTIONS"
+
+
+
+.PP
+\fB\-h, \-\-help\fR
+.RS 4
+
+
+
+Show help message\&.
+
+.RE
+.PP
+\fB\-\-help\-extra\fR
+.RS 4
+
+
+
+Show extra help for advanced users\&.
+
+.RE
+.PP
+\fB\-\-help\-psm\fR
+.RS 4
+
+
+
+Show page segmentation modes\&.
+
+.RE
+.PP
+\fB\-\-help\-oem\fR
+.RS 4
+
+
+
+Show OCR Engine modes\&.
+
+.RE
+.PP
+\fB\-v, \-\-version\fR
+.RS 4
+
+
+
+Returns the current version of the tesseract(1) executable\&.
+
+.RE
+.PP
+\fB\-\-list\-langs\fR
+.RS 4
+
+
+
+List available languages for tesseract engine\&. Can be used with
+\fB\-\-tessdata\-dir\fR
+\fIPATH\fR\&.
+
+.RE
+.PP
+\fB\-\-print\-parameters\fR
+.RS 4
+
+
+
+Print tesseract parameters\&.
+
+.RE
+
+.SH "LANGUAGES AND SCRIPTS"
+
+.sp
+To recognize some text with Tesseract, it is normally necessary to specify the language(s) or script(s) of the text (unless it is English text which is supported by default) using \fB\-l\fR \fILANG\fR or \fB\-l\fR \fISCRIPT\fR\&.
+.sp
+Selecting a language automatically also selects the language specific character set and dictionary (word list)\&.
+.sp
+Selecting a script typically selects all characters of that script which can be from different languages\&. The dictionary which is included also contains a mix from different languages\&. In most cases, a script also supports English\&. So it is possible to recognize a language that has not been specifically trained for by using traineddata for the script it is written in\&.
+.sp
+More than one language or script may be specified by using +\&. Example: tesseract myimage\&.png myimage \-l eng+deu+fra\&.
+.sp
+\m[blue]\fBhttps://github\&.com/tesseract\-ocr/tessdata_fast\fR\m[] provides fast language and script models which are also part of Linux distributions\&.
+.sp
+For Tesseract 4, tessdata_fast includes traineddata files for the following languages:
+.sp
+\fBafr\fR (Afrikaans), \fBamh\fR (Amharic), \fBara\fR (Arabic), \fBasm\fR (Assamese), \fBaze\fR (Azerbaijani), \fBaze_cyrl\fR (Azerbaijani \- Cyrilic), \fBbel\fR (Belarusian), \fBben\fR (Bengali), \fBbod\fR (Tibetan), \fBbos\fR (Bosnian), \fBbre\fR (Breton), \fBbul\fR (Bulgarian), \fBcat\fR (Catalan; Valencian), \fBceb\fR (Cebuano), \fBces\fR (Czech), \fBchi_sim\fR (Chinese simplified), \fBchi_tra\fR (Chinese traditional), \fBchr\fR (Cherokee), \fBcos\fR (Corsican), \fBcym\fR (Welsh), \fBdan\fR (Danish), \fBdeu\fR (German), \fBdiv\fR (Dhivehi), \fBdzo\fR (Dzongkha), \fBell\fR (Greek, Modern, 1453\-), \fBeng\fR (English), \fBenm\fR (English, Middle, 1100\-1500), \fBepo\fR (Esperanto), \fBequ\fR (Math / equation detection module), \fBest\fR (Estonian), \fBeus\fR (Basque), \fBfas\fR (Persian), \fBfao\fR (Faroese), \fBfil\fR (Filipino), \fBfin\fR (Finnish), \fBfra\fR (French), \fBfrk\fR (Frankish), \fBfrm\fR (French, Middle, ca\&.1400\-1600), \fBfry\fR (West Frisian), \fBgla\fR (Scottish Gaelic), \fBgle\fR (Irish), \fBglg\fR (Galician), \fBgrc\fR (Greek, Ancient, to 1453), \fBguj\fR (Gujarati), \fBhat\fR (Haitian; Haitian Creole), \fBheb\fR (Hebrew), \fBhin\fR (Hindi), \fBhrv\fR (Croatian), \fBhun\fR (Hungarian), \fBhye\fR (Armenian), \fBiku\fR (Inuktitut), \fBind\fR (Indonesian), \fBisl\fR (Icelandic), \fBita\fR (Italian), \fBita_old\fR (Italian \- Old), \fBjav\fR (Javanese), \fBjpn\fR (Japanese), \fBkan\fR (Kannada), \fBkat\fR (Georgian), \fBkat_old\fR (Georgian \- Old), \fBkaz\fR (Kazakh), \fBkhm\fR (Central Khmer), \fBkir\fR (Kirghiz; Kyrgyz), \fBkmr\fR (Kurdish Kurmanji), \fBkor\fR (Korean), \fBkor_vert\fR (Korean vertical), \fBlao\fR (Lao), \fBlat\fR (Latin), \fBlav\fR (Latvian), \fBlit\fR (Lithuanian), \fBltz\fR (Luxembourgish), \fBmal\fR (Malayalam), \fBmar\fR (Marathi), \fBmkd\fR (Macedonian), \fBmlt\fR (Maltese), \fBmon\fR (Mongolian), \fBmri\fR (Maori), \fBmsa\fR (Malay), \fBmya\fR (Burmese), \fBnep\fR (Nepali), \fBnld\fR (Dutch; Flemish), \fBnor\fR (Norwegian), \fBoci\fR (Occitan post 1500), \fBori\fR (Oriya), \fBosd\fR (Orientation and script detection module), \fBpan\fR (Panjabi; Punjabi), \fBpol\fR (Polish), \fBpor\fR (Portuguese), \fBpus\fR (Pushto; Pashto), \fBque\fR (Quechua), \fBron\fR (Romanian; Moldavian; Moldovan), \fBrus\fR (Russian), \fBsan\fR (Sanskrit), \fBsin\fR (Sinhala; Sinhalese), \fBslk\fR (Slovak), \fBslv\fR (Slovenian), \fBsnd\fR (Sindhi), \fBspa\fR (Spanish; Castilian), \fBspa_old\fR (Spanish; Castilian \- Old), \fBsqi\fR (Albanian), \fBsrp\fR (Serbian), \fBsrp_latn\fR (Serbian \- Latin), \fBsun\fR (Sundanese), \fBswa\fR (Swahili), \fBswe\fR (Swedish), \fBsyr\fR (Syriac), \fBtam\fR (Tamil), \fBtat\fR (Tatar), \fBtel\fR (Telugu), \fBtgk\fR (Tajik), \fBtha\fR (Thai), \fBtir\fR (Tigrinya), \fBton\fR (Tonga), \fBtur\fR (Turkish), \fBuig\fR (Uighur; Uyghur), \fBukr\fR (Ukrainian), \fBurd\fR (Urdu), \fBuzb\fR (Uzbek), \fBuzb_cyrl\fR (Uzbek \- Cyrilic), \fBvie\fR (Vietnamese), \fByid\fR (Yiddish), \fByor\fR (Yoruba)
+.sp
+To use a non\-standard language pack named foo\&.traineddata, set the TESSDATA_PREFIX environment variable so the file can be found at TESSDATA_PREFIX/tessdata/foo\&.traineddata and give Tesseract the argument \fB\-l\fR foo\&.
+.sp
+For Tesseract 4, tessdata_fast includes traineddata files for the following scripts:
+.sp
+\fBArabic\fR, \fBArmenian\fR, \fBBengali\fR, \fBCanadian_Aboriginal\fR, \fBCherokee\fR, \fBCyrillic\fR, \fBDevanagari\fR, \fBEthiopic\fR, \fBFraktur\fR, \fBGeorgian\fR, \fBGreek\fR, \fBGujarati\fR, \fBGurmukhi\fR, \fBHanS\fR (Han simplified), \fBHanS_vert\fR (Han simplified, vertical), \fBHanT\fR (Han traditional), \fBHanT_vert\fR (Han traditional, vertical), \fBHangul\fR, \fBHangul_vert\fR (Hangul vertical), \fBHebrew\fR, \fBJapanese\fR, \fBJapanese_vert\fR (Japanese vertical), \fBKannada\fR, \fBKhmer\fR, \fBLao\fR, \fBLatin\fR, \fBMalayalam\fR, \fBMyanmar\fR, \fBOriya\fR (Odia), \fBSinhala\fR, \fBSyriac\fR, \fBTamil\fR, \fBTelugu\fR, \fBThaana\fR, \fBThai\fR, \fBTibetan\fR, \fBVietnamese\fR\&.
+.sp
+The same languages and scripts are available from \m[blue]\fBhttps://github\&.com/tesseract\-ocr/tessdata_best\fR\m[]\&. tessdata_best provides slow language and script models\&. These models are needed for training\&. They also can give better OCR results, but the recognition takes much more time\&.
+.sp
+Both tessdata_fast and tessdata_best only support the LSTM OCR engine\&.
+.sp
+There is a third repository, \m[blue]\fBhttps://github\&.com/tesseract\-ocr/tessdata\fR\m[], with models which support both the Tesseract 3 legacy OCR engine and the Tesseract 4 LSTM OCR engine\&.
+
+.SH "CONFIG FILES AND AUGMENTING WITH USER DATA"
+
+.sp
+Tesseract config files consist of lines with parameter\-value pairs (space separated)\&. The parameters are documented as flags in the source code like the following one in tesseractclass\&.h:
+.sp
+STRING_VAR_H(tessedit_char_blacklist, "", "Blacklist of chars not to recognize");
+.sp
+These parameters may enable or disable various features of the engine, and may cause it to load (or not load) various data\&. For instance, let\(cqs suppose you want to OCR in English, but suppress the normal dictionary and load an alternative word list and an alternative list of patterns \(em these two files are the most commonly used extra data files\&.
+.sp
+If your language pack is in \fI/path/to/eng\&.traineddata\fR and the hocr config is in \fI/path/to/configs/hocr\fR then create three new files:
+.sp
+\fI/path/to/eng\&.user\-words\fR:
+
+
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+the
+quick
+brown
+fox
+jumped
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+
+.sp
+\fI/path/to/eng\&.user\-patterns\fR:
+
+
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+1\-\ed\ed\ed\-GOOG\-411
+www\&.\en\e\e\e*\&.com
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+
+.sp
+\fI/path/to/configs/bazaar\fR:
+
+
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+load_system_dawg     F
+load_freq_dawg       F
+user_words_suffix    user\-words
+user_patterns_suffix user\-patterns
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+
+.sp
+Now, if you pass the word \fIbazaar\fR as a \fICONFIGFILE\fR to Tesseract, Tesseract will not bother loading the system dictionary nor the dictionary of frequent words and will load and use the \fIeng\&.user\-words\fR and \fIeng\&.user\-patterns\fR files you provided\&. The former is a simple word list, one per line\&. The format of the latter is documented in \fIdict/trie\&.h\fR on \fIread_pattern_list()\fR\&.
+
+.SH "ENVIRONMENT VARIABLES"
+
+
+
+.PP
+\fBTESSDATA_PREFIX\fR
+.RS 4
+
+
+
+If the
+TESSDATA_PREFIX
+is set to a path, then that path is used to find the
+tessdata
+directory with language and script recognition models and config files\&. Using
+\fB\-\-tessdata\-dir\fR \fIPATH\fR
+is the recommended alternative\&.
+
+.RE
+.PP
+\fBOMP_THREAD_LIMIT\fR
+.RS 4
+
+
+
+If the
+tesseract
+executable was built with multithreading support, it will normally use four CPU cores for the OCR process\&. While this can be faster for a single image, it gives bad performance if the host computer provides less than four CPU cores or if OCR is made for many images\&. Only a single CPU core is used with
+OMP_THREAD_LIMIT=1\&.
+
+.RE
+
+.SH "HISTORY"
+
+.sp
+The engine was developed at Hewlett Packard Laboratories Bristol and at Hewlett Packard Co, Greeley Colorado between 1985 and 1994, with some more changes made in 1996 to port to Windows, and some C++izing in 1998\&. A lot of the code was written in C, and then some more was written in C++\&. The C++ code makes heavy use of a list system using macros\&. This predates STL, was portable before STL, and is more efficient than STL lists, but has the big negative that if you do get a segmentation violation, it is hard to debug\&.
+.sp
+Version 2\&.00 brought Unicode (UTF\-8) support, six languages, and the ability to train Tesseract\&.
+.sp
+Tesseract was included in UNLV\(cqs Fourth Annual Test of OCR Accuracy\&. See \m[blue]\fBhttps://github\&.com/tesseract\-ocr/docs/blob/main/AT\-1995\&.pdf\fR\m[]\&. Since Tesseract 2\&.00, scripts are now included to allow anyone to reproduce some of these tests\&. See \m[blue]\fBhttps://tesseract\-ocr\&.github\&.io/tessdoc/TestingTesseract\&.html\fR\m[] for more details\&.
+.sp
+Tesseract 3\&.00 added a number of new languages, including Chinese, Japanese, and Korean\&. It also introduced a new, single\-file based system of managing language data\&.
+.sp
+Tesseract 3\&.02 added BiDirectional text support, the ability to recognize multiple languages in a single image, and improved layout analysis\&.
+.sp
+Tesseract 4 adds a new neural net (LSTM) based OCR engine which is focused on line recognition, but also still supports the legacy Tesseract OCR engine of Tesseract 3 which works by recognizing character patterns\&. Compatibility with Tesseract 3 is enabled by \-\-oem 0\&. This also needs traineddata files which support the legacy engine, for example those from the tessdata repository (\m[blue]\fBhttps://github\&.com/tesseract\-ocr/tessdata\fR\m[])\&.
+.sp
+For further details, see the release notes in the Tesseract documentation (\m[blue]\fBhttps://tesseract\-ocr\&.github\&.io/tessdoc/ReleaseNotes\&.html\fR\m[])\&.
+
+.SH "RESOURCES"
+
+.sp
+Main web site: \m[blue]\fBhttps://github\&.com/tesseract\-ocr\fR\m[] User forum: \m[blue]\fBhttps://groups\&.google\&.com/g/tesseract\-ocr\fR\m[] Documentation: \m[blue]\fBhttps://tesseract\-ocr\&.github\&.io/\fR\m[] Information on training: \m[blue]\fBhttps://tesseract\-ocr\&.github\&.io/tessdoc/Training\-Tesseract\&.html\fR\m[]
+
+.SH "SEE ALSO"
+
+.sp
+ambiguous_words(1), cntraining(1), combine_tessdata(1), dawg2wordlist(1), shape_training(1), mftraining(1), unicharambigs(5), unicharset(5), unicharset_extractor(1), wordlist2dawg(1)
+
+.SH "AUTHOR"
+
+.sp
+Tesseract development was led at Hewlett\-Packard and Google by Ray Smith\&. The development team has included:
+.sp
+Ahmad Abdulkader, Chris Newton, Dan Johnson, Dar\-Shyang Lee, David Eger, Eric Wiseblatt, Faisal Shafait, Hiroshi Takenaka, Joe Liu, Joern Wanke, Mark Seaman, Mickey Namiki, Nicholas Beato, Oded Fuhrmann, Phil Cheatle, Pingping Xiu, Pong Eksombatchai (Chantat), Ranjith Unnikrishnan, Raquel Romano, Ray Smith, Rika Antonova, Robert Moss, Samuel Charron, Sheelagh Lloyd, Shobhit Saxena, and Thomas Kielbus\&.
+.sp
+For a list of contributors see \m[blue]\fBhttps://github\&.com/tesseract\-ocr/tesseract/blob/main/AUTHORS\fR\m[]\&.
+
+.SH "COPYING"
+
+.sp
+Licensed under the Apache License, Version 2\&.0
+
+

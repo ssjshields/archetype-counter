@@ -1,0 +1,163 @@
+'\" t
+.\"     Title: combine_lang_model
+.\"    Author: [see the "AUTHOR" section]
+.\" Generator: DocBook XSL Stylesheets v1.79.2 <http://docbook.sf.net/>
+.\"      Date: 08/30/2023
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "COMBINE_LANG_MODEL" "1" "08/30/2023" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+
+
+.SH "NAME"
+combine_lang_model \- generate starter traineddata
+.SH "SYNOPSIS"
+.sp
+\fBcombine_lang_model\fR \-\-input_unicharset \fIfilename\fR \-\-script_dir \fIdirname\fR \-\-output_dir \fIrootdir\fR \-\-lang \fIlang\fR [\-\-lang_is_rtl] [pass_through_recoder] [\-\-words file \-\-puncs file \-\-numbers file]
+
+.SH "DESCRIPTION"
+
+.sp
+combine_lang_model(1) generates a starter traineddata file that can be used to train an LSTM\-based neural network model\&. It takes as input a unicharset and an optional set of wordlists\&. It eliminates the need to run set_unicharset_properties(1), wordlist2dawg(1), some non\-existent binary to generate the recoder (unicode compressor), and finally combine_tessdata(1)\&.
+
+.SH "OPTIONS"
+
+
+
+.PP
+\fI\-\-lang lang\fR
+.RS 4
+
+
+
+The language to use\&. Tesseract uses 3\-character ISO 639\-2 language codes\&. (See LANGUAGES)
+
+.RE
+.PP
+\fI\-\-script_dir PATH\fR
+.RS 4
+
+
+
+Directory name for input script unicharsets\&. It should point to the location of langdata (github repo) directory\&. (type:string default:)
+
+.RE
+.PP
+\fI\-\-input_unicharset FILE\fR
+.RS 4
+
+
+
+Unicharset to complete and use in encoding\&. It can be a hand\-created file with incomplete fields\&. Its basic and script properties will be set before it is used\&. (type:string default:)
+
+.RE
+.PP
+\fI\-\-lang_is_rtl BOOL\fR
+.RS 4
+
+
+
+True if language being processed is written right\-to\-left (eg Arabic/Hebrew)\&. (type:bool default:false)
+
+.RE
+.PP
+\fI\-\-pass_through_recoder BOOL\fR
+.RS 4
+
+
+
+If true, the recoder is a simple pass\-through of the unicharset\&. Otherwise, potentially a compression of it by encoding Hangul in Jamos, decomposing multi\-unicode symbols into sequences of unicodes, and encoding Han using the data in the radical_table_data, which must be the content of the file: langdata/radical\-stroke\&.txt\&. (type:bool default:false)
+
+.RE
+.PP
+\fI\-\-version_str STRING\fR
+.RS 4
+
+
+
+An arbitrary version label to add to traineddata file (type:string default:)
+
+.RE
+.PP
+\fI\-\-words FILE\fR
+.RS 4
+
+
+
+(Optional) File listing words to use for the system dictionary (type:string default:)
+
+.RE
+.PP
+\fI\-\-numbers FILE\fR
+.RS 4
+
+
+
+(Optional) File listing number patterns (type:string default:)
+
+.RE
+.PP
+\fI\-\-puncs FILE\fR
+.RS 4
+
+
+
+(Optional) File listing punctuation patterns\&. The words/puncs/numbers lists may be all empty\&. If any are non\-empty then puncs must be non\-empty\&. (type:string default:)
+
+.RE
+.PP
+\fI\-\-output_dir PATH\fR
+.RS 4
+
+
+
+Root directory for output files\&. Output files will be written to <output_dir>/<lang>/<lang>\&.* (type:string default:)
+
+.RE
+
+.SH "HISTORY"
+
+.sp
+combine_lang_model(1) was first made available for tesseract4\&.00\&.00alpha\&.
+
+.SH "RESOURCES"
+
+.sp
+Main web site: \m[blue]\fBhttps://github\&.com/tesseract\-ocr\fR\m[] Information on training tesseract LSTM: \m[blue]\fBhttps://tesseract\-ocr\&.github\&.io/tessdoc/TrainingTesseract\-4\&.00\&.html\fR\m[]
+
+.SH "SEE ALSO"
+
+.sp
+tesseract(1)
+
+.SH "COPYING"
+
+.sp
+Copyright (C) 2012 Google, Inc\&. Licensed under the Apache License, Version 2\&.0
+
+.SH "AUTHOR"
+
+.sp
+The Tesseract OCR engine was written by Ray Smith and his research groups at Hewlett Packard (1985\-1995) and Google (2006\-present)\&.
+
+

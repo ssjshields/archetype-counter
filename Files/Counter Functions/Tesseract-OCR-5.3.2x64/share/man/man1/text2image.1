@@ -1,0 +1,411 @@
+'\" t
+.\"     Title: text2image
+.\"    Author: [see the "AUTHOR" section]
+.\" Generator: DocBook XSL Stylesheets v1.79.2 <http://docbook.sf.net/>
+.\"      Date: 08/30/2023
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "TEXT2IMAGE" "1" "08/30/2023" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+
+
+.SH "NAME"
+text2image \- generate OCR training pages\&.
+.SH "SYNOPSIS"
+.sp
+\fBtext2image\fR \-\-text \fIFILE\fR \-\-outputbase \fIPATH\fR \-\-fonts_dir \fIPATH\fR [OPTION]
+
+.SH "DESCRIPTION"
+
+.sp
+text2image(1) generates OCR training pages\&. Given a text file it outputs an image with a given font and degradation\&.
+
+.SH "OPTIONS"
+
+
+
+.PP
+\fI\-\-text FILE\fR
+.RS 4
+
+
+
+File name of text input to use for creating synthetic training data\&. (type:string default:)
+
+.RE
+.PP
+\fI\-\-outputbase FILE\fR
+.RS 4
+
+
+
+Basename for output image/box file (type:string default:)
+
+.RE
+.PP
+\fI\-\-fontconfig_tmpdir PATH\fR
+.RS 4
+
+
+
+Overrides fontconfig default temporary dir (type:string default:/tmp)
+
+.RE
+.PP
+\fI\-\-fonts_dir PATH\fR
+.RS 4
+
+
+
+If empty it use system default\&. Otherwise it overrides system default font location (type:string default:)
+
+.RE
+.PP
+\fI\-\-font FONTNAME\fR
+.RS 4
+
+
+
+Font description name to use (type:string default:Arial)
+
+.RE
+.PP
+\fI\-\-writing_mode MODE\fR
+.RS 4
+
+
+
+Specify one of the following writing modes\&.
+\fIhorizontal\fR
+: Render regular horizontal text\&. (default)
+\fIvertical\fR
+: Render vertical text\&. Glyph orientation is selected by Pango\&.
+\fIvertical\-upright\fR
+: Render vertical text\&. Glyph orientation is set to be upright\&. (type:string default:horizontal)
+
+.RE
+.PP
+\fI\-\-tlog_level INT\fR
+.RS 4
+
+
+
+Minimum logging level for tlog() output (type:int default:0)
+
+.RE
+.PP
+\fI\-\-max_pages INT\fR
+.RS 4
+
+
+
+Maximum number of pages to output (0=unlimited) (type:int default:0)
+
+.RE
+.PP
+\fI\-\-degrade_image BOOL\fR
+.RS 4
+
+
+
+Degrade rendered image with speckle noise, dilation/erosion and rotation (type:bool default:true)
+
+.RE
+.PP
+\fI\-\-rotate_image BOOL\fR
+.RS 4
+
+
+
+Rotate the image in a random way\&. (type:bool default:true)
+
+.RE
+.PP
+\fI\-\-strip_unrenderable_words BOOL\fR
+.RS 4
+
+
+
+Remove unrenderable words from source text (type:bool default:true)
+
+.RE
+.PP
+\fI\-\-ligatures BOOL\fR
+.RS 4
+
+
+
+Rebuild and render ligatures (type:bool default:false)
+
+.RE
+.PP
+\fI\-\-exposure INT\fR
+.RS 4
+
+
+
+Exposure level in photocopier (type:int default:0)
+
+.RE
+.PP
+\fI\-\-resolution INT\fR
+.RS 4
+
+
+
+Pixels per inch (type:int default:300)
+
+.RE
+.PP
+\fI\-\-xsize INT\fR
+.RS 4
+
+
+
+Width of output image (type:int default:3600)
+
+.RE
+.PP
+\fI\-\-ysize INT\fR
+.RS 4
+
+
+
+Height of output image (type:int default:4800)
+
+.RE
+.PP
+\fI\-\-margin INT\fR
+.RS 4
+
+
+
+Margin round edges of image (type:int default:100)
+
+.RE
+.PP
+\fI\-\-ptsize INT\fR
+.RS 4
+
+
+
+Size of printed text (type:int default:12)
+
+.RE
+.PP
+\fI\-\-leading INT\fR
+.RS 4
+
+
+
+Inter\-line space (in pixels) (type:int default:12)
+
+.RE
+.PP
+\fI\-\-box_padding INT\fR
+.RS 4
+
+
+
+Padding around produced bounding boxes (type:int default:0)
+
+.RE
+.PP
+\fI\-\-char_spacing DOUBLE\fR
+.RS 4
+
+
+
+Inter\-character space in ems (type:double default:0)
+
+.RE
+.PP
+\fI\-\-underline_start_prob DOUBLE\fR
+.RS 4
+
+
+
+Fraction of words to underline (value in [0,1]) (type:double default:0)
+
+.RE
+.PP
+\fI\-\-underline_continuation_prob DOUBLE\fR
+.RS 4
+
+
+
+Fraction of words to underline (value in [0,1]) (type:double default:0)
+
+.RE
+.PP
+\fI\-\-render_ngrams BOOL\fR
+.RS 4
+
+
+
+Put each space\-separated entity from the input file into one bounding box\&. The ngrams in the input file will be randomly permuted before rendering (so that there is sufficient variety of characters on each line)\&. (type:bool default:false)
+
+.RE
+.PP
+\fI\-\-output_word_boxes BOOL\fR
+.RS 4
+
+
+
+Output word bounding boxes instead of character boxes\&. This is used for Cube training, and implied by \-\-render_ngrams\&. (type:bool default:false)
+
+.RE
+.PP
+\fI\-\-unicharset_file FILE\fR
+.RS 4
+
+
+
+File with characters in the unicharset\&. If \-\-render_ngrams is true and \-\-unicharset_file is specified, ngrams with characters that are not in unicharset will be omitted (type:string default:)
+
+.RE
+.PP
+\fI\-\-bidirectional_rotation BOOL\fR
+.RS 4
+
+
+
+Rotate the generated characters both ways\&. (type:bool default:false)
+
+.RE
+.PP
+\fI\-\-only_extract_font_properties BOOL\fR
+.RS 4
+
+
+
+Assumes that the input file contains a list of ngrams\&. Renders each ngram, extracts spacing properties and records them in output_base/[font_name]\&.fontinfo file\&. (type:bool default:false)
+
+.RE
+
+.SH "USE THESE FLAGS TO OUTPUT ZERO\-PADDED, SQUARE INDIVIDUAL CHARACTER IMAGES"
+
+
+
+.PP
+\fI\-\-output_individual_glyph_images BOOL\fR
+.RS 4
+
+
+
+If true also outputs individual character images (type:bool default:false)
+
+.RE
+.PP
+\fI\-\-glyph_resized_size INT\fR
+.RS 4
+
+
+
+Each glyph is square with this side length in pixels (type:int default:0)
+
+.RE
+.PP
+\fI\-\-glyph_num_border_pixels_to_pad INT\fR
+.RS 4
+
+
+
+Final_size=glyph_resized_size+2*glyph_num_border_pixels_to_pad (type:int default:0)
+
+.RE
+
+.SH "USE THESE FLAGS TO FIND FONTS THAT CAN RENDER A GIVEN TEXT"
+
+
+
+.PP
+\fI\-\-find_fonts BOOL\fR
+.RS 4
+
+
+
+Search for all fonts that can render the text (type:bool default:false)
+
+.RE
+.PP
+\fI\-\-render_per_font BOOL\fR
+.RS 4
+
+
+
+If find_fonts==true, render each font to its own image\&. Image filenames are of the form output_name\&.font_name\&.tif (type:bool default:true)
+
+.RE
+.PP
+\fI\-\-min_coverage DOUBLE\fR
+.RS 4
+
+
+
+If find_fonts==true, the minimum coverage the font has of the characters in the text file to include it, between 0 and 1\&. (type:double default:1)
+
+.RE
+.sp
+Example Usage: ``` text2image \-\-find_fonts \e \-\-fonts_dir /usr/share/fonts \e \-\-text \&.\&./langdata/hin/hin\&.training_text \e \-\-min_coverage \&.9 \e \-\-render_per_font \e \-\-outputbase \&.\&./langdata/hin/hin \e |& grep raw | sed \-e \fIs/ :\&.*/" \e\e/g\fR | sed \-e \fIs/^/ "/\fR >\&.\&./langdata/hin/fontslist\&.txt ```
+
+.SH "SINGLE OPTIONS"
+
+
+
+.PP
+\fI\-\-list_available_fonts BOOL\fR
+.RS 4
+
+
+
+List available fonts and quit\&. (type:bool default:false)
+
+.RE
+
+.SH "HISTORY"
+
+.sp
+text2image(1) was first made available for tesseract 3\&.03\&.
+
+.SH "RESOURCES"
+
+.sp
+Main web site: \m[blue]\fBhttps://github\&.com/tesseract\-ocr\fR\m[] Information on training tesseract LSTM: \m[blue]\fBhttps://tesseract\-ocr\&.github\&.io/tessdoc/TrainingTesseract\-4\&.00\&.html\fR\m[]
+
+.SH "SEE ALSO"
+
+.sp
+tesseract(1)
+
+.SH "COPYING"
+
+.sp
+Copyright (C) 2012 Google, Inc\&. Licensed under the Apache License, Version 2\&.0
+
+.SH "AUTHOR"
+
+.sp
+The Tesseract OCR engine was written by Ray Smith and his research groups at Hewlett Packard (1985\-1995) and Google (2006\-present)\&.
+
+

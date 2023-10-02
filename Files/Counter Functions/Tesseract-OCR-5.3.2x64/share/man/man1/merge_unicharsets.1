@@ -1,0 +1,100 @@
+'\" t
+.\"     Title: merge_unicharsets
+.\"    Author: [see the "AUTHOR" section]
+.\" Generator: DocBook XSL Stylesheets v1.79.2 <http://docbook.sf.net/>
+.\"      Date: 08/30/2023
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "MERGE_UNICHARSETS" "1" "08/30/2023" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+
+
+.SH "NAME"
+merge_unicharsets \- Simple tool to merge two or more unicharsets\&.
+.SH "SYNOPSIS"
+.sp
+\fBmerge_unicharsets\fR \fIunicharset\-in\-1\fR \&... \fIunicharset\-in\-n\fR \fIunicharset\-out\fR
+
+.SH "DESCRIPTION"
+
+.sp
+merge_unicharsets(1) is a simple tool to merge two or more unicharsets\&. It could be used to create a combined unicharset for a script\-level engine, like the new Latin or Devanagari\&.
+
+.SH "IN/OUT ARGUMENTS"
+
+
+
+.PP
+\fIunicharset\-in\-1\fR
+.RS 4
+
+
+
+(Input) The name of the first unicharset file to be merged\&.
+
+.RE
+.PP
+\fIunicharset\-in\-n\fR
+.RS 4
+
+
+
+(Input) The name of the nth unicharset file to be merged\&.
+
+.RE
+.PP
+\fIunicharset\-out\fR
+.RS 4
+
+
+
+(Output) The name of the merged unicharset file\&.
+
+.RE
+
+.SH "HISTORY"
+
+.sp
+merge_unicharsets(1) was first made available for tesseract4\&.00\&.00alpha\&.
+
+.SH "RESOURCES"
+
+.sp
+Main web site: \m[blue]\fBhttps://github\&.com/tesseract\-ocr\fR\m[] Information on training tesseract LSTM: \m[blue]\fBhttps://tesseract\-ocr\&.github\&.io/tessdoc/TrainingTesseract\-4\&.00\&.html\fR\m[]
+
+.SH "SEE ALSO"
+
+.sp
+tesseract(1)
+
+.SH "COPYING"
+
+.sp
+Copyright (C) 2012 Google, Inc\&. Licensed under the Apache License, Version 2\&.0
+
+.SH "AUTHOR"
+
+.sp
+The Tesseract OCR engine was written by Ray Smith and his research groups at Hewlett Packard (1985\-1995) and Google (2006\-present)\&.
+
+

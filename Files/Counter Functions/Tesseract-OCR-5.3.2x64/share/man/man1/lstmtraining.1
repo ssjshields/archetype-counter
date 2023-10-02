@@ -1,0 +1,280 @@
+'\" t
+.\"     Title: lstmtraining
+.\"    Author: [see the "AUTHOR" section]
+.\" Generator: DocBook XSL Stylesheets v1.79.2 <http://docbook.sf.net/>
+.\"      Date: 08/30/2023
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "LSTMTRAINING" "1" "08/30/2023" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+
+
+.SH "NAME"
+lstmtraining \- Training program for LSTM\-based networks\&.
+.SH "SYNOPSIS"
+.sp
+\fBlstmtraining\fR \-\-continue_from \fItrain_output_dir/continue_from_lang\&.lstm\fR \-\-old_traineddata \fIbestdata_dir/continue_from_lang\&.traineddata\fR \-\-traineddata \fItrain_output_dir/lang/lang\&.traineddata\fR \-\-max_iterations \fINNN\fR \-\-debug_interval \fI0|\-1\fR \-\-train_listfile \fItrain_output_dir/lang\&.training_files\&.txt\fR \-\-model_output \fItrain_output_dir/newlstmmodel\fR
+
+.SH "DESCRIPTION"
+
+.sp
+lstmtraining(1) trains LSTM\-based networks using a list of lstmf files and starter traineddata file as the main input\&. Training from scratch is not recommended to be done by users\&. Finetuning (example command shown in synopsis above) or replacing a layer options can be used instead\&. Different options apply to different types of training\&. Read the [training documentation](\m[blue]\fBhttps://tesseract\-ocr\&.github\&.io/tessdoc/TrainingTesseract\-4\&.00\&.html\fR\m[]) for details\&.
+
+.SH "OPTIONS"
+
+
+
+.PP
+\*(Aq\-\-debug_interval \*(Aq
+.RS 4
+
+
+
+How often to display the alignment\&. (type:int default:0)
+
+.RE
+.PP
+\*(Aq\-\-net_mode \*(Aq
+.RS 4
+
+
+
+Controls network behavior\&. (type:int default:192)
+
+.RE
+.PP
+\*(Aq\-\-perfect_sample_delay \*(Aq
+.RS 4
+
+
+
+How many imperfect samples between perfect ones\&. (type:int default:0)
+
+.RE
+.PP
+\*(Aq\-\-max_image_MB \*(Aq
+.RS 4
+
+
+
+Max memory to use for images\&. (type:int default:6000)
+
+.RE
+.PP
+\*(Aq\-\-append_index \*(Aq
+.RS 4
+
+
+
+Index in continue_from Network at which to attach the new network defined by net_spec (type:int default:\-1)
+
+.RE
+.PP
+\*(Aq\-\-max_iterations \*(Aq
+.RS 4
+
+
+
+If set, exit after this many iterations\&. A negative value is interpreted as epochs, 0 means infinite iterations\&. (type:int default:0)
+
+.RE
+.PP
+\*(Aq\-\-target_error_rate \*(Aq
+.RS 4
+
+
+
+Final error rate in percent\&. (type:double default:0\&.01)
+
+.RE
+.PP
+\*(Aq\-\-weight_range \*(Aq
+.RS 4
+
+
+
+Range of initial random weights\&. (type:double default:0\&.1)
+
+.RE
+.PP
+\*(Aq\-\-learning_rate \*(Aq
+.RS 4
+
+
+
+Weight factor for new deltas\&. (type:double default:0\&.001)
+
+.RE
+.PP
+\*(Aq\-\-momentum \*(Aq
+.RS 4
+
+
+
+Decay factor for repeating deltas\&. (type:double default:0\&.5)
+
+.RE
+.PP
+\*(Aq\-\-adam_beta \*(Aq
+.RS 4
+
+
+
+Decay factor for repeating deltas\&. (type:double default:0\&.999)
+
+.RE
+.PP
+\*(Aq\-\-stop_training \*(Aq
+.RS 4
+
+
+
+Just convert the training model to a runtime model\&. (type:bool default:false)
+
+.RE
+.PP
+\*(Aq\-\-convert_to_int \*(Aq
+.RS 4
+
+
+
+Convert the recognition model to an integer model\&. (type:bool default:false)
+
+.RE
+.PP
+\*(Aq\-\-sequential_training \*(Aq
+.RS 4
+
+
+
+Use the training files sequentially instead of round\-robin\&. (type:bool default:false)
+
+.RE
+.PP
+\*(Aq\-\-debug_network \*(Aq
+.RS 4
+
+
+
+Get info on distribution of weight values (type:bool default:false)
+
+.RE
+.PP
+\*(Aq\-\-randomly_rotate \*(Aq
+.RS 4
+
+
+
+Train OSD and randomly turn training samples upside\-down (type:bool default:false)
+
+.RE
+.PP
+\*(Aq\-\-net_spec \*(Aq
+.RS 4
+
+
+
+Network specification (type:string default:)
+
+.RE
+.PP
+\*(Aq\-\-continue_from \*(Aq
+.RS 4
+
+
+
+Existing model to extend (type:string default:)
+
+.RE
+.PP
+\*(Aq\-\-model_output \*(Aq
+.RS 4
+
+
+
+Basename for output models (type:string default:lstmtrain)
+
+.RE
+.PP
+\*(Aq\-\-train_listfile \*(Aq
+.RS 4
+
+
+
+File listing training files in lstmf training format\&. (type:string default:)
+
+.RE
+.PP
+\*(Aq\-\-eval_listfile \*(Aq
+.RS 4
+
+
+
+File listing eval files in lstmf training format\&. (type:string default:)
+
+.RE
+.PP
+\*(Aq\-\-traineddata \*(Aq
+.RS 4
+
+
+
+Starter traineddata with combined Dawgs/Unicharset/Recoder for language model (type:string default:)
+
+.RE
+.PP
+\*(Aq\-\-old_traineddata \*(Aq
+.RS 4
+
+
+
+When changing the character set, this specifies the traineddata with the old character set that is to be replaced (type:string default:)
+
+.RE
+
+.SH "HISTORY"
+
+.sp
+lstmtraining(1) was first made available for tesseract4\&.00\&.00alpha\&.
+
+.SH "RESOURCES"
+
+.sp
+Main web site: \m[blue]\fBhttps://github\&.com/tesseract\-ocr\fR\m[] Information on training tesseract LSTM: \m[blue]\fBhttps://tesseract\-ocr\&.github\&.io/tessdoc/TrainingTesseract\-4\&.00\&.html\fR\m[]
+
+.SH "SEE ALSO"
+
+.sp
+tesseract(1)
+
+.SH "COPYING"
+
+.sp
+Copyright (C) 2012 Google, Inc\&. Licensed under the Apache License, Version 2\&.0
+
+.SH "AUTHOR"
+
+.sp
+The Tesseract OCR engine was written by Ray Smith and his research groups at Hewlett Packard (1985\-1995) and Google (2006\-present)\&.
+
+
