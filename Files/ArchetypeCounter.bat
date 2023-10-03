@@ -2811,6 +2811,9 @@ $ArchetypeAppContext = New-Object System.Windows.Forms.ApplicationContext
 # "Play" button counter functionality (What makes the counter work)
 Function PlayAction {
 
+        # Checks if Windows OS is 64-bit (for Tesseract OCR)
+        if ($Is64BitSystem -match "False") { [System.Windows.MessageBox]::Show("Your system is a 32-bit operating system.`n`nArchetype Counter only supports 64-bit (Windows 10+)","  Archetype Counter","OK","Error"); [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force  }
+
         # Checks if system is Windows 10+
         $OSSystemCheck = (Get-WmiObject Win32_OperatingSystem).Caption
         if (($OSSystemCheck -match "Windows 7") -or ($OSSystemCheck -match "Windows 8")) { $OSSystemCheckDialog = [System.Windows.MessageBox]::Show("Current Windows Version:`n- $OSSystemCheck`n`nWindows 10+ is required to use this counter. Please upgrade your Operating System.","  Archetype Counter","OK","Hand"); [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force }
