@@ -411,6 +411,10 @@ $Script:FontLabelSize = $Script:GetColorConfig -match "FontLabel_Size="; $Script
 $Script:FontLabelType = $Script:GetColorConfig -match "FontLabel_Type="; $Script:FontLabelType = $Script:FontLabelType -replace "FontLabel_Type=", ""
 if ($Script:FontLabelType -match "Regular") { $Script:FontLabelTypeSet = [System.Drawing.FontStyle]::Regular } elseif ($Script:FontLabelType -match "Bold") { $Script:FontLabelTypeSet = [System.Drawing.FontStyle]::Bold } elseif ($Script:FontLabelType -match "Italic") { $Script:FontLabelTypeSet = [System.Drawing.FontStyle]::Italic }
 
+# Grabs PokeMMO console log to determine which Black/White ROM is being used
+$GetMainPokeMMOLog = Get-Content "$PWD\log\console.log"
+if ($GetMainPokeMMOLog -match 'IRBO' -or $GetMainPokeMMOLog -match 'IRAO') { $SystemCurrentLangConfig = 'English'} elseif ($GetMainPokeMMOLog -match 'IRBS' -or $GetMainPokeMMOLog -match 'IRAS') { $SystemCurrentLangConfig = 'English'} elseif ($GetMainPokeMMOLog -match 'IRBF' -or $GetMainPokeMMOLog -match 'IRAF') { $SystemCurrentLangConfig = 'French'} elseif ($GetMainPokeMMOLog -match 'IRBD' -or $GetMainPokeMMOLog -match 'IRAD') { $SystemCurrentLangConfig = 'German'} elseif ($GetMainPokeMMOLog -match 'IRBJ' -or $GetMainPokeMMOLog -match 'IRAJ') { $SystemCurrentLangConfig = 'Japanese'} elseif ($GetMainPokeMMOLog -match 'IRBK' -or $GetMainPokeMMOLog -match 'IRAK') { $SystemCurrentLangConfig = 'Korean'} else { $SystemCurrentLangConfig = 'English' }
+
 # Sets Archetype Counter to be DPI Aware - If "true"
 if ($Script:DPIAware -match "True") { [DPIAware]::SetProcessDpiAwarenessContext([DPIAware]::PER_MONITOR_AWARE_V2) }
 
