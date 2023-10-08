@@ -79,3 +79,6 @@
 臭山喉; 臭鼬噗
 臭勋吧; 臭鼬噗
 臭山吧; 臭鼬噗
+Farfetch'd; Farfetch’d
+Farfetchd; Farfetch’d
+
