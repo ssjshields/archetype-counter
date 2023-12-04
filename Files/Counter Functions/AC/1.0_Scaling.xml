@@ -51,7 +51,6 @@
 	<theme name="redlabel" ref="redlabel" allowWildcard="true">
 		<param name="border"><border>0</border></param>
 		<param name="font"><font>Counter_Monster_Name</font></param>
-		<param name="textAlignment"><enum type="alignment">CENTER</enum></param>
 	</theme>
 
 	<theme name="messagebox-bubble" ref="messagebox-bubble">
