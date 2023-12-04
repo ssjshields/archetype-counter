@@ -1,4 +1,4 @@
-<# : Archetype Counter 3.3.0.0 for PokeMMO
+<# : Archetype Counter 3.4.0.0 for PokeMMO
 @echo off
 Setlocal
 cd %~dp0
@@ -290,6 +290,16 @@ $DoubleBufferedCode = @"
             this.DoubleBuffered = true;
         }
 
+    protected override CreateParams CreateParams
+    {
+        get
+        {
+            CreateParams handleParam = base.CreateParams;
+            handleParam.ExStyle |= 0x02000000;   // WS_EX_COMPOSITED       
+            return handleParam;
+        }
+    }
+
     }
 "@
 
@@ -385,12 +395,11 @@ $FossilCount = $Script:GetConfig -match "Fossil_Count="; $FossilCount = $FossilC
 $EggCount = $Script:GetConfig -match "Egg_Count="; $EggCount = $EggCount -replace "Egg_Count=", ""
 $AlphaCount = $Script:GetConfig -match "Alpha_Count="; $AlphaCount = $AlphaCount -replace "Alpha_Count=", ""
 $LegendaryCount = $Script:GetConfig -match "Legendary_Count="; $LegendaryCount = $LegendaryCount -replace "Legendary_Count=", ""
-$TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
 # ------------------------------------------------
 $ShinyCount = $Script:GetConfig -match "Shiny_Count="; $ShinyCount = $ShinyCount -replace "Shiny_Count=", ""
 # ------------------------------------------------
-$TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
-$TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
+$TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$PokemonCountD + [int]$PokemonCountE + [int]$PokemonCountF + [int]$PokemonCountG + [int]$PokemonCountH + [int]$PokemonCountI + [int]$PokemonCountJ + [int]$EggCount + [int]$FossilCount
+$TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$PokemonCountD + [int]$PokemonCountE + [int]$PokemonCountF + [int]$PokemonCountG + [int]$PokemonCountH + [int]$PokemonCountI + [int]$PokemonCountJ
 
 # Loads values from external sources for winform (Config file)
 $Script:SetColorConfig = "$PWD\GUI Form Images\$ThemeType\ThemeConfig.txt"
@@ -416,7 +425,7 @@ $GetMainPokeMMOLog = Get-Content "$PWD\log\console.log"
 if ($GetMainPokeMMOLog -match 'IRBO' -or $GetMainPokeMMOLog -match 'IRAO') { $SystemCurrentLangConfig = 'English'} elseif ($GetMainPokeMMOLog -match 'IRBS' -or $GetMainPokeMMOLog -match 'IRAS') { $SystemCurrentLangConfig = 'English'} elseif ($GetMainPokeMMOLog -match 'IRBF' -or $GetMainPokeMMOLog -match 'IRAF') { $SystemCurrentLangConfig = 'French'} elseif ($GetMainPokeMMOLog -match 'IRBD' -or $GetMainPokeMMOLog -match 'IRAD') { $SystemCurrentLangConfig = 'German'} elseif ($GetMainPokeMMOLog -match 'IRBJ' -or $GetMainPokeMMOLog -match 'IRAJ') { $SystemCurrentLangConfig = 'Japanese'} elseif ($GetMainPokeMMOLog -match 'IRBK' -or $GetMainPokeMMOLog -match 'IRAK') { $SystemCurrentLangConfig = 'Korean'} else { $SystemCurrentLangConfig = 'English' }
 
 # Sets Archetype Counter to be DPI Aware - If "true"
-if ($Script:DPIAware -match "True") { [DPIAware]::SetProcessDpiAwarenessContext([DPIAware]::PER_MONITOR_AWARE_V2) }
+if ($Script:DPIAware -match "True") { [DPIAware]::SetProcessDpiAwarenessContext([DPIAware]::PER_MONITOR_AWARE_V2) } else { [DPIAware]::SetProcessDpiAwarenessContext([DPIAware]::UNAWARE) }
 
 # Grabs current working directory/location
 $CounterWorkingDir = $PWD
@@ -470,6 +479,9 @@ $Script:ArchetypeForm.Icon = $Script:ArchetypeFormIcon
 if ($ArchetypeX -match "-123" -and $ArchetypeY -match "-123") { $Script:ArchetypeForm.StartPosition = "CenterScreen" } else { $Script:ArchetypeForm.StartPosition = "Manual" }
 $Script:ArchetypeForm.Location = "$ArchetypeX, $ArchetypeY"
 $Script:ArchetypeForm.FormBorderStyle = "None"
+$Script:ArchetypeForm.AllowTransparency = $true
+$Script:ArchetypeForm.TransparencyKey = $Script:ArchetypeForm.BackColor
+$Script:ArchetypeForm.ShowInTaskbar = $true
 if ($AlwaysOnTop -match "True") { $Script:ArchetypeForm.Topmost = $true }
 $Script:ArchetypeForm.Add_Load({   
 
@@ -494,10 +506,6 @@ $Script:ArchetypeForm.Add_Load({
 
     # Checks if counter config backup current day folder is set (Creates a backup of the current day the counter is ran each day)
     if (!(Test-Path -Path "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate\CounterConfig_$Script:GetProfile.txt")) { New-Item -Path "$PWD\Counter Config Files\Counter Config Backup" -Type Directory -Name $TodaysDate; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile1.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile2.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile3.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile4.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile5.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile6.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile7.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile8.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile9.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CounterConfig_Profile10.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse; Copy-Item "$PWD\Counter Config Files\CurrentProfileState.txt" -Destination "$PWD\Counter Config Files\Counter Config Backup\$TodaysDate" -Recurse }
-
-    # Adds transparency on Winform load (Needed here to resolve flicker issue)
-    $Script:ArchetypeForm.AllowTransparency = $true
-    $Script:ArchetypeForm.TransparencyKey = $Script:ArchetypeForm.BackColor
 
 })
 if ($Script:ScreenPosition -match "Unlocked") { $Script:ArchetypeForm.KeyPreview = $True; $Script:ArchetypeForm.Add_KeyDown({ if ($PSItem.KeyCode -eq "Left") { $Script:ArchetypeForm.Left -= 1 }; if ($PSItem.KeyCode -eq "Right") { $Script:ArchetypeForm.Left += 1 }; if ($PSItem.KeyCode -eq "Up") { $Script:ArchetypeForm.Top -= 1 }; if ($PSItem.KeyCode -eq "Down") { $Script:ArchetypeForm.Top += 1 } }) }
@@ -1839,13 +1847,12 @@ $Script:ArchetypeImage.Add_MouseDown({
         $EggCount = $Script:GetConfig -match "Egg_Count="; $EggCount = $EggCount -replace "Egg_Count=", ""
         $AlphaCount = $Script:GetConfig -match "Alpha_Count="; $AlphaCount = $AlphaCount -replace "Alpha_Count=", ""
         $LegendaryCount = $Script:GetConfig -match "Legendary_Count="; $LegendaryCount = $LegendaryCount -replace "Legendary_Count=", ""
-        $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
         # ------------------------------------------------
         $ShinyCount = $Script:GetConfig -match "Shiny_Count="; $ShinyCount = $ShinyCount -replace "Shiny_Count=", ""
         # ------------------------------------------------
         $PokemonCountA = $PokemonCountA -join '-'; $PokemonCountB = $PokemonCountB -join '-'; $PokemonCountC = $PokemonCountC -join '-'; $PokemonCountD = $PokemonCountD -join '-'; $PokemonCountE = $PokemonCountE -join '-'; $PokemonCountF = $PokemonCountF -join '-'; $PokemonCountG = $PokemonCountG -join '-'; $PokemonCountH = $PokemonCountH -join '-'; $PokemonCountI = $PokemonCountI -join '-'; $PokemonCountJ = $PokemonCountJ -join '-'; $EggCount = $EggCount -join '-'; $FossilCount = $FossilCount -join '-'; $AlphaCount = $AlphaCount -join '-'; $ShinyCount = $ShinyCount -join '-' ; $LegendaryCount = $LegendaryCount -join '-'; $TotalCount = $TotalCount -join '-'; $TotalCountNoEgg = $TotalCountNoEgg -join '-'; $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'
         # ------------------------------------------------
-        $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
+        $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$PokemonCountD + [int]$PokemonCountE + [int]$PokemonCountF + [int]$PokemonCountG + [int]$PokemonCountH + [int]$PokemonCountI + [int]$PokemonCountJ + [int]$EggCount + [int]$FossilCount
         $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$PokemonCountD + [int]$PokemonCountE + [int]$PokemonCountF + [int]$PokemonCountG + [int]$PokemonCountH + [int]$PokemonCountI + [int]$PokemonCountJ
         # ------------------------------------------------
         $PokemonD_ID = $PokemonD -Replace '[^0-9]','' -Replace ' ', ''; $PokemonE_ID = $PokemonE -Replace '[^0-9]','' -Replace ' ', ''; $PokemonF_ID = $PokemonF -Replace '[^0-9]','' -Replace ' ', ''; $PokemonG_ID = $PokemonG -Replace '[^0-9]','' -Replace ' ', ''; $PokemonH_ID = $PokemonH -Replace '[^0-9]','' -Replace ' ', ''; $PokemonI_ID = $PokemonI -Replace '[^0-9]','' -Replace ' ', ''; $PokemonJ_ID = $PokemonJ -Replace '[^0-9]','' -Replace ' ', ''
@@ -2295,150 +2302,298 @@ $Script:ArchetypeImage.Add_MouseDown({
         # Adds click to "Poke Slot 1" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Poke Slot 1", $ArchetypeMenuStripToolDefault).add_Click({ 
 
-            # Loads values from external sources (Config file)
-            $Script:SetConfig = "$PWD\Counter Config Files\CounterConfig_$Script:GetProfile.txt"
-            $Script:GetConfig = [IO.File]::ReadAllLines("$Script:SetConfig")
-            # ------------------------------------------------
-            $PokemonB = $Script:GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
-            $PokemonCountB = $Script:GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
-            $PokemonBHover = $Script:GetConfig -match "Pokemon_B_Hover="; $PokemonBHover = $PokemonBHover -replace "Pokemon_B_Hover=", ""
-            # ------------------------------------------------
-            $PokemonC = $Script:GetConfig -match "Pokemon_C="; $PokemonC = $PokemonC -replace "Pokemon_C=", ""
-            $PokemonCountC = $Script:GetConfig -match "Pokemon_C_Count="; $PokemonCountC = $PokemonCountC -replace "Pokemon_C_Count=", ""
-            $PokemonCHover = $Script:GetConfig -match "Pokemon_C_Hover="; $PokemonCHover = $PokemonCHover -replace "Pokemon_C_Hover=", ""
+            # Dialog check to ensure user wants to reset slot
+            $ResetSlot1 = [System.Windows.MessageBox]::Show("Do you want to RESET Poke Slot 1?`n`n- Current: $PokemonAHover","Archetype Counter","YesNo","Question")
+            if ($ResetSlot1 -match "Yes") {
 
-            # Move pokemon up in slots accordingly
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_A=.*", "Pokemon_A=$PokemonB"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_A_Count.*", "Pokemon_A_Count=$PokemonCountB"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_A_Hover=.*", "Pokemon_A_Hover=$PokemonBHover"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$PokemonC"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B_Count.*", "Pokemon_B_Count=$PokemonCountC"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$PokemonCHover"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C=.*", "Pokemon_C=Blank"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Count.*", "Pokemon_C_Count=0"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover="
+                # Loads values from external sources (Config file)
+                $Script:SetConfig = "$PWD\Counter Config Files\CounterConfig_$Script:GetProfile.txt"
+                $Script:GetConfig = [IO.File]::ReadAllLines("$Script:SetConfig")
+                # ------------------------------------------------
+                $Script:PokemonB = $Script:GetConfig -match "Pokemon_B="; $Script:PokemonB = $Script:PokemonB -replace "Pokemon_B=", ""
+                $Script:PokemonCountB = $Script:GetConfig -match "Pokemon_B_Count="; $Script:PokemonCountB = $Script:PokemonCountB -replace "Pokemon_B_Count=", ""
+                $Script:PokemonBHover = $Script:GetConfig -match "Pokemon_B_Hover="; $Script:PokemonBHover = $Script:PokemonBHover -replace "Pokemon_B_Hover=", ""
+                # ------------------------------------------------
+                $Script:PokemonC = $Script:GetConfig -match "Pokemon_C="; $Script:PokemonC = $Script:PokemonC -replace "Pokemon_C=", ""
+                $Script:PokemonCountC = $Script:GetConfig -match "Pokemon_C_Count="; $Script:PokemonCountC = $Script:PokemonCountC -replace "Pokemon_C_Count=", ""
+                $Script:PokemonCHover = $Script:GetConfig -match "Pokemon_C_Hover="; $Script:PokemonCHover = $Script:PokemonCHover -replace "Pokemon_C_Hover=", ""
+                # ------------------------------------------------
+                $Script:PokemonD = $Script:GetConfig -match "Pokemon_D="; $Script:PokemonD = $Script:PokemonD -replace "Pokemon_D=", ""
+                $Script:PokemonD_ID = $Script:GetConfig -match "Pokemon_D="; $Script:PokemonD_ID = $Script:PokemonD_ID -replace "Pokemon_D=", ""; $Script:PokemonD_ID = $Script:PokemonD_ID -Replace '[^0-9]','' -Replace ' ', ''
+                $Script:PokemonCountD = $Script:GetConfig -match "Pokemon_D_Count="; $Script:PokemonCountD = $Script:PokemonCountD -replace "Pokemon_D_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonE = $Script:GetConfig -match "Pokemon_E="; $Script:PokemonE = $Script:PokemonE -replace "Pokemon_E=", ""
+                $Script:PokemonCountE = $Script:GetConfig -match "Pokemon_E_Count="; $Script:PokemonCountE = $Script:PokemonCountE -replace "Pokemon_E_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonF = $Script:GetConfig -match "Pokemon_F="; $Script:PokemonF = $Script:PokemonF -replace "Pokemon_F=", ""
+                $Script:PokemonCountF = $Script:GetConfig -match "Pokemon_F_Count="; $Script:PokemonCountF = $Script:PokemonCountF -replace "Pokemon_F_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonG = $Script:GetConfig -match "Pokemon_G="; $Script:PokemonG = $Script:PokemonG -replace "Pokemon_G=", ""
+                $Script:PokemonCountG = $Script:GetConfig -match "Pokemon_G_Count="; $Script:PokemonCountG = $Script:PokemonCountG -replace "Pokemon_G_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonH = $Script:GetConfig -match "Pokemon_H="; $Script:PokemonH = $Script:PokemonH -replace "Pokemon_H=", ""
+                $Script:PokemonCountH = $Script:GetConfig -match "Pokemon_H_Count="; $Script:PokemonCountH = $Script:PokemonCountH -replace "Pokemon_H_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonI = $Script:GetConfig -match "Pokemon_I="; $Script:PokemonI = $Script:PokemonI -replace "Pokemon_I=", ""
+                $Script:PokemonCountI = $Script:GetConfig -match "Pokemon_I_Count="; $Script:PokemonCountI = $Script:PokemonCountI -replace "Pokemon_I_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonJ = $Script:GetConfig -match "Pokemon_J="; $Script:PokemonJ = $Script:PokemonJ -replace "Pokemon_J=", ""
+                $Script:PokemonCountJ = $Script:GetConfig -match "Pokemon_J_Count="; $Script:PokemonCountJ = $Script:PokemonCountJ -replace "Pokemon_J_Count=", ""
 
-            # Sets all changes back into the Config file
-            [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
+                # Move pokemon up in slots accordingly
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_A=.*", "Pokemon_A=$Script:PokemonB"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_A_Count.*", "Pokemon_A_Count=$Script:PokemonCountB"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_A_Hover=.*", "Pokemon_A_Hover=$Script:PokemonBHover"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$Script:PokemonC"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B_Count.*", "Pokemon_B_Count=$Script:PokemonCountC"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$Script:PokemonCHover"
+                if ($Script:PokemonD -match "Blank") { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C=.*", "Pokemon_C=Blank" } else { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C=.*", "Pokemon_C=$Script:PokemonD_ID" }
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Count.*", "Pokemon_C_Count=$Script:PokemonCountD"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover=$Script:PokemonD"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D=.*", "Pokemon_D=$Script:PokemonE"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D_Count.*", "Pokemon_D_Count=$Script:PokemonCountE"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E=.*", "Pokemon_E=$Script:PokemonF"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E_Count.*", "Pokemon_E_Count=$Script:PokemonCountF"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F=.*", "Pokemon_F=$Script:PokemonG"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count.*", "Pokemon_F_Count=$Script:PokemonCountG"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G=.*", "Pokemon_G=$Script:PokemonH"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count.*", "Pokemon_G_Count=$Script:PokemonCountH"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$Script:PokemonI"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count.*", "Pokemon_H_Count=$Script:PokemonCountI"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$Script:PokemonJ"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count.*", "Pokemon_I_Count=$Script:PokemonCountJ"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"
 
-            # Small wait to ensure no corrupt of config file
-            [System.Threading.Thread]::Sleep(10)
+                # Sets all changes back into the Config file
+                [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
 
-            # Refreshes counter to update form
-            RefreshCounter
+                # Small wait to ensure no corrupt of config file
+                [System.Threading.Thread]::Sleep(10)
+
+                # Refreshes counter to update form
+                RefreshCounter
+
+            }
 
         })
 
         # Adds click to "Poke Slot 2" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Poke Slot 2", $ArchetypeMenuStripToolDefault).add_Click({ 
         
-            # Loads values from external sources (Config file)
-            $Script:SetConfig = "$PWD\Counter Config Files\CounterConfig_$Script:GetProfile.txt"
-            $Script:GetConfig = [IO.File]::ReadAllLines("$Script:SetConfig")
-            # ------------------------------------------------
-            $PokemonB = $Script:GetConfig -match "Pokemon_B="; $PokemonB = $PokemonB -replace "Pokemon_B=", ""
-            $PokemonCountB = $Script:GetConfig -match "Pokemon_B_Count="; $PokemonCountB = $PokemonCountB -replace "Pokemon_B_Count=", ""
-            $PokemonBHover = $Script:GetConfig -match "Pokemon_B_Hover="; $PokemonBHover = $PokemonBHover -replace "Pokemon_B_Hover=", ""
+            # Dialog check to ensure user wants to reset slot
+            $ResetSlot2 = [System.Windows.MessageBox]::Show("Do you want to RESET Poke Slot 2?`n`n- Current: $PokemonBHover","Archetype Counter","YesNo","Question")
+            if ($ResetSlot2 -match "Yes") {
 
-            # Move pokemon up in slots accordingly
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$PokemonC"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B_Count.*", "Pokemon_B_Count=$PokemonCountC"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$PokemonCHover"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C=.*", "Pokemon_C=Blank"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Count.*", "Pokemon_C_Count=0"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover="
+                # Loads values from external sources (Config file)
+                $Script:SetConfig = "$PWD\Counter Config Files\CounterConfig_$Script:GetProfile.txt"
+                $Script:GetConfig = [IO.File]::ReadAllLines("$Script:SetConfig")
+                # ------------------------------------------------
+                $Script:PokemonC = $Script:GetConfig -match "Pokemon_C="; $Script:PokemonC = $Script:PokemonC -replace "Pokemon_C=", ""
+                $Script:PokemonCountC = $Script:GetConfig -match "Pokemon_C_Count="; $Script:PokemonCountC = $Script:PokemonCountC -replace "Pokemon_C_Count=", ""
+                $Script:PokemonCHover = $Script:GetConfig -match "Pokemon_C_Hover="; $Script:PokemonCHover = $Script:PokemonCHover -replace "Pokemon_C_Hover=", ""
+                # ------------------------------------------------
+                $Script:PokemonD = $Script:GetConfig -match "Pokemon_D="; $Script:PokemonD = $Script:PokemonD -replace "Pokemon_D=", ""
+                $Script:PokemonD_ID = $Script:GetConfig -match "Pokemon_D="; $Script:PokemonD_ID = $Script:PokemonD_ID -replace "Pokemon_D=", ""; $Script:PokemonD_ID = $Script:PokemonD_ID -Replace '[^0-9]','' -Replace ' ', ''
+                $Script:PokemonCountD = $Script:GetConfig -match "Pokemon_D_Count="; $Script:PokemonCountD = $Script:PokemonCountD -replace "Pokemon_D_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonE = $Script:GetConfig -match "Pokemon_E="; $Script:PokemonE = $Script:PokemonE -replace "Pokemon_E=", ""
+                $Script:PokemonCountE = $Script:GetConfig -match "Pokemon_E_Count="; $Script:PokemonCountE = $Script:PokemonCountE -replace "Pokemon_E_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonF = $Script:GetConfig -match "Pokemon_F="; $Script:PokemonF = $Script:PokemonF -replace "Pokemon_F=", ""
+                $Script:PokemonCountF = $Script:GetConfig -match "Pokemon_F_Count="; $Script:PokemonCountF = $Script:PokemonCountF -replace "Pokemon_F_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonG = $Script:GetConfig -match "Pokemon_G="; $Script:PokemonG = $Script:PokemonG -replace "Pokemon_G=", ""
+                $Script:PokemonCountG = $Script:GetConfig -match "Pokemon_G_Count="; $Script:PokemonCountG = $Script:PokemonCountG -replace "Pokemon_G_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonH = $Script:GetConfig -match "Pokemon_H="; $Script:PokemonH = $Script:PokemonH -replace "Pokemon_H=", ""
+                $Script:PokemonCountH = $Script:GetConfig -match "Pokemon_H_Count="; $Script:PokemonCountH = $Script:PokemonCountH -replace "Pokemon_H_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonI = $Script:GetConfig -match "Pokemon_I="; $Script:PokemonI = $Script:PokemonI -replace "Pokemon_I=", ""
+                $Script:PokemonCountI = $Script:GetConfig -match "Pokemon_I_Count="; $Script:PokemonCountI = $Script:PokemonCountI -replace "Pokemon_I_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonJ = $Script:GetConfig -match "Pokemon_J="; $Script:PokemonJ = $Script:PokemonJ -replace "Pokemon_J=", ""
+                $Script:PokemonCountJ = $Script:GetConfig -match "Pokemon_J_Count="; $Script:PokemonCountJ = $Script:PokemonCountJ -replace "Pokemon_J_Count=", ""
 
-            # Sets all changes back into the Config file
-            [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
+                # Move pokemon up in slots accordingly
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B=.*", "Pokemon_B=$Script:PokemonC"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B_Count.*", "Pokemon_B_Count=$Script:PokemonCountC"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_B_Hover=.*", "Pokemon_B_Hover=$Script:PokemonCHover"
+                if ($Script:PokemonD -match "Blank") { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C=.*", "Pokemon_C=Blank" } else { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C=.*", "Pokemon_C=$Script:PokemonD_ID" }
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Count.*", "Pokemon_C_Count=$Script:PokemonCountD"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover=$Script:PokemonD"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D=.*", "Pokemon_D=$Script:PokemonE"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D_Count.*", "Pokemon_D_Count=$Script:PokemonCountE"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E=.*", "Pokemon_E=$Script:PokemonF"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E_Count.*", "Pokemon_E_Count=$Script:PokemonCountF"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F=.*", "Pokemon_F=$Script:PokemonG"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count.*", "Pokemon_F_Count=$Script:PokemonCountG"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G=.*", "Pokemon_G=$Script:PokemonH"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count.*", "Pokemon_G_Count=$Script:PokemonCountH"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$Script:PokemonI"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count.*", "Pokemon_H_Count=$Script:PokemonCountI"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$Script:PokemonJ"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count.*", "Pokemon_I_Count=$Script:PokemonCountJ"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"
 
-            # Small wait to ensure no corrupt of config file
-            [System.Threading.Thread]::Sleep(10)
+                # Sets all changes back into the Config file
+                [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
 
-            # Refreshes counter to update form
-            RefreshCounter
+                # Small wait to ensure no corrupt of config file
+                [System.Threading.Thread]::Sleep(10)
+
+                # Refreshes counter to update form
+                RefreshCounter
+
+            }
 
         })
 
         # Adds click to "Poke Slot 3" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Poke Slot 3", $ArchetypeMenuStripToolDefault).add_Click({ 
 
-            # Move pokemon up in slots accordingly (Poke Slot C is just cleared)
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C=.*", "Pokemon_C=Blank"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Count.*", "Pokemon_C_Count=0"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover="
+            # Dialog check to ensure user wants to reset slot
+            $ResetSlot3 = [System.Windows.MessageBox]::Show("Do you want to RESET Poke Slot 3?`n`n- Current: $PokemonCHover","Archetype Counter","YesNo","Question")
+            if ($ResetSlot3 -match "Yes") {
 
-            # Sets all changes back into the Config file
-            [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
+                # Loads values from external sources (Config file)
+                $Script:SetConfig = "$PWD\Counter Config Files\CounterConfig_$Script:GetProfile.txt"
+                $Script:GetConfig = [IO.File]::ReadAllLines("$Script:SetConfig")
+                # ------------------------------------------------
+                $Script:PokemonD = $Script:GetConfig -match "Pokemon_D="; $Script:PokemonD = $Script:PokemonD -replace "Pokemon_D=", ""
+                $Script:PokemonD_ID = $Script:GetConfig -match "Pokemon_D="; $Script:PokemonD_ID = $Script:PokemonD_ID -replace "Pokemon_D=", ""; $Script:PokemonD_ID = $Script:PokemonD_ID -Replace '[^0-9]','' -Replace ' ', ''
+                $Script:PokemonCountD = $Script:GetConfig -match "Pokemon_D_Count="; $Script:PokemonCountD = $Script:PokemonCountD -replace "Pokemon_D_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonE = $Script:GetConfig -match "Pokemon_E="; $Script:PokemonE = $Script:PokemonE -replace "Pokemon_E=", ""
+                $Script:PokemonCountE = $Script:GetConfig -match "Pokemon_E_Count="; $Script:PokemonCountE = $Script:PokemonCountE -replace "Pokemon_E_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonF = $Script:GetConfig -match "Pokemon_F="; $Script:PokemonF = $Script:PokemonF -replace "Pokemon_F=", ""
+                $Script:PokemonCountF = $Script:GetConfig -match "Pokemon_F_Count="; $Script:PokemonCountF = $Script:PokemonCountF -replace "Pokemon_F_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonG = $Script:GetConfig -match "Pokemon_G="; $Script:PokemonG = $Script:PokemonG -replace "Pokemon_G=", ""
+                $Script:PokemonCountG = $Script:GetConfig -match "Pokemon_G_Count="; $Script:PokemonCountG = $Script:PokemonCountG -replace "Pokemon_G_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonH = $Script:GetConfig -match "Pokemon_H="; $Script:PokemonH = $Script:PokemonH -replace "Pokemon_H=", ""
+                $Script:PokemonCountH = $Script:GetConfig -match "Pokemon_H_Count="; $Script:PokemonCountH = $Script:PokemonCountH -replace "Pokemon_H_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonI = $Script:GetConfig -match "Pokemon_I="; $Script:PokemonI = $Script:PokemonI -replace "Pokemon_I=", ""
+                $Script:PokemonCountI = $Script:GetConfig -match "Pokemon_I_Count="; $Script:PokemonCountI = $Script:PokemonCountI -replace "Pokemon_I_Count=", ""
+                # ------------------------------------------------
+                $Script:PokemonJ = $Script:GetConfig -match "Pokemon_J="; $Script:PokemonJ = $Script:PokemonJ -replace "Pokemon_J=", ""
+                $Script:PokemonCountJ = $Script:GetConfig -match "Pokemon_J_Count="; $Script:PokemonCountJ = $Script:PokemonCountJ -replace "Pokemon_J_Count=", ""
 
-            # Small wait to ensure no corrupt of config file
-            [System.Threading.Thread]::Sleep(10)
+                # Move pokemon up in slots accordingly (Poke Slot C is just cleared)
+                if ($Script:PokemonD -match "Blank") { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C=.*", "Pokemon_C=Blank" } else { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C=.*", "Pokemon_C=$Script:PokemonD_ID" }
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Count.*", "Pokemon_C_Count=$Script:PokemonCountD"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_C_Hover=.*", "Pokemon_C_Hover=$Script:PokemonD"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D=.*", "Pokemon_D=$Script:PokemonE"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D_Count.*", "Pokemon_D_Count=$Script:PokemonCountE"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E=.*", "Pokemon_E=$Script:PokemonF"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E_Count.*", "Pokemon_E_Count=$Script:PokemonCountF"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F=.*", "Pokemon_F=$Script:PokemonG"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count.*", "Pokemon_F_Count=$Script:PokemonCountG"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G=.*", "Pokemon_G=$Script:PokemonH"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count.*", "Pokemon_G_Count=$Script:PokemonCountH"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$Script:PokemonI"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count.*", "Pokemon_H_Count=$Script:PokemonCountI"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$Script:PokemonJ"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count.*", "Pokemon_I_Count=$Script:PokemonCountJ"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"
 
-            # Refreshes counter to update form
-            RefreshCounter
+                # Sets all changes back into the Config file
+                [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
+
+                # Small wait to ensure no corrupt of config file
+                [System.Threading.Thread]::Sleep(10)
+
+                # Refreshes counter to update form
+                RefreshCounter
+
+            }
 
         })
 
         # Adds click to "Poke Slot 3" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Extra Poke Slots", $ArchetypeMenuStripToolExtraCount).add_Click({ 
 
-            # Move pokemon up in slots accordingly (Poke Slot C is just cleared)
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D=.*", "Pokemon_D=Blank"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D_Count.*", "Pokemon_D_Count=0"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E=.*", "Pokemon_E=Blank"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E_Count.*", "Pokemon_E_Count=0"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F=.*", "Pokemon_F=Blank"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count.*", "Pokemon_F_Count=0"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G=.*", "Pokemon_G=Blank"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count.*", "Pokemon_G_Count=0"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=Blank"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count.*", "Pokemon_H_Count=0"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=Blank"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count.*", "Pokemon_I_Count=0"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"
-            $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"
+            # Dialog check to ensure user wants to reset slot
+            $ResetExtraSlots = [System.Windows.MessageBox]::Show("Do you want to RESET all Extra Poke Slots?","Archetype Counter","YesNo","Question")
+            if ($ResetExtraSlots -match "Yes") {
 
-            # Sets all changes back into the Config file
-            [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
+                # Move pokemon up in slots accordingly (Poke Slot C is just cleared)
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D=.*", "Pokemon_D=Blank"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D_Count.*", "Pokemon_D_Count=0"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E=.*", "Pokemon_E=Blank"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E_Count.*", "Pokemon_E_Count=0"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F=.*", "Pokemon_F=Blank"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count.*", "Pokemon_F_Count=0"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G=.*", "Pokemon_G=Blank"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count.*", "Pokemon_G_Count=0"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=Blank"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count.*", "Pokemon_H_Count=0"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=Blank"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count.*", "Pokemon_I_Count=0"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"
+                $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"
 
-            # Small wait to ensure no corrupt of config file
-            [System.Threading.Thread]::Sleep(10)
+                # Sets all changes back into the Config file
+                [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
 
-            # Refreshes counter to update form
-            RefreshCounter
+                # Small wait to ensure no corrupt of config file
+                [System.Threading.Thread]::Sleep(10)
+
+                # Refreshes counter to update form
+                RefreshCounter
+
+            }
 
         })
 
         # Adds click to "Egg Slot" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Egg Count", $ArchetypeMenuStripToolEgg).add_Click({ 
 
-            # Sets the replace for Egg Count
-            $Script:GetConfig = $Script:GetConfig -replace "Egg_Count=.*", "Egg_Count=0"
+            # Dialog check to ensure user wants to reset slot
+            $EggSlot = [System.Windows.MessageBox]::Show("Do you want to RESET Egg Slot?`n`n- Current: $EggCount","Archetype Counter","YesNo","Question")
+            if ($EggSlot -match "Yes") {
 
-            # Sets all changes back into the Config file
-            [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
+                # Sets the replace for Egg Count
+                $Script:GetConfig = $Script:GetConfig -replace "Egg_Count=.*", "Egg_Count=0"
 
-            # Small wait to ensure no corrupt of config file
-            [System.Threading.Thread]::Sleep(10)
+                # Sets all changes back into the Config file
+                [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
 
-            # Refreshes counter to update form
-            RefreshCounter
+                # Small wait to ensure no corrupt of config file
+                [System.Threading.Thread]::Sleep(10)
+
+                # Refreshes counter to update form
+                RefreshCounter
+
+            }
 
         })
 
          # Adds click to "Egg Slot" selection
         $ArchetypeMenuStripTool6.DropDownItems.Add("Reset Fossil Count", $ArchetypeMenuStripToolFossil).add_Click({ 
 
-            # Sets the replace for Fossil Count
-            $Script:GetConfig = $Script:GetConfig -replace "Fossil_Count=.*", "Fossil_Count=0"
+            # Dialog check to ensure user wants to reset slot
+            $FossilSlot = [System.Windows.MessageBox]::Show("Do you want to RESET Fossil Slot?`n`n- Current: $FossilCount","Archetype Counter","YesNo","Question")
+            if ($FossilSlot -match "Yes") {
 
-            # Sets all changes back into the Config file
-            [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
+                # Sets the replace for Fossil Count
+                $Script:GetConfig = $Script:GetConfig -replace "Fossil_Count=.*", "Fossil_Count=0"
 
-            # Small wait to ensure no corrupt of config file
-            [System.Threading.Thread]::Sleep(10)
+                # Sets all changes back into the Config file
+                [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig)
 
-            # Refreshes counter to update form
-            RefreshCounter
+                # Small wait to ensure no corrupt of config file
+                [System.Threading.Thread]::Sleep(10)
+
+                # Refreshes counter to update form
+                RefreshCounter
+
+            }
 
         })
 
@@ -2541,6 +2696,30 @@ $Script:ArchetypeImage.Add_MouseDown({
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool48.Enabled = $false } else { $ArchetypeMenuStripTool48.Enabled = $true }
 
         # Adds "Extra Pokemon Slots" selection
+        $Script:SetConfig = "$PWD\Counter Config Files\CounterConfig_$Script:GetProfile.txt"
+        $Script:GetConfig = [IO.File]::ReadAllLines("$Script:SetConfig")
+        # ------------------------------------------------
+        $Script:PokemonD = $Script:GetConfig -match "Pokemon_D="; $Script:PokemonD = $Script:PokemonD -replace "Pokemon_D=", ""
+        $Script:PokemonCountD = $Script:GetConfig -match "Pokemon_D_Count="; $Script:PokemonCountD = $Script:PokemonCountD -replace "Pokemon_D_Count=", ""
+        # ------------------------------------------------
+        $Script:PokemonE = $Script:GetConfig -match "Pokemon_E="; $Script:PokemonE = $Script:PokemonE -replace "Pokemon_E=", ""
+        $Script:PokemonCountE = $Script:GetConfig -match "Pokemon_E_Count="; $Script:PokemonCountE = $Script:PokemonCountE -replace "Pokemon_E_Count=", ""
+        # ------------------------------------------------
+        $Script:PokemonF = $Script:GetConfig -match "Pokemon_F="; $Script:PokemonF = $Script:PokemonF -replace "Pokemon_F=", ""
+        $Script:PokemonCountF = $Script:GetConfig -match "Pokemon_F_Count="; $Script:PokemonCountF = $Script:PokemonCountF -replace "Pokemon_F_Count=", ""
+        # ------------------------------------------------
+        $Script:PokemonG = $Script:GetConfig -match "Pokemon_G="; $Script:PokemonG = $Script:PokemonG -replace "Pokemon_G=", ""
+        $Script:PokemonCountG = $Script:GetConfig -match "Pokemon_G_Count="; $Script:PokemonCountG = $Script:PokemonCountG -replace "Pokemon_G_Count=", ""
+        # ------------------------------------------------
+        $Script:PokemonH = $Script:GetConfig -match "Pokemon_H="; $Script:PokemonH = $Script:PokemonH -replace "Pokemon_H=", ""
+        $Script:PokemonCountH = $Script:GetConfig -match "Pokemon_H_Count="; $Script:PokemonCountH = $Script:PokemonCountH -replace "Pokemon_H_Count=", ""
+        # ------------------------------------------------
+        $Script:PokemonI = $Script:GetConfig -match "Pokemon_I="; $Script:PokemonI = $Script:PokemonI -replace "Pokemon_I=", ""
+        $Script:PokemonCountI = $Script:GetConfig -match "Pokemon_I_Count="; $Script:PokemonCountI = $Script:PokemonCountI -replace "Pokemon_I_Count=", ""
+        # ------------------------------------------------
+        $Script:PokemonJ = $Script:GetConfig -match "Pokemon_J="; $Script:PokemonJ = $Script:PokemonJ -replace "Pokemon_J=", ""
+        $Script:PokemonCountJ = $Script:GetConfig -match "Pokemon_J_Count="; $Script:PokemonCountJ = $Script:PokemonCountJ -replace "Pokemon_J_Count=", ""
+        # ------------------------------------------------
         $ArchetypeMenuStrip.Items.Add("-")
         $ArchetypeMenuStripCount = [System.Drawing.Bitmap]::FromFile("$PWD\GUI Form Images\Icons\Count.png")
         $ArchetypeMenuStripTool59 = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -2551,13 +2730,15 @@ $Script:ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool59.DropDownItems.Add("-").Enabled = $false
         if ($PokemonA -match "Blank" ) { $Slot1 = "" } else { $Slot1 = "$PokemonCountA - $PokemonAHover" }; if ($PokemonB -match "Blank" ) { $Slot2 = "" } else { $Slot2 = "$PokemonCountB - $PokemonBHover" }; if ($PokemonC -match "Blank" ) { $Slot3 = "" } else { $Slot3 = "$PokemonCountC - $PokemonCHover" }; if ($PokemonD -match "Blank" ) { $Slot4 = "" } else { $Slot4 = "$PokemonCountD - $PokemonD" }; if ($PokemonE -match "Blank" ) { $Slot5 = "" } else { $Slot5 = "$PokemonCountE - $PokemonE" }; if ($PokemonF -match "Blank" ) { $Slot6 = "" } else { $Slot6 = "$PokemonCountF - $PokemonF" }; if ($PokemonG -match "Blank" ) { $Slot7 = "" } else { $Slot7 = "$PokemonCountG - $PokemonG" }; if ($PokemonH -match "Blank" ) { $Slot8 = "" } else { $Slot8 = "$PokemonCountH - $PokemonH" }; if ($PokemonI -match "Blank" ) { $Slot9 = "" } else { $Slot9 = "$PokemonCountI - $PokemonI" }; if ($PokemonJ -match "Blank" ) { $Slot10 = "" } else { $Slot10 = "$PokemonCountJ - $PokemonJ" }
         if ($Script:CounterMode -match "Collapsed_Encounter" -or $Script:CounterMode -match "Collapsed_Egg" -or $Script:CounterMode -match "Collapsed_Fossil") { $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot1", $ArchetypeMenuStripToolPokeSpriteA).Enabled = $true; $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot2", $ArchetypeMenuStripToolPokeSpriteB).Enabled = $true; $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot3", $ArchetypeMenuStripToolPokeSpriteC).Enabled = $true; $ArchetypeMenuStripTool59.DropDownItems.Add("-").Enabled = $false }
-        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot4", $ArchetypeMenuStripToolPokeSpriteD).Enabled = $true
-        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot5", $ArchetypeMenuStripToolPokeSpriteE).Enabled = $true
-        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot6", $ArchetypeMenuStripToolPokeSpriteF).Enabled = $true
-        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot7", $ArchetypeMenuStripToolPokeSpriteG).Enabled = $true
-        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot8", $ArchetypeMenuStripToolPokeSpriteH).Enabled = $true
-        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot9", $ArchetypeMenuStripToolPokeSpriteI).Enabled = $true
-        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot10", $ArchetypeMenuStripToolPokeSpriteJ).Enabled = $true
+        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot4", $ArchetypeMenuStripToolPokeSpriteD).Add_Click({ $ResetSlot4 = [System.Windows.MessageBox]::Show("Do you want to RESET Poke Slot 4?`n`n- Current: $Script:PokemonD","Archetype Counter","YesNo","Question"); if ($ResetSlot4 -match "Yes") { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D=.*", "Pokemon_D=$Script:PokemonE"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_D_Count.*", "Pokemon_D_Count=$Script:PokemonCountE"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E=.*", "Pokemon_E=$Script:PokemonF"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E_Count.*", "Pokemon_E_Count=$Script:PokemonCountF"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F=.*", "Pokemon_F=$Script:PokemonG"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count.*", "Pokemon_F_Count=$Script:PokemonCountG"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G=.*", "Pokemon_G=$Script:PokemonH"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count.*", "Pokemon_G_Count=$Script:PokemonCountH"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$Script:PokemonI"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count.*", "Pokemon_H_Count=$Script:PokemonCountI"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$Script:PokemonJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count.*", "Pokemon_I_Count=$Script:PokemonCountJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter } })
+        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot5", $ArchetypeMenuStripToolPokeSpriteE).Add_Click({ $ResetSlot5 = [System.Windows.MessageBox]::Show("Do you want to RESET Poke Slot 5?`n`n- Current: $Script:PokemonE","Archetype Counter","YesNo","Question"); if ($ResetSlot5 -match "Yes") { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E=.*", "Pokemon_E=$Script:PokemonF"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_E_Count.*", "Pokemon_E_Count=$Script:PokemonCountF"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F=.*", "Pokemon_F=$Script:PokemonG"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count.*", "Pokemon_F_Count=$Script:PokemonCountG"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G=.*", "Pokemon_G=$Script:PokemonH"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count.*", "Pokemon_G_Count=$Script:PokemonCountH"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$Script:PokemonI"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count.*", "Pokemon_H_Count=$Script:PokemonCountI"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$Script:PokemonJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count.*", "Pokemon_I_Count=$Script:PokemonCountJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter } })
+        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot6", $ArchetypeMenuStripToolPokeSpriteF).Add_Click({ $ResetSlot6 = [System.Windows.MessageBox]::Show("Do you want to RESET Poke Slot 6?`n`n- Current: $Script:PokemonF","Archetype Counter","YesNo","Question"); if ($ResetSlot6 -match "Yes") { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F=.*", "Pokemon_F=$Script:PokemonG"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_F_Count.*", "Pokemon_F_Count=$Script:PokemonCountG"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G=.*", "Pokemon_G=$Script:PokemonH"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count.*", "Pokemon_G_Count=$Script:PokemonCountH"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$Script:PokemonI"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count.*", "Pokemon_H_Count=$Script:PokemonCountI"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$Script:PokemonJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count.*", "Pokemon_I_Count=$Script:PokemonCountJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter } })
+        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot7", $ArchetypeMenuStripToolPokeSpriteG).Add_Click({ $ResetSlot7 = [System.Windows.MessageBox]::Show("Do you want to RESET Poke Slot 7?`n`n- Current: $Script:PokemonG","Archetype Counter","YesNo","Question"); if ($ResetSlot7 -match "Yes") { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G=.*", "Pokemon_G=$Script:PokemonH"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_G_Count.*", "Pokemon_G_Count=$Script:PokemonCountH"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$Script:PokemonI"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count.*", "Pokemon_H_Count=$Script:PokemonCountI"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$Script:PokemonJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count.*", "Pokemon_I_Count=$Script:PokemonCountJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter } })
+        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot8", $ArchetypeMenuStripToolPokeSpriteH).Add_Click({ $ResetSlot8 = [System.Windows.MessageBox]::Show("Do you want to RESET Poke Slot 8?`n`n- Current: $Script:PokemonH","Archetype Counter","YesNo","Question"); if ($ResetSlot8 -match "Yes") { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H=.*", "Pokemon_H=$Script:PokemonI"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_H_Count.*", "Pokemon_H_Count=$Script:PokemonCountI"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$Script:PokemonJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count.*", "Pokemon_I_Count=$Script:PokemonCountJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter } })
+        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot9", $ArchetypeMenuStripToolPokeSpriteI).Add_Click({ $ResetSlot9 = [System.Windows.MessageBox]::Show("Do you want to RESET Poke Slot 9?`n`n- Current: $Script:PokemonI","Archetype Counter","YesNo","Question"); if ($ResetSlot9 -match "Yes") { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I=.*", "Pokemon_I=$Script:PokemonJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_I_Count.*", "Pokemon_I_Count=$Script:PokemonCountJ"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter } })
+        $ArchetypeMenuStripTool59.DropDownItems.Add("$Slot10", $ArchetypeMenuStripToolPokeSpriteJ).Add_Click({ $ResetSlot10 = [System.Windows.MessageBox]::Show("Do you want to RESET Poke Slot 10?`n`n- Current: $Script:PokemonJ","Archetype Counter","YesNo","Question"); if ($ResetSlot10 -match "Yes") { $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J=.*", "Pokemon_J=Blank"; $Script:GetConfig = $Script:GetConfig -replace "Pokemon_J_Count.*", "Pokemon_J_Count=0"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter } })
+        $ArchetypeMenuStripTool59.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool59.DropDownItems.Add("-> Select Slot to RESET <-", $ArchetypeMenuStripToolSupport).Enabled = $false
         $ArchetypeMenuStrip.Items.Add($ArchetypeMenuStripTool59)
 
         # Adds "Hunt Profiles" selection
@@ -2638,7 +2819,7 @@ $Script:ArchetypeImage.Add_MouseDown({
         $ArchetypeMenuStripTool4.DropDownItems.Add("Current Windows: $OSName", $ArchetypeMenuStripWindows).Enabled = $false
         $ArchetypeMenuStripTool4.DropDownItems.Add("Current System Language: $PSUICulture", $ArchetypeMenuStripToolLanguage).Enabled = $false
         $ArchetypeMenuStripTool4.DropDownItems.Add("-")
-        $ArchetypeMenuStripTool4.DropDownItems.Add("Counter Version: 3.3.0.0", $ArchetypeMenuStripMain).Enabled = $false
+        $ArchetypeMenuStripTool4.DropDownItems.Add("Counter Version: 3.4.0.0", $ArchetypeMenuStripMain).Enabled = $false
 
         # Adds "Settings" selection 
         $ArchetypeMenuStripTool3 = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -2653,11 +2834,13 @@ $Script:ArchetypeImage.Add_MouseDown({
         if ($Script:ScreenPosition -match "Unlocked") { $Script:ScreenPositionText = "Counter Screen Position: Unlocked" } else { $Script:ScreenPositionText = "Counter Screen Position: Locked" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$Script:ScreenPositionText", $ArchetypeMenuStripToolScreenPosition).add_Click({ if ($Script:ScreenPosition -match "Unlocked") { $Script:GetConfig = $Script:GetConfig -replace "Screen_Position=.*", "Screen_Position=Locked" } else { $Script:GetConfig = $Script:GetConfig -replace "Screen_Position=.*", "Screen_Position=Unlocked" }; $ArchetypeReplaceX = $Script:ArchetypeForm.Bounds.Left; $ArchetypeReplaceY = $Script:ArchetypeForm.Bounds.Top; $Script:GetConfig = $Script:GetConfig -replace "Archetype_X=.*", "Archetype_X=$ArchetypeReplaceX"; $Script:GetConfig = $Script:GetConfig -replace "Archetype_Y=.*", "Archetype_Y=$ArchetypeReplaceY"; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter })
         $ArchetypeMenuStripTool3.DropDownItems.Add("-")
         if ($CounterActive -match "True") { $ArchetypeMenuStripTool3.Enabled = $false } else { $ArchetypeMenuStripTool3.Enabled = $true }
-        if ($Script:DPIAware -match "True") { $DPIAwareText = "DPI Awareness: Enabled" } else { $DPIAwareText = "DPI Awareness: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$DPIAwareText", $ArchetypeMenuStripToolDPIAware).add_Click({ if ($Script:DPIAware -match "True") { $Script:GetConfig = $Script:GetConfig -replace "DPI_Aware=.*", "DPI_Aware=False" } else { $Script:GetConfig = $Script:GetConfig -replace "DPI_Aware=.*", "DPI_Aware=True" }; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
+        if ($Script:DPIAware -match "True") { $DPIAwareText = "Ignore System UI Scaling: True" } else { $DPIAwareText = "Ignore System UI Scaling: False" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$DPIAwareText", $ArchetypeMenuStripToolDPIAware).add_Click({ if ($Script:DPIAware -match "True") { $Script:GetConfig = $Script:GetConfig -replace "DPI_Aware=.*", "DPI_Aware=False" } else { $Script:GetConfig = $Script:GetConfig -replace "DPI_Aware=.*", "DPI_Aware=True" }; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); Start-Process "$PWD\ArchetypeCounter.bat" -NoNewWindow -Wait })
         if ($AlwaysOnTop -match "True") { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Enabled" } else { $PokeMMOMenuAlwaysOnTopText = "Always On Top: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$PokeMMOMenuAlwaysOnTopText", $ArchetypeMenuStripToolAlwaysOnTop).add_Click({ if ($AlwaysOnTop -match "True") { $Script:GetConfig = $Script:GetConfig -replace "Always_On_Top=.*", "Always_On_Top=False" } else { $Script:GetConfig = $Script:GetConfig -replace "Always_On_Top=.*", "Always_On_Top=True" }; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter })     
         if ($Script:ManualPixelSearch -match "True") { $ManualPixelSearchText = "Manual Pixel Search: Enabled" } else { $ManualPixelSearchText = "Manual Pixel Search: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$ManualPixelSearchText", $ArchetypeMenuStripToolManualPixelSearch).add_Click({ if ($Script:ManualPixelSearch -match "True") { $Script:GetConfig = $Script:GetConfig -replace "Manual_Pixel_Search=.*", "Manual_Pixel_Search=False" } else { $Script:GetConfig = $Script:GetConfig -replace "Manual_Pixel_Search=.*", "Manual_Pixel_Search=True" }; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter })     
         if ($BeepSound -match "True") { $SoundModeText = "Beep Count Sound: Enabled" } else { $SoundModeText = "Beep Count Sound: Disabled" }; $ArchetypeMenuStripTool3.DropDownItems.Add("$SoundModeText", $ArchetypeMenuStripToolBeepSound).add_Click({ if ($BeepSound -match "True") { $Script:GetConfig = $Script:GetConfig -replace "Beep_Sound=.*", "Beep_Sound=False" } else { $Script:GetConfig = $Script:GetConfig -replace "Beep_Sound=.*", "Beep_Sound=True" }; [IO.File]::WriteAllLines($Script:SetConfig, $Script:GetConfig); [System.Threading.Thread]::Sleep(10); RefreshCounter })
-        $ArchetypeMenuStripTool3.DropDownItems.Add("-")
+        $ArchetypeMenuStripTool3.DropDownItems.Add("-").Enabled = $false
+        $ArchetypeMenuStripTool3.DropDownItems.Add("UNINSTALLER:", $ArchetypeMenuStripMenu).Enabled = $false
+        $ArchetypeMenuStripTool3.DropDownItems.Add("-").Enabled = $false
         $ArchetypeMenuStripTool3.DropDownItems.Add("Archetype Counter Uninstaller", $ArchetypeMenuStripUninstall).add_Click({ $UninstallACDialog = [System.Windows.MessageBox]::Show("Would you like to uninstall Archetype Counter?","  Archetype Counter","YesNo","Warning"); if ($UninstallACDialog -match "Yes") { [System.Windows.MessageBox]::Show("Thank you for using Archetype Counter!","  Archetype Counter","OK","Asterisk"); $ThemeNames = (Get-ChildItem "$PokeMMOWorkingDir\data\themes" -directory).Name; $SetThemeConfig = "$PokeMMOWorkingDir\data\themes\$ThemeName\theme.xml"; $GetThemeConfig = [IO.File]::ReadAllLines("$SetThemeConfig"); foreach ($ThemeName in $ThemeNames) { Remove-Item "$PokeMMOWorkingDir\data\themes\$ThemeName\AC" -Recurse -Force; $GetThemeConfig = $GetThemeConfig -replace '<include filename="AC/1.0_Scaling.xml"/>',''; [IO.File]::WriteAllLines($SetThemeConfig, $GetThemeConfig) }; Start-Process -WindowStyle hidden "$PWD\Counter Functions\Uninstaller\Uninstaller.bat"; [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force } })
 
         # Adds "Total Current Counts" selection
@@ -2894,10 +3077,10 @@ Function PlayAction {
       
         # Creates a Runspace to run in a separate thread
         $Script:RunSpace = [Management.Automation.Runspaces.RunspaceFactory]::CreateRunspace()
-        $RunSpace.ApartmentState = "STA"
-        $RunSpace.ThreadOptions = "ReuseThread"
-        $RunSpace.Open()
-        $RunSpace.SessionStateProxy.SetVariable("SyncHashTable",$Script:SyncHashTable)
+        $Script:RunSpace.ApartmentState = "STA"
+        $Script:RunSpace.ThreadOptions = "ReuseThread"
+        $Script:RunSpace.Open()
+        $Script:RunSpace.SessionStateProxy.SetVariable("SyncHashTable",$Script:SyncHashTable)
         $PowerShellCmd = [Management.Automation.PowerShell]::Create().AddScript({
 
         # Written by Dr. Tobias Weltner (Copyright = '(c) 2021 Dr. Tobias Weltner. All rights reserved.')
@@ -3237,6 +3420,30 @@ Function PlayAction {
         }
 '@
 
+        # Adds in the ability to make the Winforms app DPI aware (https://learn.microsoft.com/en-us/windows/win32/api/winuser/nf-winuser-setprocessdpiawarenesscontext)
+        Add-Type -TypeDefinition '
+        using System;
+        using System.ComponentModel;
+        using System.Runtime.InteropServices;
+
+        public class DPIAware {
+            public static readonly IntPtr UNAWARE              = (IntPtr) (-1);
+            public static readonly IntPtr SYSTEM_AWARE         = (IntPtr) (-2);
+            public static readonly IntPtr PER_MONITOR_AWARE    = (IntPtr) (-3);
+            public static readonly IntPtr PER_MONITOR_AWARE_V2 = (IntPtr) (-4);
+            public static readonly IntPtr UNAWARE_GDISCALED    = (IntPtr) (-5);
+
+            [DllImport("user32.dll", EntryPoint = "SetProcessDpiAwarenessContext", SetLastError = true)]
+            private static extern bool NativeSetProcessDpiAwarenessContext(IntPtr Value);
+
+            public static void SetProcessDpiAwarenessContext(IntPtr Value) {
+                if (!NativeSetProcessDpiAwarenessContext(Value)) {
+                    throw new Win32Exception();
+                }
+            }
+        }
+'
+
         # Loads/Adds User Add-Type (With correct Assemblies) + Creates the object for the Function (ScreenShotAC.ScreenCapture)
         Add-type $PrintWindowCode -ReferencedAssemblies 'System.Windows.Forms','System.Drawing'; $ScreenCapture = New-Object ScreenCapture 
 
@@ -3446,6 +3653,7 @@ Function PlayAction {
                     $PictureMode = $Script:GetConfig -match "Picture_Mode="; $PictureMode = $PictureMode -replace "Picture_Mode=", ""
                     $Script:ChineseMode = $Script:GetConfig -match "Chinese_Mode="; $Script:ChineseMode = $Script:ChineseMode -replace "Chinese_Mode=", ""
                     # ------------------------------------------------
+                    $Script:DPIAware = $Script:GetConfig -match "DPI_Aware="; $Script:DPIAware = $Script:DPIAware -replace "DPI_Aware=", ""
                     $CounterActive = $Script:GetConfig -match "Counter_Active="; $CounterActive = $CounterActive -replace "Counter_Active=", ""
                     $BeepSound = $Script:GetConfig -match "Beep_Sound="; $BeepSound = $BeepSound -replace "Beep_Sound=", ""
                     # ------------------------------------------------
@@ -3458,14 +3666,13 @@ Function PlayAction {
                     $EggCount = $Script:GetConfig -match "Egg_Count="; $EggCount = $EggCount -replace "Egg_Count=", ""
                     $AlphaCount = $Script:GetConfig -match "Alpha_Count="; $AlphaCount = $AlphaCount -replace "Alpha_Count=", ""
                     $LegendaryCount = $Script:GetConfig -match "Legendary_Count="; $LegendaryCount = $LegendaryCount -replace "Legendary_Count=", ""
-                    $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
                     # ------------------------------------------------
                     $ShinyCount = $Script:GetConfig -match "Shiny_Count="; $ShinyCount = $ShinyCount -replace "Shiny_Count=", ""
                     # ------------------------------------------------
                     $PokemonCountA = $PokemonCountA -join '-'; $PokemonCountB = $PokemonCountB -join '-'; $PokemonCountC = $PokemonCountC -join '-'; $PokemonCountD = $PokemonCountD -join '-'; $PokemonCountE = $PokemonCountE -join '-'; $PokemonCountF = $PokemonCountF -join '-'; $PokemonCountG = $PokemonCountG -join '-'; $PokemonCountH = $PokemonCountH -join '-'; $PokemonCountI = $PokemonCountI -join '-'; $PokemonCountJ = $PokemonCountJ -join '-'; $EggCount = $EggCount -join '-'; $FossilCount = $FossilCount -join '-'; $AlphaCount = $AlphaCount -join '-'; $ShinyCount = $ShinyCount -join '-'; $LegendaryCount = $LegendaryCount -join '-'; $TotalCount = $TotalCount -join '-'; $TotalCountNoEgg = $TotalCountNoEgg -join '-'; $TotalPokeSeenCount = $TotalPokeSeenCount -join '-'
                     # ------------------------------------------------
-                    $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$EggCount + [int]$FossilCount
-                    $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC
+                    $TotalCount = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$PokemonCountD + [int]$PokemonCountE + [int]$PokemonCountF + [int]$PokemonCountG + [int]$PokemonCountH + [int]$PokemonCountI + [int]$PokemonCountJ + [int]$EggCount + [int]$FossilCount
+                    $TotalCountNoEgg = [int]$PokemonCountA + [int]$PokemonCountB + [int]$PokemonCountC + [int]$PokemonCountD + [int]$PokemonCountE + [int]$PokemonCountF + [int]$PokemonCountG + [int]$PokemonCountH + [int]$PokemonCountI + [int]$PokemonCountJ
 
                     # Loads values from external sources for winform (Config file)
                     $Script:SetColorConfig = "$PWD\GUI Form Images\$ThemeType\ThemeConfig.txt"
@@ -3523,6 +3730,7 @@ Function PlayAction {
                              # Show counter is "Busy" while running through main processing
                              if ($Script:CounterMode -match "Collapsed_Encounter" -or $Script:CounterMode -match "Collapsed_Egg" -or $Script:CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedBusyBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
 
+                             # Ensures everything on form is updated/refreshed
                              $Script:SyncHashTable.ArchetypeForm.update()
                              $Script:SyncHashTable.ArchetypeForm.refresh()
 
@@ -3563,6 +3771,7 @@ Function PlayAction {
                              # Show counter is "Busy" while running through main processing
                              if ($Script:CounterMode -match "Collapsed_Encounter" -or $Script:CounterMode -match "Collapsed_Egg" -or $Script:CounterMode -match "Collapsed_Fossil") { $Script:SyncHashTable.ArchetypeCollapsedStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeCollapsedBusyImage.Visible = $true; $Script:SyncHashTable.ArchetypeMainEncounterCollapsedImage.BackColor = [System.Drawing.ColorTranslator]::FromHtml($Script:CollapsedBusyBGColor) } else { $Script:SyncHashTable.ArchetypeStopImage.Visible = $false; $Script:SyncHashTable.ArchetypeBusyImage.Visible = $true }
 
+                             # Ensures everything on form is updated/refreshed
                              $Script:SyncHashTable.ArchetypeForm.update()
                              $Script:SyncHashTable.ArchetypeForm.refresh()
 
@@ -3613,8 +3822,14 @@ Function PlayAction {
                             # Wait (For main Pokemon name - OCR scan)
                             [System.Threading.Thread]::Sleep(3890)
 
+                            # Sets AC to be DPI AWARE before taking screenshot of PokeMMO window 
+                            [DPIAware]::SetProcessDpiAwarenessContext([DPIAware]::PER_MONITOR_AWARE_V2)
+
                             # Take/request screenshot of PokeMMO window
                             if ($PictureMode -match "Default") { PokeMMOPrintWindow; $ArchetypeScreenshot2 = New-Object System.Drawing.Bitmap("$PWD\Counter Functions\Core\ArchetypeScreenshot.tif"); $GameWidth = $ArchetypeScreenshot2.Width; $GameHeight = $ArchetypeScreenshot2.Height; $BattleWidth = [math]::Ceiling(($GameWidth- 15.999)*0.7); if ($BattleWidth -le "760") { $BattleWidth = "760" }; $XCropValue = [Math]::Floor(($GameWidth - 15.999 - $BattleWidth) / 2); $WCropValue = $BattleWidth; $RectImage2 = New-Object System.Drawing.Rectangle($XCropValue,50,$WCropValue,300); $CropSlice2 = $ArchetypeScreenshot2.Clone($RectImage2, $ArchetypeScreenshot2.PixelFormat); $CropSlice2.save("$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.tif"); $ArchetypeScreenshot2.dispose(); $RectImage2.Dispose(); $Global:AutoScreenMode = "PrintWindow (Default)" } else { PokeMMOScreenShot; $ArchetypeScreenshot2 = New-Object System.Drawing.Bitmap("$PWD\Counter Functions\Core\ArchetypeScreenshot.tif"); $GameWidth = $ArchetypeScreenshot2.Width; $GameHeight = $ArchetypeScreenshot2.Height; $BattleWidth = [math]::Ceiling(($GameWidth- 15.999)*0.7); if ($BattleWidth -le "760") { $BattleWidth = "760" }; $XCropValue = [Math]::Floor(($GameWidth - 15.999 - $BattleWidth) / 2); $WCropValue = $BattleWidth; $RectImage2 = New-Object System.Drawing.Rectangle($XCropValue,50,$WCropValue,300); $CropSlice2 = $ArchetypeScreenshot2.Clone($RectImage2, $ArchetypeScreenshot2.PixelFormat); $CropSlice2.save("$PWD\Counter Functions\Core\ArchetypeScreenshotEncounter.tif"); $ArchetypeScreenshot2.Dispose(); $RectImage2.Dispose(); $Global:AutoScreenMode = "PrintScreen (Alternate)" }
+
+                            # Sets AC to be NON DPI AWARE after taking screenshot of PokeMMO window (If DPI Aware setting matches)
+                            if ($Script:DPIAware -match "True") { [DPIAware]::SetProcessDpiAwarenessContext([DPIAware]::PER_MONITOR_AWARE_V2) } else { [DPIAware]::SetProcessDpiAwarenessContext([DPIAware]::UNAWARE) }
 
                             # Stores/Saves current working directory and sets to "Core" to run ImageMagick processing without an issue
                             Set-Location "$PWD\Counter Functions\Core"
@@ -3624,6 +3839,9 @@ Function PlayAction {
 
                             # Calls ImageMagick command to filter out "ArchetypeScreenshotEncounter" image
                             cmd.exe /c "magick ArchetypeScreenshotEncounter.tif ^ ( +clone -colorspace HSL -channel S -separate -negate -fill black -fuzz 99.9% -opaque black ) ^ -alpha off -compose copy_opacity -composite ^ -background black -alpha remove -alpha off ArchetypeScreenshotMagick.tif" 
+
+                            # Calls ImageMagick command to filter out additional garbage and specifically crop to the text on the "ArchetypeScreenshotMagick" image
+                            cmd.exe /c "magick ArchetypeScreenshotMagick.tif -fill rgb(0,0,0) -opaque rgb(113,113,113) -fuzz 96% -trim -bordercolor black -border 20 ArchetypeScreenshotMagick.tif" 
 
                             # Resets working counter loop directory
                             Set-Location $CounterLoopWorkingDir
@@ -4140,7 +4358,7 @@ Function PlayAction {
     })
 
     # This section is needed for the PowerShell runspace invoke
-    $PowerShellCmd.Runspace = $RunSpace
+    $PowerShellCmd.Runspace = $Script:RunSpace
     $PSAsyncObject = $PowerShellCmd.BeginInvoke()
 
 }
