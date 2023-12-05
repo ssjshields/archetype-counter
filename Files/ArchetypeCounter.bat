@@ -3566,7 +3566,7 @@ Function PlayAction {
         $FossilMatchArray = @('Aerodactyl','Ptéra','プテラ프테라','化石翼龍','化石翼龙','Flapteryx','Archen','Arkéapti','アーケン','아켄始祖小鳥','始祖小鸟','Koknodon','Cranidos','Kranidos','ズガイドス','두개도스','頭蓋龍','头盖龙','Galapaflos','Tirtouga','Carapagos','プロトーガ','프로토가','原蓋海龜','原盖海龟','Anorith','アノプス','아노딥스','太古羽蟲','太古羽虫','Amonitas','Omanyte','Amonita','オムナイト','암나이트','菊石獸','菊石兽','Schilterus','Shieldon','Dinoclier','タテトプス','방패톱스','盾甲龍','盾甲龙','Kabuto','Kabuto','Kabuto','カブト투구','化石盔','化石盔','Liliep','Lileep','Lilia','リリーラ','릴링觸手百合','触手百合')
         $LegendaryDogsMatchArray = @('Suicune','スイクン','스이쿤','水君','Raikou','ライコウ','라이코','雷公','Entei','エンテイ','앤테이','炎帝')
         $PixelMatchArray = @("fffb00fb","fd00fdff","f900f9ff","fb00fbff","fff900f9","fffd00fd")
-        $PixelMatchSpeechArray = @("00ff00ff","00fd00ff","00fb00ff")
+        $PixelMatchSpeechArray = @("00ff00ff","00fd00ff","00fb00ff","ff00fd00","ff00fb00")
 
         # Grabs current working folder - Store as variable
         $CounterWorkingDir = $PWD
@@ -3720,7 +3720,7 @@ Function PlayAction {
 
                     # Sets current counter working directory into a variable
                     $CounterLoopWorkingDir = $PWD
-                    
+
                     # Checks top left indicator to determine if to use this logic
                     if (($GetPixelColor -match '\b('+($PixelMatchSpeechArray -join '|')+')\b')) {
 
