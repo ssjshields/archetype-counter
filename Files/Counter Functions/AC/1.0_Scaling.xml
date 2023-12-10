@@ -26,10 +26,6 @@
 		<area name="Speech_Pattern" xywh="*" splitx="L6,R0" splity="T6,B0" inset="-1,-1,1,1"/>
 	</images>
 
-	<images file="Default_Dot.png" filter="nearest">
-		<area name="Default_Pattern" xywh="*" splitx="L6,R0" splity="T6,B0" inset="-1,-1,1,1"/>
-	</images>
-
 	<theme name="battle-gui-enemy" ref="battle-gui-enemy">
 		<param name="background"><image>battle-ui-enemy</image></param>
 	</theme>
@@ -57,15 +53,4 @@
 		<param name="overlay"><image>Speech_Pattern</image></param>
 	</theme>
 
-	<theme name="debugimpl" ref="debugimpl">
-		<param name="overlay"><image>Default_Pattern</image></param>
-	</theme>
-
-	<theme name="logingui" ref="logingui">
-		<param name="overlay"><image>Default_Pattern</image></param>
-	</theme>
-
-	<theme name="characterselectgui" ref="characterselectgui">
-		<param name="overlay"><image>Default_Pattern</image></param>
-	</theme>
 </themes>
