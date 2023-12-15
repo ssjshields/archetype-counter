@@ -135,8 +135,6 @@ Useful for [shiny hunting](https://Pokémondb.net/pokedex/shiny) or metrics love
 
 > Counter Screen Position: Allows you to lock the counters current position on screen to prevent accidental movement
 
-> DPI Awareness: Ability to make the counter DPI Aware to properly scale or not depending upon machine scaling settings
-
 > Always on Top: Set whether the Counter retains priority over the PokeMMO window or not
 
 > Beep Count Sound: Set system sound effect when a pokémon is tracked by counter
