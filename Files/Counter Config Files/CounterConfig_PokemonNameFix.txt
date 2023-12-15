@@ -82,4 +82,5 @@
 Farfetch'd; Farfetch’d
 Farfetchd; Farfetch’d
 HGloom; Gloom
+Magnhemite; Magnemite
 
