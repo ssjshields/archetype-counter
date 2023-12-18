@@ -11,7 +11,7 @@ goto:eof
 # --------- Archetype Team --------- #
 # ---------------------------------- #
 # ------- Archetype Counter -------- #
-# ------- Version: 3.5.0.0 --------- #
+# ------- Version: 3.5.0.1 --------- #
 # ---------------------------------- #
 #                                    #
 # -------------                      #
@@ -2866,7 +2866,7 @@ Function StartCounter {
             $ArchetypeMenuStripTool4.DropDownItems.Add("Current Windows: $OSName", $ArchetypeMenuStripWindows).Enabled = $false
             $ArchetypeMenuStripTool4.DropDownItems.Add("Current System Language: $PSUICulture", $ArchetypeMenuStripToolLanguage).Enabled = $false
             $ArchetypeMenuStripTool4.DropDownItems.Add("-")
-            $ArchetypeMenuStripTool4.DropDownItems.Add("Counter Version: 3.5.0.0", $ArchetypeMenuStripMain).Enabled = $false
+            $ArchetypeMenuStripTool4.DropDownItems.Add("Counter Version: 3.5.0.1", $ArchetypeMenuStripMain).Enabled = $false
 
             # Adds "Settings" selection 
             $ArchetypeMenuStripTool3 = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -3637,6 +3637,11 @@ Function PlayAction {
             # Debugging Loop Speed (WHEN NEEDED)
             #$GetLoopSpeed = Get-Date -Format HH:mm:ss.fff; $GetLoopSpeed = "$GetLoopSpeed`n"; [IO.File]::AppendAllText("$PWD\LoopSpeed.txt", "$GetLoopSpeed")
 
+            # Checks/ensures counter memory usage does not exceed over set MB amount
+            Clear-Variable -name ACProcessMemoryUsageMB
+            $ACProcessMemoryUsageMB = [Math]::Round((Get-Process "Powershell" | Where-Object { $_.ID -eq $PID } | Select-Object Name,@{Name='MemoryUsage';Expression={($_.WorkingSet/1MB)}}).MemoryUsage)
+            if ($ACProcessMemoryUsageMB -ge 550) { [System.GC]::Collect(); [GC]::Collect(); [GC]::WaitForPendingFinalizers() }
+
             # Loads values from external sources (Config file)
             $Script:SetConfig = "$PWD\Counter Config Files\CounterConfig_$Script:GetProfile.txt"
             $Script:GetConfig = [IO.File]::ReadAllLines("$Script:SetConfig")
@@ -4002,7 +4007,7 @@ Function PlayAction {
                     [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "-----------------`n| OCR Language: |`n-----------------`n`n$SystemCurrentLangConfig`n`n")
 
                     # (DEBUG - Output necessary files for debugging/diagnosing issues - OCR Language)
-                    [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "-----------------`n| Counter Version: |`n-----------------`n`n3.5.0.0`n`n################################`n#   END OF COUNTER OCR DEBUG   #`n################################")
+                    [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "-----------------`n| Counter Version: |`n-----------------`n`n3.5.0.1`n`n################################`n#   END OF COUNTER OCR DEBUG   #`n################################")
 
                     # Grabs and loads + compares to the captures OCR text
                     $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SystemCurrentLangConfig.txt" 
