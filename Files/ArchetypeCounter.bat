@@ -4026,8 +4026,6 @@ Function PlayAction {
                     $GetPokemonName = $GetPokemonName -replace '니드런F','니드런'
                     $GetPokemonName = $GetPokemonName -replace '니드런M','니드런'
 
-                    [DPIAware]::SetProcessDpiAwarenessContext([DPIAware]::UNAWARE)
-
                     # Checks if current just seen pokemon is a "Shiny"
                     if ($OCRCapturedShiny -match $true) {
 
