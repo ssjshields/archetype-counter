@@ -27,7 +27,6 @@ Close_PokeMMO=False
 Counter_Active=False
 Beep_Sound=False
 Screen_Position=Unlocked
-DPI_Aware=False
 -------------------------------
 Archetype_X=-123
 Archetype_Y=-123
