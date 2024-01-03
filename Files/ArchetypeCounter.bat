@@ -11,7 +11,7 @@ goto:eof
 # --------- Archetype Team --------- #
 # ---------------------------------- #
 # ------- Archetype Counter -------- #
-# ------- Version: 3.5.0.1 --------- #
+# ------- Version: 3.5.0.2 --------- #
 # ---------------------------------- #
 #                                    #
 # -------------                      #
@@ -2866,7 +2866,7 @@ Function StartCounter {
             $ArchetypeMenuStripTool4.DropDownItems.Add("Current Windows: $OSName", $ArchetypeMenuStripWindows).Enabled = $false
             $ArchetypeMenuStripTool4.DropDownItems.Add("Current System Language: $PSUICulture", $ArchetypeMenuStripToolLanguage).Enabled = $false
             $ArchetypeMenuStripTool4.DropDownItems.Add("-")
-            $ArchetypeMenuStripTool4.DropDownItems.Add("Counter Version: 3.5.0.1", $ArchetypeMenuStripMain).Enabled = $false
+            $ArchetypeMenuStripTool4.DropDownItems.Add("Counter Version: 3.5.0.2", $ArchetypeMenuStripMain).Enabled = $false
 
             # Adds "Settings" selection 
             $ArchetypeMenuStripTool3 = New-Object System.Windows.Forms.ToolStripMenuItem
@@ -4007,7 +4007,7 @@ Function PlayAction {
                     [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "-----------------`n| OCR Language: |`n-----------------`n`n$SystemCurrentLangConfig`n`n")
 
                     # (DEBUG - Output necessary files for debugging/diagnosing issues - OCR Language)
-                    [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "-----------------`n| Counter Version: |`n-----------------`n`n3.5.0.1`n`n################################`n#   END OF COUNTER OCR DEBUG   #`n################################")
+                    [IO.File]::AppendAllText("$PWD\Counter Functions\Core\DEBUG\DEBUG_OCR_OUTPUT.txt", "--------------------`n| Counter Version: |`n--------------------`n`n3.5.0.2`n`n################################`n#   END OF COUNTER OCR DEBUG   #`n################################")
 
                     # Grabs and loads + compares to the captures OCR text
                     $SetPokeConfig = "$PWD\Counter Config Files\PokemonNamesWithID_$SystemCurrentLangConfig.txt" 
