@@ -3589,7 +3589,7 @@ Function PlayAction {
     $AlphaMatchArray = @("Alpha","Alfa","알파포켓몬","우두머리")
     $EggMatchArray = @("egg","recu","oeuf","erhalten","ei","recibido","ovo","ricevuto","uovo","otrzymane","jajko","알")
     $FossilMatchArray = @('Aerodactyl','Ptéra','プテラ프테라','化石翼龍','化石翼龙','Flapteryx','Archen','Arkéapti','アーケン','아켄始祖小鳥','始祖小鸟','Koknodon','Cranidos','Kranidos','ズガイドス','두개도스','頭蓋龍','头盖龙','Galapaflos','Tirtouga','Carapagos','プロトーガ','프로토가','原蓋海龜','原盖海龟','Anorith','アノプス','아노딥스','太古羽蟲','太古羽虫','Amonitas','Omanyte','Amonita','オムナイト','암나이트','菊石獸','菊石兽','Schilterus','Shieldon','Dinoclier','タテトプス','방패톱스','盾甲龍','盾甲龙','Kabuto','Kabuto','Kabuto','カブト투구','化石盔','化石盔','Liliep','Lileep','Lilia','リリーラ','릴링觸手百合','触手百合')
-    $LegendaryDogsMatchArray = @('Suicune','スイクン','스이쿤','水君','Raikou','ライコウ','라이코','雷公','Entei','エンテイ','앤테이','炎帝')
+    $LegendaryMatchArray = @('Suicune','スイクン','스이쿤','水君','Raikou','ライコウ','라이코','雷公','Entei','エンテイ','앤테이','炎帝','Articuno','Artikodin','Arktos','フリーザー','프리져','急冻鸟','急凍鳥','Zapdos','Électhor','サンダー','썬더','闪电鸟','閃電鳥','Moltres','Sulfura','Lavados','ファイヤー','파이어','火焰鸟','火焰鳥','Mewtwo','Mewtu','ミュウツー','뮤츠','超梦','超夢','Rayquaza','レックウザ','레쿠쟈','烈空坐','烈空坐','Keldeo','ケルディオ','케르디오','凯路迪欧','凱路迪歐','Arceus','アルセウス','아르세우스','阿尔宙斯','阿爾宙斯','Shaymin','シェイミ','쉐이미','谢米','謝米','Lugia','ルギア','루기아','洛奇亚','洛奇亞')
     $PixelMatchArray = @("fffb00fb","fd00fdff","f900f9ff","fb00fbff","fff900f9","fffd00fd")
     $PixelMatchSpeechArray = @("00ff00ff","00fd00ff","00fb00ff","ff00fd00","ff00fb00")
 
@@ -3925,7 +3925,7 @@ Function PlayAction {
                     if (($OCRCaptured -match '\b('+($AlphaMatchArray -join '|')+')\b')) { $OCRCapturedAlpha = $true } else { $OCRCapturedAlpha = $false }
 
                     # Stores 'OCRCaptured' into a variable to check later (For Legendary Dog(s) Pokemon) 
-                    if (($OCRCaptured -match '\b('+($LegendaryDogsMatchArray -join '|')+')\b')) { $OCRCapturedDogs = $true } else { $OCRCapturedDogs = $false }
+                    if (($OCRCaptured -match '\b('+($LegendaryMatchArray -join '|')+')\b')) { $OCRCapturedLegendary = $true } else { $OCRCapturedLegendary = $false }
 
                     # Normal Pokemon Name logic processing
                     if ($SystemCurrentLangConfig -match "Korean") { if ($OCRCaptured -match '레벨') { $OCRCaptured = $OCRCaptured-replace '레벨',','; $OCRCaptured = $OCRCaptured -replace '[0-9]','' } else { $OCRCaptured = $OCRCaptured -replace '[0-9]',',' } } else { $OCRCaptured = $OCRCaptured -replace '[0-9]','' }; $OCRCaptured = $OCRCaptured -replace [regex]::escape('lv.'),',' -replace [regex]::escape('lvl.'),',' -replace [regex]::escape('nv.'),',' -replace [regex]::escape('niv.'),',' -replace [regex]::escape('Lv,'),',' -replace [regex]::escape('.'),',' -replace '[[\]{}+-]' -replace [regex]::escape('Ｌ'),'' -replace [regex]::escape('ㄴ'),'' -replace [regex]::escape('\'),'' -replace [regex]::escape('/'),'' -replace [regex]::escape('|'),'' -replace [regex]::escape('('),'' -replace '\s',''; $OCRCaptured = $OCRCaptured -split ","; $OCRCaptured = $OCRCaptured | where { $_ -ne "" }; $OCRCaptured = $OCRCaptured.trim(); 0..7 | % { if ($OCRCaptured[$_].Length -eq 1) { $OCRCaptured[$_] = ''; $OCRCaptured = $OCRCaptured | where { $_ -ne "" } } }
@@ -4096,7 +4096,7 @@ Function PlayAction {
                     }
 
                     # Checks if current just seen pokemon is a "Shiny"
-                    if ($OCRCapturedDogs -match $true) {
+                    if ($OCRCapturedLegendary -match $true) {
 
                         # Adding in VisualBasic assembly load
                         [void][System.Reflection.Assembly]::LoadWithPartialName('Microsoft.VisualBasic')
