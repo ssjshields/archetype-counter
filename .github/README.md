@@ -1,4 +1,4 @@
-![mainlogo](https://cdn.discordapp.com/attachments/894130957588766770/995035312592015420/archetype.png)
+![mainLogo](https://github.com/ssjshields/archetype-counter/blob/main/.github/images/main_logo.png)
 
 Archetype Counter is a PowerShell WinForm script for the online video game [PokeMMO](https://pokemmo.com/).
 
@@ -44,11 +44,7 @@ Useful for [shiny hunting](https://Pokémondb.net/pokedex/shiny) or metrics love
 
 &nbsp;
 # Media
-![encounter collapsed - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125459286001193010/image.png) &nbsp; ![encounter collapsed - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125459348706041886/image.png)  
-
-![Counter Mode - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458544267894834/image.png)  
-
-![encounter expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125457882016657418/image.png) &nbsp; ![encounter expanded - Default](https://cdn.discordapp.com/attachments/1032300868491546654/1125457920335806474/image.png) &nbsp; ![egg expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458808148344943/image.png) &nbsp; ![fossil expanded - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458845649617017/image.png)  
+![counterMode](https://github.com/ssjshields/archetype-counter/blob/main/.github/images/counter_mode.png)
 
 &nbsp;
 # Expectations
@@ -91,8 +87,6 @@ Useful for [shiny hunting](https://Pokémondb.net/pokedex/shiny) or metrics love
 &nbsp;
 # Counter Menu Navigation
 *Options will appear "grayed out" and cannot be modified while the Counter is in counting mode (ON) or (BUSY)*
-
-![Extra Poke Slots - Archetype](https://cdn.discordapp.com/attachments/1032300868491546654/1125458980404207636/image.png)
 
 ### Theme Selector
 > Choose Counter themes (Archetype, Default) + 3 Custom theme options (Create your own theme)
