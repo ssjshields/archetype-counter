@@ -70,7 +70,7 @@ Useful for [shiny hunting](https://Pokémondb.net/pokedex/shiny) or metrics love
 # Removal
 **1.** From the Counter menu navigate to Settings → Uninstall Archetype Counter
 
-> All Counter files and theme modifications are subseqently removed automatically
+> All Counter files and theme modifications are removed automatically
 
 &nbsp;
 # Main Navigation
