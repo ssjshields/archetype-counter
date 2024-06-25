@@ -84,9 +84,6 @@ Net Framework and PowerShell are typically included in the latest Windows update
 
 &nbsp;
 # Installation 📦
-<p align="left">
-  <a href="https://github.com/ssjshields/archetype-counter/archive/refs/heads/testing.zip"><img src="https://img.shields.io/badge/%F0%9F%93%82-%20?style=flat&label=Download&color=blue" alt="https://github.com/ssjshields/archetype-counter/archive/refs/heads/testing.zip">
-</a></p>
 
 **1.** Extract into `PokeMMO\data\mods`
 
