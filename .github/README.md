@@ -126,6 +126,7 @@ Deleting the Counter folder from the mods directory will not remove the XML chan
 - BurntToast (https://github.com/Windos/BurntToast)
 - Pngquant (https://pngquant.org/)
 - DarkNet (https://github.com/Aldaviva/DarkNet)
+- Icons8 (https://icons8.com/)
 
 **Monster Sprites:**
 - Default (https://pokemmo.com/)
