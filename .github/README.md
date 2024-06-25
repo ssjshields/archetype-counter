@@ -1,156 +1,434 @@
-![mainLogo](https://github.com/ssjshields/archetype-counter/blob/main/.github/images/main_logo.png)
+<p align="center">
+  <img src="/.github/images/main_logo.png">
+</p>
 
-Archetype Counter is a PowerShell WinForm script for the online video game [PokeMMO](https://pokemmo.com/).
+# What is this? 💭
+Archetype Counter is a tool for the online video game [PokeMMO](https://pokemmo.com/).
 
-Automatically tracks encounters (Horde, Safari, etc.) and when you receive Eggs or Fossils.
+Automatically track wild encounters and manually track when you receive Eggs or Fossils.
  
-Does not hook into the PokeMMO or javaw process. Utilizes [ImageMagick](https://imagemagick.org/index.php) and [OCR](https://www.ibm.com/blog/optical-character-recognition/) technology.
-
-Useful for [shiny hunting](https://Pokémondb.net/pokedex/shiny) or metrics lovers. Feel like exploring? Give our [client theme](https://github.com/ssjshields/archetype#readme) a try.
-
-**Requires Windows 10+**
+Have questions? See the [FAQ](?tab=readme-ov-file#faq-) and [Counter Menu Navigation](?tab=readme-ov-file##counter-menu-navigation-) for more information before reaching out.
 
 &nbsp;
-# Features
-🚀 Prompts to open the PokeMMO client if its not currently running
 
-📝 10 hunt profiles and 3 count slots, includes 7 additional non-focused slots
-
-🎨 Includes x2 themes (Archetype & Default) and x5 sprite sets, supports up to x3 custom themes
-
-🗳️ Built-in backup system / manually amend counts, automatic restore if hunt profiles corrupt
+# Media 🖼️
+<p align="left">
+  <img src="/.github/images/main_preview.png">
+</p>
 
 &nbsp;
-# Trackables
-🍃 Regular/Horde encounters
 
-🦥 Safari encounters 
+# Features 🧪
+🚨 **Convenient Notifications**:
+   - Optional Windows toast notifications for tracking counts.
+   - Multiple sorting and notification modes for seamless navigation.
+   - Set custom notification Milestones to track your progress the way you want.
 
-🔥 Alpha encounters
+🔧 **Automated Management**:
+   - Automatically Open and or Close PokeMMO alongside the Counter.
+   - Automatic Profile backup and debug systems for hassle-free usage.
 
-🌟 Shiny encounters
+📋 **Flexible Hunt Profiles**:
+   - 10 renameable Hunt Profiles.
+   - Unlimited Pokémon capture per Profile (Up to 25 Seen Pokémon shown in counter menu).
 
-🐣 When receiving Eggs
+👁 **Optional On Screen Overlay**:
+   - Display by Total count OR Pokédex number, Pokémon name, and Total count.
+   - Customize font style, size, colors, thickness, padding, opacity and more.
 
-🦣 When receiving Fossils
-
-&nbsp;
-# Compatibility
-🖥️ Multi-monitor support
-
-🔍 Multi-interface support
-
-📚 Full Multi-language support (Including CJK)
-
-&nbsp;
-# Media
-![counterMode](https://github.com/ssjshields/archetype-counter/blob/main/.github/images/counter_mode.png)
+🎨 **Choose your Theme**:
+   - Light and Dark mode menu themes for comfortable viewing.
+   - 5 different Pokémon sprite styles to suit your preferences.
 
 &nbsp;
-# Expectations
-> Counter must be in counting mode (ON) before receiving Eggs / Fossils or when encounters begin
 
-> Tracking occurs via battle monster nameplates, [OCR](https://www.ibm.com/blog/optical-character-recognition/) will not process properly if there is anything blocking them
+# What can I track? 🔍
 
-> String ids which contain text such as "{user} recieved Eggs / Fossils" cannot be removed from the game entirely
+- Regular / Horde encounters
+
+- Shiny encounters
+
+- Alpha encounters
+
+- Legendary encounters
+
+- Safari encounters 
+
+- Eggs (Manual)
+
+- Fossils (Manual)
 
 &nbsp;
-# Installation
+
+# Compatibility ✅
+- Multi-language support
+
+- Multi-monitor and high resolution support
+
+- Custom PokeMMO theme support 
+
+> [!NOTE]
+Custom themes require default PokeMMO font- NotoSans.
+
+&nbsp;
+
+# Requirements 🗝️
+- Windows 10 Version 1809+ or Windows 11
+
+- Net Framework 4.7.2
+
+- PowerShell 5.1
+
+> [!NOTE]
+Net Framework and PowerShell are typically included in the latest Windows updates.
+
+&nbsp;
+# Installation 📦
+<p align="left">
+  <a href="https://github.com/ssjshields/archetype-counter/archive/refs/heads/testing.zip"><img src="https://img.shields.io/badge/%F0%9F%93%82-%20?style=flat&label=Download&color=blue" alt="https://github.com/ssjshields/archetype-counter/archive/refs/heads/testing.zip">
+</a></p>
+
 **1.** Extract into `PokeMMO\data\mods`
 
-> Alternatively, clone into `PokeMMO\data\mods` using [GitHub Desktop](https://desktop.github.com/) or [Git](https://git-scm.com/downloads), pull to receive updates
-
-**2.** Run the `Archetype Counter.lnk`, pin to the taskbar if needed (After you run at least once)
-
-> Ensure you run the `Archetype Counter.lnk` shortcut once before pinning to taskbar or any other location
-
-> Do not pin the Counter from the taskbar while it's running, otherwise it will pin the Powershell terminal instead
+> [!TIP]
+You can clone this repository into `PokeMMO\data\mods` using [GitHub Desktop](https://desktop.github.com/) or [Git](https://git-scm.com/downloads), pull to receive updates.
 
 &nbsp;
-# Removal
-**1.** From the Counter menu navigate to Settings → Uninstall Archetype Counter
 
-> All Counter files and theme modifications are removed automatically
+**2.** Run the `Archetype Counter.lnk`
 
-&nbsp;
-# Main Navigation
-> Right-click window title area to access the Counter menu
+> [!CAUTION]
+Ensure you run the `Archetype Counter.lnk` shortcut once before pinning the shortcut to taskbar or any other location. 
 
-> Right-click empty slot to manually set monster via dex number
-
-> Right-click to decrease count, left-click to increase count (Tracked Pokémon & total count)
-
-> Middle-click (scroll wheel) to manually set count
-
-> Hover over monster sprite to display dex number and name 
+> [!CAUTION]
+Do not pin the Counter from the taskbar while it's running, otherwise it will pin the Powershell terminal instead.
 
 &nbsp;
-# Counter Menu Navigation
-*Options will appear "grayed out" and cannot be modified while the Counter is in counting mode (ON) or (BUSY)*
 
-### Theme Selector
-> Choose Counter themes (Archetype, Default) + 3 Custom theme options (Create your own theme)
+# Removal 🗑️
+1. From the Counter menu navigate to Settings → Uninstall Archetype Counter
 
-### Sprite Selector
-> Choose between several different monster sprite sets (Default, 3DS, Gen 8, Home, Shuffle)
+> [!TIP] 
+If you are only using the Default PokeMMO theme, you can repair the client from the main menu.
 
-### Detection Selector
-> Choose the amount of monsters to track at one given time (1 to 3) - In Expanded Mode
+> [!CAUTION]
+Deleting the Counter folder from the mods directory will not remove the XML changes from the theme files.
 
-### Reset selector
-> Clear seen monsters from specific slots, extra slots, Egg/Fossil count and current hunt profile
+&nbsp;
+# Counter Icon Indicator (System Tray) 💡
 
-### Counter Mode
-> Choose between Expanded (Encounter), Expanded (Egg), Expanded (Fossil), Collapsed (Encounter), Collapsed (Egg), or Collapsed (Fossil)
+<img src="/.github/images/startup.png">
+
+> Counter is in the `startup` state (Yellow). This is when the counter is starting/loading when launched.
+
+&nbsp;
+
+<img src="/.github/images/idle.png">
+
+> Counter is in an `idle` state (Gray). This indicates PokeMMO is not launched or is in a minimized state in the taskbar and performs no logic until PokeMMO is active.
+
+&nbsp;
+
+<img src="/.github/images/running.png">
+
+> Counter is in an `running` state (Blue). The normal running state where it actively takes screenshots in memory until a wild battle is encountered.
+
+&nbsp;
+
+<img src="/.github/images/busy.png">
+
+> Counter is in an `busy` state (Red). Indicates the counter is currently running through the main logic to add the correct counts (In Wild Battle)
+
+&nbsp;
+# Counter Menu Navigation 📌
+> [!NOTE]
+Options will appear "grayed out" and cannot be accessed while the Counter is (BUSY).
+
+&nbsp;
+
+## Encountered (Count) 🔎
+<details>
+<summary>Click to expand</summary>
+
+&nbsp;
+> *Encountered Pokémon dynamically get loaded from the top 25 seen in battle. (Top 25 have been chosen for the counter menu due to performance reasons.)*
+
+> *Selecting an existing Pokémon in the counter menu allows you to manually modify the specific encountered count.*
+
+>- **`Encountered Type Count`**: Shows all of the encountered types the counter will track.
+>	- `Single Battle`: Displays the current count for all single battles encountered.
+>	- `Double Battle`: Displays the current count for all double battles encountered.
+>	- `Triple Battle`: Displays the current count for all triple battles encountered.
+>	- `Horde Battle`: Displays the current count for all horde battles encountered.
+
+>- **`Change Encountered Count`**: Set any number value for the Encountered count. (Typically when transferring from another counter)
+
+>- **`Reset Encountered Count`**: Resets the current hunt profile Encountered count to "0".
+
+</details>
+
+&nbsp;
+
+## Egg (Count) 🐣
+<details>
+<summary>Click to expand</summary>
+
+&nbsp;
+>- **`Add +1`**: Adds a number value count of "1" to the total Egg count.
+
+>- **`Add +30`**: Adds a number value count of "30" to the total Egg count.
+
+>- **`Add +60`**: Adds a number value count of "60" to the total Egg count.
+
+>- **`Change Egg Count`**: Set any number value for the Egg count. (Typically when transferring from another counter)
+
+>- **`Reset Egg Count`**: Resets the current hunt profile Egg count to "0".
+
+</details>
+
+&nbsp;
+
+## Fossil (Count) 🐚
+<details>
+<summary>Click to expand</summary>
+
+&nbsp;
+>- **`Add +1`**: Adds a number value count of "1" to the total Fossil count.
+
+>- **`Add +30`**: Adds a number value count of "30" to the total Fossil count.
+
+>- **`Add +60`**: Adds a number value count of "60" to the total Fossil count.
+
+>- **`Change Fossil Count`**: Set any number value for the Fossil count. (Typically when transferring from another counter)
+
+>- **`Reset Fossil Count`**: Resets the current hunt profile Fossil count to "0".
+
+</details>
+
+&nbsp;
+
+## Alpha / Legendary / Shiny ⭐
+<details>
+<summary>Click to expand</summary>
+
+&nbsp;
+>- **`Alpha (Count)`**:
+>	- `Change Alpha Count`:
+>	- `Reset Alpha Count`: Resets the current hunt profile Alpha count to "0".
+
+>- **`Legendary (Count)`**:
+>	- `Change Legendary Count`:
+>	- `Reset Legendary Count`: Resets the current hunt profile Legendary count to "0".
+
+>- **`Shiny (Count)`**:
+>	- `Change Shiny Count`:
+>	- `Reset Shiny Count`: Resets the current hunt profile Shiny count to "0".
+
+</details>
+
+&nbsp;
+
+## Hunt (Hunt Profile) 📋
+<details>
+<summary>Click to expand</summary>
+
+&nbsp;
+> *Do NOT use the same word for different hunt profiles. Ensure hunt profile name is unique from the others.*
+
+>- **`Rename Current Hunt`**: Change the current hunt profile name to better organized specific hunts.
+
+>- **`Reset Current Hunt`**: Resets the current hunt profile in the counter (Encountered, Egg, Fossil, Alpha, Legendary, Shiny.. everything!)
+
+>- **`Reset All Hunts`**: Resets all hunt profiles in the counter. (Warning: Please ensure you have backups of your current counts in all hunt profiles before utilizing the "Reset All Hunts" selection.)
+
+</details>
+
+&nbsp;
+
+## Settings ⚙️
+
+<details>
+<summary>Click to expand</summary>
 
 ### Picture Mode
-> Choose between two screenshot methods for the Counter to utilize, PrintWindow function (Default) and PrintScreen (Alternative)
+>- **`Primary`**: Uses built PrintWindow function wrapped in a dll file (PrintWindowStream.dll).
+
+>- **`Alternate (Debug)`**: Backup option if the Primary picture mode fails.
 
 ### Chinese Mode
-> Choose between No Override, Chinese Simplified, or Chinese Traditional to support Chinese strings ('No Override' means Chinese Mode is not utilized)
+>- **`Off`**: Indicates the counter will not OCR scan the screenshot with Chinese recognition.
 
-### Extra Pokémon Slots
-> Displays the last 7 previously encountered monsters (Displays all 10 slots in collapsed mode)
+>- **`Chinese Simplified`**: Indicates the counter will OCR scan the screenshot with Chinese recognition (From Chinese in-game strings).
 
-### Hunt Profiles
-> Choose between 10 hunt profiles for current hunt
+>- **`Chinese Traditional`**: Indicates the counter will OCR scan the screenshot with Chinese recognition. (From Chinese in-game strings).
 
-### Rename Hunt Profiles
-> Change the name of hunt profiles
+### Theme Mode
+>- **`Auto`**: Sets the couner menu based on the Windows standard theme (Light/Dark).
 
-### Backup
-> Save the Counter in its current state to avoid possible lost config data, daily backup is automatic
+>- **`Light`**: Manually overrides and sets the counter menu to "Light" theme.
 
-### Support
-> Seek assistance or report a bug
+>- **`Dark`**: Manually overrides and sets the counter menu to "Dark" theme.
 
-### Settings
-> Close PokeMMO: PokeMMO will close down when you exit counter
+### Sprite Mode
+>- **`Default`**: Standard PokeMMO sprites used in counter menu & notifications.
 
-> Counter Screen Position: Allows you to lock the counters current position on screen to prevent accidental movement
+>- **`3DS`**:  3DS PokeMMO sprites used in counter menu & notifications.
 
-> Always on Top: Set whether the Counter retains priority over the PokeMMO window or not
+>- **`Gen 8`**: Gen 8 PokeMMO sprites used in counter menu & notifications.
 
-> Beep Count Sound: Set system sound effect when a pokémon is tracked by counter
+>- **`Home`**: Home PokeMMO sprites used in counter menu & notifications.
 
-> Manual Pixel Search: Ability to switch to a precise mode if auto pixel searching fails (Last possible effort)
+>- **`Shuffle`**: Shuffle PokeMMO sprites used in counter menu & notifications.
 
-> AC Uninstaller: Uninstall Archetype Counter and its dependencies 
+### Notify Mode
+>- **`Never`**: Windows toast notifications is turned off and will not trigger.
 
-### Total Current Counts
-> Displays the count(s) from counter and total count between all seen monsters
+>- **`Partial (By Pokémon)`**: Windows toast notifications triggered based on Pokémon counts.
 
-### Debug
-> Open 'DEBUG' folder: Opens the general counter folder to help diagnose issues in the format of `.png` screenshots and a DEBUG_OCR_OUTPUT.txt file
+>- **`Partial (By Total)`**: Windows toast notifications triggered based on total Encountered count.
 
-> Open 'Failed Scan' folder: Opens the debug counter folder that is specific to failed scans (This helps reduce pinpoint specific issues) - in the format of screenshots and a DEBUG_OCR_OUTPUT.txt file
+>- **`Always`**:
 
-> Open 'Core' folder: Opens the Core folder where automatic screenshots are taken and when failing to activate the counter during battles (When fundamentally something is wrong)
+>- **`Set Milestone (Count)`**: Sets the specific number value count when to trigger the "By Total" or "By Pokémon". Ex: If the count is set to 10, then the Windows toast notification will trigger if the count reaches 10 by total or by Pokémon.
 
-> Open 'Name Fix' File folder: Opens the text file that allows you the user to manipulate the OCR scanned output by correcting the bad name with the correct name
+### Sorting Mode
+>- **`Encountered (Ascending)`**: Sorts the encountered list by Ascending order (lowest to highest).
+
+>- **`Encountered (Descending)`**: Sorts the encountered list by Descending order (highest to lowest).
+
+>- **`Pokédex (Ascending)`**: Sorts the encountered list by Ascending order from the the Pokémon Pokédex number (lowest to highest).
+
+>- **`Pokédex (Descending)`**: Sorts the encountered list by Descending order from the the Pokémon Pokédex number (highest to lowest).
+
+>- **`Pokémon (Ascending)`**: Sorts the encountered list by Ascending order from the Pokémon name (Alphabetical - lowest to highest).
+
+>- **`Pokémon (Descending)`**: Sorts the encountered list by Descending order from the Pokémon name (Alphabetical - highest to lowest).
+
+>- **`Pokémon (Last Seen)`**: Sorts the encountered list by the last Pokémon seen in battle.
+
+>- **`None`**: No sort is added in.
+
+### Overlay Mode
+
+<details>
+<summary>Click to see Overlay Settings</summary>
 
 &nbsp;
-# FAQ
+
+>- **`Normal Symbol`**: The main symbol used for the GUI Overlay while outside of battle. This is a unicode character symbol.
+
+>- **`Normal Symbol`**: The busy symbol used for the GUI Overlay while inside of battle. This is a unicode character symbol.
+
+>- **`Unicode Character Symbols`**: https://www.vertex42.com/ExcelTips/unicode-symbols.html
+
+>- **`With Symbol`**: Sets whether or not to use the symbols on the GUI Overlay. True = ON / False = OFF
+
+>- **`Multiline`**: Sets the GUI Overlay to show up to invididual Pokémon in the GUI list. (This will only display if using the "On (Pokémon)" option in the Overlay Mode.)
+
+>- **`Multiline Count`**: Ability to set/control the amount of encountered Pokémon displayed in Overlay Mode.
+
+>- **`Font Type`**: This property sets the typeface of the text displayed. For example, "Arial", "Times New Roman", or any other installed font family can be used - Using "System" utilizes no font and goes based off of Windows system font. (String Name)
+
+>- **`Font Size`**: This property sets the size of the text displayed. (Number Value)
+
+>- **`Font Padding`**: This property is the space between the content of the Text and its border. (Number Value)
+
+>- **`Font Color`**: This property sets the color of the text displayed. (Hex Code Value)
+
+>- **`Font Background Color`**: This property sets the color of the text background displayed. (Hex Code Value)
+
+>- **`Font Opacity`**: This property sets & determines the transparency of the Text. It ranges from 0 (fully transparent) to 1 (fully opaque). Values between 0 and 1 specify varying levels of transparency. Ex: 0.6 (Number Value or Number Decimal Value)
+
+>- **`Font Background Opacity`**: This property sets & determines the transparency of the Text background. It ranges from 0 (fully transparent) to 1 (fully opaque). Values between 0 and 1 specify varying levels of transparency. Ex: 0.6 (Number Value or Number Decimal Value)
+
+>- **`Font Weight`**: This property sets the thickness of the font's stroke. It can be set to predefined values like Normal or Bold. (String Name)
+
+>- **`Font Style`**: This property sets the style of the font, such as Normal, Italic, or Oblique. Italicized text has a slanted appearance compared to normal text. Oblique is similar to italic but uses a different algorithm to slant the characters. (String Name)
+
+</details>
+
+>- **`On (Pokémon)`**: Shows a minimal but customizable GUI overlay for the current Pokémon count (Based on the "Sorting Mode").
+
+>- **`On (Total)`**: Shows a minimal but customizable GUI overlay for the total Encountered count.
+
+>- **`Off (System Tray)`**: No GUI overlay is displayed.
+
+>- **`Open Overlay Settings`**: Opens the "Config_OverlaySettings.txt" file that allows you to customize the GUI overlay.
+
+### Open PokeMMO
+>- **`Yes`**: Set to open PokeMMO when the counter is opened.
+
+>- **`No`**: Does not set PokeMMO to open when the counter is opened.
+
+### Close PokeMMO
+>- **`Yes`**: Set to close PokeMMO when the counter is closed.
+
+>- **`No`**: Does not set PokeMMO to close when the counter is closed.
+
+### Show Failed Scans
+>- **`Yes`**: Showed failed scans dialog to rectify failed ocr name scans from battle.
+
+>- **`No`**: Disables the failed scan dialog (Reccomended not to turn this off).
+
+### Uninstall
+> Dialog that allows FULL uninstall of the Archetype Counter. See [Removal](?tab=readme-ov-file#removal-%EF%B8%8F) for more info.
+
+</details>
+
+&nbsp;
+
+## Support 🧡
+<details>
+<summary>Click to expand</summary>
+
+&nbsp;
+>- **`GitHub Readme`**:
+>	- github.com/ssjshields/archetype-counter
+
+>- **`GitHub Issues`**:
+>	- github.com/ssjshields/archetype-counter/issues
+
+>- **`Discord Link`**:
+>	- discord.gg/rYg7ntqQRY
+
+</details>
+
+&nbsp;
+
+## Troubleshooting 🔌
+<details>
+<summary>Click to expand</summary>
+
+### Open Debug Folder
+>- Opens the counter debug folder that holds .txt and .png file (Typically for the Archetype to further diagnose an issue).
+
+### Open Name Fix File
+>- Opens the "Config_PokemonNameFix.txt" file to manually add in failed name entries (Should not be needed with automated failed dialog scans to correct issue).
+
+### Toggle Debug Window
+>- Give the ability to show the counter console window to help determine 
+
+> WARNING: Do not close the console window from the taskbar as it will close the exit the entire counter. Simply reselect the toggle option to make the console window disappear.
+
+### Test Toast Notification
+>- Allows to you manually invoke the toast notifications to ensure they work and/or are turned on via the Windows system.
+
+</details>
+
+&nbsp;
+
+## Exit ❌
+<details>
+<summary>Click to expand</summary>
+
+&nbsp;
+>- Closes the counter and all of its current processes.
+
+</details>
+
+&nbsp;
+
+# FAQ 📖
 ### How does the Counter work?
 > [OCR](https://www.ibm.com/blog/optical-character-recognition/) and several other utilities are used to scan screenshots of monster names and compares them against a list
 
@@ -158,55 +436,72 @@ Useful for [shiny hunting](https://Pokémondb.net/pokedex/shiny) or metrics love
 
 > Utilities scripted with PowerShell 5.1 by AnonymousPoke
 
+&nbsp;
+
 ### Does the counter work on Linux, MacOS or mobile?
-> Unfortunately no - the Counter utilizes built in Windows OCR (OCR, Powershell, etc.) + Tesseract OCR & ImageMagick
+> Unfortunately no - the Counter utilizes built in WinForms in Powershell + Tesseract OCR & ImageMagick.
+
+&nbsp;
 
 ### Does this work with custom PokeMMO client themes?
-> Yes, it will work with all custom themes, but the monster nameplate text will be modified to be OCR compatible
+> Yes, it will work with all custom themes, but the monster nameplate text will be modified to be OCR compatible.
 
-> Client theme.xml, font values and graphical assets (AC folder) are inserted into the currently installed theme list
+> Client theme.xml, font values and graphical assets (AC folder) are inserted into the currently installed theme list.
 
-### How do I make custom Counter theme?
-> Open the counter menu and navigate to -> Theme Selector -> "Open Theme Folder" and modify the .png images accordingly
-
-> Modifying the `ThemeConfig.txt` file will allow you to change the font/background colors along with font sizing & types
+&nbsp;
 
 ### Does the Counter track Shiny Pokémon?
-> Yes it does and it will also provide a prompt provided by the counter indicating a shiny is on the screen (Extra layer to prevent defeating or running from the shiny)
+> Yes it does and it will also provide a prompt indicating a shiny is on the screen (Extra layer to prevent defeating or running from the shiny).
+
+&nbsp;
 
 ### Does the Counter track Alpha Pokémon?
-> Yes, but only as a total count in the counter - will not add to the normal tracked monster count
+> Yes, but only as a total count in the counter - will not add to the normal tracked monster count.
+
+&nbsp;
 
 ### Does the Counter track Legendary Pokémon?
-> Yes, but currently only the 3 legendary dogs from Johto (Raikou, Suicune, and Entei)
+> Yes.
+
+&nbsp;
 
 ### How are Eggs and Fossils tracked?
-> When the user retrieves them - by tracking the word `egg` & `recieved` for eggs / by tracking the word `<FossilMonsterName>` & `recieved` for fossils
+> They are not tracked. You will need to manually set the count within the counter menu.
 
-> Events / trades do not log towards count
-
-> If you are using custom strings do not completely remove receieved Egg / Fossil dialog
+&nbsp;
 
 ### Does the counter track Zorua or Zoroark?
 > Due to this Pokémon and it's ability.. No.
 
+&nbsp;
+
 ### Can the Counter track 2 different Pokémon in a double wild battle or horde?
-> Currently the counter does not support these types of battles and you may get mixes results when tracked in the counter
+> Yes it does.
+
+&nbsp;
 
 ### Can I convert data from other counters?
-> Yes, right-click empty slot to manually set monster via dex number, middle-click (scroll wheel) to manually set count
+> Yes, but only the total encountered count.
 
-> Manually editing profiles may cause corruption - located in `Files\Counter Config Files`
+> Manually editing profiles may cause corruption - located in `<Profile Name>\Config_<Profile Name>.txt`
+
+&nbsp;
 
 ### When I go into battle, the counter does not count or go busy. What do I do?
-> Go into the counter menu and change your Picture Mode from `PrintWindow (Default)` to `PrintScreen (Alternate)` - If this does not resolve issue, please report a bug
+> Jump on our discord so we can look to resolve the issue.
+
+&nbsp;
 
 ### How do I fix incorrect scanned Pokémon names with the 'Name Fix' file?
-> When a monster is incorrectly scanned via OCR, you take the 'failed' name and place it on the left hand side of the semi-colon and then take the correct monster name and place to the right of the semi-colon
+> This should be done automatically via the counter when a scan fails and following the prompt. But, below is how to add manually.
+
+> When a monster is incorrectly scanned via OCR, you take the 'failed' name and place it on the left hand side of the semi-colon and then take the correct monster name and place to the right of the semi-colon.
 
 > `(Ex: Gastiy; Gastly)`
 
-> You will need to turn the counter OFF and then back ON for these changes to take effect
+> You will need to restart the counter for these changes to take effect.
+
+&nbsp;
 
 ### How do I manually remove additional characters/symbols from the failed scan?
 > Open up the 'Name Fix' file from the counter menu and take the partial/incorrect text and place on the left hand side of the semi-colon and then place the word 'Blank' on the right hand side of the semi-colon
@@ -215,30 +510,30 @@ Useful for [shiny hunting](https://Pokémondb.net/pokedex/shiny) or metrics love
 
 > When a 'Blank' is provided on the right hand side of the semi-colon, this indicates the counter to completely remove that specific text - You will need to turn the counter OFF and then back ON for these changes to take effect
 
-### Does the Counter support transparency when making custom themes?
-> No - this is a limitation with the PowerShell WinForms GUI
-
-### How do I move the counter location to the top of the screen edge?
-> Move the counter as closely as possible to the top of the screen and then utilize the arrows keys to move to desired location
-
-### Can I manually add a count to the tracked Pokémon and total count in the Counter?
-> See `Main Navigation` above
-
-### Can I preset a Pokémon in the counter before being tracked?
-> See `Main Navigation` above
-
-
+&nbsp;
 
 ### How can I report a bug?
 > Before creating a report, review this readme and [the existing issues](https://github.com/ssjshields/archetype-counter/issues)
 
-> Open the Debug folders from the Debug submenu, attach the `.png` and `.txt` files
+> Open the Debug folders from the Debug submenu, attach the `.png` and `.txt` file.
 
 &nbsp;
+
+# Consider giving a Star! ⭐
+If you like this project please give it a [Star](https://docs.github.com/en/enterprise-cloud@latest/get-started/exploring-projects-on-github/saving-repositories-with-stars#starring-a-repository). Thanks!
+
+&nbsp;
+
+# Feel like exploring? 🧭
+[Archetype Theme](https://github.com/ssjshields/archetype#readme) is a total visual overhaul for [PokeMMO](https://pokemmo.com/). Includes animations and customization features.
+
+&nbsp;
+
 # Disclaimer
-This software has been created purely for the purposes of academic research. It is not intended to be used to attack other systems, nor does it provide the user any unfair advantage. There are no artificial inputs or hotkeys simulated. Project maintainers are not responsible or liable for misuse of the software. Source code can be viewed in the batch files. Use responsibly.
+This software has been created purely for the purposes of academic research. It is not intended to be used to attack other systems, nor does it provide the user any unfair advantage. It does not hook or inject into any game processes. There are no artificial inputs or hotkeys simulated. Project maintainers are not responsible or liable for misuse of the software. Source code can be viewed in the batch files. Use responsibly.
 
 &nbsp;
 # Contact and Support
 [![discord](https://assets-global.website-files.com/6257adef93867e50d84d30e2/62594fddd654fc29fcc07359_cb48d2a8d4991281d7a6a95d2f58195e.svg)](https://discord.gg/rYg7ntqQRY)
 
+[Open a GitHub issue](https://github.com/ssjshields/archetype-counter/issues/new)

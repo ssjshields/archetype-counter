@@ -1,0 +1,340 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DarkNet</name>
+    </assembly>
+    <members>
+        <member name="T:Dark.Net.DarkNet">
+            <summary>
+            <para>Implementation of the DarkNet library. Used for making title bars and context menus of your windows dark in Windows 10 1809 and later.</para>
+            <para>Usage:</para>
+            <list type="number">
+            <item><description>Construct a new instance with <c>new DarkNet()</c>, or use the shared singleton <see cref="P:Dark.Net.DarkNet.Instance"/>.</description></item>
+            <item><description>Optionally, call <see cref="M:Dark.Net.DarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/> before showing any windows in your process, such as in a <see cref="E:System.Windows.Application.Startup"/> event handler for your WPF program, or at the beginning of <c>Main</c> in your Forms program.</description></item>
+            <item><description>Call <see cref="M:Dark.Net.DarkNet.SetWindowThemeWpf(System.Windows.Window,Dark.Net.Theme,Dark.Net.ThemeOptions)"/> or <see cref="M:Dark.Net.DarkNet.SetWindowThemeForms(System.Windows.Forms.Form,Dark.Net.Theme,Dark.Net.ThemeOptions)"/> for each window before you show it. For WPF, you should do this in <see cref="E:System.Windows.Window.SourceInitialized"/>. For Forms, you should do this after constructing the <see cref="T:System.Windows.Forms.Form"/> instance.</description></item>
+            </list>
+            </summary>
+        </member>
+        <member name="P:Dark.Net.DarkNet.Instance">
+            <summary>
+            <para>Shared singleton instance of the <see cref="T:Dark.Net.DarkNet"/> class that you can use without constructing your own instance. Created lazily the first time it is accessed.</para>
+            <para>You may want to construct your own instance using <c>new DarkNet()</c> in order to manage the memory lifecycle and dispose of it manually to insulate yourself from other consumers that may try to dispose of <see cref="P:Dark.Net.DarkNet.Instance"/>.</para>
+            </summary>
+        </member>
+        <member name="F:Dark.Net.DarkNet.PreferredWindowModes">
+            <summary>
+            Mapping from a window handle to the most recently set <see cref="T:Dark.Net.Theme"/> for that window, used to correctly reapply themes when a parent theme (process or OS) changes.
+            </summary>
+        </member>
+        <member name="F:Dark.Net.DarkNet.PreferredAppTheme">
+            <summary>
+            The most recently set theme for this process, used to correctly reapply themes to this process's windows when the user changes their OS settings.
+            </summary>
+        </member>
+        <member name="F:Dark.Net.DarkNet.EffectiveProcessThemeIsDark">
+            <summary>
+            Most recent value for whether the process's theme is dark, after taking into account high contrast mode. Null if never set. Used to back the <see cref="P:Dark.Net.DarkNet.EffectiveCurrentProcessThemeIsDark"/> property and fire <see cref="E:Dark.Net.DarkNet.EffectiveCurrentProcessThemeIsDarkChanged"/> events.
+            </summary>
+        </member>
+        <member name="E:Dark.Net.DarkNet.UserDefaultAppThemeIsDarkChanged">
+            <inheritdoc />
+        </member>
+        <member name="E:Dark.Net.DarkNet.UserTaskbarThemeIsDarkChanged">
+            <inheritdoc />
+        </member>
+        <member name="E:Dark.Net.DarkNet.EffectiveCurrentProcessThemeIsDarkChanged">
+            <inheritdoc />
+        </member>
+        <member name="M:Dark.Net.DarkNet.#ctor">
+            <summary>
+            <para>Create a new instance of the DarkNet library class. Alternatively, you can use the static singleton <see cref="P:Dark.Net.DarkNet.Instance"/>.</para>
+            <para>Useful if you want to manage the memory lifecycle and dispose of it manually to insulate yourself from other consumers that may try to dispose of <see cref="P:Dark.Net.DarkNet.Instance"/>.</para>
+            </summary>
+        </member>
+        <member name="M:Dark.Net.DarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dark.Net.DarkNet.SetWindowThemeWpf(System.Windows.Window,Dark.Net.Theme,Dark.Net.ThemeOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dark.Net.DarkNet.SetWindowThemeForms(System.Windows.Forms.Form,Dark.Net.Theme,Dark.Net.ThemeOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dark.Net.DarkNet.SetWindowThemeRaw(System.IntPtr,Dark.Net.Theme,Dark.Net.ThemeOptions)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dark.Net.DarkNet.SetModeForWindow(System.IntPtr,Dark.Net.Theme,Dark.Net.ThemeOptions)">
+            <summary>
+                <para>call this after creating but before showing a window, such as WPF's Window.OnSourceInitialized or Forms' Form.Load</para>
+                <para>if window.Visibility==VISIBLE and WindowPlacement.ShowCmd == SW_HIDE (or whatever), it was definitely called too early </para>
+                <para>if GetWindowInfo().style.WS_VISIBLE == true then it was called too late</para>
+            </summary>
+            <exception cref="T:Dark.Net.DarkNetException.LifecycleException">if it is called too late</exception>
+        </member>
+        <member name="M:Dark.Net.DarkNet.OnWindowClosing(System.IntPtr)">
+            <summary>
+            Fired when a WPF or Forms window is about to close, so that we can release the entry in the <see cref="F:Dark.Net.DarkNet.PreferredWindowModes"/> map and free its memory.
+            </summary>
+            <param name="windowHandle"></param>
+        </member>
+        <member name="M:Dark.Net.DarkNet.RefreshTitleBarThemeColor(System.IntPtr,Dark.Net.ThemeOptions)">
+            <summary>
+            Apply all of the theme fallback/override logic and call the OS methods to apply the window theme. Handles the window theme, app theme, OS theme, high contrast, different Windows versions, Windows 11 colors, repainting visible windows, and updating context menus.
+            </summary>
+            <param name="windowHandle">A pointer to the window to update</param>
+            <param name="options">Windows 11 DWM color overrides</param>
+        </member>
+        <member name="P:Dark.Net.DarkNet.UserDefaultAppThemeIsDark">
+            <inheritdoc />
+        </member>
+        <member name="P:Dark.Net.DarkNet.UserTaskbarThemeIsDark">
+            <inheritdoc />
+        </member>
+        <member name="P:Dark.Net.DarkNet.EffectiveCurrentProcessThemeIsDark">
+            <inheritdoc />
+        </member>
+        <member name="M:Dark.Net.DarkNet.Dispose(System.Boolean)">
+            <inheritdoc cref="M:System.IDisposable.Dispose" />
+        </member>
+        <member name="M:Dark.Net.DarkNet.Dispose">
+            <inheritdoc />
+        </member>
+        <member name="T:Dark.Net.IDarkNet">
+            <summary>
+            <para>Interface of the DarkNet library. Used for making title bars of your windows dark in Windows 10 1809 and later.</para>
+            <para>Usage:</para>
+            <list type="number">
+            <item><description>Construct a new instance with <c>new DarkNet()</c>, or use the shared singleton <see cref="P:Dark.Net.DarkNet.Instance"/>.</description></item>
+            <item><description>Optionally, call <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/> before showing any windows in your process, such as in a <see cref="E:System.Windows.Application.Startup"/> event handler for your WPF program, or at the beginning of <c>Main</c> in your Forms program.</description></item>
+            <item><description>Call <see cref="M:Dark.Net.IDarkNet.SetWindowThemeWpf(System.Windows.Window,Dark.Net.Theme,Dark.Net.ThemeOptions)"/> or <see cref="M:Dark.Net.IDarkNet.SetWindowThemeForms(System.Windows.Forms.Form,Dark.Net.Theme,Dark.Net.ThemeOptions)"/> for each window before you show it. For WPF, you should do this in <see cref="E:System.Windows.Window.SourceInitialized"/>. For Forms, you should do this after constructing the <see cref="T:System.Windows.Forms.Form"/> instance.</description></item>
+            </list>
+            </summary>
+        </member>
+        <member name="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)">
+            <summary>
+                <para>Allow windows in your app to use dark mode title bars.</para>
+                <para>This also controls the theme for context menus of title bars. Changing the window theme does not change the context menu theme.</para>
+                <para>You may optionally call this when your process starts, before you show any windows.</para>
+                <para>You may optionally also call this again after showing a window whose theme is set to <see cref="F:Dark.Net.Theme.Auto"/> if you want to change the app-wide title bar and context menu theme.</para>
+                <para>For WPF, it is recommended to call this in an overridden <see cref="M:System.Windows.Application.OnStartup(System.Windows.StartupEventArgs)"/> in <c>App.xaml.cs</c>, or in an event handler for the <see cref="E:System.Windows.Application.Startup"/> event.</para>
+                <para>For Forms, it is recommended to call this near the beginning of <c>Main</c>.</para>
+                <para>This method doesn't actually make your title bars dark. It defines the default theme to use if you set a window's theme to <see cref="F:Dark.Net.Theme.Auto"/> using <see cref="M:Dark.Net.IDarkNet.SetWindowThemeWpf(System.Windows.Window,Dark.Net.Theme,Dark.Net.ThemeOptions)" />/<see cref="M:Dark.Net.IDarkNet.SetWindowThemeForms(System.Windows.Forms.Form,Dark.Net.Theme,Dark.Net.ThemeOptions)"/>.</para>
+            </summary>
+            <param name="theme">The theme that windows of your process should use. This theme overrides the user's settings and is overridden by the window theme you set later, unless you set the theme to <see cref="F:Dark.Net.Theme.Auto"/>, in which case it inherits from the user's settings.</param>
+            <param name="options">Optional extra parameters that can override the colors in the non-client areas for all of this process's windows. May also be specified on a per-window basis with the SetWindowTheme*() methods. Only affects Windows 11 and later.</param>
+        </member>
+        <member name="M:Dark.Net.IDarkNet.SetWindowThemeWpf(System.Windows.Window,Dark.Net.Theme,Dark.Net.ThemeOptions)">
+            <summary>
+                <para>Turn on dark mode for a window.</para>
+                <para>You must call this method in your window's <see cref="E:System.Windows.Window.SourceInitialized" /> event handler.</para>
+                <para>This does not control the theme of the context menu of the title bar, which is set app-wide by <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>.</para>
+            </summary>
+            <remarks>The correct time to call this method is when the window has already been constructed, it has an HWND, but it has not yet been shown (i.e. its Win32 window style must not be visible yet). You can call this directly after the call to <c>Window.InitializeComponent</c> in the Window's constructor. Alternatively, a handler for the <see cref="E:System.Windows.Window.SourceInitialized" /> event will be fired at the correct point in the window lifecycle to call this method.</remarks>
+            <param name="window">A WPF window which has been constructed and is being SourceInitialized, but has not yet been shown.</param>
+            <param name="theme">The theme to use for this window. Can be <see cref="F:Dark.Net.Theme.Auto"/> to inherit from the app (defined by the theme passed to <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>), or from the user's default app settings if you also set the app to <see cref="F:Dark.Net.Theme.Auto"/> (defined in Settings › Personalization › Colors).</param>
+            <param name="options">Optional extra parameters that can override the colors in the non-client area of this window. May also be specified on a per-process basis with <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>. Only affects Windows 11 and later.</param>
+            <exception cref="T:System.InvalidOperationException">If this method was called too early (such as right after the Window constructor), or too late (such as after <see cref="M:System.Windows.Window.Show" /> returns).</exception>
+        </member>
+        <member name="M:Dark.Net.IDarkNet.SetWindowThemeForms(System.Windows.Forms.Form,Dark.Net.Theme,Dark.Net.ThemeOptions)">
+            <summary>
+                <para>Turn on dark mode for a window.</para>
+                <para>You must call this method before calling <see cref="M:System.Windows.Forms.Control.Show" /> or <see cref="M:System.Windows.Forms.Application.Run"/>.</para>
+                <para>This does not control the theme of the context menu of the title bar, which is set app-wide by <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>.</para>
+            </summary>
+            <remarks>The correct time to call this method is when the window has already been constructed, but it has not yet been shown (i.e. its Win32 window style must not be visible yet). You can call this after the <see cref="T:System.Windows.Forms.Form"/> constructor returns, but before <see cref="M:System.Windows.Forms.Control.Show" />.</remarks>
+            <param name="window">A Windows Forms window which has been constructed but has not yet been shown.</param>
+            <param name="theme">The theme to use for this window. Can be <see cref="F:Dark.Net.Theme.Auto"/> to inherit from the app (defined by the theme passed to <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>), or from the user's default app settings if you also set the app to <see cref="F:Dark.Net.Theme.Auto"/> (defined in Settings › Personalization › Colors).</param>
+            /// <param name="options">Optional extra parameters that can override the colors in the non-client area of this window. May also be specified on a per-process basis with <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>. Only affects Windows 11 and later.</param>
+            <exception cref="T:System.InvalidOperationException">If this method was called too late (such as after calling <see cref="M:System.Windows.Forms.Control.Show" /> returns).</exception>
+        </member>
+        <member name="M:Dark.Net.IDarkNet.SetWindowThemeRaw(System.IntPtr,Dark.Net.Theme,Dark.Net.ThemeOptions)">
+            <summary>
+                <para>Turn on dark mode for a window.</para>
+                <para>This method is a lower-level alternative to <see cref="M:Dark.Net.IDarkNet.SetWindowThemeWpf(System.Windows.Window,Dark.Net.Theme,Dark.Net.ThemeOptions)"/> and <see cref="M:Dark.Net.IDarkNet.SetWindowThemeForms(System.Windows.Forms.Form,Dark.Net.Theme,Dark.Net.ThemeOptions)"/> for use when one of the windows in your application was created neither by WPF nor Windows Forms, but you still want to make its title bar dark.</para>
+                <para>This does not control the theme of the context menu of the title bar, which is set app-wide by <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>.</para>
+                <para>You must call this method before the window is visible.</para>
+            </summary>
+            <remarks>The correct time to call this method is when the window has already been constructed, but it has not yet been shown (i.e. its Win32 window style must not be visible yet).</remarks>
+            <param name="windowHandle">A <c>HWND</c> handle to a Win32 window, which has been constructed but has not yet been shown.</param>
+            <param name="theme">The theme to use for this window. Can be <see cref="F:Dark.Net.Theme.Auto"/> to inherit from the app (defined by the theme passed to <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>), or from the user's default app settings if you also set the app to <see cref="F:Dark.Net.Theme.Auto"/> (defined in Settings › Personalization › Colors).</param>
+            /// <param name="options">Optional extra parameters that can override the colors in the non-client area of this window. May also be specified on a per-process basis with <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>. Only affects Windows 11 and later.</param>
+            <exception cref="T:System.InvalidOperationException">If this method was called too late.</exception>
+        </member>
+        <member name="P:Dark.Net.IDarkNet.UserDefaultAppThemeIsDark">
+            <summary>
+                <para>Whether windows which follow the user's default operating system theme, such as Windows Explorer, Command Prompt, and Settings, will use dark mode in their title bars, context menus, and other themed areas. Also known as "app mode" or "default app mode".</para>
+                <para>This reflects the user's preference in Settings › Personalization › Colors › Choose your default app mode.</para>
+                <para>Not affected by the taskbar theme, see <see cref="P:Dark.Net.IDarkNet.UserTaskbarThemeIsDark"/>.</para>
+            </summary>
+            <returns><c>true</c> if the user's Default App Mode is Dark, or <c>false</c> if it is Light.</returns>
+        </member>
+        <member name="P:Dark.Net.IDarkNet.UserTaskbarThemeIsDark">
+            <summary>
+                <para>Whether the taskbar and Start Menu will use dark mode. Also known as "system mode" (although it doesn't apply to the entire system, just the current user) and "Windows mode" (although it doesn't apply to most windows in Windows, such as Explorer and Command Prompt).</para>
+                <para>This reflects the user's preference in Settings › Personalization › Colors › Choose your default Windows mode.</para>
+                <para>Not affected by the default app theme, see <see cref="P:Dark.Net.IDarkNet.UserTaskbarThemeIsDark"/>.</para>
+            </summary>
+            <returns><c>true</c> if the user's Windows Mode is Dark, or <c>false</c> if it is Light.</returns>
+        </member>
+        <member name="P:Dark.Net.IDarkNet.EffectiveCurrentProcessThemeIsDark">
+            <summary>
+            <para>Whether the current's processes app theme is light (<see langword="false"/>) or dark (<see langword="true"/>).</para>
+            <para>For example, you can use this value to load different skins for your app based on the actual title bar color.</para>
+            <para>This is based on the last value you set with <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>. It can differ from that value if you set it to <see cref="F:Dark.Net.Theme.Auto"/>, in which case this will return the value from the OS user account's default app theme preference (<see cref="P:Dark.Net.IDarkNet.UserDefaultAppThemeIsDark"/>). It will also return <see langword="true"/> if high contrast mode is enabled in Windows.</para>
+            <para>For this property's change event, see <see cref="E:Dark.Net.IDarkNet.EffectiveCurrentProcessThemeIsDarkChanged"/>.</para>
+            </summary>
+        </member>
+        <member name="E:Dark.Net.IDarkNet.EffectiveCurrentProcessThemeIsDarkChanged">
+            <summary>
+            <para>Fired whenever <see cref="P:Dark.Net.IDarkNet.EffectiveCurrentProcessThemeIsDark"/> changes, including as a result of calling <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/> or changing the OS color settings.</para>
+            </summary>
+        </member>
+        <member name="E:Dark.Net.IDarkNet.UserDefaultAppThemeIsDarkChanged">
+            <summary>
+            <para>Fired when the value of <see cref="P:Dark.Net.IDarkNet.UserDefaultAppThemeIsDark"/> changes.</para>
+            <para>If you set your process and window themes to <see cref="F:Dark.Net.Theme.Auto"/>, it will react automatically and you don't have to handle this event for your windows to use the new default theme.</para>
+            </summary>
+        </member>
+        <member name="E:Dark.Net.IDarkNet.UserTaskbarThemeIsDarkChanged">
+            <summary>
+            <para>Fired when the value of <see cref="P:Dark.Net.IDarkNet.UserTaskbarThemeIsDark"/> changes.</para>
+            <para>You may choose to handle this event if, for example, you want to show a tray icon in the notification area that depends on the taskbar theme.</para>
+            </summary>
+        </member>
+        <member name="T:Dark.Net.Theme">
+            <summary>
+            Windows visual appearance, which can be used to make the title bar and context menu of a window dark or light.
+            </summary>
+        </member>
+        <member name="F:Dark.Net.Theme.Auto">
+            <summary>
+            <para>Inherit the theme from a higher level.</para>
+            <para>When a window's theme is set to <see cref="F:Dark.Net.Theme.Auto"/> using <see cref="M:Dark.Net.IDarkNet.SetWindowThemeWpf(System.Windows.Window,Dark.Net.Theme,Dark.Net.ThemeOptions)"/>/<see cref="M:Dark.Net.IDarkNet.SetWindowThemeForms(System.Windows.Forms.Form,Dark.Net.Theme,Dark.Net.ThemeOptions)"/>, the window will use the theme that was set on the current process using <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>.</para>
+            <para>When the process' theme is set to <see cref="F:Dark.Net.Theme.Auto"/> using <see cref="M:Dark.Net.IDarkNet.SetCurrentProcessTheme(Dark.Net.Theme,Dark.Net.ThemeOptions)"/>, any windows that also have their theme set to <see cref="F:Dark.Net.Theme.Auto"/> will use the user-level settings defined in Settings › Personalization › Colors › Choose your default app mode.</para>
+            </summary>
+        </member>
+        <member name="F:Dark.Net.Theme.Light">
+            <summary>
+            Light mode, a white background with black text and icons
+            </summary>
+        </member>
+        <member name="F:Dark.Net.Theme.Dark">
+            <summary>
+            Dark mode, a black background with white text and icons
+            </summary>
+        </member>
+        <member name="T:Dark.Net.ThemeOptions">
+            <summary>
+            Extra parameters that override the non-client area colors of a window in Windows 11 or later. On earlier versions of Windows, these have no effect.
+            </summary>
+        </member>
+        <member name="P:Dark.Net.ThemeOptions.TitleBarBackgroundColor">
+            <summary>
+            <para>Override the background color of the title bar in Windows 11 or later.</para>
+            <para>If <see langword="null"/>, the title bar color will be left unchanged, although it will still be affected by the chosen <see cref="T:Dark.Net.Theme"/> and the previous value of this property.</para>
+            <para>If you previously set this property and want to undo it, setting this to <see cref="F:Dark.Net.ThemeOptions.DefaultColor"/> will revert it to the standard OS color for your chosen <see cref="T:Dark.Net.Theme"/>.</para>
+            <para>Setting this property has no effect on Windows 10 and earlier versions.</para>
+            </summary>
+        </member>
+        <member name="P:Dark.Net.ThemeOptions.TitleBarTextColor">
+            <summary>
+            <para>Override the text color of the title bar in Windows 11 or later. Does not affect the minimize, maximize, or close buttons, just the caption text.</para>
+            <para>If <see langword="null"/>, the title bar will be left unchanged, although it will still be affected by the chosen <see cref="T:Dark.Net.Theme"/> and the previous value of this property.</para>
+            <para>If you previously set this property and want to undo it, setting this to <see cref="F:Dark.Net.ThemeOptions.DefaultColor"/> will revert it to the standard OS color for your chosen <see cref="T:Dark.Net.Theme"/>.</para>
+            <para>Setting this property has no effect on Windows 10 and earlier versions.</para>
+            </summary>
+        </member>
+        <member name="P:Dark.Net.ThemeOptions.WindowBorderColor">
+            <summary>
+            <para>Override the border color of the window in Windows 11 or later. The border goes all the way around the entire window, not just around the title bar.</para>
+            <para>To remove the window border entirely, set this to <see cref="F:Dark.Net.ThemeOptions.NoWindowBorder"/>.</para>
+            <para>If <see langword="null"/>, the window's border color will be left unchanged, although it will still be affected by the chosen <see cref="T:Dark.Net.Theme"/> and the previous value of this property.</para>
+            <para>If you previously set this property and want to undo it, setting this to <see cref="F:Dark.Net.ThemeOptions.DefaultColor"/> will revert it to the standard OS color for your chosen <see cref="T:Dark.Net.Theme"/>.</para>
+            <para>Setting this property has no effect on Windows 10 and earlier versions.</para>
+            </summary>
+        </member>
+        <member name="F:Dark.Net.ThemeOptions.NoWindowBorder">
+            <summary>
+            When set as the value of <see cref="P:Dark.Net.ThemeOptions.WindowBorderColor"/>, removes the window border. Windows 11 or later only.
+            </summary>
+        </member>
+        <member name="F:Dark.Net.ThemeOptions.DefaultColor">
+            <summary>
+            When set as the value of <see cref="P:Dark.Net.ThemeOptions.TitleBarTextColor"/>, <see cref="P:Dark.Net.ThemeOptions.TitleBarBackgroundColor"/>, or <see cref="P:Dark.Net.ThemeOptions.WindowBorderColor"/>, reverts the color to the standard Os light or dark color for the active <see cref="T:Dark.Net.Theme"/>. Useful if you previously set a custom color, and then want to reset it. 
+            </summary>
+        </member>
+        <member name="M:Dark.Net.Win32.SetPreferredAppMode(Dark.Net.AppMode)">
+            <remarks>Available in Windows 10 build 1903 (May 2019 Update) and later</remarks>
+        </member>
+        <member name="M:Dark.Net.Win32.AllowDarkModeForApp(System.Boolean)">
+            <remarks>Available only in Windows 10 build 1809 (October 2018 Update)</remarks>
+        </member>
+        <member name="T:Dark.Net.DwmWindowAttribute">
+            <summary>
+            https://learn.microsoft.com/en-us/windows/win32/api/dwmapi/ne-dwmapi-dwmwindowattribute
+            </summary>
+        </member>
+        <member name="T:Dark.Net.ColorRef">
+            <summary>
+            https://learn.microsoft.com/en-us/windows/win32/gdi/colorref
+            </summary>
+        </member>
+        <member name="T:Dark.Net.Wpf.ISkinManager">
+            <summary>
+            Automatically swap the current WPF <see cref="T:System.Windows.Application"/> between a light and dark <see cref="T:System.Windows.ResourceDictionary"/> when the effective process theme changes between <see cref="F:Dark.Net.Theme.Light"/>
+            and <see cref="F:Dark.Net.Theme.Dark"/>.
+            </summary>
+        </member>
+        <member name="M:Dark.Net.Wpf.ISkinManager.RegisterSkins(System.Uri,System.Uri)">
+            <summary>
+            <para>Specify the URIs to <see cref="T:System.Windows.ResourceDictionary"/> XAML files that should be applied to the <see cref="T:System.Windows.Application"/> when the effective process theme is <see cref="F:Dark.Net.Theme.Light"/> or
+            <see cref="F:Dark.Net.Theme.Dark"/>.</para>
+            <para>If either <paramref name="lightThemeResources"/> or <paramref name="darkThemeResources"/> is already present in the <see cref="T:System.Windows.Application"/>'s
+            <see cref="P:System.Windows.ResourceDictionary.MergedDictionaries"/>, then that existing <see cref="T:System.Windows.ResourceDictionary"/> will be reused and its <see cref="P:System.Windows.ResourceDictionary.Source"/> replaced with the
+            correct URI based on the process's effective theme. This can aid in WYSIWYG XAML authoring because the XAML editor will have a theme to render for you, and you can manually switch it around in
+            <c>App.xaml</c> to preview and edit different themes.</para>
+            <para>If no such <see cref="T:System.Windows.ResourceDictionary"/> exists already, a new one will be automatically created and added to the <see cref="T:System.Windows.Application"/>.</para>
+            <para>This method applies the correct theme immediately, and also sets up an event handler to listen for future updates to <see cref="P:Dark.Net.IDarkNet.EffectiveCurrentProcessThemeIsDark"/> and reapply the
+            correct theme when it changes.</para>
+            <para>If you call this method multiple times, it will replace the specified light and dark theme URIs used by the callback, but will not leak event handlers or
+            <see cref="T:System.Windows.ResourceDictionary"/> instances.</para>
+            </summary>
+            <param name="lightThemeResources"><see cref="T:System.Uri"/> of a <see cref="T:System.Windows.ResourceDictionary"/> to load when the process's effective theme is <see cref="F:Dark.Net.Theme.Light"/>, e.g.
+            <c>new Uri("/Skins/Skin.Light.xaml", UriKind.Relative)S</c></param>
+            <param name="darkThemeResources"><see cref="T:System.Uri"/> of a <see cref="T:System.Windows.ResourceDictionary"/> to load when the process's effective theme is <see cref="F:Dark.Net.Theme.Dark"/>, e.g.
+            <c>new Uri("/Skins/Skin.Dark.xaml", UriKind.Relative)S</c></param>
+        </member>
+        <member name="T:Dark.Net.Wpf.SkinManager">
+            <inheritdoc />
+        </member>
+        <member name="M:Dark.Net.Wpf.SkinManager.#ctor">
+            <summary>
+            Create a new instance that uses the default <see cref="T:Dark.Net.DarkNet"/> instance.
+            </summary>
+        </member>
+        <member name="M:Dark.Net.Wpf.SkinManager.#ctor(Dark.Net.IDarkNet)">
+            <summary>
+            Create a new instance that uses a custom <see cref="T:Dark.Net.IDarkNet"/> instance.
+            </summary>
+            <param name="darkNet"></param>
+        </member>
+        <member name="M:Dark.Net.Wpf.SkinManager.RegisterSkins(System.Uri,System.Uri)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dark.Net.Wpf.SkinManager.UpdateResource(System.Object,System.Boolean)">
+            <summary>
+            <para>Change the <see cref="T:System.Windows.Application"/>'s <see cref="T:System.Windows.ResourceDictionary"/>'s <see cref="P:System.Windows.ResourceDictionary.Source"/> between the light and dark URIs which were set by
+            <see cref="M:Dark.Net.Wpf.SkinManager.RegisterSkins(System.Uri,System.Uri)"/>.</para>
+            <para>This is called once by <see cref="M:Dark.Net.Wpf.SkinManager.RegisterSkins(System.Uri,System.Uri)"/>, and again multiple times when <see cref="P:Dark.Net.IDarkNet.EffectiveCurrentProcessThemeIsDark"/> changes.</para>
+            </summary>
+            <param name="eventSource">unused</param>
+            <param name="isDarkTheme"><see langword="true" /> if the process is set to <see cref="F:Dark.Net.Theme.Dark"/>, or <see langword="false"/> if it is set to <see cref="F:Dark.Net.Theme.Light"/>.</param>
+        </member>
+        <member name="M:Dark.Net.Wpf.SkinManager.Dispose(System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:Dark.Net.Wpf.SkinManager.Dispose">
+            <inheritdoc />
+        </member>
+    </members>
+</doc>

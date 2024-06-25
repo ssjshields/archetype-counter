@@ -1,0 +1,32 @@
+######################################
+# ---------------------------------- #
+# --- ARCHETYPE COUNTER SETTINGS --- # 
+# ---------------------------------- #
+######################################
+--------------------------------------
+Picture_Mode=Primary
+Chinese_Mode=Off
+Theme_Mode=Auto
+Sprite_Mode=Default
+Notify_Mode=MilestonePokemon
+Sorting_Mode=EncounteredDescending
+--------------------------------------
+Overlay_Mode=OffOverlay
+Overlay_Left=-123
+Overlay_Top=-123
+--------------------------------------
+Notify_Milestone=100
+Close_PokeMMO=NoClose
+Open_PokeMMO=NoOpen
+Show_Failed_Scans=YesScan
+--------------------------------------
+Files_Unblocked=False
+ReShade_Alert_Dialog=Show
+--------------------------------------
+Encounter_Symbol=🔎
+Egg_Symbol=🐣
+Fossil_Symbol=🐚
+--------------------------------------
+######################################
+# -------------- END --------------- #
+######################################
