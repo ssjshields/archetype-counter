@@ -127,7 +127,7 @@ Deleting the Counter folder from the mods directory will not remove the XML chan
 - Pngquant (https://pngquant.org/)
 - DarkNet (https://github.com/Aldaviva/DarkNet)
 
-**Pokémon Sprites:**
+**Monster Sprites:**
 - Default (https://pokemmo.com/)
 - 3DS (https://forums.pokemmo.com/index.php?/topic/93475-mod-3ds-monster-icons/)
 - Home (https://forums.pokemmo.com/index.php?/topic/112385-mod-pokemon-home-monster-icons/)
