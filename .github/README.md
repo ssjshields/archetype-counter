@@ -2,7 +2,7 @@
   <img src="/.github/images/main_logo.png">
 </p>
 
-<p align="left">
+<p align="center">
   <a href="https://github.com/ssjshields/archetype-counter/archive/refs/heads/main.zip"><img src="https://img.shields.io/badge/%F0%9F%93%82-%20?style=flat&label=Download&color=blue" alt="https://github.com/ssjshields/archetype-counter/archive/refs/heads/testing.zip">
 </a></p>
 
