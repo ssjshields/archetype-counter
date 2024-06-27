@@ -11,7 +11,7 @@
 or 
 
 Visit latest release under "Releases"
-https://github.com/ssjshields/archetype-counter/releases/tag/v4.0.0.1
+- https://github.com/ssjshields/archetype-counter/releases
 
 &nbsp;
 
