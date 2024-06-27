@@ -94,11 +94,6 @@ Net Framework and PowerShell are typically included in the latest Windows update
 
 **1.** Extract into `PokeMMO\data\mods`
 
-> [!TIP]
-You can clone this repository into `PokeMMO\data\mods` using [GitHub Desktop](https://desktop.github.com/) or [Git](https://git-scm.com/downloads), pull to receive updates.
-
-&nbsp;
-
 **2.** Run the `Archetype Counter.lnk`
 
 > [!CAUTION]
