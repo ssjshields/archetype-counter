@@ -122,9 +122,7 @@ Deleting the Counter folder from the mods directory will not remove the XML chan
 
 # Counter Icon Indicator (System Tray) 💡
 > [!NOTE]
-The counter lives in the "System Tray" on the windows taskbar. 
-
-Options will appear "grayed out" and cannot be accessed while the Counter is (BUSY).
+The counter lives in the "System Tray" on the windows taskbar. Options will appear "grayed out" and cannot be accessed while the Counter is (BUSY).
 
 <img src="/.github/images/startup.png">
 
