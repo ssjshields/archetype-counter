@@ -11,7 +11,7 @@ Archetype Counter is a tool for the online video game [PokeMMO](https://pokemmo.
 
 Automatically track wild encounters and manually track when you receive Eggs or Fossils.
  
-Have questions? See the [FAQ](?tab=readme-ov-file#faq-) and [Counter Menu Navigation](?tab=readme-ov-file##counter-menu-navigation-) for more information before reaching out.
+Have questions? See the [FAQ](?tab=readme-ov-file#faq-) and [Counter Menu Navigation](?tab=readme-ov-file#counter-menu-navigation-) for more information before reaching out.
 
 &nbsp;
 
