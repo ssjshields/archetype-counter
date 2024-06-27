@@ -4,12 +4,6 @@
 
 # Download 🚀
 
-<p align="left">
-  <a href="https://github.com/ssjshields/archetype-counter/releases/download/v4.0.0.1/archetype-counter-main.zip"><img src="https://img.shields.io/badge/%F0%9F%93%82-%20?style=flat&label=Download&color=blue" alt="https://github.com/ssjshields/archetype-counter/archive/refs/heads/testing.zip">
-</a></p>
-
-or 
-
 Visit latest release under "Releases"
 - https://github.com/ssjshields/archetype-counter/releases
 
