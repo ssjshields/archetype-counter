@@ -84,7 +84,7 @@ Net Framework and PowerShell are typically included in the latest Windows update
 
 &nbsp;
 # Installation 📦
-### [Download](https://github.com/ssjshields/archetype-counter/releases)
+### [Download](https://github.com/ssjshields/archetype-counter/releases/latest/download/archetype-counter-main.zip)
 
 **1.** Extract into `PokeMMO\data\mods`
 
