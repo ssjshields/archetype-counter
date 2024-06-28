@@ -16,6 +16,10 @@ Automatically track wild encounters and manually track when you receive Eggs or 
   <img src="/.github/images/main_preview.png">
 </p>
 
+<p align="left">
+  <img src="/.github/images/toast_notification.png">
+</p>
+
 &nbsp;
 
 # Features 🧪
