@@ -110,11 +110,8 @@ Do not pin the Counter from the taskbar while it's running, otherwise it will pi
 # Removal 🗑️
 1. From the Counter menu navigate to Settings → Uninstall Archetype Counter
 
-> [!TIP] 
-If you are only using the Default PokeMMO theme, you can repair the client from the main menu.
-
 > [!CAUTION]
-Deleting the Counter folder from the mods directory will not remove the XML changes from the theme files.
+Manually deleting the Counter folder will not properly remove the Counter.
 
 &nbsp;
 
