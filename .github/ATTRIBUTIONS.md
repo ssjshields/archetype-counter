@@ -1,22 +1,27 @@
->**AnonymousPoke**: Lead developer
+>**AnonymousPoke**: Lead designer
 
->**Realmadrid1809**: Co-develpoer
+>**Realmadrid1809**: Logic optimization & testing (With UI Redesign)
 
->**Nurver**: Support and QA tester
+>**Nurver**: Logic testing (With UI Redesign)
 
-**External Libraries:**
-- VistaMenu (https://wyday.com/vistamenu/)
-- Tesseract OCR (https://github.com/tesseract-ocr/tesseract)
-- ImageMagick (https://imagemagick.org/index.php)
-- Ookii.Dialogs.Winforms (https://github.com/ookii-dialogs/ookii-dialogs-winforms)
-- BurntToast (https://github.com/Windos/BurntToast)
-- Pngquant (https://pngquant.org/)
-- DarkNet (https://github.com/Aldaviva/DarkNet)
-- Icons8 (https://icons8.com/)
+>**Enzemo**: Logic testing - Counter would not exist in its current state without their contributions
 
-**Monster Sprites:**
-- Default (https://pokemmo.com/)
-- 3DS (https://forums.pokemmo.com/index.php?/topic/93475-mod-3ds-monster-icons/)
-- Home (https://forums.pokemmo.com/index.php?/topic/112385-mod-pokemon-home-monster-icons/)
-- Shuffle (https://forums.pokemmo.com/index.php?/topic/74184-mod-shuffle-icons-mod-32/)
-- Gen 8 (https://forums.pokemmo.com/index.php?/topic/139566-generation-8-style-icons-v8-updated-as-of-112422/)
+>**TheoPembo**: Logic testing
+
+>**AsuraVGC**: Logic testing
+
+>**Burnteggs96**: Logic testing
+
+>**Volkarin**: Horde Logic testing
+
+>**Default sprites**: PokeMMO dump
+
+>**Gen 8 sprites**: https://forums.pokemmo.com/index.php?/topic/139566-generation-8-style-icons-v8
+
+>**Home Sprites**: https://forums.pokemmo.com/index.php?/topic/151461-mod-pokemon-home-style-icons
+
+>**3DS sprites**: https://forums.pokemmo.com/index.php?/topic/93475-mod-3ds-monster-icons
+
+>**Shuffle sprites**: https://forums.pokemmo.com/index.php?/topic/74184-mod-shuffle-icons
+
+>**All custom icons**: https://icons8.com/icons

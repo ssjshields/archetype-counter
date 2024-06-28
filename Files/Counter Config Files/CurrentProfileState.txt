@@ -1,0 +1,20 @@
+###############################
+#   ARCHETYPE COUNTER CONFIG  #
+###############################
+-------------------------------
+Current_Hunt_Profile=Profile1
+-------------------------------
+Hunt_Profile_Name_1=Profile1
+Hunt_Profile_Name_2=Profile2
+Hunt_Profile_Name_3=Profile3
+Hunt_Profile_Name_4=Profile4
+Hunt_Profile_Name_5=Profile5
+Hunt_Profile_Name_6=Profile6
+Hunt_Profile_Name_7=Profile7
+Hunt_Profile_Name_8=Profile8
+Hunt_Profile_Name_9=Profile9
+Hunt_Profile_Name_10=Profile10
+-------------------------------
+###############################
+#    END OF COUNTER CONFIG    #
+###############################

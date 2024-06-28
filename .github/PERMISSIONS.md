@@ -1,6 +1,4 @@
-Archetype Team
-
-All rights reserved © 2023-2024
+Unless otherwise stated below, all rights reserved © 2023
 
 You are allowed to:
 
@@ -17,4 +15,4 @@ You are allowed to:
 You are not allowed to:
 
     Re-upload or redistribute any portion or entirety of the Counter anywhere, without explicit permission
-    (excluding licensed dependencies.)
+    (excluding gdip, nconvert, etc.)
