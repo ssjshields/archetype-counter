@@ -22,6 +22,12 @@ Automatically track encounters (Horde, Safari, etc.) and manually track when you
   <img src="/.github/images/toast_notification.png">
 </p>
 
+**GUI Overlay**:
+<p align="left">
+  <img src="/.github/images/gui_overlay.png">
+</p>
+
+
 &nbsp;
 
 # Features 🧪
