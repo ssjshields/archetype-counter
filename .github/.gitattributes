@@ -1,2 +1,0 @@
-# Ensures .bat file encoding is not altered
-*.bas text eol=crlf
