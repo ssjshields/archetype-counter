@@ -84,11 +84,11 @@ Net Framework and PowerShell are typically included in the latest Windows update
 
 &nbsp;
 # Installation 📦
-### [Download](https://github.com/ssjshields/archetype-counter/releases/latest/download/archetype-counter-main.zip)
+**1.** ### [Download](https://github.com/ssjshields/archetype-counter/releases/latest/download/archetype-counter-main.zip)
 
-**1.** Extract into `PokeMMO\data\mods`
+**2.** Extract into `PokeMMO\data\mods`
 
-**2.** Run the `Archetype Counter.lnk`
+**3.** Run the `Archetype Counter.lnk`
 
 > [!IMPORTANT]
  Visit the [Wiki](https://github.com/ssjshields/archetype-counter/wiki) for usage information.
