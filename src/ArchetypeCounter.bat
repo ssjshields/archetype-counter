@@ -12,7 +12,7 @@ goto:eof
 # --------- Archetype Team --------- #
 # ---------------------------------- #
 # -------- Archetype Counter ------- #
-# -------- Version: 4.0.0.3 -------- #
+# -------- Version: 4.0.0.4 -------- #
 # ---------------------------------- #
 # ---------------------------------- #
 #                                    #
@@ -572,7 +572,7 @@ $ArchetypeCounterForm.Add_Load({
     # ----------------------------------------------------------------------------------------
 
     # Define and loop through array of stored "Troubleshooting" MenuItems for ContextMenu
-    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.3")
+    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.4")
     $ACTroubleshootItems | ForEach-Object { 
     
         # Creates MenuItem and properly filters out menu names
@@ -1521,7 +1521,7 @@ $ArchetypeCounterForm.Add_Shown({
         $PixelMatchArray = @("fffb00fb","fd00fdff","f900f9ff","fb00fbff","fff900f9","fffd00fd")
 
         # Grabs PokeMMO console log to determine which Black/White ROM is being used
-        $GetMainPokeMMOLog = Get-Content "$PokeMMOWorkingDir\log\console.log" -raw; if ($GetMainPokeMMOLog -match 'IRBO' -or $GetMainPokeMMOLog -match 'IRAO') { $GameLanguage = 'English'; $OCRLanguage ='eng' } elseif ($GetMainPokeMMOLog -match 'IRBS' -or $GetMainPokeMMOLog -match 'IRAS') { $GameLanguage = 'English'; $OCRLanguage ='eng' } elseif ($GetMainPokeMMOLog -match 'IRBF' -or $GetMainPokeMMOLog -match 'IRAF') { $GameLanguage = 'French'; $OCRLanguage ='fra' } elseif ($GetMainPokeMMOLog -match 'IRBD' -or $GetMainPokeMMOLog -match 'IRAD') { $GameLanguage = 'German'; $OCRLanguage ='deu' } elseif ($GetMainPokeMMOLog -match 'IRBJ' -or $GetMainPokeMMOLog -match 'IRAJ') { $GameLanguage = 'Japanese'; $OCRLanguage ='jpn' } elseif ($GetMainPokeMMOLog -match 'IRBK' -or $GetMainPokeMMOLog -match 'IRAK') { $GameLanguage = 'Korean'; $OCRLanguage ='kor' } else { $OCRLanguage = 'English' }; if ($Script:SyncHashTable.ChineseMode -match "Simplified") { $GameLanguage = 'ChineseSimplified'; $OCRLanguage ='chi_sim' } elseif ($Script:SyncHashTable.ChineseMode -match "Traditional") { $GameLanguage = 'ChineseTraditional'; $OCRLanguage ='chi_tra' } 
+        $GetMainPokeMMOLog = Get-Content "$PokeMMOWorkingDir\log\console.log" -raw; if ($GetMainPokeMMOLog -match 'IRBO' -or $GetMainPokeMMOLog -match 'IRAO') { $GameLanguage = 'English'; $OCRLanguage ='eng' } elseif ($GetMainPokeMMOLog -match 'IRBS' -or $GetMainPokeMMOLog -match 'IRAS') { $GameLanguage = 'English'; $OCRLanguage ='eng' } elseif ($GetMainPokeMMOLog -match 'IRBF' -or $GetMainPokeMMOLog -match 'IRAF') { $GameLanguage = 'French'; $OCRLanguage ='fra' } elseif ($GetMainPokeMMOLog -match 'IRBD' -or $GetMainPokeMMOLog -match 'IRAD') { $GameLanguage = 'German'; $OCRLanguage ='deu' } elseif ($GetMainPokeMMOLog -match 'IRBJ' -or $GetMainPokeMMOLog -match 'IRAJ') { $GameLanguage = 'Japanese'; $OCRLanguage ='jpn' } elseif ($GetMainPokeMMOLog -match 'IRBK' -or $GetMainPokeMMOLog -match 'IRAK') { $GameLanguage = 'Korean'; $OCRLanguage ='kor' } else { $GameLanguage = 'English'; $OCRLanguage ='eng' }; if ($Script:SyncHashTable.ChineseMode -match "Simplified") { $GameLanguage = 'ChineseSimplified'; $OCRLanguage ='chi_sim' } elseif ($Script:SyncHashTable.ChineseMode -match "Traditional") { $GameLanguage = 'ChineseTraditional'; $OCRLanguage ='chi_tra' } 
  
         # Grabs and loads + compares to the captures OCR text
         $SetPokeConfig = "$Global:CounterWorkingDir\stored\Config_PokemonNamesWithID_$GameLanguage.txt"
@@ -1786,7 +1786,7 @@ $ArchetypeCounterForm.Add_Shown({
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Current Hunt: |`n-----------------`n`n$($Script:SyncHashTable.GetCurrentProfile)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Picture Mode: |`n-----------------`n`n$($Script:SyncHashTable.PictureMode) $($Script:SyncHashTable.ReShadeinPokeMMO)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| OCR Language: |`n-----------------`n`n$GameLanguage`n`n")
-                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.3`n`n")
+                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.4`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "#######################################`n# --------------- END --------------- #`n#######################################")
 
                     # Sets the variables to be used in the foreach loop
