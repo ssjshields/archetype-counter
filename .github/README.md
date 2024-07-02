@@ -87,7 +87,7 @@ Custom themes require default PokeMMO font- NotoSans.
 # Requirements 🗝️
 - Windows 10 Version 1809+ or Windows 11
 
-- Net Framework 4.7.2
+- Net Framework 4.7.2 or higher
 
 - PowerShell 5.1
 
