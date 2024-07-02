@@ -108,9 +108,6 @@ Net Framework and PowerShell are typically included in the latest Windows update
 > [!WARNING]
 Ensure you run the `Archetype Counter.lnk` shortcut once before pinning the shortcut to the taskbar or any other location. 
 
-> [!WARNING]
-Do not pin the Counter from the taskbar while it's running, otherwise it will pin the Powershell terminal instead.
-
 &nbsp;
 
 # Removal 🗑️
