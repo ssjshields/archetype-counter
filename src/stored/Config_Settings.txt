@@ -21,6 +21,7 @@ Open_PokeMMO=NoOpen
 Show_Failed_Scans=YesScan
 --------------------------------------
 Files_Unblocked=False
+Toast_Notification_Dialog=Show
 ReShade_Alert_Dialog=Show
 --------------------------------------
 Encounter_Symbol=🔎

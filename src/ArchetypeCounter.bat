@@ -12,7 +12,7 @@ goto:eof
 # --------- Archetype Team --------- #
 # ---------------------------------- #
 # -------- Archetype Counter ------- #
-# -------- Version: 4.0.0.1 -------- #
+# -------- Version: 4.0.0.2 -------- #
 # ---------------------------------- #
 # ---------------------------------- #
 #                                    #
@@ -294,6 +294,7 @@ Function LoadExternalVariables {
     $OpenPokeMMO = $GetConfigSettings -match "Open_PokeMMO="; $OpenPokeMMO = $OpenPokeMMO -replace "Open_PokeMMO=", ""
     $ClosePokeMMO = $GetConfigSettings -match "Close_PokeMMO="; $ClosePokeMMO = $ClosePokeMMO -replace "Close_PokeMMO=", ""
     $ShowFailedScans = $GetConfigSettings -match "Show_Failed_Scans="; $ShowFailedScans = $ShowFailedScans -replace "Show_Failed_Scans=", ""
+    $ToastNotificationDialog = $GetConfigSettings -match "Toast_Notification_Dialog="; $ToastNotificationDialog = $ToastNotificationDialog -replace "Toast_Notification_Dialog=", ""
     $ReShadeAlertDialog = $GetConfigSettings -match "ReShade_Alert_Dialog="; $ReShadeAlertDialog = $ReShadeAlertDialog -replace "ReShade_Alert_Dialog=", ""
     $ACTrayEncounterSymbol = $GetConfigSettings -match "Encounter_Symbol="; $ACTrayEncounterSymbol = $ACTrayEncounterSymbol -replace "Encounter_Symbol=", ""
     $ACTrayEggSymbol = $GetConfigSettings -match "Egg_Symbol="; $ACTrayEggSymbol = $ACTrayEggSymbol -replace "Egg_Symbol=", ""
@@ -571,7 +572,7 @@ $ArchetypeCounterForm.Add_Load({
     # ----------------------------------------------------------------------------------------
 
     # Define and loop through array of stored "Troubleshooting" MenuItems for ContextMenu
-    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.1")
+    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.2")
     $ACTroubleshootItems | ForEach-Object { 
     
         # Creates MenuItem and properly filters out menu names
@@ -1334,7 +1335,7 @@ $ArchetypeCounterForm.Add_Shown({
     if ($GetMainProperties | Where-Object { $_ -match '\bclient.graphics.display_mode=1\b' }) { . SetDialogTransparentBackground; $TaskDialogFullscreen = [Ookii.Dialogs.WinForms.TaskDialog]::new(); $TaskDialogFullscreen.WindowTitle = "Archetype Counter"; $TaskDialogFullscreen.WindowIcon = $ArchetypeCounterSystrayIcon; $TaskDialogFullscreen.MainIcon = [Ookii.Dialogs.WinForms.TaskDialogIcon]::Error; $TaskDialogFullscreen.MainInstruction = "PokeMMO Fullscreen Detection"; $TaskDialogFullscreen.Content = "The Counter requires PokeMMO to be in either Windowed or Borderless mode in order to function properly."; $TaskDialogFullscreen.AllowDialogCancellation = $true; $TaskDialogFullscreen.Buttons.Add('Ok'); $TaskDialogFullscreen.ShowDialog($ArchetypeCounterForm); . RemoveDialogTransparentBackground; [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force}
 
     # Checks if Toast Notifications are ON or OFF in Windows Action Center
-    if ($IsToastNotificationEnabled -match "0") { . SetDialogTransparentBackground; $TaskDialogToastNotify = [Ookii.Dialogs.WinForms.TaskDialog]::new(); $TaskDialogToastNotify.WindowTitle = "Archetype Counter"; $TaskDialogToastNotify.WindowIcon = $ArchetypeCounterSystrayIcon; $TaskDialogToastNotify.MainIcon = [Ookii.Dialogs.WinForms.TaskDialogIcon]::Warning; $TaskDialogToastNotify.MainInstruction = "Toast Notification Detection"; $TaskDialogToastNotify.Content = "Please turn notifications ON in the Windows Action Center to avoid limited functionality."; $TaskDialogToastNotify.AllowDialogCancellation = $true; $TaskDialogToastNotify.Buttons.Add('Ok'); $TaskDialogToastNotify.ShowDialog($ArchetypeCounterForm); . RemoveDialogTransparentBackground }
+    if ($ToastNotificationDialog -match "Show") { if ($IsToastNotificationEnabled -match "0") { . SetDialogTransparentBackground; $TaskDialogToastNotify = [Ookii.Dialogs.WinForms.TaskDialog]::new(); $TaskDialogToastNotify.WindowTitle = "Archetype Counter"; $TaskDialogToastNotify.WindowIcon = $ArchetypeCounterSystrayIcon; $TaskDialogToastNotify.MainIcon = [Ookii.Dialogs.WinForms.TaskDialogIcon]::Warning; $TaskDialogToastNotify.MainInstruction = "Toast Notification Detection"; $TaskDialogToastNotify.Content = "Please turn notifications ON in the Windows Action Center to avoid limited functionality."; $TaskDialogToastNotify.VerificationText = 'Do not show this message again'; $TaskDialogToastNotify.AllowDialogCancellation = $true; $TaskDialogToastNotify.Buttons.Add('Ok'); $TaskDialogToastNotify.ShowDialog($ArchetypeCounterForm); . RemoveDialogTransparentBackground; if ($TaskDialogToastNotify.IsVerificationChecked -eq $true) { $GetConfigSettings = $GetConfigSettings -replace "Toast_Notification_Dialog=.*", "Toast_Notification_Dialog=Ignore"; [IO.File]::WriteAllLines($SetConfigSettings, $GetConfigSettings) } } }
 
     # Checks if ReShade is being used with PokeMMO
     if ($ReShadeAlertDialog -match "Show") { $ReShadeinPokeMMO = ''; if (Test-Path "$PokeMMOWorkingDir\ReShade.ini") { $ReShadeinPokeMMO = '(ReShade being used)'; . SetDialogTransparentBackground; $TaskDialogReShade = [Ookii.Dialogs.WinForms.TaskDialog]::new(); $TaskDialogReShade.WindowTitle = "Archetype Counter"; $TaskDialogReShade.WindowIcon = $ArchetypeCounterSystrayIcon; $TaskDialogReShade.MainIcon = [Ookii.Dialogs.WinForms.TaskDialogIcon]::Warning; $TaskDialogReShade.MainInstruction = "ReShade Detection"; $TaskDialogReShade.Content = "Using post processing filters like ReShade can produce inaccurate count results. Please disable ReShade before reporting any bugs."; $TaskDialogReShade.VerificationText = 'Do not show this message again'; $TaskDialogReShade.AllowDialogCancellation = $true; $TaskDialogReShade.Buttons.Add('Ok'); $TaskDialogReShade.ShowDialog($ArchetypeCounterForm); . RemoveDialogTransparentBackground }; if ($TaskDialogReShade.IsVerificationChecked -eq $true) { $GetConfigSettings = $GetConfigSettings -replace "ReShade_Alert_Dialog=.*", "ReShade_Alert_Dialog=Ignore"; [IO.File]::WriteAllLines($SetConfigSettings, $GetConfigSettings) } }
@@ -1785,7 +1786,7 @@ $ArchetypeCounterForm.Add_Shown({
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Current Hunt: |`n-----------------`n`n$($Script:SyncHashTable.GetCurrentProfile)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Picture Mode: |`n-----------------`n`n$($Script:SyncHashTable.PictureMode) $($Script:SyncHashTable.ReShadeinPokeMMO)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| OCR Language: |`n-----------------`n`n$GameLanguage`n`n")
-                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.1`n`n")
+                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.2`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "#######################################`n# --------------- END --------------- #`n#######################################")
 
                     # Sets the variables to be used in the foreach loop
