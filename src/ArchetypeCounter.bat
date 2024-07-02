@@ -12,7 +12,7 @@ goto:eof
 # --------- Archetype Team --------- #
 # ---------------------------------- #
 # -------- Archetype Counter ------- #
-# -------- Version: 4.0.0.2 -------- #
+# -------- Version: 4.0.0.3 -------- #
 # ---------------------------------- #
 # ---------------------------------- #
 #                                    #
@@ -572,7 +572,7 @@ $ArchetypeCounterForm.Add_Load({
     # ----------------------------------------------------------------------------------------
 
     # Define and loop through array of stored "Troubleshooting" MenuItems for ContextMenu
-    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.2")
+    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.3")
     $ACTroubleshootItems | ForEach-Object { 
     
         # Creates MenuItem and properly filters out menu names
@@ -1660,19 +1660,19 @@ $ArchetypeCounterForm.Add_Shown({
                     # ---------------------------------------------------------
                     $ACImage = New-Object System.Drawing.Bitmap "$PWD\ArchetypeScreenshotEncounter.tif"; $ACImageWidth = $ACImage.Width; $ACImageWidth = [int]$ACImageWidth; $ACImage.Dispose()
                     # -- Crop 1 -----------------------------------------------
-                    $crop1width = 260/"$GetMainPokeMMOScale"
+                    $crop1width = 260/"$GetMainPokeMMOScale"+35
                     $crop1height = 63/"$GetMainPokeMMOScale"
-                    $crop1offsetX = 50/"$GetMainPokeMMOScale"
+                    $crop1offsetX = 50/"$GetMainPokeMMOScale"-38
                     $crop1offsetY = 107/"$GetMainPokeMMOScale"-52
                     # -- Crop 2 -----------------------------------------------
-                    $crop2width = 780/"$GetMainPokeMMOScale"
+                    $crop2width = 780/"$GetMainPokeMMOScale"+35
                     $crop2height = 21/"$GetMainPokeMMOScale" + 2
-                    $crop2offsetX = $ACImageWidth/2-350/"$GetMainPokeMMOScale"
+                    $crop2offsetX = $ACImageWidth/2-350/"$GetMainPokeMMOScale"-38
                     $crop2offsetY = 78/"$GetMainPokeMMOScale"-52
                     # -- Crop 3 -----------------------------------------------
                     $crop3offsetY= 118/"$GetMainPokeMMOScale"-52
                     # -- Crop 4 -----------------------------------------------
-                    $crop4offsetX = $ACImageWidth/2+170/"$GetMainPokeMMOScale"
+                    $crop4offsetX = $ACImageWidth/2+170/"$GetMainPokeMMOScale"-38
                     # -- Crop Final -------------------------------------------
                     $Crop1 = "$crop1width" + "x" + "$crop1height" + "+" + "$crop1offsetX" + "+" + "$crop1offsetY"
                     $Crop2 = "$crop2width" + "x" + "$crop2height" + "+" + "$crop2offsetX" + "+" + "$crop2offsetY"
@@ -1786,7 +1786,7 @@ $ArchetypeCounterForm.Add_Shown({
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Current Hunt: |`n-----------------`n`n$($Script:SyncHashTable.GetCurrentProfile)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Picture Mode: |`n-----------------`n`n$($Script:SyncHashTable.PictureMode) $($Script:SyncHashTable.ReShadeinPokeMMO)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| OCR Language: |`n-----------------`n`n$GameLanguage`n`n")
-                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.2`n`n")
+                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.3`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "#######################################`n# --------------- END --------------- #`n#######################################")
 
                     # Sets the variables to be used in the foreach loop
