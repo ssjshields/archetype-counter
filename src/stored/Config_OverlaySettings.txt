@@ -8,6 +8,7 @@ Normal_Symbol=💣
 Busy_Symbol=💥
 ----------------------------------------------
 With_Symbol=True
+Show_Dex_Number=True
 Multiline=True
 Multiline_Count=25
 ----------------------------------------------

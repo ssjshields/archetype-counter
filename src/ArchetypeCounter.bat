@@ -12,7 +12,7 @@ goto:eof
 # --------- Archetype Team --------- #
 # ---------------------------------- #
 # -------- Archetype Counter ------- #
-# -------- Version: 4.0.0.6 -------- #
+# -------- Version: 4.0.0.7 -------- #
 # ---------------------------------- #
 # ---------------------------------- #
 #                                    #
@@ -572,7 +572,7 @@ $ArchetypeCounterForm.Add_Load({
     # ----------------------------------------------------------------------------------------
 
     # Define and loop through array of stored "Troubleshooting" MenuItems for ContextMenu
-    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.6")
+    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.7")
     $ACTroubleshootItems | ForEach-Object { 
     
         # Creates MenuItem and properly filters out menu names
@@ -1238,6 +1238,7 @@ $ArchetypeCounterForm.Add_Load({
     $AC_FontBGOpacity = $GetConfigOverlay -match "Font_Background_Opacity="; $AC_FontBGOpacity = $AC_FontBGOpacity -replace "Font_Background_Opacity=", ""; $AC_FontBGOpacity = $AC_FontBGOpacity -join '-'
     $AC_Multiline = $GetConfigOverlay -match "Multiline="; $AC_Multiline = $AC_Multiline -replace "Multiline=", ""
     $AC_MultilineCount = $GetConfigOverlay -match "Multiline_Count="; $AC_MultilineCount = $AC_MultilineCount -replace "Multiline_Count=", ""; $AC_MultilineCount = $AC_MultilineCount -join '-'; $AC_MultilineCount = [int]$AC_MultilineCount
+    $AC_ShowDexNumber = $GetConfigOverlay -match "Show_Dex_Number="; $AC_ShowDexNumber = $AC_ShowDexNumber -replace "Show_Dex_Number=", ""
 
     # Archetype Counter Overlay (WPF Form/Window)
     $ArchetypeCounterOverlay = New-Object Windows.Window
@@ -1259,6 +1260,7 @@ $ArchetypeCounterForm.Add_Load({
     if ($AC_Multiline -match "True" -and $OverlayMode -match "OnOverlayPokemon") { $GetConfigProfileEncounteredOverlay = $GetConfigProfileEncounteredOverlay -replace "#", "`n#" } elseif ($AC_Multiline -match "False" -and $OverlayMode -match "OnOverlayPokemon") { $GetConfigProfileEncounteredOverlay = $GetConfigProfileEncounteredOverlay[0] }
     if ($OverlayMode -match "OnOverlayTotal" -and $AC_WithSymbol -match "True") { $OverlayDisplayText = "$AC_NormalSymbol $EncounteredCount" } elseif ($OverlayMode -match "OnOverlayTotal" -and $AC_WithSymbol -match "False") { $OverlayDisplayText = "$EncounteredCount" } 
     if ($OverlayMode -match "OnOverlayPokemon" -and $AC_Multiline -match "True" -and $AC_WithSymbol -match "True") { $OverlayDisplayText = "$AC_NormalSymbol $GetCurrentProfile ($EncounteredCount)$GetConfigProfileEncounteredOverlay" } elseif ($OverlayMode -match "OnOverlayPokemon" -and $AC_Multiline -match "False" -and $AC_WithSymbol -match "True") { $OverlayDisplayText = "$AC_NormalSymbol $GetConfigProfileEncounteredOverlay" } elseif ($OverlayMode -match "OnOverlayPokemon" -and $AC_Multiline -match "True" -and $AC_WithSymbol -match "False") { $OverlayDisplayText = "- $GetCurrentProfile ($EncounteredCount) -$GetConfigProfileEncounteredOverlay" } elseif ($OverlayMode -match "OnOverlayPokemon" -and $AC_Multiline -match "False" -and $AC_WithSymbol -match "False") { $OverlayDisplayText = $GetConfigProfileEncounteredOverlay }
+    if ($AC_ShowDexNumber -match "False") { $OverlayDisplayText = $OverlayDisplayText -replace '.*?-', ''; $OverlayDisplayText = $OverlayDisplayText.TrimStart() }
     $ArchetypeCounterOverlayText.Text = "$OverlayDisplayText"
     $ArchetypeCounterOverlayText.HorizontalAlignment = 'Center'
     $ArchetypeCounterOverlayText.VerticalAlignment = 'Center'
@@ -1408,6 +1410,7 @@ $ArchetypeCounterForm.Add_Shown({
     $Script:SyncHashTable.AC_WithSymbol = $AC_WithSymbol
     $Script:SyncHashTable.AC_Multiline = $AC_Multiline
     $Script:SyncHashTable.AC_MultilineCount = $AC_MultilineCount
+    $Script:SyncHashTable.AC_ShowDexNumber = $AC_ShowDexNumber
     
     # Creates a Runspace to run in a separate thread
     $Script:RunSpace = [Management.Automation.Runspaces.RunspaceFactory]::CreateRunspace()
@@ -1625,6 +1628,7 @@ $ArchetypeCounterForm.Add_Shown({
                         if ($Script:SyncHashTable.AC_Multiline -match "True" -and $Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon") { $GetConfigProfileEncounteredOverlay = $GetConfigProfileEncounteredOverlay -replace "#", "`n#" } elseif ($Script:SyncHashTable.AC_Multiline -match "False" -and $Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon") { $GetConfigProfileEncounteredOverlay = $GetConfigProfileEncounteredOverlay[0]; $OverlayDisplayText = $GetConfigProfileEncounteredOverlay }
                         if ($Script:SyncHashTable.OverlayMode -match "OnOverlayTotal" -and $Script:SyncHashTable.AC_WithSymbol -match "True") { $OverlayDisplayText = "$($Script:SyncHashTable.AC_BusySymbol) $EncounteredCount" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayTotal" -and $Script:SyncHashTable.AC_WithSymbol -match "False") { $OverlayDisplayText = $EncounteredCount } 
                         if ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "True" -and $Script:SyncHashTable.AC_WithSymbol -match "True") { $OverlayDisplayText = "$($Script:SyncHashTable.AC_BusySymbol) $($Script:SyncHashTable.GetCurrentProfile) ($EncounteredCount)$GetConfigProfileEncounteredOverlay" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "False" -and $Script:SyncHashTable.AC_WithSymbol -match "True") { $OverlayDisplayText = "$($Script:SyncHashTable.AC_BusySymbol) $GetConfigProfileEncounteredOverlay" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "True" -and $Script:SyncHashTable.AC_WithSymbol -match "False") { $OverlayDisplayText = "- $($Script:SyncHashTable.GetCurrentProfile) ($EncounteredCount) -$GetConfigProfileEncounteredOverlay" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "False" -and $Script:SyncHashTable.AC_WithSymbol -match "False") { $OverlayDisplayText = $GetConfigProfileEncounteredOverlay }
+                        if ($Script:SyncHashTable.AC_ShowDexNumber -match "False") { $OverlayDisplayText = $OverlayDisplayText -replace '.*?-', ''; $OverlayDisplayText = $OverlayDisplayText.TrimStart() }
                         $Script:SyncHashTable.ArchetypeCounterOverlayText.Dispatcher.Invoke([Action]{ $Script:SyncHashTable.ArchetypeCounterOverlayText.Text = "$OverlayDisplayText" }, [Windows.Threading.DispatcherPriority]::Normal)
 
                     }
@@ -1786,7 +1790,7 @@ $ArchetypeCounterForm.Add_Shown({
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Current Hunt: |`n-----------------`n`n$($Script:SyncHashTable.GetCurrentProfile)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Picture Mode: |`n-----------------`n`n$($Script:SyncHashTable.PictureMode) $($Script:SyncHashTable.ReShadeinPokeMMO)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| OCR Language: |`n-----------------`n`n$GameLanguage`n`n")
-                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.6`n`n")
+                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.7`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "#######################################`n# --------------- END --------------- #`n#######################################")
 
                     # Sets the variables to be used in the foreach loop
@@ -1897,6 +1901,7 @@ $ArchetypeCounterForm.Add_Shown({
                         if ($Script:SyncHashTable.AC_Multiline -match "True" -and $Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon") { $GetConfigProfileEncounteredOverlay = $GetConfigProfileEncounteredOverlay -replace "#", "`n#" } elseif ($Script:SyncHashTable.AC_Multiline -match "False" -and $Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon") { $GetConfigProfileEncounteredOverlay = $GetConfigProfileEncounteredOverlay[0]; $OverlayDisplayText = $GetConfigProfileEncounteredOverlay }
                         if ($Script:SyncHashTable.OverlayMode -match "OnOverlayTotal" -and $Script:SyncHashTable.AC_WithSymbol -match "True") { $OverlayDisplayText = "$($Script:SyncHashTable.AC_BusySymbol) $OCRCapturedTotal" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayTotal" -and $Script:SyncHashTable.AC_WithSymbol -match "False") { $OverlayDisplayText = $OCRCapturedTotal } 
                         if ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "True" -and $Script:SyncHashTable.AC_WithSymbol -match "True") { $OverlayDisplayText = "$($Script:SyncHashTable.AC_BusySymbol) $($Script:SyncHashTable.GetCurrentProfile) ($OCRCapturedTotal)$GetConfigProfileEncounteredOverlay" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "False" -and $Script:SyncHashTable.AC_WithSymbol -match "True") { $OverlayDisplayText = "$($Script:SyncHashTable.AC_BusySymbol) $GetConfigProfileEncounteredOverlay" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "True" -and $Script:SyncHashTable.AC_WithSymbol -match "False") { $OverlayDisplayText = "- $($Script:SyncHashTable.GetCurrentProfile) ($OCRCapturedTotal) -$GetConfigProfileEncounteredOverlay" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "False" -and $Script:SyncHashTable.AC_WithSymbol -match "False") { $OverlayDisplayText = $GetConfigProfileEncounteredOverlay }
+                        if ($Script:SyncHashTable.AC_ShowDexNumber -match "False") { $OverlayDisplayText = $OverlayDisplayText -replace '.*?-', ''; $OverlayDisplayText = $OverlayDisplayText.TrimStart() }
                         $Script:SyncHashTable.ArchetypeCounterOverlayText.Dispatcher.Invoke([Action]{ $Script:SyncHashTable.ArchetypeCounterOverlayText.Text = "$OverlayDisplayText" }, [Windows.Threading.DispatcherPriority]::Normal)
 
                     }
@@ -1925,6 +1930,7 @@ $ArchetypeCounterForm.Add_Shown({
                         if ($Script:SyncHashTable.AC_Multiline -match "True" -and $Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon") { $GetConfigProfileEncounteredOverlay = $GetConfigProfileEncounteredOverlay -replace "#", "`n#" } elseif ($Script:SyncHashTable.AC_Multiline -match "False" -and $Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon") { $GetConfigProfileEncounteredOverlay = $GetConfigProfileEncounteredOverlay[0]; $OverlayDisplayText = $GetConfigProfileEncounteredOverlay }
                         if ($Script:SyncHashTable.OverlayMode -match "OnOverlayTotal" -and $Script:SyncHashTable.AC_WithSymbol -match "True") { $OverlayDisplayText = "$($Script:SyncHashTable.AC_NormalSymbol) $OCRCapturedTotal" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayTotal" -and $Script:SyncHashTable.AC_WithSymbol -match "False") { $OverlayDisplayText = $OCRCapturedTotal } 
                         if ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "True" -and $Script:SyncHashTable.AC_WithSymbol -match "True") { $OverlayDisplayText = "$($Script:SyncHashTable.AC_NormalSymbol) $($Script:SyncHashTable.GetCurrentProfile) ($OCRCapturedTotal)$GetConfigProfileEncounteredOverlay" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "False" -and $Script:SyncHashTable.AC_WithSymbol -match "True") { $OverlayDisplayText = "$($Script:SyncHashTable.AC_NormalSymbol) $GetConfigProfileEncounteredOverlay" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "True" -and $Script:SyncHashTable.AC_WithSymbol -match "False") { $OverlayDisplayText = "- $($Script:SyncHashTable.GetCurrentProfile) ($OCRCapturedTotal) -$GetConfigProfileEncounteredOverlay" } elseif ($Script:SyncHashTable.OverlayMode -match "OnOverlayPokemon" -and $Script:SyncHashTable.AC_Multiline -match "False" -and $Script:SyncHashTable.AC_WithSymbol -match "False") { $OverlayDisplayText = $GetConfigProfileEncounteredOverlay }
+                        if ($Script:SyncHashTable.AC_ShowDexNumber -match "False") { $OverlayDisplayText = $OverlayDisplayText -replace '.*?-', ''; $OverlayDisplayText = $OverlayDisplayText.TrimStart() }
                         $Script:SyncHashTable.ArchetypeCounterOverlayText.Dispatcher.Invoke([Action]{ $Script:SyncHashTable.ArchetypeCounterOverlayText.Text = "$OverlayDisplayText" }, [Windows.Threading.DispatcherPriority]::Normal)
 
                     }
