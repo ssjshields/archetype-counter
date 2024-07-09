@@ -11,7 +11,7 @@ Sprite_Mode=Default
 Notify_Mode=MilestonePokemon
 Sorting_Mode=EncounteredDescending
 --------------------------------------
-Overlay_Mode=OffOverlay
+Overlay_Mode=OnOverlayTotal
 Overlay_Left=-123
 Overlay_Top=-123
 --------------------------------------
