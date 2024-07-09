@@ -12,7 +12,7 @@ goto:eof
 # --------- Archetype Team --------- #
 # ---------------------------------- #
 # -------- Archetype Counter ------- #
-# -------- Version: 4.0.0.8 -------- #
+# -------- Version: 4.0.0.9 -------- #
 # ---------------------------------- #
 # ---------------------------------- #
 #                                    #
@@ -572,7 +572,7 @@ $ArchetypeCounterForm.Add_Load({
     # ----------------------------------------------------------------------------------------
 
     # Define and loop through array of stored "Troubleshooting" MenuItems for ContextMenu
-    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.8")
+    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.9")
     $ACTroubleshootItems | ForEach-Object { 
     
         # Creates MenuItem and properly filters out menu names
@@ -1794,7 +1794,7 @@ $ArchetypeCounterForm.Add_Shown({
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Current Hunt: |`n-----------------`n`n$($Script:SyncHashTable.GetCurrentProfile)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Picture Mode: |`n-----------------`n`n$($Script:SyncHashTable.PictureMode) $($Script:SyncHashTable.ReShadeinPokeMMO)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| OCR Language: |`n-----------------`n`n$GameLanguage`n`n")
-                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.8`n`n")
+                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.9`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "#######################################`n# --------------- END --------------- #`n#######################################")
 
                     # Sets the variables to be used in the foreach loop
@@ -1938,7 +1938,7 @@ $ArchetypeCounterForm.Add_Shown({
                         $Script:SyncHashTable.ArchetypeCounterOverlayText.Dispatcher.Invoke([Action]{ $Script:SyncHashTable.ArchetypeCounterOverlayText.Text = "$OverlayDisplayText" }, [Windows.Threading.DispatcherPriority]::Normal)
 
                     }
-                    
+
                 }
 
             } else {
@@ -1951,9 +1951,6 @@ $ArchetypeCounterForm.Add_Shown({
 
                 # Sets AC icon indicating counter is in "Idle" mode
                 $Script:SyncHashTable.ArchetypeCounterSystray.Icon = $Script:SyncHashTable.ArchetypeCounterSystrayIconIdle
-
-                # Re-show the ContextMenu (Off Screen) to simulate a refresh while having the counter menu opened when going into BUSY mode
-                $Script:SyncHashTable.ArchetypeContextMenu.Show($Script:SyncHashTable.ArchetypeCounterForm, [System.Drawing.Point]::new(-1000, -1000))
 
                 # Small delay (To give the CPU a breathing moment for Idle state - helps with CPU Usage)
                 [System.Threading.Thread]::Sleep(750)
