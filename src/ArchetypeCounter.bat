@@ -12,7 +12,7 @@ goto:eof
 # --------- Archetype Team --------- #
 # ---------------------------------- #
 # -------- Archetype Counter ------- #
-# -------- Version: 4.0.0.7 -------- #
+# -------- Version: 4.0.0.8 -------- #
 # ---------------------------------- #
 # ---------------------------------- #
 #                                    #
@@ -572,7 +572,7 @@ $ArchetypeCounterForm.Add_Load({
     # ----------------------------------------------------------------------------------------
 
     # Define and loop through array of stored "Troubleshooting" MenuItems for ContextMenu
-    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.7")
+    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.8")
     $ACTroubleshootItems | ForEach-Object { 
     
         # Creates MenuItem and properly filters out menu names
@@ -630,8 +630,9 @@ $ArchetypeCounterForm.Add_Load({
     }
 
     # Adds additional parameters for this section of the Context Menu (Support)
+    $MenuItem_GithubReadMe.Text = 'Github Wiki:'
     $MenuItem_GithubReadMe.Enabled = $false; $MenuItem_GithubIssues.Enabled = $false; $MenuItem_Discord.Enabled = $false
-    $MenuItem_GithubCounterLink.Text = 'github.com/ssjshields/archetype-counter'; $MenuItem_GithubIssuesLink.Text = 'github.com/ssjshields/archetype-counter/issues'; $MenuItem_DiscordLink.Text = 'discord.gg/rYg7ntqQRY'
+    $MenuItem_GithubCounterLink.Text = 'github.com/ssjshields/archetype-counter/wiki'; $MenuItem_GithubIssuesLink.Text = 'github.com/ssjshields/archetype-counter/issues'; $MenuItem_DiscordLink.Text = 'discord.gg/rYg7ntqQRY'
 
     # ----------------------------------------------------------------------------------------
 
@@ -1153,6 +1154,9 @@ $ArchetypeCounterForm.Add_Load({
     $MenuItem_ResetAllHunts.add_Click({ . SetDialogTransparentBackground; $TaskDialogAllHunt = [Ookii.Dialogs.WinForms.TaskDialog]::new(); $TaskDialogAllHunt.WindowTitle = "Archetype Counter"; $TaskDialogAllHunt.ButtonStyle = 'CommandLinks'; $TaskDialogAllHunt.CustomMainIcon = $ArchetypeCounterSystrayIcon; $TaskDialogAllHunt.MainInstruction = "Reset All Hunts"; $TaskDialogAllHunt.Content = "Do you want to reset all hunt profiles?"; $TaskDialogAllHunt.AllowDialogCancellation = $true; $TaskDialogAllHunt.Buttons.Add('Reset'); $TaskDialogAllHunt.Buttons.Add('No'); [System.Media.SystemSounds]::Exclamation.Play(); $TDAllHuntResults = $TaskDialogAllHunt.ShowDialog($ArchetypeCounterForm); If ($TDAllHuntResults.Text -match "Reset") { $ACAllHuntProfiles = @("Profile1", "Profile2", "Profile3", "Profile4", "Profile5", "Profile6", "Profile7", "Profile8", "Profile9", "Profile10"); $ACAllHuntProfiles | ForEach-Object { $ACAllHuntProfile = $_; $GetAllHuntProfilesPath = "$Global:CounterWorkingDir\stored\$ACAllHuntProfile\Config_$ACAllHuntProfile.txt"; $GetAllHuntProfiles = [IO.File]::ReadAllLines($GetAllHuntProfilesPath); $GetAllHuntProfiles = $GetAllHuntProfiles -replace "Egg_Count=.*", "Egg_Count=0"; $GetAllHuntProfiles = $GetAllHuntProfiles -replace "Fossil_Count=.*", "Fossil_Count=0"; $GetAllHuntProfiles = $GetAllHuntProfiles -replace "Encountered_Count=.*", "Encountered_Count=0"; $GetAllHuntProfiles = $GetAllHuntProfiles -replace "Alpha_Count=.*", "Alpha_Count=0"; $GetAllHuntProfiles = $GetAllHuntProfiles -replace "Legendary_Count=.*", "Legendary_Count=0"; $GetAllHuntProfiles = $GetAllHuntProfiles -replace "Shiny_Count=.*", "Shiny_Count=0"; $GetAllHuntProfiles = $GetAllHuntProfiles -replace "Single_Battle=.*", "Single_Battle=0"; $GetAllHuntProfiles = $GetAllHuntProfiles -replace "Double_Battle=.*", "Double_Battle=0"; $GetAllHuntProfiles = $GetAllHuntProfiles -replace "Triple_Battle=.*", "Triple_Battle=0"; $GetAllHuntProfiles = $GetAllHuntProfiles -replace "Horde_Battle=.*", "Horde_Battle=0"; [IO.File]::WriteAllLines($GetAllHuntProfilesPath, $GetAllHuntProfiles); Clear-Content -Path "$Global:CounterWorkingDir\stored\$ACAllHuntProfile\Config_$($ACAllHuntProfile)_Encountered.txt"; . RemoveDialogTransparentBackground; [System.Threading.Thread]::Sleep(25); Start-Process "$Global:CounterWorkingDir\ArchetypeCounter.bat" -NoNewWindow -Wait } }; . RemoveDialogTransparentBackground })
     $MenuItem_ToggleDebugWindow.add_Click({ $SW_HIDE = 0; $SW_SHOW = 9; $hWndConsole = [GrabConsole]::GetConsoleWindow(); $isConsoleVisible = [GrabConsole]::ShowWindow($hWndConsole, $SW_HIDE); if (-not $isConsoleVisible) { [GrabConsole]::ShowWindow($hWndConsole, $SW_SHOW) } else { [GrabConsole]::ShowWindow($hWndConsole, $SW_HIDE) } })
     $MenuItem_Uninstall.add_Click({ . SetDialogTransparentBackground; $ClickableLink = "https://github.com/ssjshields/archetype-counter"; $GithubHyperLink = "<a href=""$ClickableLink"">Github</a>"; $TaskDialog = [Ookii.Dialogs.WinForms.TaskDialog]::new(); $TaskDialog.WindowTitle = "Archetype Counter"; $TaskDialog.ButtonStyle = 'CommandLinks'; $TaskDialog.CustomMainIcon = $ArchetypeCounterSystrayIcon; $TaskDialog.MainInstruction = "Do you want to Uninstall?"; $TaskDialog.Content = "Hope you enjoyed using the Counter :)"; $TaskDialog.EnableHyperlinks = $true; $TaskDialog.Footer = "Please visit the official $GithubHyperLink if you are having issues."; $TaskDialog.FooterIcon = 'Information'; $TaskDialogUninstall = [Ookii.Dialogs.WinForms.TaskDialogButton]::new(); $TaskDialogUninstall.Text = 'Uninstall'; $TaskDialogUninstall.CommandLinkNote = 'Perform removing the Counter.'; $TaskDialogNo = [Ookii.Dialogs.WinForms.TaskDialogButton]::new(); $TaskDialogNo.Text = 'No'; $TaskDialogNo.CommandLinkNote = 'Cancel removing the Counter.'; $TaskDialog.AllowDialogCancellation = $true; $TaskDialog.Buttons.Add($TaskDialogUninstall); $TaskDialog.Buttons.Add($TaskDialogNo); $TaskDialog.Add_HyperlinkClicked({ Start-Process $ClickableLink }); [System.Media.SystemSounds]::Exclamation.Play(); $UninstallACDialog = $TaskDialog.ShowDialog($ArchetypeCounterForm); if ($UninstallACDialog.Text -match "Uninstall") { [System.Windows.MessageBox]::Show("Thank you for using Archetype Counter!","Archetype Counter","OK","Asterisk"); $GetThemeItems = Get-ChildItem -Path "$PokeMMOWorkingDir\data\themes"; $GetThemeItems = $GetThemeItems | Where-Object { $_.PSIsContainer }; $ThemeNames = $GetThemeItems| Select-Object -ExpandProperty Name; Get-Process -Name javaw | Stop-Process -Force; foreach ($ThemeName in $ThemeNames) { $SetThemeConfig = "$PokeMMOWorkingDir\data\themes\$ThemeName\theme.xml"; $GetThemeConfig = [IO.File]::ReadAllLines("$SetThemeConfig"); Remove-Item "$PokeMMOWorkingDir\data\themes\$ThemeName\AC" -Recurse -Force; $GetThemeConfig = $GetThemeConfig -replace '<include filename="AC/1.0_Scaling.xml"/>',''; [System.Threading.Thread]::Sleep(10); [IO.File]::WriteAllLines($SetThemeConfig, $GetThemeConfig) }; Remove-Item -Path "HKCU:\Software\Classes\AppUserModelId\Archetype.PokeMMO.ArchetypeCounter!App" -Force -Recurse; Start-Process -WindowStyle hidden "$Global:CounterWorkingDir\lib\Uninstaller\Uninstaller.bat"; . RemoveDialogTransparentBackground; [System.Windows.Forms.Application]::Exit(); Stop-Process $PID -Force }; . RemoveDialogTransparentBackground })
+    $MenuItem_GithubCounterLink.add_Click({ Start-Process "https://github.com/ssjshields/archetype-counter/wiki" })
+    $MenuItem_GithubIssuesLink.add_Click({ Start-Process "https://github.com/ssjshields/archetype-counter/issues" })
+    $MenuItem_DiscordLink.add_Click({ Start-Process "https://discord.com/invite/rYg7ntqQRY" })
 
     # Captures a click event on the counter notifyicon in system tray on taskbar
     $ArchetypeCounterSystray.add_MouseDown({  
@@ -1790,7 +1794,7 @@ $ArchetypeCounterForm.Add_Shown({
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Current Hunt: |`n-----------------`n`n$($Script:SyncHashTable.GetCurrentProfile)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Picture Mode: |`n-----------------`n`n$($Script:SyncHashTable.PictureMode) $($Script:SyncHashTable.ReShadeinPokeMMO)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| OCR Language: |`n-----------------`n`n$GameLanguage`n`n")
-                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.7`n`n")
+                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.8`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "#######################################`n# --------------- END --------------- #`n#######################################")
 
                     # Sets the variables to be used in the foreach loop
