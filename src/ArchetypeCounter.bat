@@ -12,7 +12,7 @@ goto:eof
 # --------- Archetype Team --------- #
 # ---------------------------------- #
 # -------- Archetype Counter ------- #
-# -------- Version: 4.0.0.9 -------- #
+# -------- Version: 4.0.1.0 -------- #
 # ---------------------------------- #
 # ---------------------------------- #
 #                                    #
@@ -572,7 +572,7 @@ $ArchetypeCounterForm.Add_Load({
     # ----------------------------------------------------------------------------------------
 
     # Define and loop through array of stored "Troubleshooting" MenuItems for ContextMenu
-    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.0.9")
+    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.1.0")
     $ACTroubleshootItems | ForEach-Object { 
     
         # Creates MenuItem and properly filters out menu names
@@ -1205,6 +1205,7 @@ $ArchetypeCounterForm.Add_Load({
         . RemoveDialogTransparentBackground
 
         # Sets current overlay location when launching/restarting counter
+        $SetConfigSettings = "$Global:CounterWorkingDir\stored\Config_Settings.txt"; $GetConfigSettings = [IO.File]::ReadAllLines("$SetConfigSettings")
         $GetConfigSettings = $GetConfigSettings -replace "Overlay_Left=.*", "Overlay_Left=$($ArchetypeCounterOverlay.Left)" -replace "Overlay_Top=.*", "Overlay_Top=$($ArchetypeCounterOverlay.Top)"; $ArchetypeCounterSystray.Visible = $false; [IO.File]::WriteAllLines($SetConfigSettings, $GetConfigSettings); [System.Threading.Thread]::Sleep(25)
 
         # Removes Toast notification for only AC (Ensures the notification is cleared)
@@ -1794,7 +1795,7 @@ $ArchetypeCounterForm.Add_Shown({
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Current Hunt: |`n-----------------`n`n$($Script:SyncHashTable.GetCurrentProfile)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Picture Mode: |`n-----------------`n`n$($Script:SyncHashTable.PictureMode) $($Script:SyncHashTable.ReShadeinPokeMMO)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| OCR Language: |`n-----------------`n`n$GameLanguage`n`n")
-                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.0.9`n`n")
+                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.1.0`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "#######################################`n# --------------- END --------------- #`n#######################################")
 
                     # Sets the variables to be used in the foreach loop
