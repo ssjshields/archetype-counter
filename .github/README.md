@@ -11,25 +11,6 @@ Automatically track encounters (Horde, Safari, etc.) and manually track when you
  
 &nbsp;
 
-# Media 🖼️
-**Counter Menu**:
-<p align="left">
-  <img src="/.github/images/main_preview.png">
-</p>
-
-**Toast Notification**:
-<p align="left">
-  <img src="/.github/images/toast_notification.png">
-</p>
-
-**GUI Overlay**:
-<p align="left">
-  <img src="/.github/images/gui_overlay.png">
-</p>
-
-
-&nbsp;
-
 # Features 🧪
 🚨 **Convenient Notifications**:
    - Optional Windows toast notifications for tracking counts.
@@ -115,6 +96,24 @@ Ensure you run the `Archetype Counter.lnk` shortcut once before pinning the shor
 
 > [!CAUTION]
 Manually deleting the Counter folder will not properly remove the Counter.
+
+&nbsp;
+
+# Media 🖼️
+**Counter Menu**:
+<p align="left">
+  <img src="/.github/images/main_preview.png">
+</p>
+
+**Toast Notification**:
+<p align="left">
+  <img src="/.github/images/toast_notification.png">
+</p>
+
+**GUI Overlay**:
+<p align="left">
+  <img src="/.github/images/gui_overlay.png">
+</p>
 
 &nbsp;
 
