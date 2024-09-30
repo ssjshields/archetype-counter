@@ -12,7 +12,7 @@ goto:eof
 # --------- Archetype Team --------- #
 # ---------------------------------- #
 # -------- Archetype Counter ------- #
-# -------- Version: 4.0.1.0 -------- #
+# -------- Version: 4.0.2.0 -------- #
 # ---------------------------------- #
 # ---------------------------------- #
 #                                    #
@@ -572,7 +572,7 @@ $ArchetypeCounterForm.Add_Load({
     # ----------------------------------------------------------------------------------------
 
     # Define and loop through array of stored "Troubleshooting" MenuItems for ContextMenu
-    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.1.0")
+    $ACTroubleshootItems = @("PowerShell: $PSVersionInfo", "OS: $OSName", "Language: $PSUICulture", "NET Framework: $NetFrameworkVersion", "-", "Open Debug Folder", "Open Name Fix File", "-", "Toggle Debug Window", "Test Toast Notification", "-","Counter Version: 4.0.2.0")
     $ACTroubleshootItems | ForEach-Object { 
     
         # Creates MenuItem and properly filters out menu names
@@ -1416,7 +1416,11 @@ $ArchetypeCounterForm.Add_Shown({
     $Script:SyncHashTable.AC_Multiline = $AC_Multiline
     $Script:SyncHashTable.AC_MultilineCount = $AC_MultilineCount
     $Script:SyncHashTable.AC_ShowDexNumber = $AC_ShowDexNumber
-    
+    $Script:SyncHashTable.PSVersionInfo = $PSVersionInfo
+    $Script:SyncHashTable.OSName = $OSName
+    $Script:SyncHashTable.PSUICulture = $PSUICulture
+    $Script:SyncHashTable.NetFrameworkVersion = $NetFrameworkVersion
+
     # Creates a Runspace to run in a separate thread
     $Script:RunSpace = [Management.Automation.Runspaces.RunspaceFactory]::CreateRunspace()
     $Script:RunSpace.ApartmentState = "STA"
@@ -1753,7 +1757,7 @@ $ArchetypeCounterForm.Add_Shown({
 
                     # Normal Pokemon Name logic processing (The main logic to properly filter the OCR Pokemon name - Cleaning up as much as possible)
                     # zh-Hant = Chinese Traditional / zh = Chinese Simplified
-                    if ($GameLanguage -match "Korean") { if ($OCRCaptured -match '레벨') { $OCRCaptured = $OCRCaptured -replace '레벨',','; $OCRCaptured = $OCRCaptured -replace '[0-9]','' } else { $OCRCaptured = $OCRCaptured -replace '[0-9]',',' } } else { $OCRCaptured = $OCRCaptured -replace '[0-9]','' }; $OCRCaptured = $OCRCaptured -replace [regex]::escape('lv.'),',' -replace [regex]::escape('lvl.'),',' -replace [regex]::escape('Lv'),',' -replace [regex]::escape('Lvy.'),',' -replace [regex]::escape('Ly.'),',' -replace [regex]::escape('nv.'),',' -replace [regex]::escape('niv.'),',' -replace [regex]::escape('Lv,'),',' -replace [regex]::escape('Ly,'),',' -replace '[[\]{}+-]' -replace [regex]::escape('Ｌ'),'' -replace [regex]::escape('ㄴ'),'' -replace [regex]::escape('\'),'' -replace [regex]::escape('/'),'' -replace [regex]::escape('|'),'' -replace '\s',''; $OCRCaptured = $OCRCaptured -split ","; $OCRCaptured = $OCRCaptured | where { $_ -ne "" }; $OCRCaptured = $OCRCaptured.trim(); 0..7 | % { if ($OCRCaptured[$_].Length -eq 1) { $OCRCaptured[$_] = ''; $OCRCaptured = $OCRCaptured | where { $_ -ne "" } } }; if ($GameLanguage -match "Korean" -or $GameLanguage -match "Japanese" -or $GameLanguage -match "ChineseTraditional" -or $GameLanguage -match "ChineseSimplified") { $OCRCaptured = $OCRCaptured -replace '[a-zA-Z]','' -replace '[[\]{}''"+-]' -replace [regex]::escape('#'),'' }
+                    if ($GameLanguage -match "Korean") { if ($OCRCaptured -match '레벨') { $OCRCaptured = $OCRCaptured -replace '레벨',','; $OCRCaptured = $OCRCaptured -replace '[0-9]','' } else { $OCRCaptured = $OCRCaptured -replace '[0-9]',',' } } else { $OCRCaptured = $OCRCaptured -replace '[0-9]','' }; $OCRCaptured = $OCRCaptured -replace [regex]::escape('lv.'),',' -replace [regex]::escape('lvl.'),',' -replace [regex]::escape('Lv'),',' -replace [regex]::escape('Lvy.'),',' -replace [regex]::escape('Ly.'),',' -replace [regex]::escape('Ly .'),',' -replace [regex]::escape('nv.'),',' -replace [regex]::escape('niv.'),',' -replace [regex]::escape('Lv,'),',' -replace [regex]::escape('Ly,'),',' -replace [regex]::escape('Ly ,'),',' -replace '[[\]{}+-]' -replace [regex]::escape('Ｌ'),'' -replace [regex]::escape('ㄴ'),'' -replace [regex]::escape('\'),'' -replace [regex]::escape('/'),'' -replace [regex]::escape('|'),'' -replace '\s',''; $OCRCaptured = $OCRCaptured -split ","; $OCRCaptured = $OCRCaptured | where { $_ -ne "" }; $OCRCaptured = $OCRCaptured.trim(); 0..7 | % { if ($OCRCaptured[$_].Length -eq 1) { $OCRCaptured[$_] = ''; $OCRCaptured = $OCRCaptured | where { $_ -ne "" } } }; if ($GameLanguage -match "Korean" -or $GameLanguage -match "Japanese" -or $GameLanguage -match "ChineseTraditional" -or $GameLanguage -match "ChineseSimplified") { $OCRCaptured = $OCRCaptured -replace '[a-zA-Z]','' -replace '[[\]{}''"+-]' -replace [regex]::escape('#'),'' }
 
                     # Special checks for symbols/characters in front of Pokemon names + last corrections
                     $OCRCaptured = $OCRCaptured.Replace('@','').Replace('®','').Replace('&','').Replace('?','').Replace('回','').Replace('园','').Replace('圖','').Replace('图','').Replace('其','').Replace('較','').Replace("(", "").Replace(")", "").Replace('니드런우','니드런').Replace('니드런?','니드런').Replace('ㅇ','');
@@ -1795,7 +1799,8 @@ $ArchetypeCounterForm.Add_Shown({
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Current Hunt: |`n-----------------`n`n$($Script:SyncHashTable.GetCurrentProfile)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| Picture Mode: |`n-----------------`n`n$($Script:SyncHashTable.PictureMode) $($Script:SyncHashTable.ReShadeinPokeMMO)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "-----------------`n| OCR Language: |`n-----------------`n`n$GameLanguage`n`n")
-                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.1.0`n`n")
+                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "--------------------`n| Counter Version: |`n--------------------`n`n4.0.2.0`n`n")
+                    [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "----------------`n| System Info: |`n----------------`n`nPowerShell: $($Script:SyncHashTable.PSVersionInfo)`nOS: $($Script:SyncHashTable.OSName)`nLanguage: $($Script:SyncHashTable.PSUICulture)`nNET Framework: $($Script:SyncHashTable.NetFrameworkVersion)`n`n")
                     [IO.File]::AppendAllText("$Global:CounterWorkingDir\debug\AC_Debug_Output.txt", "#######################################`n# --------------- END --------------- #`n#######################################")
 
                     # Sets the variables to be used in the foreach loop
