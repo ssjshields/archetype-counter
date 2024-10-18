@@ -1527,8 +1527,8 @@ $ArchetypeCounterForm.Add_Shown({
         Function RemoveDialogTransparentBackground { $Script:SyncHashTable.ArchetypeCounterForm.WindowState = 'Minimized'; $Script:SyncHashTable.ArchetypeCounterForm.Visible = $false; $Script:SyncHashTable.ArchetypeCounterForm.Opacity = 0 }
 
         # Shiny/Egg/Fossil/Pixel detection "words/numbers" - Array(s)
-        $ShinyMatchArray = @("Shiny","Variocolor","Chromatique","Cromatico","Schillernde","Brilhante","빛나는",'闪亮的','光沢のある')
-        $AlphaMatchArray = @("Alpha","Alfa","알파포켓몬","우두머리")
+        $ShinyMatchArray = @("Shiny","Variocolor","Chromatique","Cromatico","Schillernde","Brilhante","빛나는",'闪光','光沢のある')
+        $AlphaMatchArray = @("Alpha","Alfa","알파포켓몬","우두머리","头目")
         $LegendaryMatchArray = @('Suicune','スイクン','스이쿤','水君','Raikou','ライコウ','라이코','雷公','Entei','エンテイ','앤테이','炎帝','Articuno','Artikodin','Arktos','フリーザー','프리져','急冻鸟','急凍鳥','Zapdos','Électhor','サンダー','썬더','闪电鸟','閃電鳥','Moltres','Sulfura','Lavados','ファイヤー','파이어','火焰鸟','火焰鳥','Mewtwo','Mewtu','ミュウツー','뮤츠','超梦','超夢','Rayquaza','レックウザ','레쿠쟈','烈空坐','烈空坐','Keldeo','ケルディオ','케르디오','凯路迪欧','凱路迪歐','Arceus','アルセウス','아르세우스','阿尔宙斯','阿爾宙斯','Shaymin','シェイミ','쉐이미','谢米','謝米','Lugia','ルギア','루기아','洛奇亚','洛奇亞')
         $PixelMatchArray = @("fffb00fb","fd00fdff","f900f9ff","fb00fbff","fff900f9","fffd00fd")
 
