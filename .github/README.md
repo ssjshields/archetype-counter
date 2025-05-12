@@ -78,7 +78,7 @@ Net Framework and PowerShell are typically included in the latest Windows update
 &nbsp;
 # Installation 📦
 > [!IMPORTANT]
-If you're using a custom PokeMMO client theme, review this issue for additional required steps https://github.com/ssjshields/archetype-counter/issues/87#issuecomment-2479737336
+Review this issue for additional required steps https://github.com/ssjshields/archetype-counter/issues/87#issuecomment-2479737336
 
 **1.** **[Download](https://github.com/ssjshields/archetype-counter/archive/refs/heads/main.zip)**
 
