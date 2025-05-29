@@ -1527,9 +1527,21 @@ $ArchetypeCounterForm.Add_Shown({
         Function RemoveDialogTransparentBackground { $Script:SyncHashTable.ArchetypeCounterForm.WindowState = 'Minimized'; $Script:SyncHashTable.ArchetypeCounterForm.Visible = $false; $Script:SyncHashTable.ArchetypeCounterForm.Opacity = 0 }
 
         # Shiny/Egg/Fossil/Pixel detection "words/numbers" - Array(s)
-        $ShinyMatchArray = @("Shiny","Variocolor","Chromatique","Cromatico","Schillernde","Brilhante","빛나는",'闪亮的','光沢のある')
-        $AlphaMatchArray = @("Alpha","Alfa","알파포켓몬","우두머리")
-        $LegendaryMatchArray = @('Suicune','スイクン','스이쿤','水君','Raikou','ライコウ','라이코','雷公','Entei','エンテイ','앤테이','炎帝','Articuno','Artikodin','Arktos','フリーザー','프리져','急冻鸟','急凍鳥','Zapdos','Électhor','サンダー','썬더','闪电鸟','閃電鳥','Moltres','Sulfura','Lavados','ファイヤー','파이어','火焰鸟','火焰鳥','Mewtwo','Mewtu','ミュウツー','뮤츠','超梦','超夢','Rayquaza','レックウザ','레쿠쟈','烈空坐','烈空坐','Keldeo','ケルディオ','케르디오','凯路迪欧','凱路迪歐','Arceus','アルセウス','아르세우스','阿尔宙斯','阿爾宙斯','Shaymin','シェイミ','쉐이미','谢米','謝米','Lugia','ルギア','루기아','洛奇亚','洛奇亞')
+        $ShinyMatchArray = @("Shiny","Variocolor","Chromatique","Cromatico","Schillernde","Brilhante","빛나는","光沢のある",'闪\s?光')
+        $AlphaMatchArray = @("Alpha","Alfa","알파포켓몬","우두머리",'头\s?目')
+        $LegendaryMatchArray = @(
+            'Suicune','スイクン','스이쿤','水\s?君',
+            'Raikou','ライコウ','라이코','雷\s?公',
+            'Entei','エンテイ','앤테이','炎\s?帝',
+            'Articuno','Artikodin','Arktos','フリーザー','프리져','急\s?冻\s?鸟','急凍鳥',
+            'Zapdos','Électhor','サンダー','썬더','闪\s?电\s?鸟','閃電鳥',
+            'Moltres','Sulfura','Lavados','ファイヤー','파이어','火\s?焰\s?鸟','火焰鳥',
+            'Mewtwo','Mewtu','ミュウツー','뮤츠','超\s?梦','超夢',
+            'Rayquaza','レックウザ','레쿠쟈','烈\s?空\s?坐','烈空坐',
+            'Keldeo','ケルディオ','케르디오','凯\s?路\s?迪\s?欧','凱路迪歐',
+            'Arceus','アルセウス','아르세우스','阿\s?尔\s?宙\s?斯','阿爾宙斯',
+            'Shaymin','シェイミ','쉐이미','谢\s?米','謝米',
+            'Lugia','ルギア','루기아','洛\s?奇\s?亚','洛奇亞')
         $PixelMatchArray = @("fffb00fb","fd00fdff","f900f9ff","fb00fbff","fff900f9","fffd00fd")
 
         # Grabs PokeMMO console log to determine which Black/White ROM is being used
@@ -1763,7 +1775,7 @@ $ArchetypeCounterForm.Add_Shown({
                     $OCRCaptured = $OCRCaptured.Replace('@','').Replace('®','').Replace('&','').Replace('?','').Replace('回','').Replace('园','').Replace('圖','').Replace('图','').Replace('其','').Replace('較','').Replace("(", "").Replace(")", "").Replace('니드런우','니드런').Replace('니드런?','니드런').Replace('ㅇ','');
                     $OCRCaptured = $OCRCaptured -replace [regex]::escape("Mr.Mime"),"Mr. Mime" -replace [regex]::escape("M.Mime"),"M. Mime" -replace [regex]::escape("Mr Mime"),"Mr. Mime" -replace [regex]::escape("M Mime"),"M. Mime" -replace [regex]::escape("MimeJr."),"Mime Jr." -replace [regex]::escape("Farfetch'd"),"Farfetch’d" -replace [regex]::escape("Farfetchd"),"Farfetch’d" -replace [regex]::escape("IHlumise"),"Illumise" -replace [regex]::escape("IHHlumise"),"Illumise"
                     if ($OCRCaptured -match 'Nidoran') { $OCRCaptured = $OCRCaptured -replace '[^a-zA-Z]', '' -replace 'Nidorand', 'Nidoran' -replace 'Nidoranod', 'Nidoran' }
-                    if ($GameLanguage -match "Chinese") { $OCRCaptured = $OCRCaptured -replace '[\W]', '' -replace [regex]::escape("_"),"" -replace '[a-zA-Z0-9]', '' -replace '邙', '' }
+                    if ($GameLanguage -match "Chinese") { $OCRCaptured = $OCRCaptured -replace '[\W]', '' -replace [regex]::escape("_"),"" -replace '[a-zA-Z0-9]','' -replace '邙','' -replace '头目|闪光','' }
                     if ($GameLanguage -match "Japanese" -or $GameLanguage -match "Korean") { $OCRCaptured = $OCRCaptured -replace '[\W]', ''; $OCRCaptured = $OCRCaptured.Replace("ニドランマ","ニドラン").Replace("ニドランキ","ニドラン").Replace("ニドランネ","ニドラン").Replace("ニドランそ","ニドラン").Replace("ニドランネィ","ニドラン").Replace("ニドランャ","ニドラン").Replace('ニドランウ','ニドラン').Replace('ニドランツウツ','ニドラン').Replace('バパバラス','パラス').Replace('ニニドラン','ニドラン').Replace('ペルシアゲアン','ペルシアン').Replace('キャタビ','キャタピ') }
 
                     # Pokemon name fix - Special check for Pokemon that are not name tracked properly through OCR (Resolved through text file)
