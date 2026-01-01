@@ -1,3 +1,13 @@
+🔒 Maintenance Status
+
+This repository is no longer actively maintained.
+
+The code remains available for reference and archival purposes, but no further updates, bug fixes, or support should be expected.
+
+Thanks to everyone who used or contributed over the years. ❤️
+
+&nbsp;
+
 ![mainLogo](https://github.com/ssjshields/archetype-counter/blob/main/.github/images/main_logo.png)
 
 Archetype Counter is a PowerShell WinForm script for the online video game [PokeMMO](https://pokemmo.com/).
