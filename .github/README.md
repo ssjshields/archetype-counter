@@ -1,3 +1,13 @@
+🔒 Maintenance Status
+
+This repository is no longer actively maintained.
+
+The code remains available for reference and archival purposes, but no further updates, bug fixes, or support should be expected.
+
+Thanks to everyone who used or contributed over the years. ❤️
+
+&nbsp;
+
 <p align="center">
   <img src="/.github/images/main_logo.png">
 </p>
